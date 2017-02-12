@@ -1,9 +1,16 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <_LangTargetsType Condition="'$(MSBuildProjectExtension)' == '.csproj'">CSharp</_LangTargetsType>
-    <_LangTargetsType Condition="'$(MSBuildProjectExtension)' == '.vbproj'">VisualBasic</_LangTargetsType>
-
     <DefaultLanguage Condition="'$(DefaultLanguage)' == ''">en-US</DefaultLanguage>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.csproj'">
+    <_LangTargetsType>CSharp</_LangTargetsType>
+    <_ExtrasDefaultLangSourceExt>.cs</_ExtrasDefaultLangSourceExt>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.vbproj'">
+    <_LangTargetsType>VisualBasic</_LangTargetsType>
+    <_ExtrasDefaultLangSourceExt>.vb</_ExtrasDefaultLangSourceExt>
   </PropertyGroup>
 
   <!-- Split $(TargetFramework) (e.g. net45) into short identifier and short version (e.g. 'net' and '45'). -->
@@ -21,6 +28,7 @@
     <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'uap'">.NETCore</TargetFrameworkIdentifier>
     <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'xamarinios'">Xamarin.iOS</TargetFrameworkIdentifier>
     <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'xamarin.ios'">Xamarin.iOS</TargetFrameworkIdentifier>
+    <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'monoandroid'">MonoAndroid</TargetFrameworkIdentifier>
   </PropertyGroup>
 
   <!-- Versions with dots are taken as is and just given leading 'v'. -->
@@ -35,6 +43,24 @@
     <TargetFrameworkVersion Condition="$(_ExtrasShortFrameworkVersion.Length) == 3">v$(_ExtrasShortFrameworkVersion[0]).$(_ExtrasShortFrameworkVersion[1]).$(_ExtrasShortFrameworkVersion[2])</TargetFrameworkVersion>
   </PropertyGroup>
 
+  <PropertyGroup>
+
+    <Configuration Condition="'$(Configuration)'==''">Debug</Configuration>
+    <Platform Condition="'$(Platform)'==''">AnyCPU</Platform>
+    <PlatformName Condition="'$(PlatformName)' == ''">$(Platform)</PlatformName>
+
+    <BaseOutputPath Condition="'$(BaseOutputPath)' == ''">bin\</BaseOutputPath>
+    <BaseOutputPath Condition="!HasTrailingSlash('$(BaseOutputPath)')">$(BaseOutputPath)\</BaseOutputPath>
+    <OutputPath Condition="'$(OutputPath)' == '' and '$(PlatformName)' == 'AnyCPU'">$(BaseOutputPath)$(Configuration)\</OutputPath>
+    <OutputPath Condition="'$(OutputPath)' == '' and '$(PlatformName)' != 'AnyCPU'">$(BaseOutputPath)$(PlatformName)\$(Configuration)\</OutputPath>
+    <OutputPath Condition="!HasTrailingSlash('$(OutputPath)')">$(OutputPath)\</OutputPath>
+
+    <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)' == ''">obj\</BaseIntermediateOutputPath>
+    <BaseIntermediateOutputPath Condition="!HasTrailingSlash('$(BaseIntermediateOutputPath)')">$(BaseIntermediateOutputPath)\</BaseIntermediateOutputPath>
+    <IntermediateOutputPath Condition=" $(IntermediateOutputPath) == '' and '$(PlatformName)' == 'AnyCPU' ">$(BaseIntermediateOutputPath)$(Configuration)\</IntermediateOutputPath>
+    <IntermediateOutputPath Condition=" $(IntermediateOutputPath) == '' and '$(PlatformName)' != 'AnyCPU' ">$(BaseIntermediateOutputPath)$(PlatformName)\$(Configuration)\</IntermediateOutputPath>
+    <IntermediateOutputPath Condition="!HasTrailingSlash('$(IntermediateOutputPath)')">$(IntermediateOutputPath)\</IntermediateOutputPath>
+  </PropertyGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)..\platforms\*.targets"/>
 </Project>

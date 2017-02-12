@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   
   <PropertyGroup>
-    <TargetFramework>win81</TargetFramework>
+    <TargetFramework>MonoAndroid60</TargetFramework>
   </PropertyGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)..\..\src\build\netstandard1.0\MSBuild.Sdk.Extras.targets" />
