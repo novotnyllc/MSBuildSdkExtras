@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+    <metadata>
+        <id>MSBuild.Sdk.Extras</id>
+        <version>1.0.0-rc4</version>
+        <authors>Oren Novotny</authors>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <developmentDependency>true</developmentDependency>
+        <description>Extras for Sdk style builds</description>
+        <tags>msbuild dotnet sdk xamarin ios android uwp</tags>
+    </metadata>
+    <files>
+        <file src="build\_._" target="build\_._" />
+    </files>
+</package>
