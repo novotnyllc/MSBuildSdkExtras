@@ -1,7 +1,5 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(TargetFramework)' == 'sl5'">
-    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
-    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
     <LanguageTargets>$(MSBuildProgramFiles32)\MSBuild\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.$(_LangTargetsType).targets</LanguageTargets>
     <DefineConstants>$(DefineConstants);SILVERLIGHT</DefineConstants>

@@ -5,6 +5,34 @@
 
     <DefaultLanguage Condition="'$(DefaultLanguage)' == ''">en-us</DefaultLanguage>
   </PropertyGroup>
-  
+
+  <!-- Split $(TargetFramework) (e.g. net45) into short identifier and short version (e.g. 'net' and '45'). -->
+  <PropertyGroup Condition="'$(TargetFramework)' != '' and !$(TargetFramework.Contains(',')) and !$(TargetFramework.Contains('+'))">
+    <_ExtrasShortFrameworkIdentifier>$(TargetFramework.TrimEnd('.0123456789'))</_ExtrasShortFrameworkIdentifier>
+    <_ExtrasShortFrameworkVersion>$(TargetFramework.Substring($(_ExtrasShortFrameworkIdentifier.Length)))</_ExtrasShortFrameworkVersion>
+  </PropertyGroup>
+
+  <!-- Map short name to long name. See earlier comment for example of how to work with identifiers that are not recognized here. -->
+  <PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == ''">
+    <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'sl'">Silverlight</TargetFrameworkIdentifier>
+    <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'wp'">WindowsPhone</TargetFrameworkIdentifier>
+    <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'wpa'">WindowsPhoneApp</TargetFrameworkIdentifier>
+    <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'win'">.NETCore</TargetFrameworkIdentifier>
+    <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'uap'">.NETCore</TargetFrameworkIdentifier>
+  </PropertyGroup>
+
+  <!-- Versions with dots are taken as is and just given leading 'v'. -->
+  <PropertyGroup Condition="'$(TargetFrameworkVersion)' == '' and '$(_ShortFrameworkVersion)' != '' and $(_ShortFrameworkVersion.Contains('.'))">
+    <TargetFrameworkVersion>v$(_ExtrasShortFrameworkVersion)</TargetFrameworkVersion>
+  </PropertyGroup>
+
+  <!-- Versions with no dots and up to 3 characters get leading 'v' and implicit dots between characters. -->
+  <PropertyGroup Condition="'$(TargetFrameworkVersion)' == '' and '$(_ExtrasShortFrameworkVersion)' != ''">
+    <TargetFrameworkVersion Condition="$(_ExtrasShortFrameworkVersion.Length) == 1">v$(_ExtrasShortFrameworkVersion[0]).0</TargetFrameworkVersion>
+    <TargetFrameworkVersion Condition="$(_ExtrasShortFrameworkVersion.Length) == 2">v$(_ExtrasShortFrameworkVersion[0]).$(_ExtrasShortFrameworkVersion[1])</TargetFrameworkVersion>
+    <TargetFrameworkVersion Condition="$(_ExtrasShortFrameworkVersion.Length) == 3">v$(_ExtrasShortFrameworkVersion[0]).$(_ExtrasShortFrameworkVersion[1]).$(_ExtrasShortFrameworkVersion[2])</TargetFrameworkVersion>
+  </PropertyGroup>
+
+
   <Import Project="$(MSBuildThisFileDirectory)..\platforms\*.targets"/>
 </Project>
