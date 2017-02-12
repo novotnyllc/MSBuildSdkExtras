@@ -3,7 +3,7 @@
     <_LangTargetsType Condition="'$(MSBuildProjectExtension)' == '.csproj'">CSharp</_LangTargetsType>
     <_LangTargetsType Condition="'$(MSBuildProjectExtension)' == '.vbproj'">VisualBasic</_LangTargetsType>
 
-    <DefaultLanguage Condition="'$(DefaultLanguage)' == ''">en-us</DefaultLanguage>
+    <DefaultLanguage Condition="'$(DefaultLanguage)' == ''">en-US</DefaultLanguage>
   </PropertyGroup>
 
   <!-- Split $(TargetFramework) (e.g. net45) into short identifier and short version (e.g. 'net' and '45'). -->
