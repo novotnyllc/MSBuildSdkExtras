@@ -1,0 +1,10 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_LangTargetsType Condition="'$(MSBuildProjectExtension)' == '.csproj'">CSharp</_LangTargetsType>
+    <_LangTargetsType Condition="'$(MSBuildProjectExtension)' == '.vbproj'">VisualBasic</_LangTargetsType>
+
+    <DefaultLanguage Condition="'$(DefaultLanguage)' == ''">en-us</DefaultLanguage>
+  </PropertyGroup>
+  
+  <Import Project="$(MSBuildThisFileDirectory)..\platforms\*.targets"/>
+</Project>

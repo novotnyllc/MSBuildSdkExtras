@@ -10,6 +10,7 @@
         <tags>msbuild dotnet sdk xamarin ios android uwp</tags>
     </metadata>
     <files>
-        <file src="build\_._" target="build\_._" />
+        <file src="src\build\**\*.*" target="build" />
+        <file src="src\buildMultiTargeting\**\*.*" target="buildMultiTargeting" />
     </files>
 </package>

@@ -1,0 +1,11 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  
+  <Target Name="TestLibraryTestTarget" BeforeTargets="CoreCompile">
+    <Message Text="Lang = $(_LangTargetsType)" />
+    <Message Text="TargetFrameworkIdentifier = $(TargetFrameworkIdentifier)" />
+    <Message Text="TargetFrameworkVersion = $(TargetFrameworkVersion)" />
+    <Message Text="TargetFrameworkProfile = $(TargetFrameworkProfile)" />
+    <Message Text="NugetTargetMoniker = $(NugetTargetMoniker)" />
+    <Message Text="TargetPlatformIdentifier = $(TargetPlatformIdentifier)" />
+  </Target>
+</Project>
