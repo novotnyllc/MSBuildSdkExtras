@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   
   <PropertyGroup>
-    <TargetFramework>MonoAndroid60</TargetFramework>
+    <TargetFramework>xamarinwatchos</TargetFramework>
   </PropertyGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)..\..\src\build\netstandard1.0\MSBuild.Sdk.Extras.targets" />

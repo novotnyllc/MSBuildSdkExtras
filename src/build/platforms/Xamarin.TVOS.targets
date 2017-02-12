@@ -1,0 +1,16 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'xamarintvos' or '$(_ExtrasShortFrameworkIdentifier)' == 'xamarin.tvos' ">
+    <TargetFrameworkVersion>v1.0</TargetFrameworkVersion>
+    <IPhoneResourcePrefix Condition="'$(IPhoneResourcePrefix)' == ''">Resources</IPhoneResourcePrefix>
+    <DebugType>full</DebugType>
+    <LanguageTargets>$(MSBuildExtensionsPath)\Xamarin\TVOS\Xamarin.TVOS.$(_LangTargetsType).targets</LanguageTargets>
+    <ConsolePause Condition="'$(ConsolePause)' == ''">false</ConsolePause>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'xamarintvos' or '$(_ExtrasShortFrameworkIdentifier)' == 'xamarin.tvos' ">
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="Xamarin.TVOS" />
+  </ItemGroup>
+</Project>
