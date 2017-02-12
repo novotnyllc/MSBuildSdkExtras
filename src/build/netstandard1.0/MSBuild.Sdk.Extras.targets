@@ -43,6 +43,13 @@
 
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(TargetFramework)' != '' and $(TargetFramework.ToLowerInvariant().Contains('portable-'))" >
+    <_ExtrasShortFrameworkIdentifier>portable</_ExtrasShortFrameworkIdentifier>
+    <_ExtrasPortableTfms>$(TargetFramework.Substring(9).Replace('+',';').ToLowerInvariant())</_ExtrasPortableTfms>
+    <_ExtrasPortableTfmCount>$(_ExtrasPortableTfms.Split(';').Length)</_ExtrasPortableTfmCount>
+    <TargetFrameworkIdentifier>.NETPortable</TargetFrameworkIdentifier>
+  </PropertyGroup>
+
   <!-- Versions with dots are taken as is and just given leading 'v'. -->
   <PropertyGroup Condition="'$(TargetFrameworkVersion)' == '' and '$(_ShortFrameworkVersion)' != '' and $(_ShortFrameworkVersion.Contains('.'))">
     <TargetFrameworkVersion>v$(_ExtrasShortFrameworkVersion)</TargetFrameworkVersion>
@@ -75,4 +82,10 @@
   </PropertyGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)..\platforms\*.targets"/>
+
+  <PropertyGroup Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'portable'">
+    <!-- Version = v0.0 https://github.com/dotnet/sdk/issues/492 -->
+    <NugetTargetMoniker>.NETPortable,Version=v0.0,Profile=$(TargetFrameworkProfile)</NugetTargetMoniker>
+    <LanguageTargets>$(MSBuildExtensionsPath)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.$(_LangTargetsType).targets</LanguageTargets>
+  </PropertyGroup>
 </Project>

@@ -14,13 +14,6 @@
     <LanguageTargets>$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.$(_LangTargetsType).targets</LanguageTargets>
     <DefineConstants>$(DefineConstants);NETFX_CORE;WINDOWS_PHONE_APP</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)' == 'portable-win81+wpa81'">
-    <TargetFrameworkIdentifier>.NETPortable</TargetFrameworkIdentifier>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Profile32</TargetFrameworkProfile>
-    <NugetTargetMoniker>.NETPortable,Version=v0.0,Profile=Profile32</NugetTargetMoniker>
-    <LanguageTargets>$(MSBuildExtensionsPath)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.$(_LangTargetsType).targets</LanguageTargets>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'uap'">
     <NugetTargetMoniker>UAP,Version=v10.0</NugetTargetMoniker>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
@@ -33,10 +26,9 @@
     <LanguageTargets>$(MSBuildThisFileDirectory)..\local\WP.targets</LanguageTargets>
     <DefineConstants>$(DefineConstants);SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
   </PropertyGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'portable-win81+wpa81' ">
-    <TargetPlatform Include="Windows, Version=8.1" />
-    <TargetPlatform Include="WindowsPhoneApp, Version=8.1" />
-  </ItemGroup>
+
+  <!-- Include the default platform packages  -->
+  <!-- TODO: use metadata to detect if we've added it or it already exists -->
   <ItemGroup Condition=" '$(TargetFramework)' == 'uap10.0' ">
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="5.2.2"/>
   </ItemGroup>
