@@ -7,5 +7,6 @@
     <Message Text="TargetFrameworkProfile = $(TargetFrameworkProfile)" />
     <Message Text="NugetTargetMoniker = $(NugetTargetMoniker)" />
     <Message Text="TargetPlatformIdentifier = $(TargetPlatformIdentifier)" />
+    <Message Text="_ExtrasShortFrameworkIdentifier = $(_ExtrasShortFrameworkIdentifier)" />
   </Target>
 </Project>

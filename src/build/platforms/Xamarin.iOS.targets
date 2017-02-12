@@ -1,0 +1,22 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'xamarinios' or '$(_ExtrasShortFrameworkIdentifier)' == 'Xamarin.iOS' ">
+    <TargetFrameworkVersion>v1.0</TargetFrameworkVersion>
+    <IPhoneResourcePrefix Condition="'$(IPhoneResourcePrefix)' == ''">Resources</IPhoneResourcePrefix>
+    <DebugType>full</DebugType>
+    <LanguageTargets>$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.$(_LangTargetsType).targets</LanguageTargets>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'xamarinios' or '$(_ExtrasShortFrameworkIdentifier)' == 'Xamarin.iOS' ">
+    <Reference Include="System" />
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Collections" />
+    <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="Xamarin.iOS" />
+  </ItemGroup>
+</Project>

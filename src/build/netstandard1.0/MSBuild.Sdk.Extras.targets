@@ -19,6 +19,8 @@
     <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'wpa'">WindowsPhoneApp</TargetFrameworkIdentifier>
     <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'win'">.NETCore</TargetFrameworkIdentifier>
     <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'uap'">.NETCore</TargetFrameworkIdentifier>
+    <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'xamarinios'">Xamarin.iOS</TargetFrameworkIdentifier>
+    <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'xamarin.ios'">Xamarin.iOS</TargetFrameworkIdentifier>
   </PropertyGroup>
 
   <!-- Versions with dots are taken as is and just given leading 'v'. -->
