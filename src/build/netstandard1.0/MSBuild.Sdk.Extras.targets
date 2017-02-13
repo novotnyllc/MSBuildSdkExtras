@@ -21,6 +21,7 @@
 
   <!-- Map short name to long name. See earlier comment for example of how to work with identifiers that are not recognized here. -->
   <PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == ''">
+    
     <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'sl'">Silverlight</TargetFrameworkIdentifier>
     <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'wp'">WindowsPhone</TargetFrameworkIdentifier>
     <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'wpa'">WindowsPhoneApp</TargetFrameworkIdentifier>
@@ -43,6 +44,7 @@
 
   </PropertyGroup>
 
+  <!-- Handle legacy PCL profiles  -->
   <PropertyGroup Condition="'$(TargetFramework)' != '' and $(TargetFramework.ToLowerInvariant().Contains('portable-'))" >
     <_ExtrasShortFrameworkIdentifier>portable</_ExtrasShortFrameworkIdentifier>
     <_ExtrasPortableTfms>$(TargetFramework.Substring(9).Replace('+',';').ToLowerInvariant())</_ExtrasPortableTfms>
@@ -51,7 +53,7 @@
   </PropertyGroup>
 
   <!-- Versions with dots are taken as is and just given leading 'v'. -->
-  <PropertyGroup Condition="'$(TargetFrameworkVersion)' == '' and '$(_ShortFrameworkVersion)' != '' and $(_ShortFrameworkVersion.Contains('.'))">
+  <PropertyGroup Condition="'$(TargetFrameworkVersion)' == '' and '$(_ExtrasShortFrameworkVersion)' != '' and $(_ExtrasShortFrameworkVersion.Contains('.'))">
     <TargetFrameworkVersion>v$(_ExtrasShortFrameworkVersion)</TargetFrameworkVersion>
   </PropertyGroup>
 
@@ -84,14 +86,14 @@
   <Import Project="$(MSBuildThisFileDirectory)..\platforms\*.targets"/>
 
   <PropertyGroup Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'portable'">
-    <!-- Version = v0.0 https://github.com/dotnet/sdk/issues/492 -->
+     <!--Version = v0.0 https://github.com/dotnet/sdk/issues/492--> 
     <NugetTargetMoniker>.NETPortable,Version=v0.0,Profile=$(TargetFrameworkProfile)</NugetTargetMoniker>
     <LanguageTargets>$(MSBuildExtensionsPath)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.$(_ExtrasLanguageName).targets</LanguageTargets>
   </PropertyGroup>
 
   <!-- Check to see if the Lang targets exist and if not, trigger an error on Compile -->
   <!-- We clear out the lang targets so the defaults are used for the error to show -->
-  <PropertyGroup Condition="!Exists('$(LanguageTargets)')">
+  <PropertyGroup Condition="'$(TargetFrameworkIdentifier)' != '' and !Exists('$(LanguageTargets)')">
     <_ExtrasMissingLangTargets>true</_ExtrasMissingLangTargets> 
     <_ExtrasLangTargets>$(LanguageTargets)</_ExtrasLangTargets>
     <LanguageTargets></LanguageTargets>
