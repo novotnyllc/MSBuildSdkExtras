@@ -2,5 +2,5 @@
   <Import Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'wp'"
           Project="$(MSBuildProgramFiles32)\MSBuild\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'wp'"
-          Project="$(MSBuildProgramFiles32)\MSBuild\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(_LangTargetsType).targets" />  
+          Project="$(MSBuildProgramFiles32)\MSBuild\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(_ExtrasLanguageName).targets" />  
 </Project>

@@ -4,12 +4,12 @@
   </PropertyGroup>
   
   <PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.csproj'">
-    <_LangTargetsType>CSharp</_LangTargetsType>
+    <_ExtrasLanguageName>CSharp</_ExtrasLanguageName>
     <_ExtrasDefaultLangSourceExt>.cs</_ExtrasDefaultLangSourceExt>
   </PropertyGroup>
   
   <PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.vbproj'">
-    <_LangTargetsType>VisualBasic</_LangTargetsType>
+    <_ExtrasLanguageName>VisualBasic</_ExtrasLanguageName>
     <_ExtrasDefaultLangSourceExt>.vb</_ExtrasDefaultLangSourceExt>
   </PropertyGroup>
 
@@ -86,7 +86,7 @@
   <PropertyGroup Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'portable'">
     <!-- Version = v0.0 https://github.com/dotnet/sdk/issues/492 -->
     <NugetTargetMoniker>.NETPortable,Version=v0.0,Profile=$(TargetFrameworkProfile)</NugetTargetMoniker>
-    <LanguageTargets>$(MSBuildExtensionsPath)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.$(_LangTargetsType).targets</LanguageTargets>
+    <LanguageTargets>$(MSBuildExtensionsPath)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.$(_ExtrasLanguageName).targets</LanguageTargets>
   </PropertyGroup>
 
   <!-- Check to see if the Lang targets exist and if not, trigger an error on Compile -->

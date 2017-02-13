@@ -2,16 +2,16 @@
   <PropertyGroup Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'win'">
     <NugetTargetMoniker>Windows,Version=v8.0</NugetTargetMoniker>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <LanguageTargets>$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.$(_LangTargetsType).targets</LanguageTargets>
+    <LanguageTargets>$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.$(_ExtrasLanguageName).targets</LanguageTargets>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' == 'win81'">
     <NugetTargetMoniker>Windows,Version=v8.1</NugetTargetMoniker>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-    <LanguageTargets>$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.$(_LangTargetsType).targets</LanguageTargets>
+    <LanguageTargets>$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.$(_ExtrasLanguageName).targets</LanguageTargets>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' == 'wpa'">
     <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
-    <LanguageTargets>$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.$(_LangTargetsType).targets</LanguageTargets>
+    <LanguageTargets>$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.$(_ExtrasLanguageName).targets</LanguageTargets>
     <DefineConstants>$(DefineConstants);NETFX_CORE;WINDOWS_PHONE_APP</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'uap'">
@@ -20,7 +20,7 @@
     <TargetPlatformVersion Condition="'$(TargetPlatformVersion)' == ''">10.0.10240.0</TargetPlatformVersion>
     <TargetPlatformMinVersion Condition="'$(TargetPlatformMinVersion)' == ''">10.0.10240.0</TargetPlatformMinVersion>
     <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
-    <LanguageTargets>$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.$(_LangTargetsType).targets</LanguageTargets>
+    <LanguageTargets>$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.$(_ExtrasLanguageName).targets</LanguageTargets>
   </PropertyGroup>
   <PropertyGroup Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'wp'">
     <LanguageTargets>$(MSBuildThisFileDirectory)..\local\WP.targets</LanguageTargets>

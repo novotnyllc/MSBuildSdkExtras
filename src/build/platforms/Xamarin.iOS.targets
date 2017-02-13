@@ -3,7 +3,7 @@
     <TargetFrameworkVersion>v1.0</TargetFrameworkVersion>
     <IPhoneResourcePrefix Condition="'$(IPhoneResourcePrefix)' == ''">Resources</IPhoneResourcePrefix>
     <DebugType>full</DebugType>
-    <LanguageTargets>$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.$(_LangTargetsType).targets</LanguageTargets>
+    <LanguageTargets>$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.$(_ExtrasLanguageName).targets</LanguageTargets>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'xamarinios' or '$(_ExtrasShortFrameworkIdentifier)' == 'Xamarin.iOS' ">

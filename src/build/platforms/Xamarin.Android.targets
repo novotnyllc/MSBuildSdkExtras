@@ -1,7 +1,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'monoandroid' ">
     <DebugType>full</DebugType>
-    <LanguageTargets>$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.$(_LangTargetsType).targets</LanguageTargets>
+    <LanguageTargets>$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.$(_ExtrasLanguageName).targets</LanguageTargets>
     <AndroidUseLatestPlatformSdk Condition="'$(AndroidUseLatestPlatformSdk)' == ''">false</AndroidUseLatestPlatformSdk>
     <_ExtrasSetAndroidResgenFile Condition="'$(AndroidResgenFile)' == ''">true</_ExtrasSetAndroidResgenFile>
     <_ExtrasSetAndroidResgenFile Condition="'$(_ExtrasSetAndroidResgenFile)' == ''">false</_ExtrasSetAndroidResgenFile>

@@ -3,7 +3,7 @@
     <TargetFrameworkVersion>v1.0</TargetFrameworkVersion>
     <IPhoneResourcePrefix Condition="'$(IPhoneResourcePrefix)' == ''">Resources</IPhoneResourcePrefix>
     <DebugType>full</DebugType>
-    <LanguageTargets>$(MSBuildExtensionsPath)\Xamarin\TVOS\Xamarin.TVOS.$(_LangTargetsType).targets</LanguageTargets>
+    <LanguageTargets>$(MSBuildExtensionsPath)\Xamarin\TVOS\Xamarin.TVOS.$(_ExtrasLanguageName).targets</LanguageTargets>
     <ConsolePause Condition="'$(ConsolePause)' == ''">false</ConsolePause>
   </PropertyGroup>
 
