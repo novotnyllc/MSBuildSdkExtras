@@ -9,7 +9,7 @@
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <LanguageTargets>$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.$(_ExtrasLanguageName).targets</LanguageTargets>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)' == 'wpa'">
+  <PropertyGroup Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'wpa'">
     <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
     <LanguageTargets>$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.$(_ExtrasLanguageName).targets</LanguageTargets>
     <DefineConstants>$(DefineConstants);NETFX_CORE;WINDOWS_PHONE_APP</DefineConstants>
