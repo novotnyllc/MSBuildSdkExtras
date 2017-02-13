@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   
   <PropertyGroup>
-    <TargetFramework>portable-net45+wpa+wp8+win</TargetFramework>
+    <TargetFramework>portable-net45+sl5+wp8+win8+wpa</TargetFramework>
   </PropertyGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)..\..\src\build\netstandard1.0\MSBuild.Sdk.Extras.targets" />
