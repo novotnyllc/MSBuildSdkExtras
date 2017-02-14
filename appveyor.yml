@@ -1,5 +1,4 @@
-image: Visual Studio 2017 RC
-
+image: Visual Studio 2015
 
 build_script:
   - cmd: nuget pack MSBuild.Sdk.Extras.nuspec -Version 1.0.0-rc4.%APPVEYOR_BUILD_NUMBER% -NoPackageAnalysis
