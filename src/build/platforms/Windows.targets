@@ -31,7 +31,7 @@
 
   <!-- Include the default platform packages  -->
   <!-- TODO: use metadata to detect if we've added it or it already exists -->
-  <ItemGroup Condition=" '$(TargetFramework)' == 'uap10.0' ">
+  <!--<ItemGroup Condition=" '$(TargetFramework)' == 'uap10.0' ">
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="5.2.2"/>
-  </ItemGroup>
+  </ItemGroup>-->
 </Project>
