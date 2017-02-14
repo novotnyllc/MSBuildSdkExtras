@@ -4,12 +4,12 @@
     <_ExtrasVisualStudioVersion>$(VisualStudioVersion)</_ExtrasVisualStudioVersion>
     <_ExtrasVisualStudioVersion Condition="'$(_ExtrasVisualStudioVersion)' == ''">15.0</_ExtrasVisualStudioVersion>
   </PropertyGroup>
-  
+
   <PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.csproj'">
     <_ExtrasLanguageName>CSharp</_ExtrasLanguageName>
     <_ExtrasDefaultLangSourceExt>.cs</_ExtrasDefaultLangSourceExt>
   </PropertyGroup>
-  
+
   <PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.vbproj'">
     <_ExtrasLanguageName>VisualBasic</_ExtrasLanguageName>
     <_ExtrasDefaultLangSourceExt>.vb</_ExtrasDefaultLangSourceExt>
@@ -23,24 +23,24 @@
 
   <!-- Map short name to long name. See earlier comment for example of how to work with identifiers that are not recognized here. -->
   <PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == ''">
-    
+
     <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'sl'">Silverlight</TargetFrameworkIdentifier>
     <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'wp'">WindowsPhone</TargetFrameworkIdentifier>
     <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'wpa'">WindowsPhoneApp</TargetFrameworkIdentifier>
     <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'win'">.NETCore</TargetFrameworkIdentifier>
     <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'uap'">.NETCore</TargetFrameworkIdentifier>
-    
+
     <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'xamarinios'">Xamarin.iOS</TargetFrameworkIdentifier>
     <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'xamarin.ios'">Xamarin.iOS</TargetFrameworkIdentifier>
-    
+
     <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'monoandroid'">MonoAndroid</TargetFrameworkIdentifier>
 
     <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'xamarintvos'">Xamarin.TVOS</TargetFrameworkIdentifier>
     <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'xamarin.tvos'">Xamarin.TVOS</TargetFrameworkIdentifier>
-    
+
     <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'xamarinwatchos'">Xamarin.WatchOS</TargetFrameworkIdentifier>
     <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'xamarin.watchos'">Xamarin.WatchOS</TargetFrameworkIdentifier>
-    
+
     <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'xamarinmac'">Xamarin.Mac</TargetFrameworkIdentifier>
     <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'xamarin.mac'">Xamarin.Mac</TargetFrameworkIdentifier>
 
@@ -88,7 +88,7 @@
   <Import Project="$(MSBuildThisFileDirectory)..\platforms\*.targets"/>
 
   <PropertyGroup Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'portable'">
-     <!--Version = v0.0 https://github.com/dotnet/sdk/issues/492--> 
+    <!--Version = v0.0 https://github.com/dotnet/sdk/issues/492-->
     <NugetTargetMoniker>.NETPortable,Version=v0.0,Profile=$(TargetFrameworkProfile)</NugetTargetMoniker>
     <LanguageTargets>$(MSBuildExtensionsPath)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.$(_ExtrasLanguageName).targets</LanguageTargets>
   </PropertyGroup>
@@ -96,7 +96,7 @@
   <!-- Check to see if the Lang targets exist and if not, trigger an error on Compile -->
   <!-- We clear out the lang targets so the defaults are used for the error to show -->
   <PropertyGroup Condition="'$(TargetFrameworkIdentifier)' != '' and !Exists('$(LanguageTargets)')">
-    <_ExtrasMissingLangTargets>true</_ExtrasMissingLangTargets> 
+    <_ExtrasMissingLangTargets>true</_ExtrasMissingLangTargets>
     <_ExtrasLangTargets>$(LanguageTargets)</_ExtrasLangTargets>
     <LanguageTargets></LanguageTargets>
   </PropertyGroup>

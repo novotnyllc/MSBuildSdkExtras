@@ -1,9 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  
+  <Import Project="$(MSBuildThisFileDirectory)..\..\src\build\netstandard1.0\MSBuild.Sdk.Extras.props" />
+
+
   <PropertyGroup>
     <TargetFramework>wpa81</TargetFramework>
   </PropertyGroup>
 
-  <Import Project="$(MSBuildThisFileDirectory)..\..\src\build\netstandard1.0\MSBuild.Sdk.Extras.targets" />
+  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
   <Import Project="Test.targets" />
 </Project>
