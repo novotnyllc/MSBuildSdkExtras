@@ -25,7 +25,7 @@ To use this package, add a `PackageReference` to your project file like this (sp
 
 ``` xml
 <PackageReference Include="MSBuild.Sdk.Extras" Version="1.0.0-rc4.*">
-    <PrivateAssets>All</PrivateAssets>
+  <PrivateAssets>All</PrivateAssets>
 </PackageReference>
 ```
 
@@ -39,3 +39,35 @@ Then, at the end of your project file, either `.csproj` or `.vbproj`, add the fo
 ```
 
 This last step is required until https://github.com/Microsoft/msbuild/issues/1045 is resolved.
+
+## Targeting UWP
+If you plan to target UWP, then you must include the UWP meta-package in your project as well, something like this:
+
+``` xml
+<ItemGroup Condition=" '$(TargetFramework)' == 'uap10.0' "> 
+  <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform " Version="5.2.2" /> 
+</ItemGroup> 
+```
+
+## Single or multi-targeting
+Once this package is configured, you can now use any supported TFM in your `TargetFramework` or `TargetFrameworks` element. The supported TFM families are:
+ - `netstandard` (.NET Standard)
+ - `net` (.NET Framework)
+ - `wpa` (Windows Phone App 8.1)
+ - `win` (Windows 8 / 8.1)
+ - `uap` (UWP)
+ - `wp` (Windows Phone Silverlight, WP7+)
+ - `sl` (Silverlight 4+)
+ - `xamarinios` / `Xamarin.iOS`
+ - `monoandroid`
+ - `xamarinmac` / `Xamarin.Mac`
+ - `xamarinwatchos` / `Xamarin.WatchOS`
+ - `xamarintvos` / `Xamarin.TVOS`
+ - `portable-` (legacy PCL profiles like `portable-net45+win8+wpa81+wp8`)
+
+ For legacy PCL profiles, the order of the TFM's in the list does not matter but the profile must be an exact match 
+ to one of the known profiles. If it's not, you'll get a compile error saying it's unknown. You can see the full
+ list of known profiles here: http://portablelibraryprofiles.apps.stephencleary.com/.
+
+ If you try to use a framework that you don't have tools installed for, you'll get an error as well saying to check the tools. In some cases
+ this might mean installing an older version of VS (like 2015) to ensure that the necessary targets are installed on the machine.
