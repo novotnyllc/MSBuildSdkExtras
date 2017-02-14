@@ -19,3 +19,23 @@ Few notes:
   
 Package will be released to NuGet shortly. CI feed is on myget:
 `https://www.myget.org/F/msbuildsdkextras/api/v3/index.json`
+
+# Using the Package
+To use this package, add a `PackageReference` to your csproj like this (specify whatever version of the package or wildcard):
+
+``` xml
+<PackageReference Include="MSBuild.Sdk.Extras" Version="1.0.0-rc4.*">
+    <PrivateAssets>All</PrivateAssets>
+</PackageReference>
+```
+
+Setting `<PrivateAssets>All</PrivateAssets>` means that this build-time dependency won't be added as a dependency to any packages you create by
+using the Pack targets (`msbuild /t:pack` or `dotnet pack`).
+
+Then, at the end of your project file, either `.csproj` or `.vbproj`, add the following `Import` just before the closing tag
+
+``` xml
+<Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
+```
+
+This last step is required until https://github.com/Microsoft/msbuild/issues/1045 is resolved.
