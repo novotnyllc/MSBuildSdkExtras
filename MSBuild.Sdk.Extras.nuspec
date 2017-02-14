@@ -4,13 +4,18 @@
         <id>MSBuild.Sdk.Extras</id>
         <version>1.0.0-rc4</version>
         <authors>Oren Novotny</authors>
+        <licenseUrl>https://raw.githubusercontent.com/onovotny/MSBuildSdkExtras/master/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/onovotny/MSBuildSdkExtras</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <developmentDependency>true</developmentDependency>
         <description>Extras for Sdk style builds</description>
+        <releaseNotes>See the Readme for how to use/configure these targets.
+
+https://github.com/onovotny/MSBuildSdkExtras/blob/master/README.md</releaseNotes>
         <tags>msbuild dotnet sdk xamarin ios android uwp</tags>
     </metadata>
     <files>
-        <file src="src\build\**\*.*" target="build" />
-        <file src="src\buildMultiTargeting\**\*.*" target="buildMultiTargeting" />
+      <file src="src\build\**\*.*" target="build" />
+      <file src="src\buildMultiTargeting\**\*.*" target="buildMultiTargeting" />
     </files>
 </package>
