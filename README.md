@@ -21,7 +21,7 @@ Package will be released to NuGet shortly. CI feed is on myget:
 `https://www.myget.org/F/msbuildsdkextras/api/v3/index.json`
 
 # Using the Package
-To use this package, add a `PackageReference` to your csproj like this (specify whatever version of the package or wildcard):
+To use this package, add a `PackageReference` to your project file like this (specify whatever version of the package or wildcard):
 
 ``` xml
 <PackageReference Include="MSBuild.Sdk.Extras" Version="1.0.0-rc4.*">
