@@ -17,8 +17,12 @@ Few notes:
  - To compile, you'll need the desktop build engine -- `msbuild.exe`. Most of the platforms rely on tasks and utilities that are not yet cross platform
  - You must install the tools of the platforms you intend to build. For Xamarin, that means the Xamarin Workload; for UWP install those tools as well.
   
-Package will be released to NuGet shortly. CI feed is on myget:
-`https://www.myget.org/F/msbuildsdkextras/api/v3/index.json`
+NuGet: `MSBuild.Sdk.Extras`<br />
+[![MSBuild.Sdk.Extras](https://img.shields.io/nuget/v/MSBuild.Sdk.Extras.svg)](https://www.nuget.org/packages/MSBuild.Sdk.Extras)
+
+CI feed is on MyGet:
+`https://www.myget.org/F/msbuildsdkextras/api/v3/index.json` <br />
+![MSBuild.Sdk.Extras](https://img.shields.io/myget/msbuildsdkextras/v/MSBuild.Sdk.Extras.svg)
 
 # Using the Package
 To use this package, add a `PackageReference` to your project file like this (specify whatever version of the package or wildcard):
