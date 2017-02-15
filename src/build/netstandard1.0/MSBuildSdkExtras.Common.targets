@@ -2,7 +2,7 @@
   <PropertyGroup>
     <DefaultLanguage Condition="'$(DefaultLanguage)' == ''">en-US</DefaultLanguage>
     <_ExtrasVisualStudioVersion>$(VisualStudioVersion)</_ExtrasVisualStudioVersion>
-    <_ExtrasVisualStudioVersion Condition="'$(_ExtrasVisualStudioVersion)' == ''">15.0</_ExtrasVisualStudioVersion>
+    <_ExtrasVisualStudioVersion Condition="'$(_ExtrasVisualStudioVersion)' == '' or '$(_ExtrasVisualStudioVersion)' &lt; '14.0' ">15.0</_ExtrasVisualStudioVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.csproj'">
