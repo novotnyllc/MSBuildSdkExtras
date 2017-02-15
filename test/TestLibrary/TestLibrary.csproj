@@ -3,7 +3,7 @@
 
 
   <PropertyGroup>
-    <TargetFramework>wpa81</TargetFramework>
+    <TargetFramework>win</TargetFramework>
   </PropertyGroup>
 
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />

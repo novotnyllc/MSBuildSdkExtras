@@ -2,7 +2,7 @@
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 2 and                             
                             ($(_ExtrasPortableTfms.Contains('net45')) and !$(_ExtrasPortableTfms.Contains('net451'))) and
-                            ($(_ExtrasPortableTfms.Contains('win')) and !$(_ExtrasPortableTfms.Contains('win81')))">
+                            ($(_ExtrasPortableTfms.Contains('win')) and !$(_ExtrasPortableTfms.Contains('win81')) and !$(_ExtrasPortableTfms.Contains('win9')) and !$(_ExtrasPortableTfms.Contains('win1')))">
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile7</TargetFrameworkProfile>
   </PropertyGroup>
@@ -16,7 +16,7 @@
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 3 and                             
                             ($(_ExtrasPortableTfms.Contains('net45')) and !$(_ExtrasPortableTfms.Contains('net451'))) and
-                            ($(_ExtrasPortableTfms.Contains('win')) and !$(_ExtrasPortableTfms.Contains('win81'))) and
+                            ($(_ExtrasPortableTfms.Contains('win')) and !$(_ExtrasPortableTfms.Contains('win81')) and !$(_ExtrasPortableTfms.Contains('win9')) and !$(_ExtrasPortableTfms.Contains('win1'))) and
                             ($(_ExtrasPortableTfms.Contains('wp8')) and !$(_ExtrasPortableTfms.Contains('wp81')))">
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile78</TargetFrameworkProfile>
@@ -24,7 +24,7 @@
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 3 and                             
                             ($(_ExtrasPortableTfms.Contains('net45')) and !$(_ExtrasPortableTfms.Contains('net451'))) and
-                            ($(_ExtrasPortableTfms.Contains('win')) and !$(_ExtrasPortableTfms.Contains('win81'))) and
+                            ($(_ExtrasPortableTfms.Contains('win')) and !$(_ExtrasPortableTfms.Contains('win81')) and !$(_ExtrasPortableTfms.Contains('win9')) and !$(_ExtrasPortableTfms.Contains('win1'))) and
                             ($(_ExtrasPortableTfms.Contains('wpa81')) or $(_ExtrasPortableTfms.Contains('wpa')))">
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
@@ -32,7 +32,7 @@
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 4 and                             
                             ($(_ExtrasPortableTfms.Contains('net45')) and !$(_ExtrasPortableTfms.Contains('net451'))) and
-                            ($(_ExtrasPortableTfms.Contains('win')) and !$(_ExtrasPortableTfms.Contains('win81'))) and
+                            ($(_ExtrasPortableTfms.Contains('win')) and !$(_ExtrasPortableTfms.Contains('win81')) and !$(_ExtrasPortableTfms.Contains('win9')) and !$(_ExtrasPortableTfms.Contains('win1'))) and
                             ($(_ExtrasPortableTfms.Contains('wpa')) or $(_ExtrasPortableTfms.Contains('wpa81'))) and
                             ($(_ExtrasPortableTfms.Contains('wp8')) and !$(_ExtrasPortableTfms.Contains('wp81')))">
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
