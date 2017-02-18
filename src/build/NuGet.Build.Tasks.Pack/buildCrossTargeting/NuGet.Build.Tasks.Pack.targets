@@ -53,7 +53,7 @@ Copyright (c) .NET Foundation. All rights reserved.
     ============================================================
   -->
   <Target Name="_PackAsBuildAfterTarget"
-          AfterTargets="Build" 
+          AfterTargets="Build"
           Condition="'$(GeneratePackageOnBuild)' == 'true' AND '$(IsInnerBuild)' != 'true'"
           DependsOnTargets="Pack">
   </Target>
@@ -89,7 +89,7 @@ Copyright (c) .NET Foundation. All rights reserved.
       <PackageOutputPath Condition=" '$(PackageOutputPath)' == '' ">$(OutputPath)</PackageOutputPath>
       <RestoreOutputPath Condition=" '$(RestoreOutputPath)' == '' " >$(BaseIntermediateOutputPath)</RestoreOutputPath>
     </PropertyGroup>
-    
+
     <ConvertToAbsolutePath Paths="$(RestoreOutputPath)">
       <Output TaskParameter="AbsolutePaths" PropertyName="RestoreOutputAbsolutePath" />
     </ConvertToAbsolutePath>
@@ -99,7 +99,7 @@ Copyright (c) .NET Foundation. All rights reserved.
     <ConvertToAbsolutePath Condition="$(NuspecFile) != ''" Paths="$(NuspecFile)">
       <Output TaskParameter="AbsolutePaths" PropertyName="NuspecFileAbsolutePath" />
     </ConvertToAbsolutePath>
-    
+
     <!-- Call Pack -->
     <PackTask PackItem="$(PackProjectInputFile)"
               PackageFiles="@(_PackageFiles)"
@@ -142,7 +142,7 @@ Copyright (c) .NET Foundation. All rights reserved.
               NuspecBasePath="$(NuspecBasePath)"
               NuspecProperties="$(NuspecProperties)"/>
   </Target>
-  
+
   <!--
     ============================================================
     _LoadPackGraphEntryPoints
@@ -165,7 +165,7 @@ Copyright (c) .NET Foundation. All rights reserved.
     <MSBuild
       Condition="'$(IncludeBuildOutput)' == 'true'"
       Projects="$(MSBuildProjectFullPath)"
-      Targets="BuiltProjectOutputGroup;DocumentationProjectOutputGroup"
+      Targets="BuiltProjectOutputGroup;DocumentationProjectOutputGroup;_AddPriFileToPackBuildOutput"
       Properties="TargetFramework=%(_TargetFrameworks.Identity);
                   BuildProjectReferences=false;">
 
@@ -173,15 +173,6 @@ Copyright (c) .NET Foundation. All rights reserved.
           TaskParameter="TargetOutputs"
           ItemName="_TargetPathsToAssemblies" />
     </MSBuild>
-    
-    <!--Projects with target framework like UWP, Win8, wpa81 produce a Pri file
-    in their bin dir. This Pri file is not included in the BuiltProjectGroupOutput, and
-    has to be added manually here.-->
-    <ItemGroup Condition="'$(IncludeProjectPriFile)' == 'true'">
-      <_TargetPathsToAssemblies Include="$(ProjectPriFullPath)">
-        <FinalOutputPath>$(ProjectPriFullPath)</FinalOutputPath>
-      </_TargetPathsToAssemblies>
-    </ItemGroup>
 
     <MSBuild
       Condition="'$(IncludeSymbols)' == 'true' OR '$(IncludeSource)' == 'true'"
@@ -206,6 +197,18 @@ Copyright (c) .NET Foundation. All rights reserved.
           TaskParameter="TargetOutputs"
           ItemName="_SourceFiles" />
     </MSBuild>
+  </Target>
+
+  <!--Projects with target framework like UWP, Win8, wpa81 produce a Pri file
+    in their bin dir. This Pri file is not included in the BuiltProjectGroupOutput, and
+    has to be added manually here.-->
+  <Target Name="_AddPriFileToPackBuildOutput"
+          Returns="@(_PathToPriFile)">
+    <ItemGroup Condition="'$(IncludeProjectPriFile)' == 'true'">
+      <_PathToPriFile Include="$(ProjectPriFullPath)">
+        <FinalOutputPath>$(ProjectPriFullPath)</FinalOutputPath>
+      </_PathToPriFile>
+    </ItemGroup>
   </Target>
 
   <!--
