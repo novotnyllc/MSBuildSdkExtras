@@ -57,6 +57,7 @@ If you plan to target UWP, then you must include the UWP meta-package in your pr
 Once this package is configured, you can now use any supported TFM in your `TargetFramework` or `TargetFrameworks` element. The supported TFM families are:
  - `netstandard` (.NET Standard)
  - `net` (.NET Framework)
+ - `netcoreapp` (.NET Core App)
  - `wpa` (Windows Phone App 8.1)
  - `win` (Windows 8 / 8.1)
  - `uap` (UWP)
