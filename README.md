@@ -53,6 +53,15 @@ If you plan to target UWP, then you must include the UWP meta-package in your pr
 </ItemGroup> 
 ```
 
+## Targeting UWP, Windows 8, Windows Phone, etc
+If you're targeting a WinRT platform and you use the `pack` target, there's an important workaround needed to ensure
+that the `.pri` files are included in the package correctly. When you call `pack`, you also must override `NuGetBuildTasksPackTargets` on the command-line
+to ensure the fixed targets get applied. The value you specify must not not be a real file.
+
+For example: `msbuild my.csproj /t:pack /p:NuGetBuildTasksPackTargets="workaround"`
+
+GitHub issue https://github.com/NuGet/Home/issues/4136 is tracking this.
+
 ## Single or multi-targeting
 Once this package is configured, you can now use any supported TFM in your `TargetFramework` or `TargetFrameworks` element. The supported TFM families are:
  - `netstandard` (.NET Standard)
