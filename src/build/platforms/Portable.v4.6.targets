@@ -1,56 +1,61 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 2 and 
-                            $(_ExtrasPortableTfms.Contains('wp81')) and 
-                            $(_ExtrasPortableTfms.Contains('win81'))">
+                            $(_ExtrasPortableTfms.Contains('+wp81+')) and 
+                            $(_ExtrasPortableTfms.Contains('+win81+'))">
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile31</TargetFrameworkProfile>
   </PropertyGroup>
-  
+
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 2 and 
-                            ($(_ExtrasPortableTfms.Contains('wpa')) or $(_ExtrasPortableTfms.Contains('wpa81'))) and 
-                            $(_ExtrasPortableTfms.Contains('win81'))">
+                            ($(_ExtrasPortableTfms.Contains('+wpa+')) or $(_ExtrasPortableTfms.Contains('+wpa81+'))) and 
+                            $(_ExtrasPortableTfms.Contains('+win81+'))">
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile32</TargetFrameworkProfile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 2 and 
-                            $(_ExtrasPortableTfms.Contains('net451')) and 
-                            $(_ExtrasPortableTfms.Contains('win81'))">
+                            $(_ExtrasPortableTfms.Contains('+net451+')) and 
+                            $(_ExtrasPortableTfms.Contains('+win81+'))">
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile44</TargetFrameworkProfile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 2 and 
-                            $(_ExtrasPortableTfms.Contains('wp81')) and 
-                            ($(_ExtrasPortableTfms.Contains('wpa')) or $(_ExtrasPortableTfms.Contains('wpa81')))">
+                            $(_ExtrasPortableTfms.Contains('+wp81+')) and 
+                            ($(_ExtrasPortableTfms.Contains('+wpa+')) or $(_ExtrasPortableTfms.Contains('+wpa81+')))">
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile84</TargetFrameworkProfile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 3 and 
-                            $(_ExtrasPortableTfms.Contains('win81')) and 
-                            $(_ExtrasPortableTfms.Contains('net451')) and 
-                            ($(_ExtrasPortableTfms.Contains('wpa')) or $(_ExtrasPortableTfms.Contains('wpa81')))">
+                            $(_ExtrasPortableTfms.Contains('+win81+')) and 
+                            $(_ExtrasPortableTfms.Contains('+net451+')) and 
+                            ($(_ExtrasPortableTfms.Contains('+wpa+')) or $(_ExtrasPortableTfms.Contains('+wpa81+')))">
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile151</TargetFrameworkProfile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 3 and 
-                            $(_ExtrasPortableTfms.Contains('win81')) and 
-                            $(_ExtrasPortableTfms.Contains('wp81')) and 
-                            ($(_ExtrasPortableTfms.Contains('wpa')) or $(_ExtrasPortableTfms.Contains('wpa81')))">
+                            $(_ExtrasPortableTfms.Contains('+win81+')) and 
+                            $(_ExtrasPortableTfms.Contains('+wp81+')) and 
+                            ($(_ExtrasPortableTfms.Contains('+wpa+')) or $(_ExtrasPortableTfms.Contains('+wpa81+')))">
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile157</TargetFrameworkProfile>
   </PropertyGroup>
-  
+
   <!-- Some PCL profiles have WinRT support -->
 
   <ItemGroup Condition=" '$(TargetFrameworkProfile)' == 'Profile31' ">
     <TargetPlatform Include="Windows Phone, Version=8.1" />
     <TargetPlatform Include="Windows, Version=8.1" />
   </ItemGroup>
-  
+
   <ItemGroup Condition=" '$(TargetFrameworkProfile)' == 'Profile32' ">
     <TargetPlatform Include="Windows, Version=8.1" />
     <TargetPlatform Include="WindowsPhoneApp, Version=8.1" />
@@ -68,5 +73,5 @@
   </ItemGroup>
 
 
-  
+
 </Project>

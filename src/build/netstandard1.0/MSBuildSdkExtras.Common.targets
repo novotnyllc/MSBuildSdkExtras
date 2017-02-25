@@ -49,8 +49,10 @@
   <!-- Handle legacy PCL profiles  -->
   <PropertyGroup Condition="'$(TargetFramework)' != '' and $(TargetFramework.ToLowerInvariant().Contains('portable-'))" >
     <_ExtrasShortFrameworkIdentifier>portable</_ExtrasShortFrameworkIdentifier>
-    <_ExtrasPortableTfms>$(TargetFramework.Substring(9).Replace('+',';').ToLowerInvariant())</_ExtrasPortableTfms>
-    <_ExtrasPortableTfmCount>$(_ExtrasPortableTfms.Split(';').Length)</_ExtrasPortableTfmCount>
+    <_ExtrasPortableTfms>$(TargetFramework.Substring(9).ToLowerInvariant())</_ExtrasPortableTfms>
+    <_ExtrasPortableTfmCount>$(_ExtrasPortableTfms.Split('+').Length)</_ExtrasPortableTfmCount>
+    <!-- Pre and post-pend the separator char + to the tfm list after counting so we can easily do a Contains() search -->
+    <_ExtrasPortableTfms>+$(_ExtrasPortableTfms)+</_ExtrasPortableTfms>
     <TargetFrameworkIdentifier>.NETPortable</TargetFrameworkIdentifier>
   </PropertyGroup>
 
