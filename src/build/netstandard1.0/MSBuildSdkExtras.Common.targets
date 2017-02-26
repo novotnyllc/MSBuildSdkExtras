@@ -99,7 +99,7 @@
   <!-- Add conditional compilation symbols for the target framework (for example NET461, NETSTANDARD2_0, NETCOREAPP1_0) -->
   <PropertyGroup Condition=" '$(DisableImplicitFrameworkDefines)' != 'true' and '$(TargetFrameworkIdentifier)' == '.NETPortable' ">
 
-    <!-- .NET Portable gets profiles as defines as that's how most people refer to them PORTABLE259, etc -->
+    <!-- .NET Portable gets profiles as defines as that's how most people refer to them PROFILE259, etc -->
     <ImplicitFrameworkDefine>$(TargetFrameworkProfile.ToUpperInvariant())</ImplicitFrameworkDefine>
   </PropertyGroup>
 
