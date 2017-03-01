@@ -31,7 +31,7 @@ To use this package, add a `PackageReference` to your project file like this (sp
 <PackageReference Include="MSBuild.Sdk.Extras" Version="1.0.0-rc4-*" PrivateAssets="all" />
 ```
 
-Setting `<PrivateAssets>All</PrivateAssets>` means that this build-time dependency won't be added as a dependency to any packages you create by
+Setting `PrivateAssets="all"` means that this build-time dependency won't be added as a dependency to any packages you create by
 using the Pack targets (`msbuild /t:pack` or `dotnet pack`).
 
 Then, at the end of your project file, either `.csproj` or `.vbproj`, add the following `Import` just before the closing tag
