@@ -3,7 +3,7 @@
 
 
   <PropertyGroup>
-    <TargetFramework>portable-net4+sl50+win8+wpa81+wp8</TargetFramework>
+    <TargetFramework>monoandroid7</TargetFramework>
   </PropertyGroup>
 
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />

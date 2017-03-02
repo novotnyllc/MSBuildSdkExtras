@@ -23,6 +23,6 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
-    <Compile Include="$(AndroidResgenFile)" Condition="'$(_ExtrasSetAndroidResgenFile)' == 'true'" />
+    <Compile Include="$(AndroidResgenFile)" Condition="'$(_ExtrasSetAndroidResgenFile)' == 'true'" Visible="false" />
   </ItemGroup>
 </Project>
