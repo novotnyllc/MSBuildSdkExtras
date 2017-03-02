@@ -6,8 +6,6 @@
     <_ExtrasSetAndroidResgenFile Condition="'$(AndroidResgenFile)' == ''">true</_ExtrasSetAndroidResgenFile>
     <_ExtrasSetAndroidResgenFile Condition="'$(_ExtrasSetAndroidResgenFile)' == ''">false</_ExtrasSetAndroidResgenFile>
     <AndroidResgenFile Condition="'$(AndroidResgenFile)' == ''">$(IntermediateOutputPath)$(TargetFramework)\Resource.Designer$(_ExtrasDefaultLangSourceExt)</AndroidResgenFile>
-    <!-- Workaround for https://github.com/NuGet/Home/issues/4547 -->
-    <NoStdLib>false</NoStdLib>
     <!-- This is here to prevent a warning in the Xamarin.Android.Common.Debugging.targets when a blank is passed into _GetPrimaryCpuAbi -->
     <AdbTarget Condition="'$(AdbTarget)' == ''">none</AdbTarget>
   </PropertyGroup>
