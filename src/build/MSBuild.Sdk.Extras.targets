@@ -1,0 +1,3 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildThisFileDirectory)netstandard1.0\MSBuild.Sdk.Extras.targets"/>
+</Project>
