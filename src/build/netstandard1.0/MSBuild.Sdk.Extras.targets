@@ -1,3 +1,33 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildThisFileDirectory)..\NuGet.Build.Tasks.Pack\build\NuGet.Build.Tasks.Pack.targets"/>
+
+  <!-- https://raw.githubusercontent.com/AArnott/NuGet4698Workaround/master/build/NuGet4698Workaround.targets -->
+  <Target Name="PackSatelliteAssemblies"
+          BeforeTargets="_WalkEachTargetPerFramework"
+          DependsOnTargets="SatelliteDllsProjectOutputGroupWithTargetFramework">
+    <ItemGroup>
+      <Content Include="@(_SatelliteDllsProjectOutputGroupOutputWithTargetFramework)"
+               Condition=" '%(_SatelliteDllsProjectOutputGroupOutputWithTargetFramework.Culture)' != '' ">
+        <Pack>true</Pack>
+        <PackagePath>lib\%(TargetFramework)\%(TargetPath)</PackagePath>
+      </Content>
+    </ItemGroup>
+  </Target>
+
+  <Target Name="SatelliteDllsProjectOutputGroupWithTargetFramework"
+          DependsOnTargets="SatelliteDllsProjectOutputGroup"
+          Returns="@(_SatelliteDllsProjectOutputGroupOutputWithTargetFramework)">
+    <ItemGroup>
+      <_SatelliteDllsProjectOutputGroupOutputWithTargetFramework Include="@(SatelliteDllsProjectOutputGroupOutput)">
+        <TargetFramework>$(TargetFramework)</TargetFramework>
+      </_SatelliteDllsProjectOutputGroupOutputWithTargetFramework>
+
+      <!-- Only newer projects (e.g. netstandard) set Culture because Microsoft.WinFX.targets
+           overrides the targets change made in https://github.com/Microsoft/msbuild/pull/1404/files
+           So fill in the blank here if necessary. -->
+      <_SatelliteDllsProjectOutputGroupOutputWithTargetFramework>
+        <Culture Condition=" '%(_SatelliteDllsProjectOutputGroupOutputWithTargetFramework.Culture)' == ''">$([System.String]::Copy("%(TargetPath)").Split('\')[0])</Culture>
+      </_SatelliteDllsProjectOutputGroupOutputWithTargetFramework>
+    </ItemGroup>
+  </Target>
 </Project>
