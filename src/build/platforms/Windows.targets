@@ -2,24 +2,30 @@
   <PropertyGroup Condition="'$(TargetFramework)' == 'win' or '$(TargetFramework)' == 'win8' or '$(TargetFramework)' == 'win80'">
     <NugetTargetMoniker>Windows,Version=v8.0</NugetTargetMoniker>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <DefineConstants>$(DefineConstants);NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <DefineConstants Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(DefineConstants);NETFX_CORE;WINDOWS_APP</DefineConstants>
     <LanguageTargets>$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(_ExtrasVisualStudioVersion)\Microsoft.Windows.UI.Xaml.$(_ExtrasLanguageName).targets</LanguageTargets>
+    <!-- Need to override the built-in implicit defines for win or it'll be NETCORE4_5 -->
+    <ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">WINDOWS8</ImplicitFrameworkDefine>
+    <DisableImplicitFrameworkDefines Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">true</DisableImplicitFrameworkDefines>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' == 'win81'">
     <NugetTargetMoniker>Windows,Version=v8.1</NugetTargetMoniker>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-    <DefineConstants>$(DefineConstants);NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <DefineConstants Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(DefineConstants);NETFX_CORE;WINDOWS_APP</DefineConstants>
     <LanguageTargets>$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(_ExtrasVisualStudioVersion)\Microsoft.Windows.UI.Xaml.$(_ExtrasLanguageName).targets</LanguageTargets>
+    <!-- Need to override the built-in implicit defines for win or it'll be NETCORE4_5_1 -->
+    <ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">WINDOWS8_1</ImplicitFrameworkDefine>
+    <DisableImplicitFrameworkDefines Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">true</DisableImplicitFrameworkDefines>
   </PropertyGroup>
   <PropertyGroup Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'wpa'">
     <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
     <LanguageTargets>$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(_ExtrasVisualStudioVersion)\Microsoft.Windows.UI.Xaml.$(_ExtrasLanguageName).targets</LanguageTargets>
-    <DefineConstants>$(DefineConstants);NETFX_CORE;WINDOWS_PHONE_APP</DefineConstants>
+    <DefineConstants Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(DefineConstants);NETFX_CORE;WINDOWS_PHONE_APP</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'uap'">
     <NugetTargetMoniker>UAP,Version=v10.0</NugetTargetMoniker>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <DefineConstants>$(DefineConstants);NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <DefineConstants Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(DefineConstants);NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <CopyLocalLockFileAssemblies Condition="'$(CopyLocalLockFileAssemblies)' == ''">false</CopyLocalLockFileAssemblies>
     <TargetPlatformVersion Condition="'$(TargetPlatformVersion)' == ''">10.0.10240.0</TargetPlatformVersion>
     <TargetPlatformMinVersion Condition="'$(TargetPlatformMinVersion)' == ''">10.0.10240.0</TargetPlatformMinVersion>
@@ -28,7 +34,7 @@
 
     <!-- Need to override the built-in implicit defines for UAP or it'll be NETCORE5_0 -->
     <!-- this makes it UAP10_0_10240_0 to match the rest -->
-    <ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">UAP$(TargetPlatformMinVersion.Replace('.', '_')</ImplicitFrameworkDefine>
+    <ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">UAP$(TargetPlatformMinVersion.Replace('.', '_'))</ImplicitFrameworkDefine>
     <DisableImplicitFrameworkDefines Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">true</DisableImplicitFrameworkDefines>
   </PropertyGroup>
   <PropertyGroup Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'wp'">

@@ -1,6 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'xamarinwatchos' or '$(_ExtrasShortFrameworkIdentifier)' == 'xamarin.watchos' ">
-    <TargetFrameworkVersion>v1.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v1.0</TargetFrameworkVersion>
     <IPhoneResourcePrefix Condition="'$(IPhoneResourcePrefix)' == ''">Resources</IPhoneResourcePrefix>
     <DebugType>full</DebugType>
     <LanguageTargets>$(MSBuildExtensionsPath)\Xamarin\WatchOS\Xamarin.WatchOS.$(_ExtrasLanguageName).targets</LanguageTargets>
