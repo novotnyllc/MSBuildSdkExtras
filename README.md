@@ -28,7 +28,7 @@ CI feed is on MyGet:
 To use this package, add a `PackageReference` to your project file like this (specify whatever version of the package or wildcard):
 
 ``` xml
-<PackageReference Include="MSBuild.Sdk.Extras" Version="1.0.0-rc4-*" PrivateAssets="all" />
+<PackageReference Include="MSBuild.Sdk.Extras" Version="1.0.0" PrivateAssets="all" />
 ```
 
 Setting `PrivateAssets="all"` means that this build-time dependency won't be added as a dependency to any packages you create by
