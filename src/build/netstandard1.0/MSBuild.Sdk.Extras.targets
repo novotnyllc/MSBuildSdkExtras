@@ -4,12 +4,13 @@
   <!-- https://raw.githubusercontent.com/AArnott/NuGet4698Workaround/master/build/NuGet4698Workaround.targets -->
   <Target Name="PackSatelliteAssemblies"
           BeforeTargets="_WalkEachTargetPerFramework"
-          DependsOnTargets="SatelliteDllsProjectOutputGroupWithTargetFramework">
+          DependsOnTargets="SatelliteDllsProjectOutputGroupWithTargetFramework"
+          Condition=" '$(IncludeBuildOutput)' != 'false' ">
     <ItemGroup>
       <Content Include="@(_SatelliteDllsProjectOutputGroupOutputWithTargetFramework)"
                Condition=" '%(_SatelliteDllsProjectOutputGroupOutputWithTargetFramework.Culture)' != '' ">
         <Pack>true</Pack>
-        <PackagePath>lib\%(TargetFramework)\%(TargetPath)</PackagePath>
+        <PackagePath>lib\%(_SatelliteDllsProjectOutputGroupOutputWithTargetFramework.TargetFramework)\%(_SatelliteDllsProjectOutputGroupOutputWithTargetFramework.TargetPath)</PackagePath>
       </Content>
     </ItemGroup>
   </Target>
