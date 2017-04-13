@@ -24,6 +24,7 @@
                             $(_ExtrasPortableTfms.Contains('+win81+'))">
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile44</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 2 and 
@@ -39,6 +40,7 @@
                             ($(_ExtrasPortableTfms.Contains('+wpa+')) or $(_ExtrasPortableTfms.Contains('+wpa81+')))">
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile151</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 3 and 

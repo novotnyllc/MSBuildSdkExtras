@@ -12,6 +12,7 @@
                             ($(_ExtrasPortableTfms.Contains('+wp+')) or $(_ExtrasPortableTfms.Contains('+wp7+')) or $(_ExtrasPortableTfms.Contains('+wp70+'))) ">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile2</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 2 and                             
@@ -19,6 +20,7 @@
                             ($(_ExtrasPortableTfms.Contains('+sl4+')) or $(_ExtrasPortableTfms.Contains('+sl40+'))) ">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile3</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 4 and                             
@@ -28,6 +30,7 @@
                             ($(_ExtrasPortableTfms.Contains('+wp+')) or $(_ExtrasPortableTfms.Contains('+wp7+')) or $(_ExtrasPortableTfms.Contains('+wp70+'))) ">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile4</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 2 and                             
@@ -35,6 +38,7 @@
                             ($(_ExtrasPortableTfms.Contains('+win+')) or $(_ExtrasPortableTfms.Contains('+win8+')) or $(_ExtrasPortableTfms.Contains('+win80+')))">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile5</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 2 and                             
@@ -42,6 +46,7 @@
                             ($(_ExtrasPortableTfms.Contains('+win+')) or $(_ExtrasPortableTfms.Contains('+win8+')) or $(_ExtrasPortableTfms.Contains('+win80+')))">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile6</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 2 and                             
@@ -49,6 +54,7 @@
                             ($(_ExtrasPortableTfms.Contains('+sl5+')) or $(_ExtrasPortableTfms.Contains('+sl50+')))">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile14</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 2 and                             
@@ -56,6 +62,7 @@
                             ($(_ExtrasPortableTfms.Contains('+sl4+')) or $(_ExtrasPortableTfms.Contains('+sl40+')))">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile18</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 2 and                             
@@ -63,6 +70,7 @@
                             ($(_ExtrasPortableTfms.Contains('+sl5+')) or $(_ExtrasPortableTfms.Contains('+sl50+')))">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile19</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 2 and                             
@@ -70,6 +78,7 @@
                             ($(_ExtrasPortableTfms.Contains('+sl4+')) or $(_ExtrasPortableTfms.Contains('+sl40+')))">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile23</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 2 and                             
@@ -77,6 +86,7 @@
                             ($(_ExtrasPortableTfms.Contains('+sl5+')) or $(_ExtrasPortableTfms.Contains('+sl50+')))">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile24</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 4 and                             
@@ -86,6 +96,7 @@
                             ($(_ExtrasPortableTfms.Contains('+wp8+')) or $(_ExtrasPortableTfms.Contains('+wp80+')))">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile36</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 3 and                             
@@ -94,6 +105,7 @@
                             ($(_ExtrasPortableTfms.Contains('+win+')) or $(_ExtrasPortableTfms.Contains('+win8+')) or $(_ExtrasPortableTfms.Contains('+win80+')))">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile37</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 3 and                             
@@ -102,6 +114,7 @@
                             ($(_ExtrasPortableTfms.Contains('+win+')) or $(_ExtrasPortableTfms.Contains('+win8+')) or $(_ExtrasPortableTfms.Contains('+win80+')))">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile41</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 3 and                             
@@ -110,6 +123,7 @@
                             ($(_ExtrasPortableTfms.Contains('+win+')) or $(_ExtrasPortableTfms.Contains('+win8+')) or $(_ExtrasPortableTfms.Contains('+win80+')))">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile42</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 3 and                             
@@ -118,6 +132,7 @@
                             ($(_ExtrasPortableTfms.Contains('+win+')) or $(_ExtrasPortableTfms.Contains('+win8+')) or $(_ExtrasPortableTfms.Contains('+win80+')))">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile46</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 3 and                             
@@ -126,6 +141,7 @@
                             ($(_ExtrasPortableTfms.Contains('+win+')) or $(_ExtrasPortableTfms.Contains('+win8+')) or $(_ExtrasPortableTfms.Contains('+win80+')))">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile47</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 4 and                             
@@ -135,6 +151,7 @@
                             $(_ExtrasPortableTfms.Contains('wp75'))">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile88</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 3 and                             
@@ -143,6 +160,7 @@
                             ($(_ExtrasPortableTfms.Contains('+wpa+')) or $(_ExtrasPortableTfms.Contains('+wpa81+')))">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile92</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 4 and                             
@@ -152,6 +170,7 @@
                             ($(_ExtrasPortableTfms.Contains('+wp+')) or $(_ExtrasPortableTfms.Contains('+wp7+')) or $(_ExtrasPortableTfms.Contains('+wp70+')))">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile95</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 4 and                             
@@ -161,6 +180,7 @@
                             $(_ExtrasPortableTfms.Contains('wp75'))">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile96</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 3 and                             
@@ -169,6 +189,7 @@
                             ($(_ExtrasPortableTfms.Contains('+wpa81+')) or $(_ExtrasPortableTfms.Contains('+wpa+')))">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile102</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 4 and                             
@@ -178,6 +199,7 @@
                             $(_ExtrasPortableTfms.Contains('wp75'))">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile104</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 4 and                             
@@ -187,6 +209,7 @@
                             ($(_ExtrasPortableTfms.Contains('+wp8+')) or $(_ExtrasPortableTfms.Contains('+wp80+')))">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile136</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 4 and                             
@@ -196,6 +219,7 @@
                             ($(_ExtrasPortableTfms.Contains('+wp8+')) or $(_ExtrasPortableTfms.Contains('+wp80+')))">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile143</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 4 and                             
@@ -205,6 +229,7 @@
                             ($(_ExtrasPortableTfms.Contains('+wp8+')) or $(_ExtrasPortableTfms.Contains('+wp80+')))">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile147</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 4 and                             
@@ -214,6 +239,7 @@
                             ($(_ExtrasPortableTfms.Contains('+wp8+')) or $(_ExtrasPortableTfms.Contains('+wp80+')))">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile154</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 4 and                             
@@ -223,6 +249,7 @@
                             ($(_ExtrasPortableTfms.Contains('+wp8+')) or $(_ExtrasPortableTfms.Contains('+wp80+')))">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile158</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 4 and                             
@@ -232,6 +259,7 @@
                             ($(_ExtrasPortableTfms.Contains('+wpa+')) or $(_ExtrasPortableTfms.Contains('+wpa81+')))">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile225</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 4 and                             
@@ -241,6 +269,7 @@
                             ($(_ExtrasPortableTfms.Contains('+wpa+')) or $(_ExtrasPortableTfms.Contains('+wpa81+')))">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile240</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 4 and                             
@@ -250,6 +279,7 @@
                             ($(_ExtrasPortableTfms.Contains('+wpa+')) or $(_ExtrasPortableTfms.Contains('+wpa81+')))">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile255</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 5 and                             
@@ -260,6 +290,7 @@
                             ($(_ExtrasPortableTfms.Contains('+wp8+')) or $(_ExtrasPortableTfms.Contains('+wp80+')))">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile328</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 5 and                             
@@ -270,6 +301,7 @@
                             ($(_ExtrasPortableTfms.Contains('+wp8+')) or $(_ExtrasPortableTfms.Contains('+wp80+')))">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile336</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ExtrasPortableTfmCount) == 5 and                             
@@ -280,6 +312,7 @@
                             ($(_ExtrasPortableTfms.Contains('+wp8+')) or $(_ExtrasPortableTfms.Contains('+wp80+')))">
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile344</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
 </Project>
