@@ -112,6 +112,10 @@
     <LanguageTargets></LanguageTargets>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'portable'">
+    <DefineConstants>$(DefineConstants);$(TargetFrameworkProfile)</DefineConstants>
+  </PropertyGroup>
+
   <Target Name="DisplayMissingLanguageTargetsError" Condition="'$(_ExtrasMissingLangTargets)' == 'true'" BeforeTargets="_CheckForUnsupportedTargetFramework">
     <Error Condition="'$(_ExtrasShortFrameworkIdentifier)' != 'portable'" Text="The specified language targets for $(TargetFramework) is missing. Ensure correct tooling is installed.\r\nMissing File: $(_ExtrasLangTargets)" />
     <Error Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'portable'" Text="The specified TFM '$(TargetFramework)' is not valid. Check that it's a valid combination: http://portablelibraryprofiles.apps.stephencleary.com/"  />
