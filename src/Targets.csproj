@@ -2,6 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.4</TargetFramework>
+    <PackageId>MSBuild.Sdk.Extras</PackageId>
+    <Authors>Oren Novotny</Authors>
+    <Company />
+    <Product>Oren Novotny</Product>
+    <Description>Extras for Sdk style builds</Description>
+    <PackageReleaseNotes>See the Readme for how to use/configure these targets.
+
+https://github.com/onovotny/MSBuildSdkExtras/blob/master/README.md</PackageReleaseNotes>
+    <PackageTags>msbuild;dotnet;sdk;xamarin;ios;android;uwp</PackageTags>
+    <DevelopmentDependency>true</DevelopmentDependency>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/onovotny/MSBuildSdkExtras/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/onovotny/MSBuildSdkExtras</PackageProjectUrl>
   </PropertyGroup>
 
 
