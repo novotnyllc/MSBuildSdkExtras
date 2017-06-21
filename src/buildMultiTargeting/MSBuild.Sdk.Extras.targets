@@ -5,7 +5,7 @@
   <!-- Fix NuGet Pack to include satellite assemblies.
        See https://github.com/NuGet/Home/issues/4698 -->
   <Target Name="PackSatelliteAssemblies" BeforeTargets="_WalkEachTargetPerFramework">
-    <MSBuild Condition="'$(IncludeBuildOutput)' == 'true'"
+    <MSBuild Condition="'$(IncludeBuildOutput)' == 'true' and '$(_ExtrasSdkVersion)' &lt; 2.0"
              Projects="$(MSBuildProjectFullPath)"
              Targets="SatelliteDllsProjectOutputGroupWithTargetFramework"
              BuildInParallel="$(BuildInParallel)"

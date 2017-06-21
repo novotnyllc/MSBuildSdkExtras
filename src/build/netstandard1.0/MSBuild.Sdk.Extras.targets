@@ -1,11 +1,12 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildThisFileDirectory)..\NuGet.Build.Tasks.Pack\build\NuGet.Build.Tasks.Pack.targets"/>
+  <Import Condition="'$(_ExtrasSdkVersion)' &lt; 2.0 "
+    Project="$(MSBuildThisFileDirectory)..\NuGet.Build.Tasks.Pack\build\NuGet.Build.Tasks.Pack.targets"/>
 
   <!-- https://raw.githubusercontent.com/AArnott/NuGet4698Workaround/master/build/NuGet4698Workaround.targets -->
   <Target Name="PackSatelliteAssemblies"
           BeforeTargets="_WalkEachTargetPerFramework"
           DependsOnTargets="SatelliteDllsProjectOutputGroupWithTargetFramework"
-          Condition=" '$(IncludeBuildOutput)' != 'false' ">
+          Condition=" '$(IncludeBuildOutput)' != 'false' and '$(_ExtrasSdkVersion)' &lt; 2.0">
     <ItemGroup>
       <Content Include="@(_SatelliteDllsProjectOutputGroupOutputWithTargetFramework)"
                Condition=" '%(_SatelliteDllsProjectOutputGroupOutputWithTargetFramework.Culture)' != '' ">
@@ -29,6 +30,20 @@
       <_SatelliteDllsProjectOutputGroupOutputWithTargetFramework>
         <Culture Condition=" '%(_SatelliteDllsProjectOutputGroupOutputWithTargetFramework.Culture)' == ''">$([System.String]::Copy("%(TargetPath)").Split('\')[0])</Culture>
       </_SatelliteDllsProjectOutputGroupOutputWithTargetFramework>
+    </ItemGroup>
+  </Target>
+
+
+<!-- Work around bug in Microsoft.NET.Sdk < v2.0 where satellites were deployed on top of each other in root. -->
+  <!-- https://github.com/dotnet/sdk/issues/1360 -->
+  <Target Name="WorkaroundIncorrectSatelliteDeployment" 
+          AfterTargets="ResolveLockFileCopyLocalProjectDeps"
+          Condition="'$(_ExtrasSdkVersion)' &lt; 2.0 " >
+    <ItemGroup>
+      <ReferenceCopyLocalPaths Remove="@(ResourceCopyLocalItems)" />
+      <ReferenceCopyLocalPaths Include="@(ResourceCopyLocalItems)">
+        <DestinationSubDirectory>$([System.IO.Directory]::GetParent(%(ResourceCopyLocalItems.FullPath)).get_Name())\</DestinationSubDirectory>
+      </ReferenceCopyLocalPaths>
     </ItemGroup>
   </Target>
 </Project>
