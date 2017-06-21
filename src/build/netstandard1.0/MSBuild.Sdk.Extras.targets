@@ -34,11 +34,9 @@
   </Target>
 
 
-<!-- Work around bug in Microsoft.NET.Sdk < v2.0 where satellites were deployed on top of each other in root. -->
+  <!-- Work around bug in Microsoft.NET.Sdk < v2.0 where satellites were deployed on top of each other in root. -->
   <!-- https://github.com/dotnet/sdk/issues/1360 -->
-  <Target Name="WorkaroundIncorrectSatelliteDeployment" 
-          AfterTargets="ResolveLockFileCopyLocalProjectDeps"
-          Condition="'$(_ExtrasSdkVersion)' &lt; 2.0 " >
+  <Target Name="WorkaroundIncorrectSatelliteDeployment" AfterTargets="ResolveLockFileCopyLocalProjectDeps" Condition="'@(ResourceCopyLocalItems)' != '' and '$(_ExtrasSdkVersion)' &lt; 2.0">
     <ItemGroup>
       <ReferenceCopyLocalPaths Remove="@(ResourceCopyLocalItems)" />
       <ReferenceCopyLocalPaths Include="@(ResourceCopyLocalItems)">
@@ -46,4 +44,5 @@
       </ReferenceCopyLocalPaths>
     </ItemGroup>
   </Target>
+
 </Project>
