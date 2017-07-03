@@ -79,7 +79,7 @@ Once this package is configured, you can now use any supported TFM in your `Targ
 
  For legacy PCL profiles, the order of the TFM's in the list does not matter but the profile must be an exact match 
  to one of the known profiles. If it's not, you'll get a compile error saying it's unknown. You can see the full
- list of known profiles here: http://portablelibraryprofiles.apps.stephencleary.com/.
+ list of known profiles here: https://portablelibraryprofiles.stephencleary.com/.
 
  If you try to use a framework that you don't have tools installed for, you'll get an error as well saying to check the tools. In some cases
  this might mean installing an older version of VS (like 2015) to ensure that the necessary targets are installed on the machine.
