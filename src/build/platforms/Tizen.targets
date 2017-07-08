@@ -4,11 +4,7 @@
     <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v3.0</TargetFrameworkVersion>
     <DefineConstants Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(DefineConstants);TIZEN</DefineConstants>
     <_ExtrasSkipTargetsCheck>true</_ExtrasSkipTargetsCheck>
-    <!-- Hacks based on Tizen's templates -->
-    <_TargetFrameworkDirectories>$(MSBuildThisFileDirectory)</_TargetFrameworkDirectories>
-    <_FullFrameworkReferenceAssemblyPaths>$(MSBuildThisFileDirectory)</_FullFrameworkReferenceAssemblyPaths>
-    <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
+    <DisableStandardFrameworkResolution>true</DisableStandardFrameworkResolution>
     <AutoUnifyAssemblyReferences>true</AutoUnifyAssemblyReferences>
-    <NoStdLib>true</NoStdLib>
   </PropertyGroup>
 </Project>
