@@ -51,6 +51,17 @@ If you plan to target UWP, then you must include the UWP meta-package in your pr
 </ItemGroup> 
 ```
 
+## Targeting Tizen
+If you plan to target Tizen, then you should include the following meta-packages:
+
+```xml
+<ItemGroup Condition=" '$(TargetFramework)' == 'tizen30' ">  
+  <PackageReference Include="Tizen.Library" Version="1.0.0-pre3" />
+  <!-- Need this as it brings in NETStandard.Library Tizen.Library 1.0.0-pre3 chains in 1.0.3, which does not -->
+  <PackageReference Include="Tizen" Version="1.0.5" />
+</ItemGroup>  
+```
+
 ## Targeting UWP, Windows 8, Windows Phone, etc using the 1.0 SDK tooling
 If you're targeting a WinRT platform and you use the `pack` target, there's an important workaround needed to ensure
 that the `.pri` files are included in the package correctly. When you call `pack`, you also must override `NuGetBuildTasksPackTargets` on the command-line
