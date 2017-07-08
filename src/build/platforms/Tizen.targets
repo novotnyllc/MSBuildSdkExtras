@@ -3,5 +3,6 @@
     <!-- Default to v3 since it's the lowest one -->
     <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v3.0</TargetFrameworkVersion>
     <DefineConstants Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(DefineConstants);TIZEN</DefineConstants>
+    <_ExtrasSkipTargetsCheck>true</_ExtrasSkipTargetsCheck>
   </PropertyGroup>
 </Project>
