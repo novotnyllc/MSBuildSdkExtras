@@ -6,9 +6,9 @@
     <TargetFramework>tizen30</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Condition="'$(TargetFramework)' == 'tizen30'" Include="Tizen.Library" Version="1.0.0-pre3" />
-    <PackageReference Condition="'$(TargetFramework)' == 'tizen30'" Include="Tizen" Version="1.0.5" />
+  <ItemGroup  Condition="'$(TargetFramework)' == 'tizen30'">
+    <PackageReference Include="Tizen.Library" Version="1.0.0-pre3" />
+    <PackageReference Include="Tizen" Version="1.0.5" />
   </ItemGroup>
 
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
