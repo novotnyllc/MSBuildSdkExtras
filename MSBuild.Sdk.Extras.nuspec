@@ -12,7 +12,7 @@
         <releaseNotes>See the Readme for how to use/configure these targets.
 
 https://github.com/onovotny/MSBuildSdkExtras/blob/master/README.md</releaseNotes>
-        <tags>msbuild dotnet sdk xamarin ios android uwp</tags>
+        <tags>msbuild dotnet sdk xamarin ios android uwp tizen</tags>
     </metadata>
     <files>
       <file src="src\build\**\*.*" target="build" />
