@@ -1,0 +1,7 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'tizen' ">
+    <!-- Default to v3 since it's the lowest one -->
+    <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v3.0</TargetFrameworkVersion>
+    <DefineConstants Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(DefineConstants);TIZEN</DefineConstants>
+  </PropertyGroup>
+</Project>

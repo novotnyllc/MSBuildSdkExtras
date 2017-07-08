@@ -44,6 +44,7 @@
     <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'xamarinmac'">Xamarin.Mac</TargetFrameworkIdentifier>
     <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'xamarin.mac'">Xamarin.Mac</TargetFrameworkIdentifier>
 
+    <TargetFrameworkIdentifier Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'tizen'">Tizen</TargetFrameworkIdentifier>
   </PropertyGroup>
 
   <!-- Handle legacy PCL profiles  -->
