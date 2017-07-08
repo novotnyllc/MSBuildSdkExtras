@@ -1,22 +1,14 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildThisFileDirectory)..\build\NuGet.Build.Tasks.Pack\buildCrossTargeting\NuGet.Build.Tasks.Pack.targets"/>
 
-  <!-- From https://raw.githubusercontent.com/AArnott/NuGet4698Workaround/master/buildCrossTargeting/NuGet4698Workaround.targets -->
-  <!-- Fix NuGet Pack to include satellite assemblies.
-       See https://github.com/NuGet/Home/issues/4698 -->
-  <Target Name="PackSatelliteAssemblies" BeforeTargets="_WalkEachTargetPerFramework">
-    <MSBuild Condition="'$(IncludeBuildOutput)' == 'true' and '$(_ExtrasSdkVersion)' &lt; 2.0"
-             Projects="$(MSBuildProjectFullPath)"
-             Targets="SatelliteDllsProjectOutputGroupWithTargetFramework"
-             BuildInParallel="$(BuildInParallel)"
-             Properties="TargetFramework=%(_TargetFrameworks.Identity)">
-      <Output TaskParameter="TargetOutputs" ItemName="_SatelliteAssembliesToPack" />
-    </MSBuild>
-    <ItemGroup>
-      <Content Include="@(_SatelliteAssembliesToPack)" Condition=" '%(_SatelliteAssembliesToPack.Culture)' != '' ">
-        <Pack>true</Pack>
-        <PackagePath>lib\%(TargetFramework)\%(TargetPath)</PackagePath>
-      </Content>
-    </ItemGroup>
-  </Target>
+  <PropertyGroup>
+    <!-- Detect the SDK version. For now, we have to check the  BundledNETCoreAppTargetFrameworkVersion prop 
+         since there's no separate SDK version property
+     -->
+    <_ExtrasSdkVersion>$(BundledNETCoreAppTargetFrameworkVersion)</_ExtrasSdkVersion>
+    <_ExtrasSdkVersion Condition="'$(_ExtrasSdkVersion)' == ''">1.0</_ExtrasSdkVersion>
+  </PropertyGroup>
+
+  <Import Condition="'$(_ExtrasSdkVersion)' &lt; 2.0" Project="$(MSBuildThisFileDirectory)NetCoreSdk1MultiTargetingWorkarounds.targets" />
+
+
 </Project>

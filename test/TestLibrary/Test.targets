@@ -10,6 +10,7 @@
     <Message Text="_ExtrasShortFrameworkIdentifier = $(_ExtrasShortFrameworkIdentifier)" />
     <Message Text="_ExtrasPortableTfms = $(_ExtrasPortableTfms)" />
     <Message Text="_ExtrasPortableTfmCount = $(_ExtrasPortableTfmCount)" />
+    <Message Text="_ExtrasSdkVersion = $(_ExtrasSdkVersion)" />
     <Message Text="Profile32" Condition=" $(_ExtrasPortableTfmCount) == 2 and $(_ExtrasPortableTfms.Contains('wpa81')) and $(_ExtrasPortableTfms.Contains('win81'))" />
   </Target>
 </Project>

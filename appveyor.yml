@@ -5,7 +5,7 @@ skip_commits:
     - '**/*.md'
 
 build_script:
-  - cmd: nuget pack MSBuild.Sdk.Extras.nuspec -Version 1.0.4-beta.%APPVEYOR_BUILD_NUMBER% -NoPackageAnalysis
+  - cmd: nuget pack MSBuild.Sdk.Extras.nuspec -Version 1.0.5-beta.%APPVEYOR_BUILD_NUMBER% -NoPackageAnalysis
   
 artifacts:
   - path: '*.nupkg'
