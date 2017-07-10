@@ -52,7 +52,7 @@ If you plan to target UWP, then you must include the UWP meta-package in your pr
 ```
 
 ## Targeting Tizen
-If you plan to target Tizen, then you should include the following meta-packages:
+If you plan to target Tizen, then you should include the following meta-package:
 
 ```xml
 <ItemGroup Condition=" '$(TargetFramework)' == 'tizen30' ">  
