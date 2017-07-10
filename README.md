@@ -56,9 +56,7 @@ If you plan to target Tizen, then you should include the following meta-packages
 
 ```xml
 <ItemGroup Condition=" '$(TargetFramework)' == 'tizen30' ">  
-  <PackageReference Include="Tizen.Library" Version="1.0.0-pre3" />
-  <!-- Need this as it brings in NETStandard.Library Tizen.Library 1.0.0-pre3 chains in 1.0.3, which does not -->
-  <PackageReference Include="Tizen" Version="1.0.5" />
+  <PackageReference Include="Tizen.NET" Version="3.0.0" />
 </ItemGroup>  
 ```
 
