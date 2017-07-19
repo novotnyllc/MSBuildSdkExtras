@@ -28,7 +28,7 @@ CI feed is on MyGet:
 To use this package, add a `PackageReference` to your project file like this (specify whatever version of the package or wildcard):
 
 ``` xml
-<PackageReference Include="MSBuild.Sdk.Extras" Version="1.0.0" PrivateAssets="all" />
+<PackageReference Include="MSBuild.Sdk.Extras" Version="1.0.5" PrivateAssets="all" />
 ```
 
 Setting `PrivateAssets="all"` means that this build-time dependency won't be added as a dependency to any packages you create by
@@ -47,7 +47,7 @@ If you plan to target UWP, then you must include the UWP meta-package in your pr
 
 ``` xml
 <ItemGroup Condition=" '$(TargetFramework)' == 'uap10.0' "> 
-  <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform " Version="5.2.2" /> 
+  <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform " Version="5.2.3" /> 
 </ItemGroup> 
 ```
 
