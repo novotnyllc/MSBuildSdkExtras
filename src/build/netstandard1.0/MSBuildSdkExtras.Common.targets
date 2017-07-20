@@ -98,7 +98,7 @@
   <PropertyGroup Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'portable'">
     <!--Version = v0.0 https://github.com/dotnet/sdk/issues/492-->
     <NugetTargetMoniker>.NETPortable,Version=v0.0,Profile=$(TargetFrameworkProfile)</NugetTargetMoniker>
-    <LanguageTargets Condition="'$(_ExtrasLanguageName)' == 'FSharp'">$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(_ExtrasVisualStudioVersion)\FSharp\Microsoft.Portable.FSharp.targets</LanguageTargets>
+    <LanguageTargets Condition="'$(_ExtrasLanguageName)' == 'FSharp'">$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(_ExtrasVisualStudioVersion)\FSharp\Microsoft.Portable.FSharp.Targets</LanguageTargets>
     <LanguageTargets Condition="'$(_ExtrasLanguageName)' != 'FSharp'">$(MSBuildExtensionsPath)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.$(_ExtrasLanguageName).targets</LanguageTargets>
   </PropertyGroup>
 
