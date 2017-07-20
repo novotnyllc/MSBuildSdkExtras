@@ -15,6 +15,11 @@
     <_ExtrasDefaultLangSourceExt>.vb</_ExtrasDefaultLangSourceExt>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.fsproj'">
+    <_ExtrasLanguageName>FSharp</_ExtrasLanguageName>
+    <_ExtrasDefaultLangSourceExt>.fs</_ExtrasDefaultLangSourceExt>
+  </PropertyGroup>
+
   <!-- Split $(TargetFramework) (e.g. net45) into short identifier and short version (e.g. 'net' and '45'). -->
   <PropertyGroup Condition="'$(TargetFramework)' != '' and !$(TargetFramework.Contains(',')) and !$(TargetFramework.Contains('+'))">
     <_ExtrasShortFrameworkIdentifier>$(TargetFramework.TrimEnd('.0123456789'))</_ExtrasShortFrameworkIdentifier>
@@ -93,7 +98,8 @@
   <PropertyGroup Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'portable'">
     <!--Version = v0.0 https://github.com/dotnet/sdk/issues/492-->
     <NugetTargetMoniker>.NETPortable,Version=v0.0,Profile=$(TargetFrameworkProfile)</NugetTargetMoniker>
-    <LanguageTargets>$(MSBuildExtensionsPath)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.$(_ExtrasLanguageName).targets</LanguageTargets>
+    <LanguageTargets Condition="'$(_ExtrasLanguageName)' == 'FSharp'">$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(_ExtrasVisualStudioVersion)\FSharp\Microsoft.Portable.FSharp.targets</LanguageTargets>
+    <LanguageTargets Condition="'$(_ExtrasLanguageName)' != 'FSharp'">$(MSBuildExtensionsPath)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.$(_ExtrasLanguageName).targets</LanguageTargets>
   </PropertyGroup>
 
 
