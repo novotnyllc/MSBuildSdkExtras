@@ -3,12 +3,17 @@
 
 
   <PropertyGroup>
-    <TargetFramework>tizen30</TargetFramework>
+    <TargetFramework>uap10.0.16267</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup  Condition="'$(TargetFramework)' == 'tizen30'">
+  <!--<ItemGroup Condition="'$(TargetFramework)' == 'tizen30'">
     <PackageReference Include="Tizen.Library" Version="1.0.0-pre3" />
     <PackageReference Include="Tizen" Version="1.0.5" />
+  </ItemGroup>-->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.0-preview1-25611-03" />
+    <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="1.5.1" />
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI" Version="1.5.1" />
   </ItemGroup>
 
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />

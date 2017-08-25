@@ -5,9 +5,12 @@
     <Message Text="TargetFrameworkIdentifier = $(TargetFrameworkIdentifier)" />
     <Message Text="TargetFrameworkVersion = $(TargetFrameworkVersion)" />
     <Message Text="TargetFrameworkProfile = $(TargetFrameworkProfile)" />
+    <Message Text="TargetPlatformVersion = $(TargetPlatformVersion)" />
+    <Message Text="TargetPlatformMinVersion = $(TargetPlatformMinVersion)" />
     <Message Text="NugetTargetMoniker = $(NugetTargetMoniker)" />
     <Message Text="TargetPlatformIdentifier = $(TargetPlatformIdentifier)" />
     <Message Text="_ExtrasShortFrameworkIdentifier = $(_ExtrasShortFrameworkIdentifier)" />
+    <Message Text="_ExtrasShortFrameworkVersion = $(_ExtrasShortFrameworkVersion)" />
     <Message Text="_ExtrasPortableTfms = $(_ExtrasPortableTfms)" />
     <Message Text="_ExtrasPortableTfmCount = $(_ExtrasPortableTfmCount)" />
     <Message Text="_ExtrasSdkVersion = $(_ExtrasSdkVersion)" />
