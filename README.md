@@ -51,6 +51,8 @@ If you plan to target UWP, then you must include the UWP meta-package in your pr
 </ItemGroup> 
 ```
 
+Starting with VS 2017 15.4, you can specify the `TargetPlatformMinVersion` with the TFM. This lets you use NETStandard 2.0. The exact value depends on your installed Windows SDK; it may be something like `uap10.0.16267`. You can multi-target to support older versions too, so have a `uap10.0` and `uap10.0.16267`target with different capabilities. 
+
 ## Targeting Tizen
 If you plan to target Tizen, then you should include the following meta-package:
 
