@@ -53,11 +53,11 @@
 
   <!-- Handle Library Layout in NuGet packages -->
   <PropertyGroup>
-    <TargetsForTfmSpecificContentInPackage Condition="'$(GenerateLibraryLayout)' == 'true' and '$(ExtrasSkipLibraryLayout)' != 'true' ">$(TargetsForTfmSpecificContentInPackage);ExtrasIncludeLibraryLayoutItems</TargetsForTfmSpecificContentInPackage>
+    <TargetsForTfmSpecificContentInPackage Condition=" '$(ExtrasSkipLibraryLayout)' != 'true' ">$(TargetsForTfmSpecificContentInPackage);ExtrasIncludeLibraryLayoutItems</TargetsForTfmSpecificContentInPackage>
   </PropertyGroup>
 
   <Target Name="ExtrasIncludeLibraryLayoutItems"
-          Condition="'$(GenerateLibraryLayout)' == 'true'"
+          Condition="'$(GenerateLibraryLayout)' == 'true' and '$(SDKIdentifier)' == 'Windows' "
           DependsOnTargets="PrepareLibraryLayout">
 
     <ItemGroup>
