@@ -50,4 +50,18 @@
   <!--<ItemGroup Condition=" '$(TargetFramework)' == 'uap10.0' ">
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="5.2.2"/>
   </ItemGroup>-->
+
+  <!-- Handle Library Layout in NuGet packages -->
+  <PropertyGroup>
+    <TargetsForTfmSpecificContentInPackage Condition="'$(GenerateLibraryLayout)' == 'true' and '$(ExtrasSkipLibraryLayout)' != 'true' ">$(TargetsForTfmSpecificContentInPackage);ExtrasIncludeLibraryLayoutItems</TargetsForTfmSpecificContentInPackage>
+  </PropertyGroup>
+
+  <Target Name="ExtrasIncludeLibraryLayoutItems"
+          Condition="'$(GenerateLibraryLayout)' == 'true'"
+          DependsOnTargets="PrepareLibraryLayout">
+
+    <ItemGroup>
+      <TfmSpecificPackageFile Include="@(_LayoutFile)" PackagePath="lib\$(TargetFramework)\%(_LayoutFile.TargetPath)" />
+    </ItemGroup>
+  </Target>
 </Project>
