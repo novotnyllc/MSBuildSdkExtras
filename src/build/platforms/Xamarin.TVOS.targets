@@ -2,8 +2,8 @@
   <PropertyGroup Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'xamarintvos' or '$(_ExtrasShortFrameworkIdentifier)' == 'xamarin.tvos' ">
     <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v1.0</TargetFrameworkVersion>
     <IPhoneResourcePrefix Condition="'$(IPhoneResourcePrefix)' == ''">Resources</IPhoneResourcePrefix>
-    <DebugType>full</DebugType>
-    <LanguageTargets>$(MSBuildExtensionsPath)\Xamarin\TVOS\Xamarin.TVOS.$(_ExtrasLanguageName).targets</LanguageTargets>
+    <_ExtrasResolvedPlatform>xamarintvos</_ExtrasResolvedPlatform>
+    <LanguageTargets>$(MSBuildThisFileDirectory)..\local\Local.targets</LanguageTargets>
     <ConsolePause Condition="'$(ConsolePause)' == ''">false</ConsolePause>
   </PropertyGroup>
 

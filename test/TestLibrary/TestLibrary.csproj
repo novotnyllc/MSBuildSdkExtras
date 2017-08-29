@@ -4,6 +4,7 @@
 
   <PropertyGroup>
     <TargetFramework>uap10.0.16267</TargetFramework>
+    <!--<TargetFramework>xamarinios10</TargetFramework>-->
   </PropertyGroup>
 
   <!--<ItemGroup Condition="'$(TargetFramework)' == 'tizen30'">

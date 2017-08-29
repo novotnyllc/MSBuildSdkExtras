@@ -1,8 +1,8 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'xamarinmac' or '$(_ExtrasShortFrameworkIdentifier)' == 'xamarin.mac' ">
     <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v2.0</TargetFrameworkVersion>
-    <DebugType>full</DebugType>
-    <LanguageTargets>$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.$(_ExtrasLanguageName).targets</LanguageTargets>
+    <_ExtrasResolvedPlatform>xamarinmac</_ExtrasResolvedPlatform>
+    <LanguageTargets>$(MSBuildThisFileDirectory)..\local\Local.targets</LanguageTargets>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'xamarinmac' or '$(_ExtrasShortFrameworkIdentifier)' == 'xamarin.mac' ">

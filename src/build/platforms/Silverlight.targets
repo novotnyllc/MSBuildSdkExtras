@@ -1,7 +1,8 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(TargetFramework)' == 'sl5' or '$(TargetFramework)' == 'sl50'">
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
-    <LanguageTargets>$(MSBuildProgramFiles32)\MSBuild\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.$(_ExtrasLanguageName).targets</LanguageTargets>
+    <_ExtrasResolvedPlatform>silverlight</_ExtrasResolvedPlatform>
+    <LanguageTargets>$(MSBuildThisFileDirectory)..\local\Local.targets</LanguageTargets>
     <DefineConstants Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(DefineConstants);SILVERLIGHT</DefineConstants>
     <ValidateXaml Condition="'$(ValidateXaml)' == ''">true</ValidateXaml>
     <AppDesignerFolder Condition="'$(AppDesignerFolder)' == ''">Properties</AppDesignerFolder>

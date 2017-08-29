@@ -98,8 +98,8 @@
   <PropertyGroup Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'portable'">
     <!--Version = v0.0 https://github.com/dotnet/sdk/issues/492-->
     <NugetTargetMoniker>.NETPortable,Version=v0.0,Profile=$(TargetFrameworkProfile)</NugetTargetMoniker>
-    <LanguageTargets Condition="'$(_ExtrasLanguageName)' == 'FSharp'">$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(_ExtrasVisualStudioVersion)\FSharp\Microsoft.Portable.FSharp.Targets</LanguageTargets>
-    <LanguageTargets Condition="'$(_ExtrasLanguageName)' != 'FSharp'">$(MSBuildExtensionsPath)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.$(_ExtrasLanguageName).targets</LanguageTargets>
+    <_ExtrasResolvedPlatform>portable</_ExtrasResolvedPlatform>
+    <LanguageTargets>$(MSBuildThisFileDirectory)..\local\Local.targets</LanguageTargets>
   </PropertyGroup>
 
 
@@ -108,15 +108,6 @@
 
     <!-- .NET Portable gets profiles as defines as that's how most people refer to them PROFILE259, etc -->
     <ImplicitFrameworkDefine>$(TargetFrameworkProfile.ToUpperInvariant())</ImplicitFrameworkDefine>
-  </PropertyGroup>
-
-
-  <!-- Check to see if the Lang targets exist and if not, trigger an error on Compile -->
-  <!-- We clear out the lang targets so the defaults are used for the error to show -->
-  <PropertyGroup Condition="'$(TargetFrameworkIdentifier)' != '' and '$(_ExtrasSkipTargetsCheck)' != 'true' and !Exists('$(LanguageTargets)')">
-    <_ExtrasMissingLangTargets>true</_ExtrasMissingLangTargets>
-    <_ExtrasLangTargets>$(LanguageTargets)</_ExtrasLangTargets>
-    <LanguageTargets></LanguageTargets>
   </PropertyGroup>
 
   <Target Name="DisplayMissingLanguageTargetsError" Condition="'$(_ExtrasMissingLangTargets)' == 'true'" BeforeTargets="_CheckForUnsupportedTargetFramework">

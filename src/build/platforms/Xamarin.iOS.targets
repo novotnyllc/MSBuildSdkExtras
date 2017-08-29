@@ -2,8 +2,8 @@
   <PropertyGroup Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'xamarinios' or '$(_ExtrasShortFrameworkIdentifier)' == 'Xamarin.iOS' ">
     <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v1.0</TargetFrameworkVersion>
     <IPhoneResourcePrefix Condition="'$(IPhoneResourcePrefix)' == ''">Resources</IPhoneResourcePrefix>
-    <DebugType>full</DebugType>
-    <LanguageTargets>$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.$(_ExtrasLanguageName).targets</LanguageTargets>
+    <_ExtrasResolvedPlatform>xamarinios</_ExtrasResolvedPlatform>
+    <LanguageTargets>$(MSBuildThisFileDirectory)..\local\Local.targets</LanguageTargets>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(_ExtrasShortFrameworkIdentifier)' == 'xamarinios' or '$(_ExtrasShortFrameworkIdentifier)' == 'Xamarin.iOS' ">
