@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+
+  <PropertyGroup>
+    <EnableDefaultWpfItems Condition="'$(EnableDefaultWpfItems)' == ''">True</EnableDefaultWpfItems>
+    <DefaultWpfPageExcludes>$(DefaultWpfPageExcludes);**/App.xaml</DefaultWpfPageExcludes>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(EnableDefaultItems)' == 'True'">
+    <Page Include="**/*.xaml" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder);$(DefaultWpfPageExcludes)" Condition="'$(EnableDefaultWpfItems)' == 'True'" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="@(Page)" SubType="Designer" Generator="MSBuild:Compile" />
+    <Compile Update="**\*.xaml.cs" SubType="Designer" DependentUpon="%(Filename)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules/Wpf.ProjectItemsSchema.xml">
+      <Context>Project</Context>
+    </PropertyPageSchema>
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules/Page.xml">
+      <Context>File;BrowseObject</Context>
+    </PropertyPageSchema>
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules/ApplicationDefinition.xml">
+      <Context>File;BrowseObject</Context>
+    </PropertyPageSchema>
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules/Resource.xml">
+      <Context>File;BrowseObject</Context>
+    </PropertyPageSchema>
+  </ItemGroup>
+
+  <!--
+     Work around to fix Intellisense file generation for XAML projects
+     https://github.com/dotnet/project-system/issues/2488
+  -->
+  <Target Condition="'@(Page)' != ''" Name="WorkaroundForXAMLIntellisenseBuildIssue" AfterTargets="_CheckCompileDesignTimePrerequisite">
+    <PropertyGroup>
+      <BuildingProject>false</BuildingProject>
+    </PropertyGroup>
+  </Target>
+
+</Project>
