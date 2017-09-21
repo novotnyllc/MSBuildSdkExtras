@@ -5,4 +5,11 @@
 		<MSBuildSDKExtrasTargets>$(MSBuildThisFileDirectory)MSBuild.NET.Extras.Core.targets</MSBuildSDKExtrasTargets>
 	</PropertyGroup>
 
+	<PropertyGroup>
+		<!-- Detect the SDK version. For now, we have to check the BundledNETCoreAppTargetFrameworkVersion prop
+			 since there's no separate SDK version property -->
+		<_SdkDotNetVersion>$(BundledNETCoreAppTargetFrameworkVersion)</_SdkDotNetVersion>
+		<_SdkDotNetVersion Condition="'$(_SdkDotNetVersion)' == ''">1.0</_SdkDotNetVersion>
+	</PropertyGroup>
+
 </Project>

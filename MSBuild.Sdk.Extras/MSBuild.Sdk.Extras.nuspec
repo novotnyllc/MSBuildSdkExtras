@@ -6,6 +6,7 @@
 		<authors>Oren Novotny</authors>
 		<owners>Oren Novotny</owners>
 		<copyright>© Oren Novotny.</copyright>
+		<serviceable>true</serviceable>
 		<tags>msbuild dotnet sdk xamarin android ios macos uwp tizen</tags>
 		<description>Additional MSBuild targets and properties for SDK-style .NET projects.</description>
 		<licenseUrl>https://github.com/onovotny/MSBuildSdkExtras/blob/master/LICENSE.md</licenseUrl>
@@ -14,11 +15,13 @@
 		<releaseNotes>See the Readme for how to use/configure these targets.
 
 https://github.com/onovotny/MSBuildSdkExtras/blob/master/README.md</releaseNotes>
+		<dependencies>
+			<dependency id="NuGet.Build.Tasks.Pack" version="[4.3.0]" exclude="all" />
+		</dependencies>
 	</metadata>
 	<files>
 		<file src="build\**\*.*" target="build" />
 		<file src="buildMultiTargeting\**\*.*" target="buildMultiTargeting" />
 		<file src="Sdk\**\*.*" target="Sdk" />
-		<file src="..\NuGet.Build.Tasks.Pack\**\*.*" target="build\NuGet.Build.Tasks.Pack" />
 	</files>
 </package>

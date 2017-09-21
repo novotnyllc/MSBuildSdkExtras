@@ -1,6 +1,0 @@
-﻿<Project>
-
-	<Import Project="$(MSBuildThisFileDirectory)..\build\NuGet.Build.Tasks.Pack.targets"
-			Condition="Exists('$(MSBuildThisFileDirectory)..\build\NuGet.Build.Tasks.Pack.targets')" />
-
-</Project>

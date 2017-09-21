@@ -4,10 +4,10 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
-	<ImportGroup>
-		<!--<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Extras.Core.targets" />-->
-		<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Extras.Common.props" />
-		<Import Project="$(MSBuildThisFileDirectory)NuGet.Workarounds.targets" Condition="'$(_SdkDotNetVersion)' &lt; '2.0'" />
-	</ImportGroup>
+	<!--<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Extras.Core.targets" />-->
+
+	<PropertyGroup Condition="'$(_SdkDotNetVersion)' &lt; '2.0'">
+		<NuGetBuildTasksPackTargets>$(MSBuildThisFileDirectory)NuGet.Workarounds.targets</NuGetBuildTasksPackTargets>
+	</PropertyGroup>
 
 </Project>

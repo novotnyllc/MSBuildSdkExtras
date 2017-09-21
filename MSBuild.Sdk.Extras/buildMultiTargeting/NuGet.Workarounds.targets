@@ -1,25 +1,7 @@
 ﻿<Project>
 
 	<!-- Load our custom NuGet pack targets, which contain some fixes around PRI files -->
-	<Import Project="$(MSBuildThisFileDirectory)..\build\NuGet.Build.Tasks.Pack\buildCrossTargeting\NuGet.Build.Tasks.Pack.targets"
-			Condition="Exists('$(MSBuildThisFileDirectory)..\build\NuGet.Build.Tasks.Pack\buildCrossTargeting\NuGet.Build.Tasks.Pack.targets')" />
-
-	<!-- From https://raw.githubusercontent.com/AArnott/NuGet4698Workaround/master/buildCrossTargeting/NuGet4698Workaround.targets
-		 Fix NuGet Pack to include satellite assemblies. See https://github.com/NuGet/Home/issues/4698 -->
-	<Target Name="PackSatelliteAssemblies" BeforeTargets="_WalkEachTargetPerFramework">
-		<MSBuild Condition="'$(IncludeBuildOutput)' == 'true'"
-				 Projects="$(MSBuildProjectFullPath)"
-				 Targets="SatelliteDllsProjectOutputGroupWithTargetFramework"
-				 BuildInParallel="$(BuildInParallel)"
-				 Properties="TargetFramework=%(_TargetFrameworks.Identity)">
-			<Output TaskParameter="TargetOutputs" ItemName="_SatelliteAssembliesToPack" />
-		</MSBuild>
-		<ItemGroup>
-			<Content Include="@(_SatelliteAssembliesToPack)" Condition=" '%(_SatelliteAssembliesToPack.Culture)' != '' ">
-				<Pack>true</Pack>
-				<PackagePath>lib\%(TargetFramework)\%(TargetPath)</PackagePath>
-			</Content>
-		</ItemGroup>
-	</Target>
+	<Import Project="$(NuGetPackageRoot)NuGet.Build.Tasks.Pack\4.3.0\buildCrossTargeting\NuGet.Build.Tasks.Pack.targets"
+			Condition="Exists('$(NuGetPackageRoot)NuGet.Build.Tasks.Pack\4.3.0\buildCrossTargeting\NuGet.Build.Tasks.Pack.targets')" />
 
 </Project>
