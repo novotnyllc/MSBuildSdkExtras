@@ -1,0 +1,18 @@
+﻿<Project>
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+	<ImportGroup>
+		<!--<Import Project="$(MSBuildThisFileDirectory)..\build\MSBuild.NET.Extras.Core.targets"
+				Condition="Exists('$(MSBuildThisFileDirectory)..\build\MSBuild.NET.Extras.Core.targets')" />-->
+
+		<Import Project="$(MSBuildThisFileDirectory)..\build\MSBuild.NET.Extras.Common.props"
+				Condition="Exists('$(MSBuildThisFileDirectory)..\build\MSBuild.NET.Extras.Common.props')" />
+
+		<Import Project="$(MSBuildThisFileDirectory)NuGet.Workarounds.targets"
+				Condition="'$(_SdkDotNetVersion)' &lt; '2.0' and Exists('$(MSBuildThisFileDirectory)NuGet.Workarounds.targets')" />
+	</ImportGroup>
+
+</Project>

@@ -1,0 +1,20 @@
+﻿<Project>
+	
+	<Target Name="ExtrasSdkTest" BeforeTargets="CoreCompile">
+		<Message Text="Lang = $(_SdkLanguageName)" />
+		<Message Text="TargetFrameworkIdentifier = $(TargetFrameworkIdentifier)" />
+		<Message Text="TargetFrameworkVersion = $(TargetFrameworkVersion)" />
+		<Message Text="TargetFrameworkProfile = $(TargetFrameworkProfile)" />
+		<Message Text="TargetPlatformVersion = $(TargetPlatformVersion)" />
+		<Message Text="TargetPlatformMinVersion = $(TargetPlatformMinVersion)" />
+		<Message Text="NugetTargetMoniker = $(NugetTargetMoniker)" />
+		<Message Text="TargetPlatformIdentifier = $(TargetPlatformIdentifier)" />
+		<Message Text="_SdkShortFrameworkIdentifier = $(_SdkShortFrameworkIdentifier)" />
+		<Message Text="_SdkShortFrameworkVersion = $(_SdkShortFrameworkVersion)" />
+		<Message Text="_SdkShortFrameworkProfile = $(_SdkShortFrameworkProfile)" />
+		<Message Text="_SdkShortFrameworkProfileCount = $(_SdkShortFrameworkProfileCount)" />
+		<Message Text="_SdkDotNetVersion = $(_SdkDotNetVersion)" />
+		<Message Text="Profile32" Condition=" $(_SdkShortFrameworkProfileCount) == 2 and $(_SdkShortFrameworkProfile.Contains('wpa81')) and $(_SdkShortFrameworkProfile.Contains('win81'))" />
+	</Target>
+
+</Project>

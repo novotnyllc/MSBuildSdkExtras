@@ -1,0 +1,8 @@
+<Project>
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+		<MSBuildSDKExtrasTargets>$(MSBuildThisFileDirectory)MSBuild.NET.Extras.Core.targets</MSBuildSDKExtrasTargets>
+	</PropertyGroup>
+
+</Project>

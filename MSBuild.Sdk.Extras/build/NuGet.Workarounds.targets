@@ -1,0 +1,50 @@
+﻿<Project 
+
+	<!-- Load our custom NuGet pack targets, which contain some fixes around PRI files -->
+	<Import Project="$(MSBuildThisFileDirectory)..\..\NuGet.Build.Tasks.Pack\build\NuGet.Build.Tasks.Pack.targets"
+			Condition="Exists('$(MSBuildThisFileDirectory)..\..\NuGet.Build.Tasks.Pack\build\NuGet.Build.Tasks.Pack.targets')" />
+
+	<!-- https://github.com/NuGet/Home/issues/4698
+		 https://raw.githubusercontent.com/AArnott/NuGet4698Workaround/master/build/NuGet4698Workaround.targets -->
+	<Target Name="PackSatelliteAssemblies"
+			BeforeTargets="_WalkEachTargetPerFramework"
+			DependsOnTargets="SatelliteDllsProjectOutputGroupWithTargetFramework"
+			Condition=" '$(IncludeBuildOutput)' != 'false' ">
+		<ItemGroup>
+			<Content Include="@(_SatelliteDllsProjectOutputGroupOutputWithTargetFramework)"
+					 Condition=" '%(_SatelliteDllsProjectOutputGroupOutputWithTargetFramework.Culture)' != '' ">
+				<Pack>true</Pack>
+				<PackagePath>lib\%(_SatelliteDllsProjectOutputGroupOutputWithTargetFramework.TargetFramework)\%(_SatelliteDllsProjectOutputGroupOutputWithTargetFramework.TargetPath)</PackagePath>
+			</Content>
+		</ItemGroup>
+	</Target>
+
+	<Target Name="SatelliteDllsProjectOutputGroupWithTargetFramework"
+			DependsOnTargets="SatelliteDllsProjectOutputGroup"
+			Returns="@(_SatelliteDllsProjectOutputGroupOutputWithTargetFramework)">
+		<ItemGroup>
+			<_SatelliteDllsProjectOutputGroupOutputWithTargetFramework Include="@(SatelliteDllsProjectOutputGroupOutput)">
+				<TargetFramework>$(TargetFramework)</TargetFramework>
+			</_SatelliteDllsProjectOutputGroupOutputWithTargetFramework>
+
+			<!-- Only newer projects (e.g. netstandard) set Culture because Microsoft.WinFX.targets
+				 overrides the targets change made in https://github.com/Microsoft/msbuild/pull/1404/files
+				 So fill in the blank here if necessary. -->
+			<_SatelliteDllsProjectOutputGroupOutputWithTargetFramework>
+				<Culture Condition=" '%(_SatelliteDllsProjectOutputGroupOutputWithTargetFramework.Culture)' == ''">$([System.String]::Copy("%(TargetPath)").Split('\')[0])</Culture>
+			</_SatelliteDllsProjectOutputGroupOutputWithTargetFramework>
+		</ItemGroup>
+	</Target>
+
+	<!-- Work around bug in Microsoft.NET.Sdk < v2.0 where satellites were deployed on top of each other in root. -->
+	<!-- https://github.com/dotnet/sdk/issues/1360 -->
+	<Target Name="WorkaroundIncorrectSatelliteDeployment" AfterTargets="ResolveLockFileCopyLocalProjectDeps">
+		<ItemGroup>
+			<ReferenceCopyLocalPaths Remove="@(ResourceCopyLocalItems)" />
+			<ReferenceCopyLocalPaths Include="@(ResourceCopyLocalItems)" Condition="'@(ResourceCopyLocalItems)' != ''">
+				<DestinationSubDirectory>$([System.IO.Directory]::GetParent(%(ResourceCopyLocalItems.FullPath)).Name)\</DestinationSubDirectory>
+			</ReferenceCopyLocalPaths>
+		</ItemGroup>
+	</Target>
+
+</Project>

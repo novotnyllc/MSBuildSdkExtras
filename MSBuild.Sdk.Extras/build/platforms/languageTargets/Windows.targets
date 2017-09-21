@@ -1,0 +1,10 @@
+<Project>
+
+	<ImportGroup>
+		<Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(_SdkVisualStudioVersion)\Microsoft.Windows.UI.Xaml.$(_SdkLanguageName).targets"
+				Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(_SdkVisualStudioVersion)\Microsoft.Windows.UI.Xaml.$(_SdkLanguageName).targets')" />
+
+		<Import Project="$(MSBuildThisFileDirectory)CommonAfter.targets" Condition="Exists('$(MSBuildThisFileDirectory)CommonAfter.targets')" />
+	</ImportGroup>
+
+</Project>

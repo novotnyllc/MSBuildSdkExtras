@@ -1,0 +1,10 @@
+<Project>
+
+	<ImportGroup>
+		<Import Project="$(MSBuildExtensionsPath)\Xamarin\TVOS\Xamarin.TVOS.$(_SdkLanguageName).targets"
+				Condition="Exists('$(MSBuildExtensionsPath)\Xamarin\TVOS\Xamarin.TVOS.$(_SdkLanguageName).targets')" />
+	
+		<Import Project="$(MSBuildThisFileDirectory)CommonAfter.targets" Condition="Exists('$(MSBuildThisFileDirectory)CommonAfter.targets')" />
+	</ImportGroup>
+
+</Project>

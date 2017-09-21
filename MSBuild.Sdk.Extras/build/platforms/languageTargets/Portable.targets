@@ -1,0 +1,13 @@
+<Project>
+
+	<ImportGroup>
+		<Import Project="$(MSBuildExtensionsPath)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.$(_SdkLanguageName).targets"
+				Condition="'$(_SdkLanguageName)' != 'FSharp' and Exists('$(MSBuildExtensionsPath)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.$(_SdkLanguageName).targets')" />
+
+		<Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(_SdkVisualStudioVersion)\FSharp\Microsoft.Portable.FSharp.Targets"
+				Condition="'$(_SdkLanguageName)' == 'FSharp' and Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(_SdkVisualStudioVersion)\FSharp\Microsoft.Portable.FSharp.Targets')" />
+
+		<Import Project="$(MSBuildThisFileDirectory)CommonAfter.targets" Condition="Exists('$(MSBuildThisFileDirectory)CommonAfter.targets')" />
+	</ImportGroup>
+
+</Project>

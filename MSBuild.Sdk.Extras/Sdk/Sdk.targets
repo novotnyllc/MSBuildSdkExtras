@@ -1,0 +1,12 @@
+<Project>
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+	<Import Sdk="Microsoft.NET.Sdk" Project="Sdk.targets" />
+
+	<Import Project="$(MSBuildThisFileDirectory)..\build\MSBuild.Sdk.Extras.targets"
+			Condition="Exists('$(MSBuildThisFileDirectory)..\build\MSBuild.Sdk.Extras.targets')" />
+
+</Project>

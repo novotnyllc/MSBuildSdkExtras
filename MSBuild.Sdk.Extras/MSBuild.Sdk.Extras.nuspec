@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+	<metadata>
+		<id>MSBuild.Sdk.Extras</id>
+		<version>1.2.0</version>
+		<authors>Oren Novotny</authors>
+		<owners>Oren Novotny</owners>
+		<copyright>© Oren Novotny.</copyright>
+		<tags>msbuild dotnet sdk xamarin android ios macos uwp tizen</tags>
+		<description>Additional MSBuild targets and properties for SDK-style .NET projects.</description>
+		<licenseUrl>https://github.com/onovotny/MSBuildSdkExtras/blob/master/LICENSE.md</licenseUrl>
+		<projectUrl>https://github.com/onovotny/MSBuildSdkExtras</projectUrl>
+		<developmentDependency>true</developmentDependency>
+		<releaseNotes>See the Readme for how to use/configure these targets.
+
+https://github.com/onovotny/MSBuildSdkExtras/blob/master/README.md</releaseNotes>
+	</metadata>
+	<files>
+		<file src="build\**\*.*" target="build" />
+		<file src="buildMultiTargeting\**\*.*" target="buildMultiTargeting" />
+		<file src="Sdk\**\*.*" target="Sdk" />
+		<file src="..\NuGet.Build.Tasks.Pack\**\*.*" target="build\NuGet.Build.Tasks.Pack" />
+	</files>
+</package>

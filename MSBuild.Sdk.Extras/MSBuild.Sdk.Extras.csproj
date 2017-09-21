@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard1.0</TargetFramework>
+	</PropertyGroup>
+
+	<PropertyGroup Label="PackageInfo">
+		<PackageId>MSBuild.Sdk.Extras</PackageId>
+		<Authors>Oren Novotny</Authors>
+		<Company></Company>
+		<Copyright>© Oren Novotny.</Copyright>
+		<Product>MSBuild.Sdk.Extras</Product>
+		<DevelopmentDependency>true</DevelopmentDependency>
+		<Description>Additional MSBuild targets and properties for SDK-style .NET projects.</Description>
+		<PackageTags>msbuild;dotnet;sdk;xamarin;android;ios;macos;uwp;tizen</PackageTags>
+		<PackageLicenseUrl>https://github.com/onovotny/MSBuildSdkExtras/blob/master/LICENSE.md</PackageLicenseUrl>
+		<PackageProjectUrl>https://github.com/onovotny/MSBuildSdkExtras</PackageProjectUrl>
+		<PackageReleaseNotes>See the Readme for how to use/configure these targets.
+
+https://github.com/onovotny/MSBuildSdkExtras/blob/master/README.md</PackageReleaseNotes>
+	</PropertyGroup>
+
+</Project>

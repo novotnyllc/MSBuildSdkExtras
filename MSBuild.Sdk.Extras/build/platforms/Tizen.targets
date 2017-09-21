@@ -1,0 +1,12 @@
+<Project>
+
+	<PropertyGroup>
+		<!-- Default to v3 since it's the lowest one -->
+		<TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v3.0</TargetFrameworkVersion>
+		<DefineConstants Condition="'$(DisableImplicitFrameworkDefines)' == 'false'">$(DefineConstants);TIZEN</DefineConstants>
+		<_SdkSkipLanguageTargetsCheck>true</_SdkSkipLanguageTargetsCheck>
+		<DisableStandardFrameworkResolution>true</DisableStandardFrameworkResolution>
+		<AutoUnifyAssemblyReferences>true</AutoUnifyAssemblyReferences>
+	</PropertyGroup>
+
+</Project>
