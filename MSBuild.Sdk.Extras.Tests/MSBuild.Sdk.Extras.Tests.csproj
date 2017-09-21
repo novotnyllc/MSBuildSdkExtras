@@ -16,7 +16,7 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'tizen30'">
-		<PackageReference Include="Tizen.Library" Version="1.0.0-pre3" />
+		<PackageReference Include="Tizen.NET" Version="3.0.0" />
 	</ItemGroup>
 
 	<Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />

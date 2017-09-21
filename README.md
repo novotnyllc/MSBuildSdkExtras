@@ -1,7 +1,7 @@
 # MSBuild.Sdk.Extras
 
 This package contains a few extra extensions to the SDK-style projects that are currently not available
-in the main SDK. That feature is tracked in dotnet/sdk#491
+in the main SDK. That feature is tracked in [dotnet/sdk#491](https://github.com/dotnet/sdk/issues/491)
 
 The primary goal is to enable multi-targeting without you having to enter in tons of properties within your
 `csproj`, `vbproj`, `fsproj`, thus keeping it nice and clean.
@@ -44,7 +44,7 @@ Then, at the end of your project file, either `.csproj`, `.vbproj` or `.fsproj`,
 <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 ```
 
-This last step is required until Microsoft/msbuild#1045 is resolved.
+This last step is required until [Microsoft/msbuild#1045](https://github.com/Microsoft/msbuild/issues/1045) is resolved.
 
 ## Targeting UWP
 
@@ -76,7 +76,7 @@ to ensure the fixed targets get applied. The value you specify must not be a rea
 
 For example: `msbuild MyProject.csproj /t:Pack /p:NuGetBuildTasksPackTargets="workaround"`
 
-NuGet/Home#4136 is tracking this. This is fixed in the 2.0 SDK tooling and is no longer needed there.
+[NuGet/Home#4136](https://github.com/NuGet/Home/issues/4136) is tracking this. This is fixed in the 2.0 SDK tooling and is no longer needed there.
 
 ## Single or multi-targeting
 
