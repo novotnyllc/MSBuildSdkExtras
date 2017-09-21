@@ -6,7 +6,6 @@
 
 	<Import Sdk="Microsoft.NET.Sdk" Project="Sdk.props" />
 
-	<Import Project="$(MSBuildThisFileDirectory)..\build\MSBuild.Sdk.Extras.props"
-			Condition="Exists('$(MSBuildThisFileDirectory)..\build\MSBuild.Sdk.Extras.props')" />
+	<Import Project="$(MSBuildThisFileDirectory)..\build\MSBuild.Sdk.Extras.props" />
 
 </Project>

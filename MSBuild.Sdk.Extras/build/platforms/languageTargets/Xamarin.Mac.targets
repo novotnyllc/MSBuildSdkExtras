@@ -4,7 +4,7 @@
 		<Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.$(_SdkLanguageName).targets"
 				Condition="Exists('$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.$(_SdkLanguageName).targets')" />
 	
-		<Import Project="$(MSBuildThisFileDirectory)CommonAfter.targets" Condition="Exists('$(MSBuildThisFileDirectory)CommonAfter.targets')" />
+		<Import Project="$(MSBuildThisFileDirectory)CommonAfter.targets" />
 	</ImportGroup>
 
 </Project>

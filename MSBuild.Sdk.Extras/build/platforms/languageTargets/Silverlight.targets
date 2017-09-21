@@ -4,7 +4,7 @@
 		<Import Project="$(MSBuildProgramFiles32)\MSBuild\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.$(_SdkLanguageName).targets"
 				Condition="Exists('$(MSBuildProgramFiles32)\MSBuild\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.$(_SdkLanguageName).targets')" />
 
-		<Import Project="$(MSBuildThisFileDirectory)CommonAfter.targets" Condition="Exists('$(MSBuildThisFileDirectory)CommonAfter.targets')" />
+		<Import Project="$(MSBuildThisFileDirectory)CommonAfter.targets" />
 	</ImportGroup>
 
 </Project>

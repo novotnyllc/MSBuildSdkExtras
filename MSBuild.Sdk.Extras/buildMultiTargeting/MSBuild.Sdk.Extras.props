@@ -4,7 +4,6 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)..\build\MSBuild.Sdk.Extras.props"
-			Condition="Exists('$(MSBuildThisFileDirectory)..\build\MSBuild.Sdk.Extras.props')" />
+	<Import Project="$(MSBuildThisFileDirectory)..\build\MSBuild.Sdk.Extras.props" />
 
 </Project>

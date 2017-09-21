@@ -7,7 +7,7 @@
 		<Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(_SdkVisualStudioVersion)\FSharp\Microsoft.Portable.FSharp.Targets"
 				Condition="'$(_SdkLanguageName)' == 'FSharp' and Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(_SdkVisualStudioVersion)\FSharp\Microsoft.Portable.FSharp.Targets')" />
 
-		<Import Project="$(MSBuildThisFileDirectory)CommonAfter.targets" Condition="Exists('$(MSBuildThisFileDirectory)CommonAfter.targets')" />
+		<Import Project="$(MSBuildThisFileDirectory)CommonAfter.targets" />
 	</ImportGroup>
 
 </Project>

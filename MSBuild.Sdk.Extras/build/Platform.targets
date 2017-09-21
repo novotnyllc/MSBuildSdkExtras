@@ -13,9 +13,9 @@
 
 	<ImportGroup Condition="!Exists('$(MSBuildThisFileDirectory)platforms\$(TargetFrameworkIdentifier).targets')">
 		<Import Project="$(MSBuildThisFileDirectory)platforms\Windows.targets"
-				Condition="'$(TargetFrameworkIdentifier)' == '.NETCore' and Exists('$(MSBuildThisFileDirectory)platforms\Windows.targets')" />
+				Condition="'$(TargetFrameworkIdentifier)' == '.NETCore'" />
 		<Import Project="$(MSBuildThisFileDirectory)platforms\Portable.targets"
-				Condition="'$(TargetFrameworkIdentifier)' == '.NETPortable' and Exists('$(MSBuildThisFileDirectory)platforms\Portable.targets')" />
+				Condition="'$(TargetFrameworkIdentifier)' == '.NETPortable'" />
 	</ImportGroup>
 
 	<!-- Add conditional compilation symbols for the target framework (for example NET461, NETSTANDARD2_0, NETCOREAPP1_0) -->

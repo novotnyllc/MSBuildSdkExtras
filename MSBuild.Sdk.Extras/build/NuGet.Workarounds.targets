@@ -1,8 +1,8 @@
-﻿<Project 
+﻿<Project>
 
 	<!-- Load our custom NuGet pack targets, which contain some fixes around PRI files -->
-	<Import Project="$(MSBuildThisFileDirectory)..\..\NuGet.Build.Tasks.Pack\build\NuGet.Build.Tasks.Pack.targets"
-			Condition="Exists('$(MSBuildThisFileDirectory)..\..\NuGet.Build.Tasks.Pack\build\NuGet.Build.Tasks.Pack.targets')" />
+	<Import Project="$(MSBuildThisFileDirectory)NuGet.Build.Tasks.Pack\build\NuGet.Build.Tasks.Pack.targets"
+			Condition="Exists('$(MSBuildThisFileDirectory)NuGet.Build.Tasks.Pack\build\NuGet.Build.Tasks.Pack.targets')" />
 
 	<!-- https://github.com/NuGet/Home/issues/4698
 		 https://raw.githubusercontent.com/AArnott/NuGet4698Workaround/master/build/NuGet4698Workaround.targets -->
