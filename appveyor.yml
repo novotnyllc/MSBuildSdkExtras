@@ -1,18 +1,18 @@
 image: Visual Studio 2017
 
 skip_commits:
-	files:
-		- '**/*.md'
+  files:
+    - '**/*.md'
 
 build_script:
-	- cmd: pack.cmd 1.2.0-alpha.%APPVEYOR_BUILD_NUMBER%
+  - cmd: pack.cmd 1.2.0-alpha.%APPVEYOR_BUILD_NUMBER%
 
 artifacts:
-	- path: 'Packages\*.nupkg'
+  - path: 'Packages\*.nupkg'
 
 deploy:
-	provider: NuGet
-	server: https://www.myget.org/F/msbuildsdkextras/api/v2/package
-	api_key:
-		secure: bmqlJK8a5HYiUXOT99HXT1j7JiM5+fpR4kHhxIC30oaaEXbv94f0fKdiKlU1QC/l
-	artifact: /.*\.nupkg/
+  provider: NuGet
+  server: https://www.myget.org/F/msbuildsdkextras/api/v2/package
+  api_key:
+    secure: bmqlJK8a5HYiUXOT99HXT1j7JiM5+fpR4kHhxIC30oaaEXbv94f0fKdiKlU1QC/l
+  artifact: /.*\.nupkg/
