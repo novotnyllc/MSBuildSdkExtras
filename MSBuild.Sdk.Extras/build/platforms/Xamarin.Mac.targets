@@ -2,8 +2,6 @@
 
 	<PropertyGroup>
 		<TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v2.0</TargetFrameworkVersion>
-		<!-- Default to full until Xamarin supports PPDB's -->
-		<DebugType>full</DebugType>
 		<LanguageTargets>$(MSBuildThisFileDirectory)languageTargets\Xamarin.Mac.targets</LanguageTargets>
 	</PropertyGroup>
 

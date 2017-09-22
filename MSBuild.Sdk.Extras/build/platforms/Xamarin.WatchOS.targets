@@ -3,8 +3,6 @@
 	<PropertyGroup>
 		<TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v1.0</TargetFrameworkVersion>
 		<IPhoneResourcePrefix Condition="'$(IPhoneResourcePrefix)' == ''">Resources</IPhoneResourcePrefix>
-		<!-- Default to full until Xamarin supports PPDB's -->
-		<DebugType>full</DebugType>
 		<LanguageTargets>$(MSBuildThisFileDirectory)languageTargets\Xamarin.WatchOS.targets</LanguageTargets>
 		<MtouchUseRefCounting Condition="'$(MtouchUseRefCounting)' == ''">true</MtouchUseRefCounting>
 		<MtouchUseSGen Condition="'$(MtouchUseSGen)' == ''">true</MtouchUseSGen>

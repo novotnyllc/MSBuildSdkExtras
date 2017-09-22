@@ -2,8 +2,6 @@
 
 	<PropertyGroup>
 		<TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v4.0.3</TargetFrameworkVersion>
-		<!-- Default to full until Xamarin supports PPDB's -->
-		<DebugType>full</DebugType>
 		<LanguageTargets>$(MSBuildThisFileDirectory)languageTargets\MonoAndroid.targets</LanguageTargets>
 		<AndroidUseLatestPlatformSdk Condition="'$(AndroidUseLatestPlatformSdk)' == ''">false</AndroidUseLatestPlatformSdk>
 		<_SdkSetAndroidResgenFile Condition="'$(AndroidResgenFile)' == ''">true</_SdkSetAndroidResgenFile>
