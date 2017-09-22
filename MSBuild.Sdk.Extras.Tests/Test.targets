@@ -1,7 +1,6 @@
 ﻿<Project>
-	
-	<Target Name="ExtrasSdkTest" BeforeTargets="CoreCompile">
-		<Message Text="Lang = $(_SdkLanguageName)" />
+
+	<Target Name="MSBuildSdkTest" BeforeTargets="CoreCompile">
 		<Message Text="TargetFrameworkIdentifier = $(TargetFrameworkIdentifier)" />
 		<Message Text="TargetFrameworkVersion = $(TargetFrameworkVersion)" />
 		<Message Text="TargetFrameworkProfile = $(TargetFrameworkProfile)" />
@@ -9,12 +8,22 @@
 		<Message Text="TargetPlatformMinVersion = $(TargetPlatformMinVersion)" />
 		<Message Text="NugetTargetMoniker = $(NugetTargetMoniker)" />
 		<Message Text="TargetPlatformIdentifier = $(TargetPlatformIdentifier)" />
+		<Message Text="NuGetBuildTasksPackTargets = $(NuGetBuildTasksPackTargets)" />
+		<Message Text="MSBuildSdksPath = $(MSBuildSdksPath)" />
+	</Target>
+
+	<Target Name="MSBuildAllProjectsTest" BeforeTargets="CoreCompile">
+		<Message Text="MSBuildAllProjects" />
+		<Message Text="$(MSBuildAllProjects.Replace(';', '%0D%0A'))" />
+	</Target>
+
+	<Target Name="ExtrasSdkTest" BeforeTargets="CoreCompile">
+		<Message Text="Lang = $(_SdkLanguageName)" />
 		<Message Text="_SdkShortFrameworkIdentifier = $(_SdkShortFrameworkIdentifier)" />
 		<Message Text="_SdkShortFrameworkVersion = $(_SdkShortFrameworkVersion)" />
 		<Message Text="_SdkShortFrameworkProfile = $(_SdkShortFrameworkProfile)" />
 		<Message Text="_SdkShortFrameworkProfileCount = $(_SdkShortFrameworkProfileCount)" />
 		<Message Text="_SdkDotNetVersion = $(_SdkDotNetVersion)" />
-		<Message Text="Profile32" Condition=" $(_SdkShortFrameworkProfileCount) == 2 and $(_SdkShortFrameworkProfile.Contains('wpa81')) and $(_SdkShortFrameworkProfile.Contains('win81'))" />
 	</Target>
 
 </Project>

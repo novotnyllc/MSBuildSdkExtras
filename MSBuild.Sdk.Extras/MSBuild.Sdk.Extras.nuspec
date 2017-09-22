@@ -22,6 +22,5 @@ https://github.com/onovotny/MSBuildSdkExtras/blob/master/README.md</releaseNotes
 	<files>
 		<file src="build\**\*.*" target="build" />
 		<file src="buildMultiTargeting\**\*.*" target="buildMultiTargeting" />
-		<file src="Sdk\**\*.*" target="Sdk" />
 	</files>
 </package>

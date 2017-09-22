@@ -63,12 +63,14 @@ Starting with VS 2017 15.4, you can specify the `TargetPlatformMinVersion` with 
 If you plan to target Tizen, then you should include the following meta-package:
 
 ```xml
-<ItemGroup Condition=" '$(TargetFramework)' == 'tizen40' ">
-  <PackageReference Include="Tizen.NET" Version="4.0.0" />
+<ItemGroup Condition=" '$(TargetFramework)' == 'tizen30' ">
+  <PackageReference Include="Tizen.NET" Version="3.0.0" />
 </ItemGroup>
 ```
 
 ## Targeting UWP, Windows 8.x, Windows Phone 8.1, etc. using the 1.0 SDK tooling
+
+**This workaround is no longer needed when using version 1.2.0 and above even with the SDK 1.x tooling.**
 
 If you're targeting a WinRT platform and you use the `Pack` target, there's an important workaround needed to ensure
 that the `.pri` files are included in the package correctly. When you call `Pack`, you also must override `NuGetBuildTasksPackTargets` on the command-line
@@ -76,7 +78,7 @@ to ensure the fixed targets get applied. The value you specify must not be a rea
 
 For example: `msbuild MyProject.csproj /t:Pack /p:NuGetBuildTasksPackTargets="workaround"`
 
-[NuGet/Home#4136](https://github.com/NuGet/Home/issues/4136) is tracking this. This is fixed in the 2.0 SDK tooling and is no longer needed there.
+[NuGet/Home#4136](https://github.com/NuGet/Home/issues/4136) is tracking this.
 
 ## Single or multi-targeting
 

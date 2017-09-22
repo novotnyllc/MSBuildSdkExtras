@@ -4,7 +4,7 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
-	<!--<Import Project="$(MSBuildThisFileDirectory)..\build\MSBuild.NET.Extras.Core.targets" />-->
+	<Import Project="$(MSBuildThisFileDirectory)..\build\MSBuild.NET.Extras.Common.targets" />
 
 	<PropertyGroup Condition="'$(_SdkDotNetVersion)' &lt; '2.0'">
 		<NuGetBuildTasksPackTargets>$(MSBuildThisFileDirectory)NuGet.Workarounds.targets</NuGetBuildTasksPackTargets>
