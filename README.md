@@ -15,8 +15,8 @@ After building, you can use the `Pack` target to easily create a NuGet package: 
 
 Few notes:
 
-- This will only work in VS 2017, Visual Studio for Mac. It's possible it will work in Code, but only as an editor.
-- To compile, you'll need the desktop build engine -- `msbuild.exe`. Most of the platforms rely on tasks and utilities that are not yet cross platform
+- This will only work in VS 2017, Visual Studio for Mac. It's possible it will work in Code, but only as an editor as this requires full `msbuild` to build.
+- To compile, you'll need the desktop build engine -- `msbuild`. Most of the platforms rely on tasks and utilities that are not yet cross platform
 - You must install the tools of the platforms you intend to build. For Xamarin, that means the Xamarin Workload; for UWP install those tools as well.
 
 NuGet: `MSBuild.Sdk.Extras`
@@ -32,7 +32,7 @@ MyGet CI feed: `https://myget.org/F/msbuildsdkextras/api/v3/index.json`
 To use this package, add a `PackageReference` to your project file like this (specify whatever version of the package or wildcard):
 
 ``` xml
-<PackageReference Include="MSBuild.Sdk.Extras" Version="1.2.0" PrivateAssets="All" />
+<PackageReference Include="MSBuild.Sdk.Extras" Version="1.1.0" PrivateAssets="All" />
 ```
 
 Setting `PrivateAssets="All"` means that this build-time dependency won't be added as a dependency to any packages you create by
@@ -52,7 +52,7 @@ If you plan to target UWP, then you must include the UWP meta-package in your pr
 
 ``` xml
 <ItemGroup Condition=" '$(TargetFramework)' == 'uap10.0' ">
-  <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform " Version="5.4.0" />
+  <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="5.4.0" />
 </ItemGroup>
 ```
 
@@ -70,13 +70,17 @@ If you plan to target Tizen, then you should include the following meta-package:
 
 ## Targeting UWP, Windows 8.x, Windows Phone 8.1, etc. using the 1.0 SDK tooling
 
-**This workaround is no longer needed when using version 1.2.0 and above even with the SDK 1.x tooling.**
+**This workaround is needed when using the SDK 1.x tooling. Recommendation is to use the 2.0+ SDK even if targeting 1.x **
 
 If you're targeting a WinRT platform and you use the `Pack` target, there's an important workaround needed to ensure
 that the `.pri` files are included in the package correctly. When you call `Pack`, you also must override `NuGetBuildTasksPackTargets` on the command-line
 to ensure the fixed targets get applied. The value you specify must not be a real file.
 
-For example: `msbuild MyProject.csproj /t:Pack /p:NuGetBuildTasksPackTargets="workaround"`
+You also need to add a `PackageReference` to the `NuGet.Build.Tasks.Pack` v4.3.0 to your project., something like this:
+
+`<PackageReference Include="NuGet.Build.Tasks.Pack" Version="4.3.0" PrivateAssets="All" />`
+
+On the command line, you need to invoke something like: `msbuild MyProject.csproj /t:Pack /p:NuGetBuildTasksPackTargets="workaround"`
 
 [NuGet/Home#4136](https://github.com/NuGet/Home/issues/4136) is tracking this.
 
