@@ -70,7 +70,7 @@ If you plan to target Tizen, then you should include the following meta-package:
 
 ## Targeting UWP, Windows 8.x, Windows Phone 8.1, etc. using the 1.0 SDK tooling
 
-**This workaround is needed when using the SDK 1.x tooling. Recommendation is to use the 2.0+ SDK even if targeting 1.x **
+**This workaround is needed when using the SDK 1.x tooling. Recommendation is to use the 2.0+ SDK even if targeting 1.x**
 
 If you're targeting a WinRT platform and you use the `Pack` target, there's an important workaround needed to ensure
 that the `.pri` files are included in the package correctly. When you call `Pack`, you also must override `NuGetBuildTasksPackTargets` on the command-line
