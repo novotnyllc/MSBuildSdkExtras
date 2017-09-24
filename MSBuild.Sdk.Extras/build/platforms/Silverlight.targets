@@ -1,6 +1,9 @@
 <Project>
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
 
-	<PropertyGroup>
+  <PropertyGroup>
 		<SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
 		<LanguageTargets>$(MSBuildThisFileDirectory)languageTargets\Silverlight.targets</LanguageTargets>
 		<DefineConstants Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(DefineConstants);SILVERLIGHT</DefineConstants>

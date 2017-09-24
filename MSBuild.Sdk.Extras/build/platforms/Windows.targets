@@ -1,6 +1,9 @@
 <Project>
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
 
-	<PropertyGroup Condition="'$(TargetFramework)' == 'win' or '$(TargetFramework)' == 'win8' or '$(TargetFramework)' == 'win80'">
+  <PropertyGroup Condition="'$(TargetFramework)' == 'win' or '$(TargetFramework)' == 'win8' or '$(TargetFramework)' == 'win80'">
 		<TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
 		<NugetTargetMoniker>Windows,Version=v8.0</NugetTargetMoniker>
 		<DefineConstants Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(DefineConstants);NETFX_CORE;WINDOWS_APP</DefineConstants>

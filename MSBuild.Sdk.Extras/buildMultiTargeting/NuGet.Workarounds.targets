@@ -1,6 +1,9 @@
 ﻿<Project>
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
 
-	<!-- Load our custom NuGet pack targets, which contain some fixes around PRI files
+  <!-- Load our custom NuGet pack targets, which contain some fixes around PRI files
 		 There is no safety check, since, we want the Pack to fail if nuget fails to restore it. -->
 	<Import Project="$(NuGetPackageRoot)NuGet.Build.Tasks.Pack\4.3.0\buildCrossTargeting\NuGet.Build.Tasks.Pack.targets" />
 

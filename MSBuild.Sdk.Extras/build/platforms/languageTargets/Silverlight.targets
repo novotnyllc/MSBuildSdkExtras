@@ -1,6 +1,9 @@
 <Project>
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
 
-	<ImportGroup>
+  <ImportGroup>
 		<Import Project="$(MSBuildProgramFiles32)\MSBuild\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.$(_SdkLanguageName).targets"
 				Condition="Exists('$(MSBuildProgramFiles32)\MSBuild\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.$(_SdkLanguageName).targets')" />
 

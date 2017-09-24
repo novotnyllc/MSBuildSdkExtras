@@ -1,6 +1,9 @@
 <Project>
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
 
-	<PropertyGroup>
+  <PropertyGroup>
 		<TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v4.0.3</TargetFrameworkVersion>
 		<LanguageTargets>$(MSBuildThisFileDirectory)languageTargets\MonoAndroid.targets</LanguageTargets>
 		<AndroidUseLatestPlatformSdk Condition="'$(AndroidUseLatestPlatformSdk)' == ''">false</AndroidUseLatestPlatformSdk>

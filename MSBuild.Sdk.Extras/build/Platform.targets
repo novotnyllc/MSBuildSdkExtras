@@ -1,6 +1,9 @@
 ﻿<Project>
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
 
-	<PropertyGroup Condition="$(_SdkShortFrameworkProfileCount) == 1 and
+  <PropertyGroup Condition="$(_SdkShortFrameworkProfileCount) == 1 and
 			$(_SdkShortFrameworkProfile.Contains('+client+'))">
 		<TargetFrameworkProfile>Client</TargetFrameworkProfile>
 		<IncludeProjectPriFile>false</IncludeProjectPriFile>

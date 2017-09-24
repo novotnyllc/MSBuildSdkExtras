@@ -1,6 +1,9 @@
 <Project>
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
 
-	<!-- Check to see if the Lang targets exist and if not, trigger an error on Compile -->
+  <!-- Check to see if the Lang targets exist and if not, trigger an error on Compile -->
 	<!-- We clear out the lang targets so the defaults are used for the error to show -->
 	<PropertyGroup Condition="'$(_SdkSkipLanguageTargetsCheck)' != 'true' and '$(_SdkLanguageTargetsMissing)' == 'true'">
 		<_SdkLanguageTargetsMissing>true</_SdkLanguageTargetsMissing>

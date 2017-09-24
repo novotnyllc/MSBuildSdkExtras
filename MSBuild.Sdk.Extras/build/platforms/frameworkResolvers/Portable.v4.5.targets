@@ -1,6 +1,10 @@
 ﻿<Project>
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
 
-	<PropertyGroup Condition="$(_SdkShortFrameworkProfileCount) == 2 and
+
+  <PropertyGroup Condition="$(_SdkShortFrameworkProfileCount) == 2 and
 			$(_SdkShortFrameworkProfile.Contains('+net45+')) and
 			($(_SdkShortFrameworkProfile.Contains('+win+')) or $(_SdkShortFrameworkProfile.Contains('+win8+')) or $(_SdkShortFrameworkProfile.Contains('+win80+')))">
 		<TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
