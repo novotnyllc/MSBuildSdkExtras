@@ -1,0 +1,31 @@
+﻿<Project>
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <!-- Load newer NuGet pack targets, which contain some fixes around PRI files -->
+  <Import Project="$(NuGetPackageRoot)NuGet.Build.Tasks.Pack\4.3.0\build\NuGet.Build.Tasks.Pack.targets" Condition="Exists('$(NuGetPackageRoot)NuGet.Build.Tasks.Pack\4.3.0\build\NuGet.Build.Tasks.Pack.targets')" />
+
+
+  <PropertyGroup>
+    <PackDependsOn>WarnIfOldSdkInner;$(PackDependsOn)</PackDependsOn>
+  </PropertyGroup>
+  
+  <!-- Check to see if we have the newer targets adn direct to add -->
+  <Target Name="WarnIfOldSdkInner" Condition="'$(SuppressWarnIfOldSdkPack)' != 'true' and !Exists('$(NuGetPackageRoot)NuGet.Build.Tasks.Pack\4.3.0\build\NuGet.Build.Tasks.Pack.targets')">
+    <Error Message="There are known issues using Pack with the 1.x SDK's. Update to the 2.x SDK's to pack. If you need the 1.x SDK, add a dependency to NuGet.Build.Tasks.Pack 4.3.0 to proceed." />
+  </Target>
+  
+
+	<!-- Work around bug in Microsoft.NET.Sdk < v2.0 where satellites were deployed on top of each other in root. -->
+	<!-- https://github.com/dotnet/sdk/issues/1360 -->
+	<Target Name="WorkaroundIncorrectSatelliteDeployment" AfterTargets="ResolveLockFileCopyLocalProjectDeps">
+		<ItemGroup>
+			<ReferenceCopyLocalPaths Remove="@(ResourceCopyLocalItems)" />
+			<ReferenceCopyLocalPaths Include="@(ResourceCopyLocalItems)" Condition="'@(ResourceCopyLocalItems)' != ''">
+				<DestinationSubDirectory>$([System.IO.Directory]::GetParent(%(ResourceCopyLocalItems.FullPath)).Name)\</DestinationSubDirectory>
+			</ReferenceCopyLocalPaths>
+		</ItemGroup>
+	</Target>
+
+</Project>

@@ -1,0 +1,19 @@
+﻿<Project>
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <!-- Load newer NuGet pack targets, which contain some fixes around PRI files -->
+  <Import Project="$(NuGetPackageRoot)NuGet.Build.Tasks.Pack\4.3.0\build\NuGet.Build.Tasks.Pack.targets" Condition="Exists('$(NuGetPackageRoot)NuGet.Build.Tasks.Pack\4.3.0\build\NuGet.Build.Tasks.Pack.targets')" />
+
+  <PropertyGroup>
+    <PackDependsOn>WarnIfOldSdkMulti;$(PackDependsOn)</PackDependsOn>
+  </PropertyGroup>
+
+  <!-- Check to see if we have the newer targets adn direct to add -->
+  <Target Name="WarnIfOldSdkMulti" Condition="'$(SuppressWarnIfOldSdkPack)' != 'true' and !Exists('$(NuGetPackageRoot)NuGet.Build.Tasks.Pack\4.3.0\build\NuGet.Build.Tasks.Pack.targets')">
+    <Error Message="There are known issues using Pack with the 1.x SDK's. Update to the 2.x SDK's to pack. Suppress this check with SuppressWarnIfOldSdkPack=true and add a dependency to NuGet.Build.Tasks.Pack 4.3.0 to proceed." />
+  </Target>
+
+
+</Project>

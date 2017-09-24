@@ -15,9 +15,6 @@
 		<releaseNotes>See the Readme for how to use/configure these targets.
 
 https://github.com/onovotny/MSBuildSdkExtras/blob/master/README.md</releaseNotes>
-		<dependencies>
-			<dependency id="NuGet.Build.Tasks.Pack" version="[4.3.0]" exclude="all" />
-		</dependencies>
 	</metadata>
 	<files>
 		<file src="build\**\*.*" target="build" />

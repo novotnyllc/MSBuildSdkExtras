@@ -6,8 +6,6 @@
 
 	<Import Project="$(MSBuildThisFileDirectory)..\build\MSBuild.NET.Extras.Common.targets" />
 
-	<PropertyGroup Condition="'$(_SdkDotNetVersion)' &lt; '2.0'">
-		<NuGetBuildTasksPackTargets>$(MSBuildThisFileDirectory)NuGet.Workarounds.targets</NuGetBuildTasksPackTargets>
-	</PropertyGroup>
-
+  <Import Condition="'$(_SdkDotNetVersion)' &lt; '2.0'" Project="$(MSBuildThisFileDirectory)NuGet.Workarounds.1.x.targets" />
+  
 </Project>
