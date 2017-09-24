@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<LanguageTargets>$(MSBuildThisFileDirectory)languageTargets\WindowsPhone.targets</LanguageTargets>
-		<DefineConstants Condition="'$(DisableImplicitFrameworkDefines)' == 'false'">$(DefineConstants);SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+		<DefineConstants Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(DefineConstants);SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
 	</PropertyGroup>
 
 </Project>

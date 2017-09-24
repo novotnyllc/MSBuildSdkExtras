@@ -1,9 +1,9 @@
 ﻿<Project>
 
 	<ImportGroup>
-		<Import Project="$(MSBuildThisFileDirectory)Portable.v4.0.targets" Condition="Exists('$(MSBuildThisFileDirectory)Portable.v4.0.targets')"/>
-		<Import Project="$(MSBuildThisFileDirectory)Portable.v4.5.targets" Condition="Exists('$(MSBuildThisFileDirectory)Portable.v4.5.targets')"/>
-		<Import Project="$(MSBuildThisFileDirectory)Portable.v4.6.targets" Condition="Exists('$(MSBuildThisFileDirectory)Portable.v4.6.targets')"/>
+		<Import Project="$(MSBuildThisFileDirectory)Portable.v4.0.targets" />
+		<Import Project="$(MSBuildThisFileDirectory)Portable.v4.5.targets" />
+		<Import Project="$(MSBuildThisFileDirectory)Portable.v4.6.targets" />
 	</ImportGroup>
 
 </Project>

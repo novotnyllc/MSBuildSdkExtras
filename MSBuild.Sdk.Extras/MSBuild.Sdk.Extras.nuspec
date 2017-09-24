@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
 	<metadata>
 		<id>MSBuild.Sdk.Extras</id>
-		<version>1.2.0</version>
+		<version>1.1.0</version>
 		<authors>Oren Novotny</authors>
 		<owners>Oren Novotny</owners>
 		<copyright>© Oren Novotny.</copyright>

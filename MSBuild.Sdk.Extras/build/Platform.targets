@@ -5,7 +5,7 @@
 		<TargetFrameworkProfile>Client</TargetFrameworkProfile>
 		<IncludeProjectPriFile>false</IncludeProjectPriFile>
 		<!-- .NET Client profiles defines as NET35_CLIENT, NET40_CLIENT etc -->
-		<ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' == 'false'">$(_SdkShortFrameworkIdentifierWithVersion.ToUpperInvariant())_CLIENT</ImplicitFrameworkDefine>
+		<ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(_SdkShortFrameworkIdentifierWithVersion.ToUpperInvariant())_CLIENT</ImplicitFrameworkDefine>
 	</PropertyGroup>
 
 	<Import Project="$(MSBuildThisFileDirectory)platforms\$(TargetFrameworkIdentifier).targets"
@@ -19,7 +19,7 @@
 	</ImportGroup>
 
 	<!-- Add conditional compilation symbols for the target framework (for example NET461, NETSTANDARD2_0, NETCOREAPP1_0) -->
-	<!--<PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' == 'false'">
+	<!--<PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">
 		<ImplicitFrameworkDefine>$(TargetFramework.Replace('.','_').ToUpperInvariant())</ImplicitFrameworkDefine>
 	</PropertyGroup>-->
 

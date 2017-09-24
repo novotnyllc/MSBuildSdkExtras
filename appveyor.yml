@@ -5,7 +5,7 @@ skip_commits:
     - '**/*.md'
 
 build_script:
-  - cmd: pack.cmd 1.2.0-alpha.%APPVEYOR_BUILD_NUMBER%
+  - cmd: pack.cmd 1.1.0-alpha.%APPVEYOR_BUILD_NUMBER%
 
 artifacts:
   - path: 'Packages\*.nupkg'
