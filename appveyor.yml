@@ -5,10 +5,11 @@ skip_commits:
     - '**/*.md'
 
 build_script:
-  - cmd: pack.cmd 1.1.0-alpha.%APPVEYOR_BUILD_NUMBER%
+  - cmd: msbuild /t:restore
+  - cmd: msbuild /t:pack /p:PackageOutputPath=%APPVEYOR_BUILD_FOLDER%
 
 artifacts:
-  - path: 'Packages\*.nupkg'
+  - path: '*.nupkg'
 
 deploy:
   provider: NuGet
