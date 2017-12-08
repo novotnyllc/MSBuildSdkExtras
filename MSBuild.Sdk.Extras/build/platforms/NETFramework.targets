@@ -10,5 +10,5 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
 
-  <Import Project="$(MSBuildThisFileDirectory)languageTargets\Wpf.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)languageTargets\Wpf.targets" Condition="'$(EnableWpfTargets)' == 'true'" />
 </Project>
