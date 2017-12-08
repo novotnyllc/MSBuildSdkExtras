@@ -44,5 +44,4 @@
 	<PropertyGroup>
 		<TargetsForTfmSpecificContentInPackage Condition=" '$(ExtrasSkipLibraryLayout)' != 'true' ">$(TargetsForTfmSpecificContentInPackage);ExtrasIncludeLibraryLayoutItems</TargetsForTfmSpecificContentInPackage>
 	</PropertyGroup>
-
 </Project>

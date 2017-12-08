@@ -6,16 +6,19 @@
 
   <PropertyGroup>
     <!-- Workaround for lack of XAML support in the new project system -->
-    <LanguageTargets>$(MSBuildExtensionsPath)\$(VisualStudioVersion)\Bin\Microsoft.CSharp.targets</LanguageTargets>
+    <LanguageTargets>$(MSBuildExtensionsPath)\$(VisualStudioVersion)\Bin\Microsoft.$(_SdkLanguageName).targets</LanguageTargets>
   </PropertyGroup>
 
   <PropertyGroup>
     <EnableDefaultWpfItems Condition="'$(EnableDefaultWpfItems)' == ''">True</EnableDefaultWpfItems>
-    <DefaultWpfPageExcludes>$(DefaultWpfPageExcludes);**/App.xaml</DefaultWpfPageExcludes>
+    <DefaultWpfPageExcludes>$(DefaultWpfPageExcludes);$(MSBuildProjectDirectory)/App.xaml</DefaultWpfPageExcludes>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(EnableDefaultItems)' == 'True'">
+    <None Remove="**/*.xaml" Condition="'$(EnableDefaultWpfItems)' == 'True'" />
     <Page Include="**/*.xaml" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder);$(DefaultWpfPageExcludes)" Condition="'$(EnableDefaultWpfItems)' == 'True'" />
+    <None Remove="$(MSBuildProjectDirectory)/App.xaml" Condition="'$(EnableDefaultWpfItems)' == 'True' and Exists('$(MSBuildProjectDirectory)/App.xaml')" />
+    <ApplicationDefinition Include="$(MSBuildProjectDirectory)/App.xaml" Condition="'$(EnableDefaultWpfItems)' == 'True' and Exists('$(MSBuildProjectDirectory)/App.xaml')" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,6 +41,13 @@
     </PropertyPageSchema>
   </ItemGroup>
 
+  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="System.Xaml" />
+  </ItemGroup>
+
   <!--
      Work around to fix Intellisense file generation for XAML projects
      https://github.com/dotnet/project-system/issues/2488
@@ -47,5 +57,4 @@
       <BuildingProject>false</BuildingProject>
     </PropertyGroup>
   </Target>
-
 </Project>

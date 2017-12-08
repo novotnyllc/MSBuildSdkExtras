@@ -1,8 +1,15 @@
 <Project>
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
-    <EnableWpfTargets Condition="'$(EnableWpfImports)' == ''">false</EnableWpfTargets>
+    <EnableWpfTargets Condition="'$(EnableWpfTargets)' == ''">false</EnableWpfTargets>
   </PropertyGroup>
 
-  <Import Project="languageTargets\Wpf.targets" Condition="'$(EnableWpfTargets)' == 'true'" />
+  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)languageTargets\Wpf.targets" />
 </Project>
