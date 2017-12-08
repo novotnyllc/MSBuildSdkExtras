@@ -8,7 +8,6 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)languageTargets\Wpf.targets" />
