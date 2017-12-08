@@ -15,14 +15,13 @@
   </PropertyGroup>
 
   <ItemGroup Condition="'$(EnableDefaultItems)' == 'True'">
-    <None Remove="**/*.xaml" Condition="'$(EnableDefaultWpfItems)' == 'True'" />
-    <Page Include="**/*.xaml" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder);$(DefaultWpfPageExcludes)" Condition="'$(EnableDefaultWpfItems)' == 'True'" />
+    <None Remove="**/*.xaml" Condition="'$(EnableDefaultWpfItems)' == 'True' and '$(EnableDefaultNoneItems)' == 'true'" />
+    <Page Include="**/*.xaml" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder);$(DefaultWpfPageExcludes)" Condition="'$(EnableDefaultWpfItems)' == 'True'" SubType="Designer" Generator="MSBuild:Compile" />
     <None Remove="$(MSBuildProjectDirectory)/App.xaml" Condition="'$(EnableDefaultWpfItems)' == 'True' and Exists('$(MSBuildProjectDirectory)/App.xaml')" />
     <ApplicationDefinition Include="$(MSBuildProjectDirectory)/App.xaml" Condition="'$(EnableDefaultWpfItems)' == 'True' and Exists('$(MSBuildProjectDirectory)/App.xaml')" />
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="@(Page)" SubType="Designer" Generator="MSBuild:Compile" />
     <Compile Update="**\*.xaml.cs" SubType="Designer" DependentUpon="%(Filename)" />
   </ItemGroup>
 
