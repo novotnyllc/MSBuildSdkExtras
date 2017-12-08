@@ -23,7 +23,7 @@
 
   <ItemGroup>
     <PackageReference Include="Nerdbank.GitVersioning" Version="2.0.41" PrivateAssets="all" />
-    
-    <None Update="**\*.props;**\*.targets" Pack="true" PackagePath="." />
+
+    <None Update="**\*.props;**\*.targets;**\*.xml;**\*.xaml" Pack="true" PackagePath="." />
   </ItemGroup>
 </Project>
