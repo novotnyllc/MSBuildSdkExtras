@@ -4,11 +4,5 @@
     <EnableWpfTargets Condition="'$(EnableWpfTargets)' == ''">false</EnableWpfTargets>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-
   <Import Project="$(MSBuildThisFileDirectory)languageTargets\Wpf.targets" Condition="'$(EnableWpfTargets)' == 'true'" />
 </Project>
