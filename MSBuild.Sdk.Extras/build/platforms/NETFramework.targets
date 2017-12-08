@@ -1,8 +1,7 @@
 <Project>
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
-    <EnableWpfTargets Condition="'$(EnableWpfTargets)' == ''">false</EnableWpfTargets>
   </PropertyGroup>
 
-  <Import Project="$(MSBuildThisFileDirectory)languageTargets\Wpf.targets" Condition="'$(EnableWpfTargets)' == 'true'" />
+  <Import Project="$(MSBuildThisFileDirectory)languageTargets\Wpf.targets" />
 </Project>
