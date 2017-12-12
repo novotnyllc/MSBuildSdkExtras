@@ -1,6 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <!--<Import Project="obj\*.props" Condition="'$(MSBuildProjectExtension)' == '.tmp_proj'" />-->
+  <PropertyGroup>
+    <!-- workaround for https://github.com/NuGet/Home/issues/5894 -->
+    <OriginalProjectName>WpfApplication</OriginalProjectName>
+    <RootMSBuildProjectExtensionsPath>obj\</RootMSBuildProjectExtensionsPath>
+  </PropertyGroup>
+  <Import Project="$(RootMSBuildProjectExtensionsPath)$(OriginalProjectName).*.props" Condition=" '$(MSBuildProjectName)' != '$(OriginalProjectName)' and '$(ImportProjectExtensionProps)' != 'false' and exists('$(RootMSBuildProjectExtensionsPath)')" />
+  
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net462</TargetFramework>
@@ -11,5 +17,6 @@
   </ItemGroup>
 
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
-  <!--<Import Project="obj\*.targets" Condition="'$(ProjectExt)' == '.tmp_proj'" />-->
+
+  <Import Project="$(RootMSBuildProjectExtensionsPath)$(OriginalProjectName).*.targets" Condition=" '$(MSBuildProjectName)' != '$(OriginalProjectName)' and '$(ImportProjectExtensionProps)' == 'true' and exists('$(RootMSBuildProjectExtensionsPath)')" />
 </Project>
