@@ -11,4 +11,12 @@
 		<_SdkDotNetVersion Condition="'$(_SdkDotNetVersion)' == ''">1.0</_SdkDotNetVersion>
 	</PropertyGroup>
 
+
+  <ItemGroup Condition="'$(EnableDefaultItems)' == 'True'">
+    
+    <EmbeddedResource Update="**/*.resx" Condition=" '$(EnableDefaultEmbeddedResourceItems)' == 'true'" Generator="ResXFileCodeGenerator" LastGenOutput="%(Filename).Designer$(_SdkLanguageExtension)" />
+    <_ResxFiles Include="**/*.resx"  DesignerName="%(RecursiveDir)%(Filename).Designer$(_SdkLanguageExtension)" />
+    <Compile Update="@(_ResxFiles -> '%(DesignerName)')" Condition=" '$(EnableDefaultEmbeddedResourceItems)' == 'true'" AutoGen="True" DesignTime="True" DependentUpon="$([System.String]::Copy(&quot;%(Filename)&quot;).Replace(&quot;.Designer&quot;,&quot;&quot;)).resx" />
+    
+  </ItemGroup>
 </Project>
