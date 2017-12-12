@@ -5,4 +5,17 @@
 
   <!-- The targets we need to make WPF work only have CSharp and VisualBasic versions -->
   <Import Condition="'$(_SdkLanguageName)' == 'CSharp' or '$(_SdkLanguageName)' == 'VisualBasic'" Project="$(MSBuildThisFileDirectory)languageTargets\Wpf.targets" />
+
+  <!-- Settings only apply to .NET Framework -->
+  <ItemGroup Condition="'$(EnableDefaultItems)' == 'True' and '$(EnableDefaultSettingsItems)' == 'true' ">
+    <None Update="**/*.settings" Generator="SettingsSingleFileGenerator" LastGenOutput="%(Filename).Designer$(_SdkLanguageExtension)" />
+    <_SettingsFiles Include="**/*.settings" DesignerName="%(RecursiveDir)%(Filename).Designer$(_SdkLanguageExtension)" />
+    <Compile Update="@(_SettingsFiles -> '%(DesignerName)')" AutoGen="True" DesignTime="True" DependentUpon="$([System.String]::Copy(&quot;%(Filename)&quot;).Replace(&quot;.Designer&quot;,&quot;&quot;)).settings" />
+  </ItemGroup>
+  
+  
+  <PropertyGroup>
+    <EnableDefaultSettingsItems Condition="'$(EnableDefaultSettingsItems)' == ''">true</EnableDefaultSettingsItems>
+  </PropertyGroup>
+  
 </Project>
