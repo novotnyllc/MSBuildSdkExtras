@@ -3,5 +3,6 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
-  <Import Project="$(MSBuildThisFileDirectory)languageTargets\Wpf.targets" />
+  <!-- The targets we need to make WPF work only have CSharp and VisualBasic versions -->
+  <Import Condition="'$(_SdkLanguageName)' == 'CSharp' or '$(_SdkLanguageName)' == 'VisualBasic'" Project="$(MSBuildThisFileDirectory)languageTargets\Wpf.targets" />
 </Project>
