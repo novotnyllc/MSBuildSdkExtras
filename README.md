@@ -89,7 +89,7 @@ On the command line, you need to invoke something like: `msbuild MyProject.cspro
 Once this package is configured, you can now use any supported TFM in your `TargetFramework` or `TargetFrameworks` element. The supported TFM families are:
 
 - `netstandard` (.NET Standard)
-- `net` (.NET Framework)
+- `net` (.NET Framework - with support for WPF)
 - `net35-client`/`net40-client` (.NET Framework Client profile)
 - `netcoreapp` (.NET Core App)
 - `wpa` (Windows Phone App 8.1)
