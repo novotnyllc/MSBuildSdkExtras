@@ -3,9 +3,8 @@
   <PropertyGroup>
     <!-- workaround for https://github.com/NuGet/Home/issues/5894 -->
     <OriginalProjectName>WpfApplication</OriginalProjectName>
-    <RootMSBuildProjectExtensionsPath>obj\</RootMSBuildProjectExtensionsPath>
   </PropertyGroup>
-  <Import Project="$(RootMSBuildProjectExtensionsPath)$(OriginalProjectName).*.props" Condition=" '$(MSBuildProjectName)' != '$(OriginalProjectName)' and '$(ImportProjectExtensionProps)' != 'false' and exists('$(RootMSBuildProjectExtensionsPath)')" />
+  <Import Project="$(BaseIntermediateOuputPath)$(OriginalProjectName).*.props" Condition=" '$(MSBuildProjectName)' != '$(OriginalProjectName)' and '$(ImportProjectExtensionProps)' != 'false' and exists('$(BaseIntermediateOuputPath)')" />
   
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -18,5 +17,5 @@
 
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 
-  <Import Project="$(RootMSBuildProjectExtensionsPath)$(OriginalProjectName).*.targets" Condition=" '$(MSBuildProjectName)' != '$(OriginalProjectName)' and '$(ImportProjectExtensionProps)' == 'true' and exists('$(RootMSBuildProjectExtensionsPath)')" />
+  <Import Project="$(BaseIntermediateOuputPath)$(OriginalProjectName).*.targets" Condition=" '$(MSBuildProjectName)' != '$(OriginalProjectName)' and '$(ImportProjectExtensionProps)' == 'true' and exists('$(BaseIntermediateOuputPath)')" />
 </Project>
