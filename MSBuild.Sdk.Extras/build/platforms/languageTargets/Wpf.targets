@@ -7,6 +7,9 @@
   <PropertyGroup>
     <!-- Workaround for lack of XAML support in the new project system -->
     <LanguageTargets>$(MSBuildExtensionsPath)\$(VisualStudioVersion)\Bin\Microsoft.$(_SdkLanguageName).targets</LanguageTargets>
+
+    <!-- Don't generate assembly info for *.tmp_proj files -->
+    <GenerateAssemblyInfo Condition="'$(MSBuildProjectExtension)' == '.tmp_proj'">false</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <PropertyGroup>
