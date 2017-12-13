@@ -9,7 +9,7 @@ build_script:
   - cmd: msbuild /t:pack /p:PackageOutputPath=%APPVEYOR_BUILD_FOLDER%
 
 artifacts:
-  - path: '*.nupkg'
+  - path: 'MSBuild.Sdk.Extras.*.nupkg'
 
 deploy:
   provider: NuGet
