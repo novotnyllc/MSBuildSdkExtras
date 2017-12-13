@@ -6,7 +6,8 @@
 
   <PropertyGroup>
     <!-- Workaround for lack of XAML support in the new project system -->
-    <LanguageTargets>$(MSBuildExtensionsPath)\$(VisualStudioVersion)\Bin\Microsoft.$(_SdkLanguageName).targets</LanguageTargets>
+    <LanguageTargets Condition="'$(_SdkLanguageName)' != 'FSharp'" >$(MSBuildExtensionsPath)\$(_SdkVisualStudioVersion)\Bin\Microsoft.$(_SdkLanguageName).targets</LanguageTargets>
+    <LanguageTargets Condition="'$(_SdkLanguageName)' == 'FSharp'" >$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(_SdkVisualStudioVersion)\FSharp\Microsoft.FSharp.Targets</LanguageTargets>
 
     <!-- Don't generate assembly info for *.tmp_proj files -->
     <GenerateAssemblyInfo Condition="'$(MSBuildProjectExtension)' == '.tmp_proj'">false</GenerateAssemblyInfo>
