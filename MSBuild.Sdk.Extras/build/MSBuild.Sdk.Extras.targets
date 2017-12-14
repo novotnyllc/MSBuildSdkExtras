@@ -8,9 +8,4 @@
 
   <Import Condition="'$(_SdkDotNetVersion)' &lt; '2.0'" Project="$(MSBuildThisFileDirectory)NuGet.Workarounds.1.x.targets" />
 
-
-  <ItemGroup>
-    <!-- This item should never be included as a package dependency -->
-    <PackageReference Update="MSBuild.Sdk.Extras" PrivateAssets="All" />
-  </ItemGroup>
 </Project>
