@@ -34,12 +34,20 @@
   <PropertyGroup>
     <EnableDefaultItems Condition="'$(EnableDefaultItems)' == ''">true</EnableDefaultItems>
     <EnableDefaultEmbeddedResourceItems Condition="'$(EnableDefaultEmbeddedResourceItems)' == ''">true</EnableDefaultEmbeddedResourceItems>
+    <EnableEmbeddedResourceGenerator Condition="'$(EnableEmbeddedResourceGenerator)' == ''">true</EnableEmbeddedResourceGenerator>
+    <EmbeddedResourceGeneratorVisibilityIsInternal Condition="'$(EmbeddedResourceGeneratorVisibilityIsInternal)' == ''">true</EmbeddedResourceGeneratorVisibilityIsInternal>
   </PropertyGroup>
 
   <!-- Resx is in the props so that the project can override the Generator to PublicResXFileCodeGenerator if desired -->
   <ItemGroup Condition="'$(EnableDefaultItems)' == 'True'">
 
-    <EmbeddedResource Update="**/*.resx" Condition=" '$(EnableDefaultEmbeddedResourceItems)' == 'true'" Generator="ResXFileCodeGenerator" LastGenOutput="%(Filename).Designer$(_SdkLanguageExtension)" />
+    <EmbeddedResource Update="**/*.resx" Condition=" '$(EnableDefaultEmbeddedResourceItems)' == 'true'" >
+      <Generator Condition=" '$(EnableEmbeddedResourceGenerator)' == 'true' and '$(EmbeddedResourceGeneratorVisibilityIsInternal)' == 'true'">ResXFileCodeGenerator</Generator>
+      <Generator Condition=" '$(EnableEmbeddedResourceGenerator)' == 'true' and '$(EmbeddedResourceGeneratorVisibilityIsInternal)' == 'false'">PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput Condition="'$(EnableEmbeddedResourceGenerator)' == 'true'">%(Filename).Designer$(_SdkLanguageExtension)</LastGenOutput>
+    </EmbeddedResource>
+    
+    
     <_ResxFiles Include="**/*.resx"  DesignerName="%(RecursiveDir)%(Filename).Designer$(_SdkLanguageExtension)" />
     <Compile Update="@(_ResxFiles -> '%(DesignerName)')" Condition=" '$(EnableDefaultEmbeddedResourceItems)' == 'true'" AutoGen="True" DesignTime="True" DependentUpon="$([System.String]::Copy(&quot;%(Filename)&quot;).Replace(&quot;.Designer&quot;,&quot;&quot;)).resx" />
 
