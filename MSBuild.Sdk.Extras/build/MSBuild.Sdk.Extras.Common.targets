@@ -16,4 +16,11 @@
     <PackageReference Update="MSBuild.Sdk.Extras" PrivateAssets="All" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(EnableDefaultItems)' == 'True'">
+
+    <_ResxFiles Include="**/*.resx"  DesignerName="%(RecursiveDir)%(Filename).Designer$(_SdkLanguageExtension)" />
+    <Compile Update="@(_ResxFiles -> '%(DesignerName)')" Condition=" '$(EnableDefaultEmbeddedResourceItems)' == 'true'" AutoGen="True" DesignTime="True" DependentUpon="$([System.String]::Copy(&quot;%(Filename)&quot;).Replace(&quot;.Designer&quot;,&quot;&quot;)).resx" />
+
+  </ItemGroup>
+
 </Project>
