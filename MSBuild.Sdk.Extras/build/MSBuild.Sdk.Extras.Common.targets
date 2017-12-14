@@ -16,6 +16,16 @@
     <PackageReference Update="MSBuild.Sdk.Extras" PrivateAssets="All" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(EnableEmbeddedResourceGenerator)' == 'True' ">
+
+    <EmbeddedResource Update="**/*.resx">
+      <Generator Condition=" '$(EmbeddedResourceGeneratorVisibilityIsInternal)' == 'true'">ResXFileCodeGenerator</Generator>
+      <Generator Condition=" '$(EmbeddedResourceGeneratorVisibilityIsInternal)' == 'false'">PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>%(Filename).Designer$(_SdkLanguageExtension)</LastGenOutput>
+    </EmbeddedResource>
+
+  </ItemGroup>
+  
   <ItemGroup Condition="'$(EnableDefaultItems)' == 'True'">
 
     <_ResxFiles Include="**/*.resx"  DesignerName="%(RecursiveDir)%(Filename).Designer$(_SdkLanguageExtension)" />
