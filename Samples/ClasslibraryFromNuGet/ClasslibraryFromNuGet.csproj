@@ -7,14 +7,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="MSBuild.Sdk.Extras" Version="1.2.0-build.9"  /> 
+		<PackageReference Include="MSBuild.Sdk.Extras" Version="1.2.0-build.23" /> 
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'uap10.0'">
 		<PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="5.4.0" />
 	</ItemGroup>
 	
-  <ItemGroup Condition="'$(TargetFramework)' == 'uap10.0.16278'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'uap10.0.16299'">
 		<PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="5.4.0" />
 	</ItemGroup>
 
