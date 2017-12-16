@@ -10,12 +10,6 @@
 		<_SdkDotNetVersion>$(BundledNETCoreAppTargetFrameworkVersion)</_SdkDotNetVersion>
 		<_SdkDotNetVersion Condition="'$(_SdkDotNetVersion)' == ''">1.0</_SdkDotNetVersion>
 	</PropertyGroup>
-  
-  <ItemGroup>
-    <!-- This item should never be included as a package dependency -->
-    <PackageReference Update="MSBuild.Sdk.Extras" PrivateAssets="All" />
-  </ItemGroup>
-
 
   <ItemDefinitionGroup Condition="'$(EnableEmbeddedResourceGenerator)' == 'true' ">
     <EmbeddedResource>
