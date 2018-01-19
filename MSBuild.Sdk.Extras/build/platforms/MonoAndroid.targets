@@ -14,18 +14,27 @@
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
-		<Reference Include="Mono.Android" />
-		<Reference Include="System" />
-		<Reference Include="System.Collections" />
-		<Reference Include="System.Threading.Tasks" />
-		<Reference Include="System.Core" />
-		<Reference Include="System.Runtime" />
-		<Reference Include="System.Threading.Tasks" />
-		<Reference Include="System.IdentityModel" />
-		<Reference Include="System.Net.Http" />
-		<Reference Include="System.Xml.Linq" />
-		<Reference Include="System.Runtime.Serialization" />
-		<Reference Include="System.Xml" />
+    <_ExtrasImplicitReference Include="Mono.Android" />
+    <_ExtrasImplicitReference Include="System" />
+    <_ExtrasImplicitReference Include="System.Collections" />
+    <_ExtrasImplicitReference Include="System.Threading.Tasks" />
+    <_ExtrasImplicitReference Include="System.Core" />
+    <_ExtrasImplicitReference Include="System.Runtime" />
+    <_ExtrasImplicitReference Include="System.Threading.Tasks" />
+    <_ExtrasImplicitReference Include="System.IdentityModel" />
+    <_ExtrasImplicitReference Include="System.Net.Http" />
+	  <_ExtrasImplicitReference Include="System.Xml.Linq" />
+	  <_ExtrasImplicitReference Include="System.Runtime.Serialization" />
+	  <_ExtrasImplicitReference Include="System.Xml" />
+
+	  <!-- Set Pack=false on implicit references so they don't get added to NuGet packages as framework assemblies -->
+	  <_ExtrasImplicitReference Update="@(_ExtrasImplicitReference)" Pack="false" />
+	  <!-- Don't duplicate any references that are explicit in the project file.  This means that if you do want to include a framework assembly in your
+         NuGet package, you can just add the Reference to your project file. -->
+	  <_ExtrasImplicitReference Remove="@(Reference)" />
+
+	  <!-- Add the implicit references to @(Reference) -->
+	  <Reference Include="@(_ExtrasImplicitReference)" />
 	</ItemGroup>
 
 	<ItemGroup>
