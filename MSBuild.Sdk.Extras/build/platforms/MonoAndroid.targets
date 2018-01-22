@@ -16,15 +16,8 @@
 	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
     <_ExtrasImplicitReference Include="Mono.Android" />
     <_ExtrasImplicitReference Include="System" />
-    <_ExtrasImplicitReference Include="System.Collections" />
-    <_ExtrasImplicitReference Include="System.Threading.Tasks" />
     <_ExtrasImplicitReference Include="System.Core" />
-    <_ExtrasImplicitReference Include="System.Runtime" />
-    <_ExtrasImplicitReference Include="System.Threading.Tasks" />
-    <_ExtrasImplicitReference Include="System.IdentityModel" />
     <_ExtrasImplicitReference Include="System.Net.Http" />
-	  <_ExtrasImplicitReference Include="System.Xml.Linq" />
-	  <_ExtrasImplicitReference Include="System.Runtime.Serialization" />
 	  <_ExtrasImplicitReference Include="System.Xml" />
 
 	  <!-- Set Pack=false on implicit references so they don't get added to NuGet packages as framework assemblies -->

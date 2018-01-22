@@ -15,6 +15,7 @@
     <_ExtrasImplicitReference Include="System" />
     <_ExtrasImplicitReference Include="System.Xml" />
     <_ExtrasImplicitReference Include="System.Core" />
+	  <_ExtrasImplicitReference Include="System.Net.Http" />
 	  <_ExtrasImplicitReference Include="Xamarin.WatchOS" />
 
 	  <!-- Set Pack=false on implicit references so they don't get added to NuGet packages as framework assemblies -->

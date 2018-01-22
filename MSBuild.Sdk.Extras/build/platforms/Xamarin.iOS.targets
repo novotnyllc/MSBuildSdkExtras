@@ -13,7 +13,6 @@
     <_ExtrasImplicitReference Include="System" />
     <_ExtrasImplicitReference Include="System.Net.Http" />
     <_ExtrasImplicitReference Include="System.Xml" />
-    <_ExtrasImplicitReference Include="System.Xml.Linq" />
 	  <_ExtrasImplicitReference Include="System.Core" />
 	  <_ExtrasImplicitReference Include="Xamarin.iOS" />
 

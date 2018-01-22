@@ -25,6 +25,10 @@
 		<PackageReference Include="Tizen.NET" Version="3.0.0" />
 	</ItemGroup>
 
+  <ItemGroup Condition="'$(TargetFramework)' == 'xamarin.mac20'">
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+
 	<Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 	<Import Project="$(MSBuildThisFileDirectory)..\..\MSBuild.Sdk.Extras\build\MSBuild.Sdk.Extras.targets" />
 	<Import Project="..\Test.targets" />
