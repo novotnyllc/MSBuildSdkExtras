@@ -15,7 +15,7 @@
 
   <PropertyGroup>
     <EnableDefaultWpfItems Condition="'$(EnableDefaultWpfItems)' == ''">True</EnableDefaultWpfItems>
-    <DefaultWpfPageExcludes>$(DefaultWpfPageExcludes);$(MSBuildProjectDirectory)/App.xaml</DefaultWpfPageExcludes>
+    <DefaultWpfPageExcludes>$(DefaultWpfPageExcludes);$(MSBuildProjectDirectory)/App.xaml;$(MSBuildProjectDirectory)/Application.xaml</DefaultWpfPageExcludes>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(EnableDefaultItems)' == 'True'">
@@ -23,10 +23,12 @@
     <Page Include="**/*.xaml" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder);$(DefaultWpfPageExcludes)" Condition="'$(EnableDefaultWpfItems)' == 'True'" SubType="Designer" Generator="MSBuild:Compile" />
     <None Remove="$(MSBuildProjectDirectory)/App.xaml" Condition="'$(EnableDefaultWpfItems)' == 'True' and Exists('$(MSBuildProjectDirectory)/App.xaml')" />
     <ApplicationDefinition Include="$(MSBuildProjectDirectory)/App.xaml" Condition="'$(EnableDefaultWpfItems)' == 'True' and Exists('$(MSBuildProjectDirectory)/App.xaml')" />
+    <None Remove="$(MSBuildProjectDirectory)/Application.xaml" Condition="'$(EnableDefaultWpfItems)' == 'True' and Exists('$(MSBuildProjectDirectory)/Application.xaml')" />
+    <ApplicationDefinition Include="$(MSBuildProjectDirectory)/Application.xaml" Condition="'$(EnableDefaultWpfItems)' == 'True' and Exists('$(MSBuildProjectDirectory)/Application.xaml')" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="**\*.xaml.cs" SubType="Code" DependentUpon="%(Filename)" />
+    <Compile Update="**\*.xaml$(_SdkLanguageExtension)" SubType="Code" DependentUpon="%(Filename)" />
   </ItemGroup>
 
   <ItemGroup>
