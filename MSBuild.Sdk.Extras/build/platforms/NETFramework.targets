@@ -3,7 +3,7 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
-  <Import Project="$(MSBuildThisFileDirectory)languageTargets\Wpf.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)languageTargets\Wpf.targets" Condition=" '$(OS)' == 'Windows_NT' " />
 
   <!-- Settings only apply to .NET Framework -->
   <ItemGroup Condition="'$(EnableDefaultItems)' == 'True' and '$(EnableDefaultSettingsItems)' == 'true' ">
