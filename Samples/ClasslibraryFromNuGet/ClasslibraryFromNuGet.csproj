@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="MSBuild.Sdk.Extras/1.2.2">
 
 	<PropertyGroup>
 		<!--<TargetFramework>uap10.0</TargetFramework>-->
@@ -6,21 +6,5 @@
     <TargetFrameworks>uap10.0;monoandroid70;xamarin.ios10;xamarin.mac20</TargetFrameworks>
 	</PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="MSBuild.Sdk.Extras" Version="1.2.0-build.23" PrivateAssets="all" /> 
-	</ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'uap10.0'">
-		<PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="5.4.0" />
-	</ItemGroup>
-	
-  <ItemGroup Condition="'$(TargetFramework)' == 'uap10.0.16299'">
-		<PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="5.4.0" />
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)' == 'tizen30'">
-		<PackageReference Include="Tizen.NET" Version="3.0.0" />
-	</ItemGroup>
-
-	<Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 </Project>
