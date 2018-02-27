@@ -27,7 +27,30 @@ MyGet CI feed: `https://myget.org/F/msbuildsdkextras/api/v3/index.json`
 
 [![MSBuild.Sdk.Extras](https://img.shields.io/myget/msbuildsdkextras/v/MSBuild.Sdk.Extras.svg)](https://myget.org/gallery/msbuildsdkextras)
 
-## Using the Package
+## Using the package (VS 2017 15.6+)
+
+Visual Studio 2017 Update 6 includes support for SDK's resolved from NuGet. That makes using these extras much easier. This approach is recommended and support for the "old" way will be removed in a future release of the Extras.
+
+After creating a new .NET Standard class library, replace:
+`<Project Sdk="Microsoft.NET.Sdk">` with `<Project Sdk="MSBuild.Sdk.Extras/1.2.2">`. That's it. You do not need to specify the UWP or Tizen meta-packages as they'll be automatically included.
+
+For solutions with more than one project using the Extras, it's recommended to put the version in your `global.json` next to your solution like this:
+
+```json
+{
+    "msbuild-sdks": {
+        "MSBuild.Sdk.Extras": "1.2.2"
+    }
+}
+```
+Then, in your project file, just use `<Project Sdk="MSBuild.Sdk.Extras">`, and it'll use the version from the `global.json`.
+
+More information on how SDK's are resolved can be found [here](https://docs.microsoft.com/en-us/visualstudio/msbuild/how-to-use-project-sdk#how-project-sdks-are-resolved).
+
+
+## Using the Package (pre VS 2017 15.6)
+
+**IMPORTANT** This approach should be considered deprecated with the upcoming release of 15.6. Update your projects to use the mechanism above.
 
 To use this package, add a `PackageReference` to your project file like this (specify whatever version of the package or wildcard):
 
