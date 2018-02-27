@@ -4,10 +4,6 @@ skip_commits:
   files:
     - '**/*.md'
 
-install:
-  - cmd: appveyor DownloadFile https://download.microsoft.com/download/D/7/8/D788D3CD-44C4-487D-829B-413E914FB1C3/dotnet-sdk-2.1.300-preview1-008174-win-x64.exe
-  - cmd: dotnet-sdk-2.1.300-preview1-008174-win-x64.exe /install /q
-
 build_script:
   - cmd: msbuild /t:restore
   - cmd: msbuild /t:pack /p:PackageOutputPath=%APPVEYOR_BUILD_FOLDER%
