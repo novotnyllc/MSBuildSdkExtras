@@ -5,5 +5,11 @@
   </PropertyGroup>
 
   <Import Project="$(MSBuildSDKExtrasTargets)" />
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.7" Condition="'$(_SdkShortFrameworkIdentifier)' == 'uap'" />
+    <PackageReference Include="Tizen.NET" Version="$(_SdkTargetFrameworkVersionWithoutV)" Condition="'$(_SdkShortFrameworkIdentifier)' == 'tizen'" />
+  </ItemGroup>
+
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk"/>
 </Project>

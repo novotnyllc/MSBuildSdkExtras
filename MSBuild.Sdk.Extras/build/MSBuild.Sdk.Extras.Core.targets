@@ -89,6 +89,11 @@
 		<Otherwise />
 	</Choose>
 
+  <PropertyGroup>
+    <_SdkTargetFrameworkVersionWithoutV>$(TargetFrameworkVersion)</_SdkTargetFrameworkVersionWithoutV>
+    <_SdkTargetFrameworkVersionWithoutV Condition="$(TargetFrameworkVersion.StartsWith('v'))">$(TargetFrameworkVersion.Substring(1))</_SdkTargetFrameworkVersionWithoutV>
+  </PropertyGroup>
+
 	<PropertyGroup Label="Build.Output">
 		<Configuration Condition="'$(Configuration)'==''">Debug</Configuration>
 		<Platform Condition="'$(Platform)'==''">AnyCPU</Platform>
