@@ -7,7 +7,7 @@
 		<!-- check if this is a binding project -->
 		<_SdkAndroidImportType>$(_SdkLanguageName)</_SdkAndroidImportType>
 		<!-- TODO: throw an error if the _SdkLanguageName != CSharp as that is the only language supported -->
-		<_SdkAndroidImportType Condition="'$(IsJavaBindingProject)' == 'true'">Bindings</_SdkAndroidImportType>
+		<_SdkAndroidImportType Condition="'$(IsBindingProject)' == 'true'">Bindings</_SdkAndroidImportType>
 	</PropertyGroup>
 
   <ImportGroup>

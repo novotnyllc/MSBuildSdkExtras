@@ -6,7 +6,7 @@
 	<PropertyGroup>
 		<!-- check if this is a binding project -->
 		<!-- TODO: throw an error if the _SdkLanguageName != CSharp as that is the only language supported -->
-		<_SdkObjCBinding Condition="'$(IsObjCBindingProject)' == 'true'">.ObjCBinding</_SdkObjCBinding>
+		<_SdkObjCBinding Condition="'$(IsBindingProject)' == 'true'">.ObjCBinding</_SdkObjCBinding>
 	</PropertyGroup>
 
   <ImportGroup>
