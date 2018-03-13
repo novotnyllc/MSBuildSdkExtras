@@ -9,7 +9,7 @@
   <ItemGroup Condition="'$(EnableDefaultItems)' == 'True' and '$(EnableDefaultSettingsItems)' == 'true' ">
     <None Update="**/*.settings" Generator="SettingsSingleFileGenerator" LastGenOutput="%(Filename).Designer$(_SdkLanguageExtension)" />
     <_SettingsFiles Include="**/*.settings" DesignerName="%(RecursiveDir)%(Filename).Designer$(_SdkLanguageExtension)" />
-    <Compile Update="@(_SettingsFiles -> '%(DesignerName)')" AutoGen="True" DesignTimeSharedInput="True" DependentUpon="$([System.String]::Copy(&quot;%(Filename)&quot;).Replace(&quot;.Designer&quot;,&quot;&quot;)).settings" />
+    <Compile Update="@(_SettingsFiles -> '%(DesignerName)')" AutoGen="True" DesignTimeSharedInput="True" DependentUpon="$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('.Designer','')).settings" />
   </ItemGroup>
   
   
