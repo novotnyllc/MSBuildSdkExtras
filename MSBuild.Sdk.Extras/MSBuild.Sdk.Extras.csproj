@@ -26,4 +26,7 @@
 
     <None Update="**\*.props;**\*.targets;**\*.xml;**\*.xaml" Pack="true" PackagePath="." />
   </ItemGroup>
+
+  <Import Project="MSBuild.Sdk.Extras.targets" />
+
 </Project>
