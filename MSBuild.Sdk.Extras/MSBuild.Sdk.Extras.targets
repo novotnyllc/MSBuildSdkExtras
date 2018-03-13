@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(CI)' == ''">
+    <CI Condition="'$(TEAMCITY_VERSION)' != '' or 
+                   '$(APPVEYOR)' != '' or 
+                   '$(BuildRunner)' == 'MyGet' or 
+                   '$(JENKINS_HOME)' != '' or 
+                   '$(TF_BUILD)' == 'true' or
+                   '$(IsVSTSBuild)' == 'true' or
+                   '$(TRAVIS)' == 'true'">true</CI>
+    <CI Condition="'$(CI)' == ''">false</CI>
+  </PropertyGroup>
+
+  <Target Name="_LocalPublish" Condition="'$(CI)' != 'true'" AfterTargets="Pack">
+    <Exec Command='rd "$(NuGetPackageRoot)$(PackageId.ToLowerInvariant())" /q /s' Condition="Exists('$(NuGetPackageRoot)$(PackageId.ToLowerInvariant())')" />
+
+    <ItemGroup>
+      <ToDelete Include="$(TEMP)\packages\$(PackageId)*.nupkg" />
+    </ItemGroup>
+    <Delete Files="@(ToDelete)" />
+
+    <MakeDir Directories="$(TEMP)\packages" Condition="!Exists('$(TEMP)\packages')" />
+    <Copy SourceFiles="$(PackageOutputPath)\$(PackageId).$(PackageVersion).nupkg" DestinationFolder="$(TEMP)\packages" />
+  </Target>
+
+</Project>
