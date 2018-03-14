@@ -6,14 +6,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(CI)' == ''">
-    <CI Condition="'$(TEAMCITY_VERSION)' != '' or 
-                   '$(ContinuaCI.Version)' != '' or
-                   '$(APPVEYOR)' != '' or 
-                   '$(BuildRunner)' == 'MyGet' or 
-                   '$(JENKINS_HOME)' != '' or 
-                   '$(TF_BUILD)' == 'true' or
-                   '$(IsVSTSBuild)' == 'true' or
-                   '$(TRAVIS)' == 'true'">true</CI>
+    <CI Condition="'$(APPVEYOR)' != '' or '$(TF_BUILD)' == 'true'">true</CI>
     <CI Condition="'$(CI)' == ''">false</CI>
   </PropertyGroup>
 
