@@ -3,9 +3,15 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
+	<PropertyGroup>
+		<!-- check if this is a binding project -->
+		<!-- TODO: throw an error if the _SdkLanguageName != CSharp as that is the only language supported -->
+		<_SdkObjCBinding Condition="'$(IsBindingProject)' == 'true'">.ObjCBinding</_SdkObjCBinding>
+	</PropertyGroup>
+
   <ImportGroup>
-		<Import Project="$(MSBuildExtensionsPath)\Xamarin\WatchOS\Xamarin.WatchOS.$(_SdkLanguageName).targets"
-				Condition="Exists('$(MSBuildExtensionsPath)\Xamarin\WatchOS\Xamarin.WatchOS.$(_SdkLanguageName).targets')" />
+		<Import Project="$(MSBuildExtensionsPath)\Xamarin\WatchOS\Xamarin.WatchOS$(_SdkObjCBinding).$(_SdkLanguageName).targets"
+				Condition="Exists('$(MSBuildExtensionsPath)\Xamarin\WatchOS\Xamarin.WatchOS$(_SdkObjCBinding).$(_SdkLanguageName).targets')" />
 	
 		<Import Project="$(MSBuildThisFileDirectory)CommonAfter.targets" />
 	</ImportGroup>
