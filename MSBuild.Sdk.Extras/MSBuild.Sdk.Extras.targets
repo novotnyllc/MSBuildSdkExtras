@@ -20,8 +20,6 @@
   </Target>
 
   <Target Name="_LocalPublish" Condition="'$(CI)' != 'true'" AfterTargets="Pack">
-    <Exec Command='rd "$(NuGetPackageRoot)$(PackageId.ToLowerInvariant())" /q /s' Condition="Exists('$(NuGetPackageRoot)$(PackageId.ToLowerInvariant())')" />
-
     <ItemGroup>
       <ToDelete Include="$(TEMP)\packages\$(PackageId)*.nupkg" />
     </ItemGroup>
@@ -29,6 +27,8 @@
 
     <MakeDir Directories="$(TEMP)\packages" Condition="!Exists('$(TEMP)\packages')" />
     <Copy SourceFiles="$(PackageOutputPath)\$(PackageId).$(PackageVersion).nupkg" DestinationFolder="$(TEMP)\packages" />
+
+    <Exec Command='rd "$(NuGetPackageRoot)$(PackageId.ToLowerInvariant())" /q /s' Condition="Exists('$(NuGetPackageRoot)$(PackageId.ToLowerInvariant())')" />
   </Target>
 
 </Project>
