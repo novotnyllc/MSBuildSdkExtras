@@ -10,6 +10,15 @@
     <CI Condition="'$(CI)' == ''">false</CI>
   </PropertyGroup>
 
+  <Target Name="_SetFixedVersion" 
+          Condition="'$(CI)' != 'true'"
+          AfterTargets="_NBGV_CalculateNuSpecVersionHelper"
+          BeforeTargets="GenerateNuspec">
+    <PropertyGroup>
+      <PackageVersion>42.42.42</PackageVersion>
+    </PropertyGroup>
+  </Target>
+
   <Target Name="_LocalPublish" Condition="'$(CI)' != 'true'" AfterTargets="Pack">
     <Exec Command='rd "$(NuGetPackageRoot)$(PackageId.ToLowerInvariant())" /q /s' Condition="Exists('$(NuGetPackageRoot)$(PackageId.ToLowerInvariant())')" />
 
