@@ -12,4 +12,5 @@
   </ItemGroup>
 
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk"/>
+  <Import Project="$(MSBuildThisFileDirectory)..\build\MSBuild.Sdk.Extras.targets"  />
 </Project>

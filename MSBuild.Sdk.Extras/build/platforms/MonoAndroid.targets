@@ -35,4 +35,25 @@
 		<Compile Include="$(AndroidResgenFile)" Condition="'$(_SdkSetAndroidResgenFile)' == 'true'" Visible="false" />
 	</ItemGroup>
 
+  <ItemGroup Condition="'$(EnableDefaultItems)' == 'true' and '$(EnableDefaultPlatformItems)' == 'true'">
+    <!-- Reverse the defaults in DefaultItems.props so that None becomes Compile for Android items -->
+
+    <None Remove="Platforms/Android/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="Platforms/Android//**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+
+    <None Remove="Android/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="Android/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+
+    <None Remove="**/*.Android$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="**/*.Android$(DefaultLanguageSourceExtension)"
+          DependentUpon="$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('.Android', ''))$(_SdkLanguageExtension)"
+          SubType="Code"
+          Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+  </ItemGroup>
+
+  <!-- This avoids MSB4018 warning from an unexpected failure in GenerateResourceDesigner if no Resources folder exists -->
+  <Target Name="_EnsureResourcesDir" BeforeTargets="PrepareForBuild">
+    <MakeDir Directories="Resources" Condition="!Exists('Resources')" />
+  </Target>
+
 </Project>

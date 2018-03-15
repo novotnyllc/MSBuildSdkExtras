@@ -5,6 +5,7 @@ skip_commits:
     - '**/*.md'
 
 build_script:
+  - cmd: mkdir %TEMP%\packages
   - cmd: msbuild /t:restore
   - cmd: msbuild /t:pack /p:PackageOutputPath=%APPVEYOR_BUILD_FOLDER%
 

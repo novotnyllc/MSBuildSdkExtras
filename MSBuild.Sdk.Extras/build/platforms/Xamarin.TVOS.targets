@@ -27,4 +27,20 @@
 	  <Reference Include="@(_ExtrasImplicitReference)" />
 	</ItemGroup>
 
+  <ItemGroup Condition="'$(EnableDefaultItems)' == 'true' and '$(EnableDefaultPlatformItems)' == 'true'">
+    <!-- Reverse the defaults in DefaultItems.props so that None becomes Compile for iOS items -->
+
+    <None Remove="Platforms/TVOS/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="Platforms/TVOS/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+
+    <None Remove="TVOS/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="TVOS/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+
+    <None Remove="**/*.TVOS$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="**/*.TVOS$(DefaultLanguageSourceExtension)"
+          DependentUpon="$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('.TVOS', ''))$(_SdkLanguageExtension)"
+          SubType="Code"
+          Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+  </ItemGroup>
+
 </Project>

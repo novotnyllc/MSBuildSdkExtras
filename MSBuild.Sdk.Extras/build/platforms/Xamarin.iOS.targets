@@ -26,4 +26,20 @@
 	  <Reference Include="@(_ExtrasImplicitReference)" />
 	</ItemGroup>
 
+  <ItemGroup Condition="'$(EnableDefaultItems)' == 'true' and '$(EnableDefaultPlatformItems)' == 'true'">
+    <!-- Reverse the defaults in DefaultItems.props so that None becomes Compile for iOS items -->
+
+    <None Remove="Platforms/iOS/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="Platforms/iOS/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+
+    <None Remove="iOS/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="iOS/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+
+    <None Remove="**/*.iOS$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="**/*.iOS$(DefaultLanguageSourceExtension)"
+          DependentUpon="$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('.iOS', ''))$(_SdkLanguageExtension)"
+          SubType="Code"
+          Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+  </ItemGroup>
+
 </Project>

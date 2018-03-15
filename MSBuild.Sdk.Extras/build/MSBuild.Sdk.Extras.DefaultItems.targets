@@ -1,0 +1,165 @@
+<Project>
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+
+    <!-- _ShortFrameworkIdentifier comes from the Microsoft.NET.TargetFrameworkInference.targets -->
+    <_SdkPlatformIdentifier>$(_ShortFrameworkIdentifier)</_SdkPlatformIdentifier>
+    <!-- _SdkShortFrameworkIdentifier comes from the MSBuild.Sdk.Extras.Core.targets -->
+    <_SdkPlatformIdentifier Condition="'$(_SdkPlatformIdentifier)' == ''">$(_SdkShortFrameworkIdentifier)</_SdkPlatformIdentifier>
+
+    <!-- _TargetFrameworkVersionWithoutV comes from the Microsoft.NET.SDK -->
+    <_SdkPlatformVersionWithoutV>$(_TargetFrameworkVersionWithoutV)</_SdkPlatformVersionWithoutV>
+    <!-- _SdkTargetFrameworkVersionWithoutV comes from the MSBuild.Sdk.Extras.Core.targets -->
+    <_SdkPlatformVersionWithoutV Condition="'$(_SdkPlatformVersionWithoutV)' == ''">$(_SdkTargetFrameworkVersionWithoutV)</_SdkPlatformVersionWithoutV>
+
+    <_SdkTargetFrameworkIdentifierWithoutDot>$(TargetFrameworkIdentifier.TrimStart('.'))</_SdkTargetFrameworkIdentifierWithoutDot>
+
+    <!-- Only consider the short identifier if it doesn't match the full framework identifier already (i.e. netstandard matches) 
+         TODO: this will NOT work on case-insensitive file systems (specified on a Mac at volume creation time, but *off* by default).
+         If the file system is case sensitive and we include the wrong cased files, it won't work. 
+         In that case, users will have to opt out of the whole feature by setting EnableDefaultPlatformItems=off or by 
+         making sure the netstandard files use the proper cased TF, as in NETStandard[version].
+    -->
+    <_SdkPlatformIdentifier Condition="'$(_SdkPlatformIdentifier)' == '$(_SdkTargetFrameworkIdentifierWithoutDot)'" />
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFrameworkVersion)' != ''">
+    <_SdkTargetFrameworkMajorVersion>$(TargetFrameworkVersion.TrimStart('v'))</_SdkTargetFrameworkMajorVersion>
+    <_SdkTargetFrameworkMajorVersion>$(_SdkTargetFrameworkMajorVersion.Substring(0, $(_SdkTargetFrameworkMajorVersion.IndexOf('.'))))</_SdkTargetFrameworkMajorVersion>
+  </PropertyGroup>
+
+  <!-- Allows Platforms/[TFI]/**/*.cs, [TFI]/**/*.cs and *.[TFI].cs -->
+  <ItemGroup Label="TFI" Condition="'$(EnableDefaultItems)' == 'true' and '$(TargetFrameworkIdentifier)' != ''">
+    <!-- Switch from None > Compile for the matching framework -->    
+
+    <None Remove="Platforms/$(_SdkTargetFrameworkIdentifierWithoutDot)/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="Platforms/$(_SdkTargetFrameworkIdentifierWithoutDot)/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension) (TFI)" />
+
+    <None Remove="$(_SdkTargetFrameworkIdentifierWithoutDot)/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="$(_SdkTargetFrameworkIdentifierWithoutDot)/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension) (TFI)" />
+
+    <!-- Nest to parent --> 
+    <None Remove="**/*.$(_SdkTargetFrameworkIdentifierWithoutDot)$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="**/*.$(_SdkTargetFrameworkIdentifierWithoutDot)$(_SdkLanguageExtension)"
+             Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension) (TFI)" 
+             DependentUpon="$([System.Text.RegularExpressions.Regex]::Replace($([MSBuild]::ValueOrDefault('%(Filename)', '')), '.$(_SdkTargetFrameworkIdentifierWithoutDot)', '', RegexOptions.IgnoreCase))$(_SdkLanguageExtension)"
+             SubType="Code"
+             Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+  </ItemGroup>
+
+  <!-- Allows Platforms/[TFI][TFV]/**/*.cs, [TFI][TFV]/**/*.cs and *.[TFI][TFV].cs -->
+  <ItemGroup Label="TFI+TFV" Condition="'$(EnableDefaultItems)' == 'true' and '$(TargetFrameworkIdentifier)' != ''">
+    <!-- Switch from None > Compile for the matching framework -->
+
+    <None Remove="Platforms/$(_SdkTargetFrameworkIdentifierWithoutDot)$(_TargetFrameworkVersionWithoutV)/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="Platforms/$(_SdkTargetFrameworkIdentifierWithoutDot)$(_TargetFrameworkVersionWithoutV)/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension) (TFI+TFV)" />
+
+    <None Remove="$(_SdkTargetFrameworkIdentifierWithoutDot)$(_TargetFrameworkVersionWithoutV)/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="$(_SdkTargetFrameworkIdentifierWithoutDot)$(_TargetFrameworkVersionWithoutV)/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension) (TFI+TFV)" />
+
+    <!-- Nest to parent -->
+    <None Remove="**/*.$(_SdkTargetFrameworkIdentifierWithoutDot)$(_TargetFrameworkVersionWithoutV)$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="**/*.$(_SdkTargetFrameworkIdentifierWithoutDot)$(_TargetFrameworkVersionWithoutV)$(_SdkLanguageExtension)"
+             Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension) (TFI+TFV)"
+             DependentUpon="$([System.Text.RegularExpressions.Regex]::Replace($([MSBuild]::ValueOrDefault('%(Filename)', '')), '.$(_SdkTargetFrameworkIdentifierWithoutDot)$(_TargetFrameworkVersionWithoutV)', '', RegexOptions.IgnoreCase))$(_SdkLanguageExtension)"
+             SubType="Code"
+             Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+  </ItemGroup>
+
+  <!-- Allows Platforms/[TFI][MAJOR]/**/*.cs, [TFI][MAJOR]/**/*.cs and *.[TFI][MAJOR].cs -->
+  <ItemGroup Label="TFI+MAJOR" Condition="'$(EnableDefaultItems)' == 'true' and '$(TargetFrameworkIdentifier)' != ''">
+    <!-- Switch from None > Compile for the matching framework -->
+
+    <None Remove="Platforms/$(_SdkTargetFrameworkIdentifierWithoutDot)$(_SdkTargetFrameworkMajorVersion)/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="Platforms/$(_SdkTargetFrameworkIdentifierWithoutDot)$(_SdkTargetFrameworkMajorVersion)/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension) (TFI+MAJOR)" />
+
+    <None Remove="$(_SdkTargetFrameworkIdentifierWithoutDot)$(_SdkTargetFrameworkMajorVersion)/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="$(_SdkTargetFrameworkIdentifierWithoutDot)$(_SdkTargetFrameworkMajorVersion)/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension) (TFI+MAJOR)" />
+
+    <!-- Nest to parent -->
+    <None Remove="**/*.$(_SdkTargetFrameworkIdentifierWithoutDot)$(_SdkTargetFrameworkMajorVersion)$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="**/*.$(_SdkTargetFrameworkIdentifierWithoutDot)$(_SdkTargetFrameworkMajorVersion)$(_SdkLanguageExtension)"
+             Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension) (TFI+MAJOR)"
+             DependentUpon="$([System.Text.RegularExpressions.Regex]::Replace($([MSBuild]::ValueOrDefault('%(Filename)', '')), '.$(_SdkTargetFrameworkIdentifierWithoutDot)$(_SdkTargetFrameworkMajorVersion)', '', RegexOptions.IgnoreCase))$(_SdkLanguageExtension)"
+             SubType="Code"
+             Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+  </ItemGroup>
+
+  <!-- Allows Platforms/[TF]**/*.cs, [TF]/**/*.cs and *.[TF].cs -->
+  <ItemGroup Label="TF" Condition="'$(EnableDefaultItems)' == 'true' and '$(TargetFramework)' != '' and '$(TargetFramework)' != '$(_SdkTargetFrameworkIdentifierWithoutDot)$(_TargetFrameworkVersionWithoutV)'">
+    <!-- Switch from None > Compile for the matching framework -->
+
+    <None Remove="Platforms/$(TargetFramework)/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="Platforms/$(TargetFramework)/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension) (TF)" />
+
+    <None Remove="$(TargetFramework)/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+    <Compile Include="$(TargetFramework)/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension) (TF)" />
+
+    <!-- Nest to parent -->
+    <None Remove="**/*.$(TargetFramework)$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="**/*.$(TargetFramework)$(_SdkLanguageExtension)"
+             Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension) (TF)"
+             DependentUpon="$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('.$(TargetFramework)', ''))$(_SdkLanguageExtension)"
+             SubType="Code"
+             Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+  </ItemGroup>
+
+  <!-- Allows Platforms/[short]**/*.cs, [short]/**/*.cs and *.[short].cs -->
+  <ItemGroup Label="SHORT" Condition="'$(EnableDefaultItems)' == 'true' and '$(_SdkPlatformIdentifier)' != ''">
+    <!-- Switch from None > Compile for the matching framework -->
+
+    <None Remove="Platforms/$(_SdkPlatformIdentifier)/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="Platforms/$(_SdkPlatformIdentifier)/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension) (SHORT)" />
+
+    <None Remove="$(_SdkPlatformIdentifier)/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="$(_SdkPlatformIdentifier)/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension) (SHORT)" />
+
+    <!-- Nest to parent -->
+    <None Remove="**/*.$(_SdkPlatformIdentifier)$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="**/*.$(_SdkPlatformIdentifier)$(_SdkLanguageExtension)"
+             Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension) (SHORT)"
+             DependentUpon="$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('.$(_SdkPlatformIdentifier)', ''))$(_SdkLanguageExtension)"
+             SubType="Code"
+             Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+  </ItemGroup>
+
+  <!-- Allows Platforms/[short][TFV]**/*.cs, [short][TFV]/**/*.cs and *.[short][TFV].cs -->
+  <ItemGroup Label="SHORT+TFV" Condition="'$(EnableDefaultItems)' == 'true' and '$(_SdkPlatformIdentifier)' != ''">
+    <!-- Switch from None > Compile for the matching framework -->
+
+    <None Remove="Platforms/$(_SdkPlatformIdentifier)$(_SdkPlatformVersionWithoutV)/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="Platforms/$(_SdkPlatformIdentifier)$(_SdkPlatformVersionWithoutV)/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension) (SHORT+TFV)" />
+
+    <None Remove="$(_SdkPlatformIdentifier)$(_SdkPlatformVersionWithoutV)/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="$(_SdkPlatformIdentifier)$(_SdkPlatformVersionWithoutV)/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension) (SHORT+TFV)" />
+
+    <!-- Nest to parent -->
+    <None Remove="**/*.$(_SdkPlatformIdentifier)$(_SdkPlatformVersionWithoutV)$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="**/*.$(_SdkPlatformIdentifier)$(_SdkPlatformVersionWithoutV)$(_SdkLanguageExtension)"
+             Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension) (SHORT+TFV)"
+             DependentUpon="$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('.$(_SdkPlatformIdentifier)$(_SdkPlatformVersionWithoutV)', ''))$(_SdkLanguageExtension)"
+             SubType="Code"
+             Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+  </ItemGroup>
+
+  <!-- Allows Platforms/[short][MAJOR]**/*.cs, [short][MAJOR]/**/*.cs and *.[short][MAJOR].cs -->
+  <ItemGroup Label="SHORT+MAJOR" Condition="'$(EnableDefaultItems)' == 'true' and '$(_SdkPlatformIdentifier)' != ''">
+    <!-- Switch from None > Compile for the matching framework -->
+
+    <None Remove="Platforms/$(_SdkPlatformIdentifier)$(_SdkTargetFrameworkMajorVersion)/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="Platforms/$(_SdkPlatformIdentifier)$(_SdkTargetFrameworkMajorVersion)/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension) (SHORT+MAJOR)" />
+
+    <None Remove="$(_SdkPlatformIdentifier)$(_SdkTargetFrameworkMajorVersion)/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="$(_SdkPlatformIdentifier)$(_SdkTargetFrameworkMajorVersion)/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension) " />
+
+    <!-- Nest to parent -->
+    <None Remove="**/*.$(_SdkPlatformIdentifier)$(_SdkTargetFrameworkMajorVersion)$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="**/*.$(_SdkPlatformIdentifier)$(_SdkTargetFrameworkMajorVersion)$(_SdkLanguageExtension)"
+             Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension) "
+             DependentUpon="$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('.$(_SdkPlatformIdentifier)$(_SdkTargetFrameworkMajorVersion)', ''))$(_SdkLanguageExtension)"
+             SubType="Code"
+             Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+  </ItemGroup>
+
+</Project>

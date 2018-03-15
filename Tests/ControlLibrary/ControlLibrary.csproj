@@ -1,0 +1,9 @@
+﻿<Project DefaultTargets="Nop" Sdk="MSBuild.Sdk.Extras/42.42.42">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard1.0;netstandard2.0;net47;tizen40;monoandroid7.1;monoandroid8.0;xamarinios1.0;xamarinmac2.0;xamarintvos1.0;xamarinwatchos1.0</TargetFrameworks>
+  </PropertyGroup>
+
+  <Target Name="Nop" />
+
+</Project>

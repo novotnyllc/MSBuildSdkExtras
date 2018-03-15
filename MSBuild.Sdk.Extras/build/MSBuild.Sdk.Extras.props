@@ -3,8 +3,7 @@
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 		<MSBuildSDKExtrasTargets>$(MSBuildThisFileDirectory)MSBuild.Sdk.Extras.Core.targets</MSBuildSDKExtrasTargets>
-	</PropertyGroup>
-
+  </PropertyGroup>
 
   <Choose>
     <When Condition="'$(MSBuildProjectExtension)' == '.csproj' or ('$(MSBuildProjectExtension)' == '.tmp_proj' and Exists('$(MSBuildProjectDirectory)\$(AssemblyName).csproj'))">
@@ -36,5 +35,10 @@
     <EmbeddedResourceGeneratorVisibilityIsInternal Condition="'$(EmbeddedResourceGeneratorVisibilityIsInternal)' == ''">true</EmbeddedResourceGeneratorVisibilityIsInternal>
   </PropertyGroup>
 
+  <!-- Props are imported unconditionally so they can provide default items that the IDE needs for project evaluation up-front
+       Still, the items included are conditioned to $(EnableDefaultPlatformItems) == 'true', since the project can override 
+       that value in the first pass, and by the time the items are evaluated, the right setting is in place. -->
+  <Import Project="$(MSBuildThisFileDirectory)MSBuild.Sdk.Extras.DefaultItems.props" />
+  <Import Project="$(MSBuildThisFileDirectory)platforms\*.DefaultItems.props" />
 
 </Project>

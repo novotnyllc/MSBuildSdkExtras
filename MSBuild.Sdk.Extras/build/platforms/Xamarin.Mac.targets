@@ -25,4 +25,20 @@
 	  <Reference Include="@(_ExtrasImplicitReference)" />
 	</ItemGroup>
 
+  <ItemGroup Condition="'$(EnableDefaultItems)' == 'true' and '$(EnableDefaultPlatformItems)' == 'true'">
+    <!-- Reverse the defaults in DefaultItems.props so that None becomes Compile for iOS items -->
+
+    <None Remove="Platforms/Mac/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="Platforms/Mac/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+
+    <None Remove="Mac/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="Mac/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+
+    <None Remove="**/*.Mac$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="**/*.Mac$(DefaultLanguageSourceExtension)"
+          DependentUpon="$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('.Mac', ''))$(_SdkLanguageExtension)"
+          SubType="Code"
+          Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+  </ItemGroup>
+
 </Project>

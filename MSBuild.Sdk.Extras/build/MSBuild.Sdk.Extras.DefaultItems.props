@@ -1,0 +1,91 @@
+<Project>
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(EnableDefaultItems)' == 'true' and '$(EnableDefaultPlatformItems)' == 'true'">
+    <!-- This is imported and updated without a condition on TF because VS uses the first TF
+         in order to render the solution explorer, so the platform-specific file will have to be 
+         imported there (as None, by default) and have the proper DependentUpon -->
+ 
+    <!-- Automatically import TF/TFI platforms -->
+    <Compile Remove="Platforms/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+    <None Include="Platforms/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+
+    <!-- Automatically import known TF/TFI platforms as top-level folder -->
+    <Compile Remove="NETFramework/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+    <None Include="NETFramework/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension)" />
+    <Compile Remove="NETCore/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+    <None Include="NETCore/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension)" />
+    <Compile Remove="NETPortable/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+    <None Include="NETPortable/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension)" />
+    <Compile Remove="netstandard/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+    <None Include="netstandard/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension)" />
+    <Compile Remove="netstandard1*/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+    <None Include="netstandard1*/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension)" />
+    <Compile Remove="netstandard2*/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+    <None Include="netstandard2*/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension)" />
+    <Compile Remove="netstandard*.*/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+    <None Include="netstandard*.*/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension)" />
+
+    <!-- Automatically nest files with the following pattern:
+      Foo.cs
+        Foo.[framework A].cs
+        Foo.[framework B].cs
+
+      NOTE: we must do it this way for the known TFs, since there is no declarative way of batching over 
+      a list of known TFs and automatically generate the right nesting for all of them.
+    -->
+    <Compile Remove="**/*.NETFramework$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+    <None Include="**/*.NETFramework$(_SdkLanguageExtension)"
+          Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension)" 
+          DependentUpon="$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('.NETFramework', ''))$(_SdkLanguageExtension)"
+          SubType="Code"
+          Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+
+    <Compile Remove="**/*.NETCore$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+    <None Include="**/*.NETCore$(_SdkLanguageExtension)"
+          Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension)" 
+          DependentUpon="$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('.NETCore', ''))$(_SdkLanguageExtension)"
+          SubType="Code"
+          Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+
+    <Compile Remove="**/*.NETPortable$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+    <None Include="**/*.NETPortable$(_SdkLanguageExtension)"
+          Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension)" 
+          DependentUpon="$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('.NETPortable', ''))$(_SdkLanguageExtension)"
+          SubType="Code"
+          Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+
+    <Compile Remove="**/*.netstandard$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+    <None Include="**/*.netstandard$(_SdkLanguageExtension)"
+          Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension)" 
+          DependentUpon="$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('.netstandard', ''))$(_SdkLanguageExtension)"
+          SubType="Code"
+          Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+
+    <Compile Remove="**/*.netstandard1$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+    <None Include="**/*.netstandard1$(_SdkLanguageExtension)"
+          Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension)" 
+          DependentUpon="$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('.netstandard1', ''))$(_SdkLanguageExtension)"
+          SubType="Code"
+          Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+
+    <Compile Remove="**/*.netstandard2$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+    <None Include="**/*.netstandard2$(_SdkLanguageExtension)"
+          Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension)" 
+          DependentUpon="$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('.netstandard2', ''))$(_SdkLanguageExtension)"
+          SubType="Code"
+          Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+
+    <Compile Remove="**/*.netstandard1.*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+    <Compile Remove="**/*.netstandard2.*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+    <None Include="**/*.netstandard*.*$(_SdkLanguageExtension)"
+          Source="$(MSBuildThisFileName)$(MSBuildThisFileExtension)" 
+          DependentUpon="$([System.Text.RegularExpressions.Regex]::Replace($([MSBuild]::ValueOrDefault('%(Filename)', '')), '\.netstandard\d\.\d', ''))$(_SdkLanguageExtension)"
+          SubType="Code"
+          Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+  </ItemGroup>
+
+</Project>

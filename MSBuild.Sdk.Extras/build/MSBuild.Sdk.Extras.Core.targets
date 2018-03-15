@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		<DefaultLanguage Condition="'$(DefaultLanguage)' == ''">en-US</DefaultLanguage>
+
 		<_SdkVisualStudioVersion>$(VisualStudioVersion)</_SdkVisualStudioVersion>
 		<_SdkVisualStudioVersion Condition="'$(_SdkVisualStudioVersion)' == '' or '$(_SdkVisualStudioVersion)' &lt; '14.0' ">15.0</_SdkVisualStudioVersion>
 	</PropertyGroup>

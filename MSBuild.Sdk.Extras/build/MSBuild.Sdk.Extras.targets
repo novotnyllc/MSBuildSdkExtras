@@ -5,6 +5,10 @@
 	</PropertyGroup>
 
 	<Import Project="$(MSBuildThisFileDirectory)MSBuild.Sdk.Extras.Common.targets" />
+  <!-- This is imported conditionally to simply conditions in the target, since project properties 
+       have already been evaluated at this point -->
+  <Import Project="$(MSBuildThisFileDirectory)MSBuild.Sdk.Extras.DefaultItems.targets" 
+          Condition="'$(EnableDefaultPlatformItems)' == 'true'" />
 
   <Import Condition="'$(_SdkDotNetVersion)' &lt; '2.0'" Project="$(MSBuildThisFileDirectory)NuGet.Workarounds.1.x.targets" />
 

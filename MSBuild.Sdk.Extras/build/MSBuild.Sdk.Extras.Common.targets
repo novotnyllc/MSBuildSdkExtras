@@ -9,7 +9,12 @@
 			 since there's no separate SDK version property -->
 		<_SdkDotNetVersion>$(BundledNETCoreAppTargetFrameworkVersion)</_SdkDotNetVersion>
 		<_SdkDotNetVersion Condition="'$(_SdkDotNetVersion)' == ''">1.0</_SdkDotNetVersion>
-	</PropertyGroup>
+
+    <!-- Turns on automatic default folders and file extensions for platforms, which slows down the IDE ATM somewhat 
+         Basically causes the *.DefaultItems.* to be imported.
+    -->
+    <EnableDefaultPlatformItems Condition="'$(EnableDefaultPlatformItems)' == ''">true</EnableDefaultPlatformItems>
+  </PropertyGroup>
 
   <ItemDefinitionGroup Condition="'$(EnableEmbeddedResourceGenerator)' == 'true' ">
     <EmbeddedResource>

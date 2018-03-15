@@ -28,4 +28,20 @@
 	  <Reference Include="@(_ExtrasImplicitReference)" />
 	</ItemGroup>
 
+  <ItemGroup Condition="'$(EnableDefaultItems)' == 'true' and '$(EnableDefaultPlatformItems)' == 'true'">
+    <!-- Reverse the defaults in DefaultItems.props so that None becomes Compile for iOS items -->
+
+    <None Remove="Platforms/WatchOS/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="Platforms/WatchOS/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+
+    <None Remove="WatchOS/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="WatchOS/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+
+    <None Remove="**/*.WatchOS$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+    <Compile Include="**/*.WatchOS$(DefaultLanguageSourceExtension)"
+          DependentUpon="$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('.WatchOS', ''))$(_SdkLanguageExtension)"
+          SubType="Code"
+          Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+  </ItemGroup>
+
 </Project>

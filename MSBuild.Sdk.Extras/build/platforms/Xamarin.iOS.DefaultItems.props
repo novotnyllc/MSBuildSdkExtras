@@ -1,0 +1,29 @@
+<Project>
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(EnableDefaultItems)' == 'true' and '$(EnableDefaultPlatformItems)' == 'true'">
+    <!-- This is imported and updated without a condition on TF because the IDE uses the first TF
+         in order to render the solution explorer, so the platform-specific file will have to be 
+         imported there (as None, by default) and have the proper DependentUpon -->
+
+    <Compile Remove="iOS/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+    <None Include="iOS/**/*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+
+    <Compile Remove="**/*.iOS$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+    <None Include="**/*.iOS$(_SdkLanguageExtension)"
+          DependentUpon="$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('.iOS', ''))$(_SdkLanguageExtension)"
+          SubType="Code"
+          Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+
+    <!-- This works in concert with MSBuild.Sdk.Extras.DefaultItems.targets where *.[TF][TFV].cs is added as compile,
+         but we need to remove them from Compile globally otherwise they are added by the global compile import of **/*.cs -->
+    <Compile Remove="**/*.xamarinios*$(_SdkLanguageExtension)" Condition="'$(EnableDefaultCompileItems)' == 'true'" />
+    <None Include="**/*.xamarinios*$(_SdkLanguageExtension)"
+          DependentUpon="$([System.Text.RegularExpressions.Regex]::Replace($([MSBuild]::ValueOrDefault('%(Filename)', '')), '\.xamarinios\d?(\.\d)?', ''))$(_SdkLanguageExtension)"
+          SubType="Code"
+          Condition="'$(EnableDefaultNoneItems)' == 'true'" />
+  </ItemGroup>
+
+</Project>
