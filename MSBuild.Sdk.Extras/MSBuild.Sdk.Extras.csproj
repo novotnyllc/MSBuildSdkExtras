@@ -26,12 +26,39 @@
   <ItemGroup>
     <PackageReference Include="Nerdbank.GitVersioning" Version="2.1.23" PrivateAssets="all" />
 
-    <None Update="**\*.props;**\*.targets;**\*.xml;**\*.xaml" Pack="true" PackagePath="." />
+    <None Update="**\*.props;**\*.targets;**\*.xml;**\*.xaml" Pack="true" PackagePath="." Except="LocalDev.targets" />
 
     <!-- Make sure VS considers any change to any of the targets as requiring a new build/pack -->
     <UpToDateCheckInput Include="@(None)" />
   </ItemGroup>
 
-  <Import Project="MSBuild.Sdk.Extras.targets" />
+
+  <!-- Tools to make local dev easier -->
+
+  <PropertyGroup Condition="'$(CI)' == ''">
+    <CI Condition="'$(APPVEYOR)' != '' or '$(TF_BUILD)' == 'true'">true</CI>
+    <CI Condition="'$(CI)' == ''">false</CI>
+  </PropertyGroup>
+
+  <Target Name="_SetFixedVersion"
+          Condition="'$(CI)' != 'true'"
+          AfterTargets="_NBGV_CalculateNuSpecVersionHelper"
+          BeforeTargets="GenerateNuspec">
+    <PropertyGroup>
+      <PackageVersion>42.42.42</PackageVersion>
+    </PropertyGroup>
+  </Target>
+
+  <Target Name="_LocalPublish" Condition="'$(CI)' != 'true'" AfterTargets="Pack">
+    <ItemGroup>
+      <ToDelete Include="$(TEMP)\packages\$(PackageId)*.nupkg" />
+    </ItemGroup>
+    <Delete Files="@(ToDelete)" />
+
+    <MakeDir Directories="$(TEMP)\packages" Condition="!Exists('$(TEMP)\packages')" />
+    <Copy SourceFiles="$(PackageOutputPath)\$(PackageId).$(PackageVersion).nupkg" DestinationFolder="$(TEMP)\packages" />
+
+    <Exec Command='rd "$(NuGetPackageRoot)$(PackageId.ToLowerInvariant())" /q /s' Condition="Exists('$(NuGetPackageRoot)$(PackageId.ToLowerInvariant())')" />
+  </Target>
 
 </Project>
