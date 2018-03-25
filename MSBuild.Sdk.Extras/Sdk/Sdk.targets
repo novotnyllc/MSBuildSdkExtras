@@ -7,7 +7,7 @@
   <Import Project="$(MSBuildSDKExtrasTargets)" />
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.7" Condition="'$(_SdkShortFrameworkIdentifier)' == 'uap'" />
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.8" Condition="'$(_SdkShortFrameworkIdentifier)' == 'uap'" />
     <PackageReference Include="Tizen.NET" Version="$(_SdkTargetFrameworkVersionWithoutV)" Condition="'$(_SdkShortFrameworkIdentifier)' == 'tizen'" />
   </ItemGroup>
 

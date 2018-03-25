@@ -5,9 +5,8 @@ skip_commits:
     - '**/*.md'
 
 build_script:
-  - cmd: mkdir %TEMP%\packages
-  - cmd: msbuild /t:restore
-  - cmd: msbuild /t:pack /p:PackageOutputPath=%APPVEYOR_BUILD_FOLDER%
+  - cmd: mkdir %TEMP%\packages   
+  - cmd: msbuild /restore /t:pack /p:PackageOutputPath=%APPVEYOR_BUILD_FOLDER%
 
 artifacts:
   - path: 'MSBuild.Sdk.Extras.*.nupkg'
