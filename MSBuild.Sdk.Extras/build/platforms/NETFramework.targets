@@ -4,7 +4,7 @@
   </PropertyGroup>
 
   <!-- If the target doesn't exist, don't use it, means we've been called from dotnet 
-       This can happen if one of the targets is used by a test project called by dotnet test --no-build.
+       This can happen if one of the targets is used by a test project called by dotnet test no-build.
        Note that the scenario does not cover WPF by dotnet test.
   -->
   <Import Project="$(MSBuildThisFileDirectory)languageTargets\Wpf.targets" Condition=" '$(OS)' == 'Windows_NT' and Exists('$(MSBuildExtensionsPath)\$(_SdkVisualStudioVersion)\Bin\Microsoft.$(_SdkLanguageName).targets')" />
