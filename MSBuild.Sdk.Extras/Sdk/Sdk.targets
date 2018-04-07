@@ -6,10 +6,22 @@
 
   <Import Project="$(MSBuildSDKExtrasTargets)" />
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.8" Condition="'$(_SdkShortFrameworkIdentifier)' == 'uap'" />
+  <PropertyGroup>
+    <ExtrasUwpMetaPackageVersion Condition="'$(ExtrasUwpMetaPackageVersion)' == ''">6.0.8</ExtrasUwpMetaPackageVersion>
+    <ExtrasImplicitPlatformPackageDisabled Condition="'$(ExtrasImplicitPlatformPackageDisabled)' == ''">false</ExtrasImplicitPlatformPackageDisabled>
+    <ExtrasImplicitPlatformPackageIsPrivate Condition="'$(ExtrasImplicitPlatformPackageIsPrivate)' == ''">false</ExtrasImplicitPlatformPackageIsPrivate>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(ExtrasImplicitPlatformPackageDisabled)' != 'true' ">
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="$(ExtrasUwpMetaPackageVersion)" Condition="'$(_SdkShortFrameworkIdentifier)' == 'uap'" />
     <PackageReference Include="Tizen.NET" Version="$(_SdkTargetFrameworkVersionWithoutV)" Condition="'$(_SdkShortFrameworkIdentifier)' == 'tizen'" />
   </ItemGroup>
+
+  <ItemGroup Condition=" '$(ExtrasImplicitPlatformPackageIsPrivate)' == 'true' ">
+    <PackageReference Update="Microsoft.NETCore.UniversalWindowsPlatform" PrivateAssets="all" Condition="'$(_SdkShortFrameworkIdentifier)' == 'uap'" />
+    <PackageReference Update="Tizen.NET" PrivateAssets="all" Condition="'$(_SdkShortFrameworkIdentifier)' == 'tizen'" />
+  </ItemGroup>
+  
 
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk"/>
 </Project>
