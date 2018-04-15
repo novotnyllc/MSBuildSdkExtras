@@ -25,6 +25,7 @@
     <ApplicationDefinition Include="$(MSBuildProjectDirectory)/App.xaml" Condition="'$(EnableDefaultWpfItems)' == 'True' and Exists('$(MSBuildProjectDirectory)/App.xaml')" />
     <None Remove="$(MSBuildProjectDirectory)/Application.xaml" Condition="'$(EnableDefaultWpfItems)' == 'True' and Exists('$(MSBuildProjectDirectory)/Application.xaml')" />
     <ApplicationDefinition Include="$(MSBuildProjectDirectory)/Application.xaml" Condition="'$(EnableDefaultWpfItems)' == 'True' and Exists('$(MSBuildProjectDirectory)/Application.xaml')" />
+    <UpToDateCheckInput Include="@(Page);@(ApplicationDefinition)" />
   </ItemGroup>
 
   <ItemGroup>
