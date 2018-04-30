@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <Import Project="$(MSBuildSDKExtrasTargets)" />
+  <Import Project="$(MSBuildThisFileDirectory)..\build\MSBuild.Sdk.Extras.targets"  />
 
   <PropertyGroup>
     <ExtrasUwpMetaPackageVersion Condition="'$(ExtrasUwpMetaPackageVersion)' == ''">6.0.8</ExtrasUwpMetaPackageVersion>
@@ -22,6 +23,5 @@
     <PackageReference Update="Tizen.NET" PrivateAssets="all" Condition="'$(_SdkShortFrameworkIdentifier)' == 'tizen'" />
   </ItemGroup>
   
-
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk"/>
 </Project>
