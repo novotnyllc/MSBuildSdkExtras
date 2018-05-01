@@ -12,12 +12,12 @@ steps:
 
 - powershell: |
     mkdir $Env:Temp\packages
-    msbuild /restore /t:pack /p:PackageOutputPath=.\artifacts
+    msbuild /restore /t:pack /p:PackageOutputPath=$(System.DefaultWorkingDirectory)\artifacts
   displayName: Build
 
 - task: CopyFiles@2
   inputs:
-    Contents: 'artifacts/MSBuild.Sdk.Extras.*.nupkg'
+    Contents: '$(System.DefaultWorkingDirectory)\artifacts\MSBuild.Sdk.Extras.*.nupkg'
     TargetFolder: '$(build.artifactstagingdirectory)\Packages'    
 
 - task: PublishBuildArtifacts@1
