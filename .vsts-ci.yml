@@ -11,6 +11,7 @@ steps:
     
 
 - powershell: |
+    mkdir $Env:Temp\packages
     msbuild /restore /t:pack /p:PackageOutputPath=$(Build.ArtifactStagingDirectory)\Package
   displayName: Build
 
