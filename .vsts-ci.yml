@@ -18,7 +18,8 @@ steps:
 - task: CopyFiles@2
   inputs:
     Contents: '$(System.DefaultWorkingDirectory)\artifacts\MSBuild.Sdk.Extras.*.nupkg'
-    TargetFolder: '$(build.artifactstagingdirectory)\Packages'    
+    TargetFolder: '$(build.artifactstagingdirectory)\Packages'
+    flattenFolders: true
 
 - task: PublishBuildArtifacts@1
   displayName: Publish Artifacts
