@@ -8,6 +8,11 @@ steps:
     arguments: -no_logo
     modifyEnvironment: true
   displayName: Setup Environment Variables
+
+- task: NuGetToolInstaller@0
+  displayName: Put NuGet in Path
+  inputs:
+    versionSpec: 4.7.0
     
 - task: DotNetCoreCLI@2
   inputs:
