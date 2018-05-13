@@ -1,23 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <!-- workaround for https://github.com/NuGet/Home/issues/5894 -->
-    <OriginalProjectName>WpfApplication</OriginalProjectName>
-  </PropertyGroup>
-  <Import Project="$(BaseIntermediateOuputPath)$(OriginalProjectName).*.props" Condition=" '$(MSBuildProjectName)' != '$(OriginalProjectName)' and '$(ImportProjectExtensionProps)' != 'false' and exists('$(BaseIntermediateOuputPath)')" />
-  
+﻿<Project Sdk="MSBuild.Sdk.Extras/42.42.42">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net462</TargetFramework>
 
     <EmbeddedResourceGeneratorVisibilityIsInternal>false</EmbeddedResourceGeneratorVisibilityIsInternal>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="MSBuild.Sdk.Extras" Version="1.2.0-build.3" PrivateAssets="all" />
-  </ItemGroup>
-
-  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
-
-  <Import Project="$(BaseIntermediateOuputPath)$(OriginalProjectName).*.targets" Condition=" '$(MSBuildProjectName)' != '$(OriginalProjectName)' and '$(ImportProjectExtensionProps)' == 'true' and exists('$(BaseIntermediateOuputPath)')" />
 </Project>
