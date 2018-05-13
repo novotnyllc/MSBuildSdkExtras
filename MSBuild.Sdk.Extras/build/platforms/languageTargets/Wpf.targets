@@ -64,6 +64,14 @@
   </ItemGroup>
 
   <!--
+     Work around to import the appropriate NuGet props/targets when building a temporary project.
+     Note this will only work when targeting .NET Framework 4.7.2.
+     https://github.com/NuGet/Home/issues/5894
+  -->
+  <Import Project="$(BaseIntermediateOutputPath)$(_TargetAssemblyProjectName).*.props" Condition="'$(_TargetAssemblyProjectName)' != '' and '$(ImportProjectExtensionProps)' == 'true' and exists('$(BaseIntermediateOutputPath)')" />
+  <Import Project="$(BaseIntermediateOutputPath)$(_TargetAssemblyProjectName).*.targets" Condition="'$(_TargetAssemblyProjectName)' != '' and '$(ImportProjectExtensionProps)' == 'true' and exists('$(BaseIntermediateOutputPath)')" />
+
+  <!--
      Work around to fix Intellisense file generation for XAML projects
      https://github.com/dotnet/project-system/issues/2488
   -->
