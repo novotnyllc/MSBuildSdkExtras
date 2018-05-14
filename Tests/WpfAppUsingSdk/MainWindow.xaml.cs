@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PCLCommandBase;
 
 namespace WpfApplication
 {
@@ -23,6 +24,7 @@ namespace WpfApplication
         public MainWindow()
         {
             InitializeComponent();
+            CancelCommand command = new CancelCommand(null);
         }
     }
 }
