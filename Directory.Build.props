@@ -1,0 +1,17 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup Label="Globals">
+    <RepoRootDir>$(MSBuildThisFileDirectory)</RepoRootDir>
+    <BuildToolsPath>$(RepoRootDir)Tools\</BuildToolsPath>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Output">
+    <BuildFolder>~Builds</BuildFolder>
+    <BuildPath>$(RepoRootDir)</BuildPath>
+    <PublishFolder>~Packages</PublishFolder>
+    <PublishPath>$(RepoRootDir)</PublishPath>
+    <IntermediateOutputFolder>Objects</IntermediateOutputFolder>
+    <OutputFolder>Binaries</OutputFolder>
+  </PropertyGroup>
+
+</Project>

@@ -23,8 +23,8 @@ indent_size = 2
 [*.{props,targets,ruleset,config,nuspec,resx,vsixmanifest,vsct}]
 indent_size = 2
 
-# JSON files
-[*.json]
+# JSON/YAML files
+[*.{json,yaml}]
 indent_size = 2
 
 # Dotnet code style settings:

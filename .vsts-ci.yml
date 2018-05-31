@@ -1,19 +1,22 @@
-trigger:
-- master
-- rel/*
-
 queue: Hosted VS2017
-variables: 
+
+trigger:
+  - master
+  - rel/*
+
+variables:
   BuildConfiguration: Release
-steps:
-- template: .vsts-shared.yml
-  parameters:
-    signSteps:
+
+parameters:
+  signSteps:
     - task: PowerShell@2
       displayName: Authenticode Sign artifacts
       inputs:
-        filePath: Tools/Sign-Package.ps1
+        filePath: Tools\Sign-Package.ps1
       env:
         SignClientUser: $(SignClientUser)
         SignClientSecret: $(SignClientSecret)
         ArtifactDirectory: $(Build.ArtifactStagingDirectory)\Packages
+
+steps:
+  - template: .vsts-shared.yml

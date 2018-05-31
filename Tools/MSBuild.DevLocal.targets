@@ -1,0 +1,35 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- Tools to make local dev easier -->
+  <Target Name="_EnsureTempPackageSource" BeforeTargets="Restore;_LocalPublish">
+    <PropertyGroup>
+      <TempPackagePath Condition="'$(TempPackagePath)' == ''">$(TEMP)\Packages</TempPackagePath>
+    </PropertyGroup>
+    <MakeDir Directories="$(TempPackagePath)" Condition="!Exists('$(TempPackagePath)')" />
+  </Target>
+
+  <Target Name="_CleanTempPackageSource" AfterTargets="_EnsureTempPackageSource;Clean">
+    <ItemGroup>
+      <ToDelete Include="$(TempPackagePath)\$(PackageId).*.nupkg"/>
+    </ItemGroup>
+
+    <Delete Files="@(ToDelete)"/>
+    <Exec Command='rd "$(NuGetPackageRoot)$(PackageId.ToLowerInvariant())" /q /s' Condition="Exists('$(NuGetPackageRoot)$(PackageId.ToLowerInvariant())')"/>
+  </Target>
+
+  <Target Name="_SetFixedVersion"
+      BeforeTargets="SetNuSpecProperties;GenerateNuspec"
+      AfterTargets="_NBGV_CalculateNuSpecVersionHelper">
+    <PropertyGroup>
+      <PackageVersion>42.42.42</PackageVersion>
+    </PropertyGroup>
+  </Target>
+
+  <Target Name="_LocalPublish" AfterTargets="Pack">
+    <PropertyGroup>
+      <PackageOutputPath Condition="!HasTrailingSlash('$(PackageOutputPath)')">$(PackageOutputPath)\</PackageOutputPath>
+    </PropertyGroup>
+    <Copy SourceFiles="$(PackageOutputPath)$(PackageId).$(PackageVersion).nupkg" DestinationFolder="$(TempPackagePath)"/>
+  </Target>
+
+</Project>

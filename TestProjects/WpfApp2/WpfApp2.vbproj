@@ -12,7 +12,7 @@
 
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
   <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\build\MSBuild.Sdk.Extras.targets" />
-  <Import Project="..\Test.targets" />
+
   <ItemGroup>
     <ProjectReference Include="..\WpfControlLibrary\WpfControlLibrary.csproj" />
   </ItemGroup>

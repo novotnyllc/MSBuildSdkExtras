@@ -3,6 +3,8 @@
 
 # Custom for Visual Studio
 *.cs     diff=csharp
+*.vb     diff=visualbasic
+*.fs     diff=fsharp
 *.sln    merge=union
 *.*proj  merge=union
 

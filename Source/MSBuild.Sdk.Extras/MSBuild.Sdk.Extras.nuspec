@@ -1,0 +1,28 @@
+﻿<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>$id$</id>
+    <title>$title$</title>
+    <owners>$authors$</owners>
+    <authors>$authors$</authors>
+    <version>$version$</version>
+    <copyright>$copyright$</copyright>
+    <summary>$summary$</summary>
+    <description>$description$</description>
+    <tags>$tags$</tags>
+    <licenseUrl>$licenseUrl$</licenseUrl>
+    <projectUrl>$projectUrl$</projectUrl>
+    <releaseNotes>$releaseNotes$</releaseNotes>
+    <repository type="$repositoryType$" url="$repositoryUrl$" />
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <developmentDependency>true</developmentDependency>
+    <serviceable>true</serviceable>
+    <packageTypes>
+      <packageType name="$packageType$" />
+    </packageTypes>
+  </metadata>
+  <files>
+    <file src="build\**\*" target="build" />
+    <file src="buildMultiTargeting\**\*" target="buildMultiTargeting" />
+    <file src="Sdk\**\*" target="Sdk" />
+  </files>
+</package>

@@ -1,33 +1,33 @@
 ﻿<Project>
 
-	<Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\Sdk\Sdk.props" />
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\Sdk\Sdk.props" />
 
-	<PropertyGroup>
-		<!--<TargetFramework>uap10.0</TargetFramework>-->
-		<!--<TargetFrameworks>uap10.0;uap10.0.16278;monoandroid70;xamarin.ios10;xamarin.mac20</TargetFrameworks>-->
+  <PropertyGroup>
+    <!--<TargetFramework>uap10.0</TargetFramework>-->
+    <!--<TargetFrameworks>uap10.0;uap10.0.16278;monoandroid70;xamarin.ios10;xamarin.mac20</TargetFrameworks>-->
     <TargetFrameworks>uap10.0;uap10.0.16299;monoandroid70;xamarin.ios10;xamarin.mac20;tizen40</TargetFrameworks>
     <IsPackable>false</IsPackable>
-	</PropertyGroup>
+  </PropertyGroup>
 
 
   <ItemGroup Condition="'$(TargetFramework)' == 'xamarin.mac20'">
     <Reference Include="System.Xml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Resource1.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resource1.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Resource1.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
   <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\Sdk\Sdk.targets" />
-	<Import Project="..\Test.targets" />
-	<ItemGroup>
-	  <Compile Update="Resource1.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>Resource1.resx</DependentUpon>
-	  </Compile>
-	</ItemGroup>
-	<ItemGroup>
-	  <EmbeddedResource Update="Resource1.resx">
-	    <Generator>ResXFileCodeGenerator</Generator>
-	    <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
-	  </EmbeddedResource>
-	</ItemGroup>
 
 </Project>
