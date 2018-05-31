@@ -112,6 +112,6 @@
 		<IntermediateOutputPath Condition="!HasTrailingSlash('$(IntermediateOutputPath)')">$(IntermediateOutputPath)\</IntermediateOutputPath>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)Platform.targets" />
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Platforms.targets" />
 
 </Project>

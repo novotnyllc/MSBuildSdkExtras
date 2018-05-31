@@ -3,14 +3,6 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
-  <PropertyGroup Condition="$(_SdkShortFrameworkProfileCount) == 1 and
-			$(_SdkShortFrameworkProfile.Contains('+client+'))">
-		<TargetFrameworkProfile>Client</TargetFrameworkProfile>
-		<IncludeProjectPriFile>false</IncludeProjectPriFile>
-		<!-- .NET Client profiles defines as NET35_CLIENT, NET40_CLIENT etc -->
-		<ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(_SdkShortFrameworkIdentifierWithVersion.ToUpperInvariant())_CLIENT</ImplicitFrameworkDefine>
-	</PropertyGroup>
-
 	<Import Project="$(MSBuildThisFileDirectory)Platforms\$(TargetFrameworkIdentifier).targets"
 			Condition="Exists('$(MSBuildThisFileDirectory)Platforms\$(TargetFrameworkIdentifier).targets')" />
 
@@ -19,7 +11,7 @@
 				Condition="'$(TargetFrameworkIdentifier)' == '.NETCore'" />
 		<Import Project="$(MSBuildThisFileDirectory)Platforms\Portable.targets"
 				Condition="'$(TargetFrameworkIdentifier)' == '.NETPortable'" />
-		<Import Project="$(MSBuildThisFileDirectory)Platforms\NETFramework.targets"
+		<Import Project="$(MSBuildThisFileDirectory)Platforms\Desktop.targets"
 				Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'" />
 	</ImportGroup>
 

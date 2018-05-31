@@ -33,16 +33,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules/Wpf.ProjectItemsSchema.xml">
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)..\Rules\Wpf.ProjectItemsSchema.xml">
       <Context>Project</Context>
     </PropertyPageSchema>
-    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules/Page.xml">
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)..\Rules\Page.xml">
       <Context>File;BrowseObject</Context>
     </PropertyPageSchema>
-    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules/ApplicationDefinition.xml">
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)..\Rules\ApplicationDefinition.xml">
       <Context>File;BrowseObject</Context>
     </PropertyPageSchema>
-    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules/Resource.xml">
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)..\Rules\Resource.xml">
       <Context>File;BrowseObject</Context>
     </PropertyPageSchema>
   </ItemGroup>

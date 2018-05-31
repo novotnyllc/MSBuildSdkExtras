@@ -13,7 +13,7 @@
 		<Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS$(_SdkObjCBinding).$(_SdkLanguageName).targets"
 				Condition="Exists('$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS$(_SdkObjCBinding).$(_SdkLanguageName).targets')" />
 
-		<Import Project="$(MSBuildThisFileDirectory)CommonAfter.targets" />
+		<Import Project="$(MSBuildThisFileDirectory)CheckMissing.targets" />
 	</ImportGroup>
 
 </Project>

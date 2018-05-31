@@ -1,4 +1,4 @@
-<Project>
+﻿<Project>
 
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
@@ -26,5 +26,7 @@
     <_ResxFiles Include="**/*.resx"  DesignerName="%(RecursiveDir)%(Filename).Designer$(_SdkLanguageExtension)" />
     <Compile Update="@(_ResxFiles -> '%(DesignerName)')" Condition=" '$(EnableDefaultEmbeddedResourceItems)' == 'true'" AutoGen="True" DesignTime="True" DependentUpon="$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('.Designer', '')).resx" />
   </ItemGroup>
+
+  <Import Condition="'$(_SdkDotNetVersion)' &lt; '2.0'" Project="$(MSBuildThisFileDirectory)MSBuild.NET.Workarounds.targets" />
 
 </Project>

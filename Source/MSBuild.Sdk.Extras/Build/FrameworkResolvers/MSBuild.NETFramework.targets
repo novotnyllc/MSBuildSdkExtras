@@ -1,0 +1,14 @@
+﻿<Project>
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(_SdkShortFrameworkProfileCount) == 1 and
+			$(_SdkShortFrameworkProfile.Contains('+client+'))">
+		<TargetFrameworkProfile>Client</TargetFrameworkProfile>
+		<IncludeProjectPriFile>false</IncludeProjectPriFile>
+		<!-- .NET Client profiles defines as NET35_CLIENT, NET40_CLIENT etc -->
+		<ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(_SdkShortFrameworkIdentifierWithVersion.ToUpperInvariant())_CLIENT</ImplicitFrameworkDefine>
+	</PropertyGroup>
+
+</Project>

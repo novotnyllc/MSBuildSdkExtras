@@ -3,12 +3,16 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
-  <PropertyGroup>
-		<TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v0.0</TargetFrameworkVersion>
-	</PropertyGroup>
+  <ImportGroup Condition="'$(TargetFrameworkVersion)' == ''">
+    <Import Project="$(MSBuildThisFileDirectory)..\FrameworkResolvers\MSBuild.NETPortable.v4.0.targets"/>
+    <Import Project="$(MSBuildThisFileDirectory)..\FrameworkResolvers\MSBuild.NETPortable.v4.5.targets"/>
+    <Import Project="$(MSBuildThisFileDirectory)..\FrameworkResolvers\MSBuild.NETPortable.v4.6.targets"/>
+  </ImportGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)..\FrameworkResolvers\Portable.$(TargetFrameworkVersion).targets"
-			Condition="Exists('$(MSBuildThisFileDirectory)..\FrameworkResolvers\Portable.$(TargetFrameworkVersion).targets')"/>
+  <ImportGroup Condition="'$(TargetFrameworkVersion)' != ''">
+    <Import Project="$(MSBuildThisFileDirectory)..\FrameworkResolvers\MSBuild.NETPortable.$(TargetFrameworkVersion).targets"
+		        Condition="Exists('$(MSBuildThisFileDirectory)..\FrameworkResolvers\MSBuild.NETPortable.$(TargetFrameworkVersion).targets')"/>
+  </ImportGroup>
 
 	<PropertyGroup>
 		<!-- Version=v0.0 https://github.com/dotnet/sdk/issues/492 -->

@@ -14,7 +14,7 @@
 		<Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.$(_SdkAndroidImportType).targets"
 				Condition="Exists('$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.$(_SdkAndroidImportType).targets')" />
 
-		<Import Project="$(MSBuildThisFileDirectory)CommonAfter.targets" />
+		<Import Project="$(MSBuildThisFileDirectory)CheckMissing.targets" />
 	</ImportGroup>
 
 </Project>
