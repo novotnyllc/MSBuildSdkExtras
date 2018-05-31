@@ -12,7 +12,7 @@ steps:
     - task: PowerShell@2
       displayName: Authenticode Sign artifacts
       inputs:
-        filePath: scripts/Sign-Package.ps1
+        filePath: Tools/Sign-Package.ps1
       env:
         SignClientUser: $(SignClientUser)
         SignClientSecret: $(SignClientSecret)
