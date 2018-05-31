@@ -5,7 +5,7 @@
 
   <PropertyGroup>
 		<TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v2.0</TargetFrameworkVersion>
-		<LanguageTargets>$(MSBuildThisFileDirectory)languageTargets\Xamarin.Mac.targets</LanguageTargets>
+		<LanguageTargets>$(MSBuildThisFileDirectory)..\LanguageTargets\Xamarin.Mac.targets</LanguageTargets>
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">

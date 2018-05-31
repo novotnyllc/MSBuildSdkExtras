@@ -6,16 +6,15 @@
   <PropertyGroup>
 		<TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v1.0</TargetFrameworkVersion>
 		<IPhoneResourcePrefix Condition="'$(IPhoneResourcePrefix)' == ''">Resources</IPhoneResourcePrefix>
-		<LanguageTargets>$(MSBuildThisFileDirectory)languageTargets\Xamarin.TVOS.targets</LanguageTargets>
-		<ConsolePause Condition="'$(ConsolePause)' == ''">false</ConsolePause>
+		<LanguageTargets>$(MSBuildThisFileDirectory)..\LanguageTargets\Xamarin.iOS.targets</LanguageTargets>
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
     <_ExtrasImplicitReference Include="System" />
+    <_ExtrasImplicitReference Include="System.Net.Http" />
     <_ExtrasImplicitReference Include="System.Xml" />
-    <_ExtrasImplicitReference Include="System.Core" />
-	  <_ExtrasImplicitReference Include="System.Net.Http" />
-	  <_ExtrasImplicitReference Include="Xamarin.TVOS" />
+	  <_ExtrasImplicitReference Include="System.Core" />
+	  <_ExtrasImplicitReference Include="Xamarin.iOS" />
 
 	  <!-- Set Pack=false on implicit references so they don't get added to NuGet packages as framework assemblies -->
 	  <_ExtrasImplicitReference Update="@(_ExtrasImplicitReference)" Pack="false" />

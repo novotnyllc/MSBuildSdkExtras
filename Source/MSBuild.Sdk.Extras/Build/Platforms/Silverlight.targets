@@ -5,7 +5,7 @@
 
   <PropertyGroup>
 		<SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
-		<LanguageTargets>$(MSBuildThisFileDirectory)languageTargets\Silverlight.targets</LanguageTargets>
+		<LanguageTargets>$(MSBuildThisFileDirectory)..\LanguageTargets\Silverlight.targets</LanguageTargets>
 		<DefineConstants Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(DefineConstants);SILVERLIGHT</DefineConstants>
 		<ValidateXaml Condition="'$(ValidateXaml)' == ''">true</ValidateXaml>
 		<AppDesignerFolder Condition="'$(AppDesignerFolder)' == ''">Properties</AppDesignerFolder>

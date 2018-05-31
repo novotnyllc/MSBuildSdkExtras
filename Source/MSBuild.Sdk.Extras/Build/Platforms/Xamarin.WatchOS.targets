@@ -6,15 +6,17 @@
   <PropertyGroup>
 		<TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v1.0</TargetFrameworkVersion>
 		<IPhoneResourcePrefix Condition="'$(IPhoneResourcePrefix)' == ''">Resources</IPhoneResourcePrefix>
-		<LanguageTargets>$(MSBuildThisFileDirectory)languageTargets\Xamarin.iOS.targets</LanguageTargets>
+		<LanguageTargets>$(MSBuildThisFileDirectory)..\LanguageTargets\Xamarin.WatchOS.targets</LanguageTargets>
+		<MtouchUseRefCounting Condition="'$(MtouchUseRefCounting)' == ''">true</MtouchUseRefCounting>
+		<MtouchUseSGen Condition="'$(MtouchUseSGen)' == ''">true</MtouchUseSGen>
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
     <_ExtrasImplicitReference Include="System" />
-    <_ExtrasImplicitReference Include="System.Net.Http" />
     <_ExtrasImplicitReference Include="System.Xml" />
-	  <_ExtrasImplicitReference Include="System.Core" />
-	  <_ExtrasImplicitReference Include="Xamarin.iOS" />
+    <_ExtrasImplicitReference Include="System.Core" />
+	  <_ExtrasImplicitReference Include="System.Net.Http" />
+	  <_ExtrasImplicitReference Include="Xamarin.WatchOS" />
 
 	  <!-- Set Pack=false on implicit references so they don't get added to NuGet packages as framework assemblies -->
 	  <_ExtrasImplicitReference Update="@(_ExtrasImplicitReference)" Pack="false" />

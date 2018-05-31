@@ -11,15 +11,15 @@
 		<ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(_SdkShortFrameworkIdentifierWithVersion.ToUpperInvariant())_CLIENT</ImplicitFrameworkDefine>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)platforms\$(TargetFrameworkIdentifier).targets"
-			Condition="Exists('$(MSBuildThisFileDirectory)platforms\$(TargetFrameworkIdentifier).targets')" />
+	<Import Project="$(MSBuildThisFileDirectory)Platforms\$(TargetFrameworkIdentifier).targets"
+			Condition="Exists('$(MSBuildThisFileDirectory)Platforms\$(TargetFrameworkIdentifier).targets')" />
 
-	<ImportGroup Condition="!Exists('$(MSBuildThisFileDirectory)platforms\$(TargetFrameworkIdentifier).targets')">
-		<Import Project="$(MSBuildThisFileDirectory)platforms\Windows.targets"
+	<ImportGroup Condition="!Exists('$(MSBuildThisFileDirectory)Platforms\$(TargetFrameworkIdentifier).targets')">
+		<Import Project="$(MSBuildThisFileDirectory)Platforms\Windows.targets"
 				Condition="'$(TargetFrameworkIdentifier)' == '.NETCore'" />
-		<Import Project="$(MSBuildThisFileDirectory)platforms\Portable.targets"
+		<Import Project="$(MSBuildThisFileDirectory)Platforms\Portable.targets"
 				Condition="'$(TargetFrameworkIdentifier)' == '.NETPortable'" />
-		<Import Project="$(MSBuildThisFileDirectory)platforms\NETFramework.targets"
+		<Import Project="$(MSBuildThisFileDirectory)Platforms\NETFramework.targets"
 				Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'" />
 	</ImportGroup>
 
