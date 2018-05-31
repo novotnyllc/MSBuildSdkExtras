@@ -1,0 +1,5 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Import Project="$(BuildToolsPath)MSBuild.TestOutput.targets" Condition="'$(IsLegacyProject)' != 'true'"/>
+
+</Project>

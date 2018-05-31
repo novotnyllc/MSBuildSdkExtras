@@ -1,0 +1,28 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Import Project="$(MSBuildThisFileDirectory)..\$(MSBuildThisFile)"/>
+
+  <Import Project="$(BuildToolsPath)MSBuild.OutputPaths.props"/>
+
+  <PropertyGroup Label="OutputPaths">
+    <CustomBeforeSdkTargets>$(BuildToolsPath)MSBuild.OutputPaths.targets</CustomBeforeSdkTargets>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Build">
+    <NoPackageAnalysis>true</NoPackageAnalysis>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <PackOnBuild>true</PackOnBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Label="PackageInfo">
+    <Authors>Oren Novotny</Authors>
+    <Copyright>© Oren Novotny</Copyright>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>git://github.com/onovotny/MSBuildSdkExtras</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/onovotny/MSBuildSdkExtras</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/onovotny/MSBuildSdkExtras/blob/master/LICENSE.md</PackageLicenseUrl>
+    <PackageReleaseNotes>https://github.com/onovotny/MSBuildSdkExtras/blob/master/Docs/Releases.md</PackageReleaseNotes>
+  </PropertyGroup>
+
+</Project>

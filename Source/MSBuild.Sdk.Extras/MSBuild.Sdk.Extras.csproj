@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Build">
+    <TargetFramework>netstandard1.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Label="PackageInfo">
+    <Title>MSBuild Sdk Extras for .NET</Title>
+    <PackageTags>xamarin;android;ios;macos;uwp;tizen</PackageTags>
+    <Summary>An MSBuild SDK package for SDK-style .NET projects which extends `Microsoft.NET.Sdk`.</Summary>
+    <Description>An MSBuild SDK package for SDK-style .NET projects that has additional properties and targets which extends `Microsoft.NET.Sdk`.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="*\**\*.*" Pack="true" PackagePath="." Exclude="$(DefaultItemExcludes)"/>
+    <!-- Make sure VS considers any change to any of the targets as requiring a new build/pack -->
+    <UpToDateCheckInput Include="@(Content)"/>
+  </ItemGroup>
+
+  <Import Project="$(CustomBeforeSdkTargets)"/>
+
+</Project>

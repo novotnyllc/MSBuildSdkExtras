@@ -1,0 +1,18 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Import Project="$(BuildToolsPath)MSBuild.Packaging.targets" Condition="'$(IncludeBuildOutput)' == 'false'"/>
+
+  <Import Project="$(MSBuildThisFileDirectory)..\$(MSBuildThisFile)"/>
+
+  <PropertyGroup Condition="'$(IsCloudBuild)' == ''">
+    <IsCloudBuild Condition="'$(APPVEYOR)' != '' OR '$(TF_BUILD)' == 'true'">true</IsCloudBuild>
+    <IsCloudBuild Condition="'$(IsCloudBuild)' == ''">false</IsCloudBuild>
+  </PropertyGroup>
+
+  <Import Project="$(BuildToolsPath)MSBuild.DevLocal.targets" Condition="'$(IsCloudBuild)' != 'true'"/>
+
+  <ItemGroup Condition="'$(IsCloudBuild)' == 'true'">
+    <PackageReference Include="Nerdbank.GitVersioning" Version="2.1.23" PrivateAssets="All"/>
+  </ItemGroup>
+
+</Project>

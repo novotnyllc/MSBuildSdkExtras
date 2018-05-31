@@ -1,0 +1,73 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup Label="Build">
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
+    <!-- Full symbols so that unit test assertions have more info -->
+    <DebugType Condition="'$(Configuration)' == 'Debug'">Full</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Label="PackageInfo">
+    <PackageType>MSBuildSdk</PackageType>
+    <_DefaultTags>msbuild;sdk;dotnet</_DefaultTags>
+    <PackageTags Condition="'$(PackageTags)' != ''">$(_DefaultTags);$(PackageTags)</PackageTags>
+    <PackageTags Condition="'$(PackageTags)' == ''">$(_DefaultTags)</PackageTags>
+    <Serviceable>true</Serviceable>
+    <DevelopmentDependency>true</DevelopmentDependency>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Items">
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+    <DefaultItemExcludes>**\*$(DefaultLanguageSourceExtension)</DefaultItemExcludes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <IntermediateAssembly Remove="@(IntermediateAssembly)" />
+    <IntermediateRefAssembly Remove="@(IntermediateRefAssembly)" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <!-- This property must be overridden to remove a few targets that compile assemblies -->
+    <CoreBuildDependsOn>
+      BuildOnlySettings;
+      PrepareForBuild;
+      PreBuildEvent;
+      ResolveProjectReferences;
+      GetTargetPath;
+      PrepareForRun;
+      IncrementalClean;
+      PostBuildEvent
+    </CoreBuildDependsOn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="Exists('$(MSBuildProjectDirectory)\$(MSBuildProjectName).nuspec')">
+    <NuspecFile>$(MSBuildProjectDirectory)\$(MSBuildProjectName).nuspec</NuspecFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="Exists('$(NuspecFile)')">
+    <GenerateNuspecDependsOn>$(GenerateNuspecDependsOn);SetNuSpecProperties</GenerateNuspecDependsOn>
+  </PropertyGroup>
+
+  <Target Name="SetNuSpecProperties" Condition="Exists('$(NuspecFile)')">
+    <PropertyGroup>
+      <NuspecProperties>
+        id=$(PackageId);
+        title=$(Title);
+        version=$(PackageVersion);
+        summary=$(Summary);
+        description=$(Description);
+        authors=$(Authors.Replace(';',','));
+        copyright=$(Copyright);
+        tags=$(PackageTags.Replace(';',','));
+        repositoryType=$(RepositoryType);
+        repositoryUrl=$(RepositoryUrl);
+        projectUrl=$(PackageProjectUrl);
+        licenseUrl=$(PackageLicenseUrl);
+        packageType=$(PackageType);
+        releaseNotes=$(PackageReleaseNotes)
+      </NuspecProperties>
+    </PropertyGroup>
+  </Target>
+
+</Project>

@@ -1,6 +1,9 @@
-trigger: none
 queue: Hosted VS2017
-variables: 
+
+trigger: none
+
+variables:
   BuildConfiguration: Release
+
 steps:
-- template: .vsts-shared.yml
+  - template: .vsts-shared.yml
