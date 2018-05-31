@@ -1,6 +1,6 @@
 ﻿<Project>
 
-	<Import Project="$(MSBuildThisFileDirectory)..\..\MSBuild.Sdk.Extras\Sdk\Sdk.props" />
+	<Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\Sdk\Sdk.props" />
 
 	<PropertyGroup>
 		<!--<TargetFramework>uap10.0</TargetFramework>-->
@@ -14,7 +14,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
 
-  <Import Project="$(MSBuildThisFileDirectory)..\..\MSBuild.Sdk.Extras\Sdk\Sdk.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\Sdk\Sdk.targets" />
 	<Import Project="..\Test.targets" />
 	<ItemGroup>
 	  <Compile Update="Resource1.Designer.cs">

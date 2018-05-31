@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="$(MSBuildThisFileDirectory)..\..\MSBuild.Sdk.Extras\build\MSBuild.Sdk.Extras.props" />
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\build\MSBuild.Sdk.Extras.props" />
 
   <PropertyGroup>
     <RootNamespace>WpfApp2</RootNamespace>
@@ -11,7 +11,7 @@
 
 
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
-  <Import Project="$(MSBuildThisFileDirectory)..\..\MSBuild.Sdk.Extras\build\MSBuild.Sdk.Extras.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\build\MSBuild.Sdk.Extras.targets" />
   <Import Project="..\Test.targets" />
   <ItemGroup>
     <ProjectReference Include="..\WpfControlLibrary\WpfControlLibrary.csproj" />
