@@ -1,6 +1,5 @@
 {
   "msbuild-sdks": {
-    "MSBuild.Sdk.Extras": "42.42.42",
-    "MSBuild.NET.DefaultItems": "0.2.0"
+    "MSBuild.Sdk.Extras": "42.42.42"
   }
 }
