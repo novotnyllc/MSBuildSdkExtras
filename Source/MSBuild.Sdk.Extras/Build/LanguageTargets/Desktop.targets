@@ -32,21 +32,6 @@
     <Compile Update="**\*.xaml$(_SdkLanguageExtension)" SubType="Code" DependentUpon="%(Filename)" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)..\Rules\Wpf.ProjectItemsSchema.xml">
-      <Context>Project</Context>
-    </PropertyPageSchema>
-    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)..\Rules\Page.xml">
-      <Context>File;BrowseObject</Context>
-    </PropertyPageSchema>
-    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)..\Rules\ApplicationDefinition.xml">
-      <Context>File;BrowseObject</Context>
-    </PropertyPageSchema>
-    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)..\Rules\Resource.xml">
-      <Context>File;BrowseObject</Context>
-    </PropertyPageSchema>
-  </ItemGroup>
-
   <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
     <_ExtrasImplicitReference Include="PresentationCore" Condition=" '$(_TargetFrameworkVersionWithoutV)' >= '3.5' " />
     <_ExtrasImplicitReference Include="PresentationFramework" Condition=" '$(_TargetFrameworkVersionWithoutV)' >= '3.5' " />
@@ -70,13 +55,4 @@
   -->
   <Import Project="$(BaseIntermediateOutputPath)$(_TargetAssemblyProjectName).*.targets" Condition="'$(_TargetAssemblyProjectName)' != '' and '$(ImportProjectExtensionProps)' == 'true' and exists('$(BaseIntermediateOutputPath)')" />
 
-  <!--
-     Work around to fix Intellisense file generation for XAML projects
-     https://github.com/dotnet/project-system/issues/2488
-  -->
-  <Target Condition="'@(Page)' != ''" Name="WorkaroundForXAMLIntellisenseBuildIssue" AfterTargets="_CheckCompileDesignTimePrerequisite">
-    <PropertyGroup>
-      <BuildingProject>false</BuildingProject>
-    </PropertyGroup>
-  </Target>
 </Project>

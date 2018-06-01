@@ -1,0 +1,23 @@
+﻿<Project>
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)Platforms\$(TargetFrameworkIdentifier).targets"
+      Condition="Exists('$(MSBuildThisFileDirectory)Platforms\$(TargetFrameworkIdentifier).targets')" />
+
+  <ImportGroup Condition="!Exists('$(MSBuildThisFileDirectory)Platforms\$(TargetFrameworkIdentifier).targets')">
+    <Import Project="$(MSBuildThisFileDirectory)Platforms\Windows.targets"
+        Condition="'$(TargetFrameworkIdentifier)' == '.NETCore'" />
+    <Import Project="$(MSBuildThisFileDirectory)Platforms\Portable.targets"
+        Condition="'$(TargetFrameworkIdentifier)' == '.NETPortable'" />
+    <Import Project="$(MSBuildThisFileDirectory)Platforms\Desktop.targets"
+        Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'" />
+  </ImportGroup>
+
+  <!-- Add conditional compilation symbols for the target framework (for example NET461, NETSTANDARD2_0, NETCOREAPP1_0) -->
+  <!--<PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">
+    <ImplicitFrameworkDefine>$(TargetFramework.Replace('.','_').ToUpperInvariant())</ImplicitFrameworkDefine>
+  </PropertyGroup>-->
+
+</Project>

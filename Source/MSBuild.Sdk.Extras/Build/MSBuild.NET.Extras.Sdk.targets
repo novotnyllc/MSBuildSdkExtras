@@ -1,0 +1,25 @@
+﻿<Project>
+
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <ItemDefinitionGroup Condition="'$(EnableEmbeddedResourceGenerator)' == 'true' ">
+    <EmbeddedResource>
+      <Generator Condition=" '$(EmbeddedResourceGeneratorVisibilityIsInternal)' == 'true' " >ResXFileCodeGenerator</Generator>
+      <Generator Condition=" '$(EmbeddedResourceGeneratorVisibilityIsInternal)' == 'false' " >PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemDefinitionGroup>
+
+  <ItemGroup Condition="'$(EnableEmbeddedResourceGenerator)' == 'true' ">
+    <EmbeddedResource Update="**/*.resx" LastGenOutput="%(Filename).Designer$(_SdkLanguageExtension)"  />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(EnableDefaultItems)' == 'True'">
+    <_ResxFiles Include="**/*.resx"  DesignerName="%(RecursiveDir)%(Filename).Designer$(_SdkLanguageExtension)" />
+    <Compile Update="@(_ResxFiles -> '%(DesignerName)')" Condition=" '$(EnableDefaultEmbeddedResourceItems)' == 'true'" AutoGen="True" DesignTime="True" DependentUpon="$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('.Designer', '')).resx" />
+  </ItemGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Workarounds.targets" />
+
+</Project>

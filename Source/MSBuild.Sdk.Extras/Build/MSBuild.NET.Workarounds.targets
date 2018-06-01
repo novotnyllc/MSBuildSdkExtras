@@ -1,0 +1,61 @@
+﻿<Project>
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <Target Name="DisplayMissingLanguageTargetsError" Condition="'$(_SdkLanguageTargetsMissing)' == 'true'" BeforeTargets="_CheckForUnsupportedTargetFramework">
+    <Error Condition="'$(_SdkShortFrameworkIdentifier)' != 'portable'" Text="The specified language targets for $(TargetFramework) is missing. Ensure correct tooling is installed for '$(_SdkShortFrameworkIdentifier)'" />
+    <Error Condition="'$(_SdkShortFrameworkIdentifier)' == 'portable'" Text="The specified TFM '$(TargetFramework)' is not valid. Check that it's a valid combination: https://portablelibraryprofiles.stephencleary.com/"  />
+  </Target>
+
+  <!--
+     Work around to fix Intellisense file generation for XAML projects
+     https://github.com/dotnet/project-system/issues/2488
+  -->
+  <Target Condition="'@(Page)' != ''" Name="WorkaroundForXAMLIntellisenseBuildIssue" AfterTargets="_CheckCompileDesignTimePrerequisite">
+    <PropertyGroup>
+      <BuildingProject>false</BuildingProject>
+    </PropertyGroup>
+  </Target>
+
+  <Target Name="ExtrasIncludeLibraryLayoutItems"
+      Condition="'$(GenerateLibraryLayout)' == 'true' and '$(SDKIdentifier)' == 'Windows'"
+      DependsOnTargets="PrepareLibraryLayout">
+    <ItemGroup>
+      <TfmSpecificPackageFile Include="@(_LayoutFile)" PackagePath="lib\$(TargetFramework)\%(_LayoutFile.TargetPath)" />
+    </ItemGroup>
+  </Target>
+
+  <!-- Handle Library Layout in NuGet packages -->
+  <PropertyGroup>
+    <TargetsForTfmSpecificContentInPackage Condition=" '$(ExtrasSkipLibraryLayout)' != 'true' ">$(TargetsForTfmSpecificContentInPackage);ExtrasIncludeLibraryLayoutItems</TargetsForTfmSpecificContentInPackage>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- Detect the SDK version. For now, we have to check the BundledNETCoreAppTargetFrameworkVersion prop
+       since there's no separate SDK version property -->
+    <_SdkDotNetVersion>$(BundledNETCoreAppTargetFrameworkVersion)</_SdkDotNetVersion>
+    <_SdkDotNetVersion Condition="'$(_SdkDotNetVersion)' == ''">1.0</_SdkDotNetVersion>
+  </PropertyGroup>
+
+  <!-- Work around bug in Microsoft.NET.Sdk < v2.0 where satellites were deployed on top of each other in root. -->
+  <!-- https://github.com/dotnet/sdk/issues/1360 -->
+  <Target Name="WorkaroundIncorrectSatelliteDeployment" AfterTargets="ResolveLockFileCopyLocalProjectDeps" Condition="'$(_SdkDotNetVersion)' &lt;= '2.0'">
+    <ItemGroup>
+      <ReferenceCopyLocalPaths Remove="@(ResourceCopyLocalItems)" />
+      <ReferenceCopyLocalPaths Include="@(ResourceCopyLocalItems)" Condition="'@(ResourceCopyLocalItems)' != ''">
+        <DestinationSubDirectory>$([System.IO.Directory]::GetParent(%(ResourceCopyLocalItems.FullPath)).Name)\</DestinationSubDirectory>
+      </ReferenceCopyLocalPaths>
+    </ItemGroup>
+  </Target>
+
+  <PropertyGroup Condition="'$(_SdkDotNetVersion)' &lt;= '2.0'">
+    <PackDependsOn>WarnIfOldSdkInner;$(PackDependsOn)</PackDependsOn>
+  </PropertyGroup>
+  
+  <!-- Check to see if we have the newer targets adn direct to add -->
+  <Target Name="WarnIfOldSdkInner" Condition="'$(_SdkDotNetVersion)' &lt;= '2.0' AND '$(SuppressWarnIfOldSdkPack)' != 'true' ">
+    <Error Message="There are known issues using Pack with the 1.x SDK's. Update to the 2.x SDK's to pack. If you need the 1.x SDK, add a dependency to NuGet.Build.Tasks.Pack 4.3.0 to proceed." />
+  </Target>
+
+</Project>
