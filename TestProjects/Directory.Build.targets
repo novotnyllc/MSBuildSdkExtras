@@ -1,5 +1,24 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <Import Project="$(BuildToolsPath)MSBuild.TestOutput.targets" Condition="'$(IsLegacyProject)' != 'true'"/>
+  <PropertyGroup>
+    <Company>NIRIN</Company>
+    <Authors>Nirmal Guru</Authors>
+    <Copyright>© NIRIN Foundation</Copyright>
+    <Product>MSBuild-Sdks Test Projects</Product>
+    <Description>Project for Sdk testing.</Description>
+    <Description>$(AssemblyTitle) $(Description)</Description>
+    <IsPackable>false</IsPackable>
+    <FileVersion>1.0.0.0</FileVersion>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <InformationalVersion>1.0 Test Project</InformationalVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(IsLegacyProject)' != 'true' AND '$(RootNamespace)' == '$(MSBuildProjectName)'">
+    <RootNamespace Condition="$(RootNamespace.Contains('-'))">$(RootNamespace.Replace('-', '_'))</RootNamespace>
+  </PropertyGroup>
+
+  <Import Project="$(BuildToolsPath)MSBuild.TestOutput.targets"/>
+
+  <Import Project="$(MSBuildThisFileDirectory)..\$(MSBuildThisFile)"/>
 
 </Project>
