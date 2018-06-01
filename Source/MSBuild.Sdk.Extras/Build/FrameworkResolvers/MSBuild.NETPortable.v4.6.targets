@@ -1,0 +1,75 @@
+﻿<Project>
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(_SdkShortFrameworkProfileCount) == 2 and
+      $(_SdkShortFrameworkProfile.Contains('+wp81+')) and
+      $(_SdkShortFrameworkProfile.Contains('+win81+'))">
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile31</TargetFrameworkProfile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(_SdkShortFrameworkProfileCount) == 2 and
+      ($(_SdkShortFrameworkProfile.Contains('+wpa+')) or $(_SdkShortFrameworkProfile.Contains('+wpa81+'))) and
+      $(_SdkShortFrameworkProfile.Contains('+win81+'))">
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile32</TargetFrameworkProfile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(_SdkShortFrameworkProfileCount) == 2 and
+      $(_SdkShortFrameworkProfile.Contains('+net451+')) and
+      $(_SdkShortFrameworkProfile.Contains('+win81+'))">
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile44</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(_SdkShortFrameworkProfileCount) == 2 and
+      $(_SdkShortFrameworkProfile.Contains('+wp81+')) and
+      ($(_SdkShortFrameworkProfile.Contains('+wpa+')) or $(_SdkShortFrameworkProfile.Contains('+wpa81+')))">
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile84</TargetFrameworkProfile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(_SdkShortFrameworkProfileCount) == 3 and
+      $(_SdkShortFrameworkProfile.Contains('+win81+')) and
+      $(_SdkShortFrameworkProfile.Contains('+net451+')) and
+      ($(_SdkShortFrameworkProfile.Contains('+wpa+')) or $(_SdkShortFrameworkProfile.Contains('+wpa81+')))">
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile151</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(_SdkShortFrameworkProfileCount) == 3 and
+      $(_SdkShortFrameworkProfile.Contains('+win81+')) and
+      $(_SdkShortFrameworkProfile.Contains('+wp81+')) and
+      ($(_SdkShortFrameworkProfile.Contains('+wpa+')) or $(_SdkShortFrameworkProfile.Contains('+wpa81+')))">
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile157</TargetFrameworkProfile>
+  </PropertyGroup>
+
+  <!-- Some PCL profiles have WinRT support -->
+
+  <ItemGroup Condition="'$(TargetFrameworkProfile)' == 'Profile31'">
+    <TargetPlatform Include="Windows Phone, Version=8.1" />
+    <TargetPlatform Include="Windows, Version=8.1" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFrameworkProfile)' == 'Profile32'">
+    <TargetPlatform Include="Windows, Version=8.1" />
+    <TargetPlatform Include="WindowsPhoneApp, Version=8.1" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFrameworkProfile)' == 'Profile84'">
+    <TargetPlatform Include="Windows Phone, Version=8.1" />
+    <TargetPlatform Include="WindowsPhoneApp, Version=8.1" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFrameworkProfile)' == 'Profile157'">
+    <TargetPlatform Include="Windows Phone, Version=8.1" />
+    <TargetPlatform Include="Windows, Version=8.1" />
+    <TargetPlatform Include="WindowsPhoneApp, Version=8.1" />
+  </ItemGroup>
+
+</Project>

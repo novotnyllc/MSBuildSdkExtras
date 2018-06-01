@@ -1,0 +1,28 @@
+<Project>
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <ImportGroup Condition="'$(TargetFrameworkVersion)' == ''">
+    <Import Project="$(MSBuildThisFileDirectory)..\FrameworkResolvers\MSBuild.NETPortable.v4.0.targets"/>
+    <Import Project="$(MSBuildThisFileDirectory)..\FrameworkResolvers\MSBuild.NETPortable.v4.5.targets"/>
+    <Import Project="$(MSBuildThisFileDirectory)..\FrameworkResolvers\MSBuild.NETPortable.v4.6.targets"/>
+  </ImportGroup>
+
+  <ImportGroup Condition="'$(TargetFrameworkVersion)' != ''">
+    <Import Project="$(MSBuildThisFileDirectory)..\FrameworkResolvers\MSBuild.NETPortable.$(TargetFrameworkVersion).targets"
+            Condition="Exists('$(MSBuildThisFileDirectory)..\FrameworkResolvers\MSBuild.NETPortable.$(TargetFrameworkVersion).targets')"/>
+  </ImportGroup>
+
+  <PropertyGroup>
+    <!-- Version=v0.0 https://github.com/dotnet/sdk/issues/492 -->
+    <_PortableTargetFrameworkVersion>v0.0</_PortableTargetFrameworkVersion>
+    <NugetTargetMoniker>.NETPortable,Version=$(_PortableTargetFrameworkVersion),Profile=$(TargetFrameworkProfile)</NugetTargetMoniker>
+    <LanguageTargets>$(MSBuildThisFileDirectory)..\LanguageTargets\Portable.targets</LanguageTargets>
+    <!-- .NET Portable gets profiles as defines as that's how most people refer to them NET_PORTABLE259, etc
+         This also gets PROFILE259
+     -->
+    <ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(TargetFrameworkProfile.ToUpperInvariant());NET_PORTABLE$(TargetFrameworkProfile.Substring('7'))</ImplicitFrameworkDefine>
+  </PropertyGroup>
+
+</Project>

@@ -1,0 +1,51 @@
+﻿<Project>
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+
+  <PropertyGroup Condition="$(_SdkShortFrameworkProfileCount) == 2 and
+      $(_SdkShortFrameworkProfile.Contains('+net45+')) and
+      ($(_SdkShortFrameworkProfile.Contains('+win+')) or $(_SdkShortFrameworkProfile.Contains('+win8+')) or $(_SdkShortFrameworkProfile.Contains('+win80+')))">
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile7</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(_SdkShortFrameworkProfileCount) == 2 and
+      $(_SdkShortFrameworkProfile.Contains('+net45+')) and
+      ($(_SdkShortFrameworkProfile.Contains('+wp8+')) or $(_SdkShortFrameworkProfile.Contains('+wp80+')))">
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile49</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(_SdkShortFrameworkProfileCount) == 3 and
+      $(_SdkShortFrameworkProfile.Contains('+net45+')) and
+      ($(_SdkShortFrameworkProfile.Contains('+win+')) or $(_SdkShortFrameworkProfile.Contains('+win8+')) or $(_SdkShortFrameworkProfile.Contains('+win80+'))) and
+      ($(_SdkShortFrameworkProfile.Contains('+wp8+')) or $(_SdkShortFrameworkProfile.Contains('+wp80+')))">
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile78</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(_SdkShortFrameworkProfileCount) == 3 and
+      $(_SdkShortFrameworkProfile.Contains('+net45+')) and
+      ($(_SdkShortFrameworkProfile.Contains('+win+')) or $(_SdkShortFrameworkProfile.Contains('+win8+')) or $(_SdkShortFrameworkProfile.Contains('+win80+'))) and
+      ($(_SdkShortFrameworkProfile.Contains('+wpa81+')) or $(_SdkShortFrameworkProfile.Contains('+wpa+')))">
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(_SdkShortFrameworkProfileCount) == 4 and
+      $(_SdkShortFrameworkProfile.Contains('+net45+')) and
+      ($(_SdkShortFrameworkProfile.Contains('+win+')) or $(_SdkShortFrameworkProfile.Contains('+win8+')) or $(_SdkShortFrameworkProfile.Contains('+win80+'))) and
+      ($(_SdkShortFrameworkProfile.Contains('+wpa+')) or $(_SdkShortFrameworkProfile.Contains('+wpa81+'))) and
+      ($(_SdkShortFrameworkProfile.Contains('+wp8+')) or $(_SdkShortFrameworkProfile.Contains('+wp80+')))">
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile259</TargetFrameworkProfile>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
+  </PropertyGroup>
+
+</Project>

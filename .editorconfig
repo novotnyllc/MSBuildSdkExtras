@@ -9,6 +9,11 @@ root = true
 indent_style = space
 # (Please don't specify an indent_size here; that has too many unintended consequences.)
 
+# Don't use tabs for indentation.
+[*.sln]
+indent_style = tab
+indent_size = 4
+
 # Code files
 [*.{cs,csx,vb,vbx}]
 indent_size = 4

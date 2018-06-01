@@ -1,0 +1,46 @@
+<Project>
+
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <MSBuildSDKExtrasTargets>$(MSBuildThisFileDirectory)FrameworkInferences.targets</MSBuildSDKExtrasTargets>
+  </PropertyGroup>
+
+  <Choose>
+    <When Condition="'$(MSBuildProjectExtension)' == '.csproj' or ('$(MSBuildProjectExtension)' == '.tmp_proj' and Exists('$(MSBuildProjectDirectory)\$(AssemblyName).csproj'))">
+      <PropertyGroup>
+        <_SdkLanguageName>CSharp</_SdkLanguageName>
+        <_SdkLanguageExtension>.cs</_SdkLanguageExtension>
+      </PropertyGroup>
+    </When>
+
+    <When Condition="'$(MSBuildProjectExtension)' == '.vbproj' or ('$(MSBuildProjectExtension)' == '.tmp_proj' and Exists('$(MSBuildProjectDirectory)\$(AssemblyName).vbproj'))">
+      <PropertyGroup>
+        <_SdkLanguageName>VisualBasic</_SdkLanguageName>
+        <_SdkLanguageExtension>.vb</_SdkLanguageExtension>
+      </PropertyGroup>
+    </When>
+
+    <When Condition="'$(MSBuildProjectExtension)' == '.fsproj' or ('$(MSBuildProjectExtension)' == '.tmp_proj' and Exists('$(MSBuildProjectDirectory)\$(AssemblyName).fsproj'))">
+      <PropertyGroup>
+        <_SdkLanguageName>FSharp</_SdkLanguageName>
+        <_SdkLanguageExtension>.fs</_SdkLanguageExtension>
+      </PropertyGroup>
+    </When>
+
+    <Otherwise />
+  </Choose>
+
+  <PropertyGroup>
+    <EnableEmbeddedResourceGenerator Condition="'$(EnableEmbeddedResourceGenerator)' == ''">true</EnableEmbeddedResourceGenerator>
+    <EmbeddedResourceGeneratorVisibilityIsInternal Condition="'$(EmbeddedResourceGeneratorVisibilityIsInternal)' == ''">true</EmbeddedResourceGeneratorVisibilityIsInternal>
+  </PropertyGroup>
+
+  <!--
+     Work around to import the appropriate NuGet props/targets when building a temporary project.
+     This is only applicable when targeting the full .NET Framework, and using WPF.
+     Note this will only work if .NET Framework 4.7.2 has been installed.
+     https://github.com/NuGet/Home/issues/5894
+  -->
+  <Import Project="$(BaseIntermediateOutputPath)$(_TargetAssemblyProjectName).*.props" Condition="'$(_TargetAssemblyProjectName)' != '' and '$(ImportProjectExtensionProps)' == 'true' and exists('$(BaseIntermediateOutputPath)')" />
+
+</Project>

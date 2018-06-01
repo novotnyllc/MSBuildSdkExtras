@@ -24,7 +24,7 @@ steps:
 
 - powershell: |
     mkdir $Env:Temp\Packages
-    msbuild /Restore /t:Pack
+    msbuild /Restore /t:Build
   displayName: Build
 
 - task: CopyFiles@2

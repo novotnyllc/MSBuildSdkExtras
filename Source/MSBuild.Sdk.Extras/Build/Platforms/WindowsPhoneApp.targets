@@ -1,0 +1,12 @@
+<Project>
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
+    <LanguageTargets>$(MSBuildThisFileDirectory)..\LanguageTargets\Windows.targets</LanguageTargets>
+    <DefineConstants Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(DefineConstants);NETFX_CORE;WINDOWS_PHONE_APP</DefineConstants>
+  </PropertyGroup>
+
+</Project>

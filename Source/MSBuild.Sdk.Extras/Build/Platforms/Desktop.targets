@@ -1,0 +1,27 @@
+<Project>
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)..\FrameworkResolvers\MSBuild.NETFramework.$(TargetFrameworkVersion).targets"
+      Condition="Exists('$(MSBuildThisFileDirectory)..\FrameworkResolvers\MSBuild.NETFramework.$(TargetFrameworkVersion).targets')"/>
+
+  <!-- If the target doesn't exist, don't use it, means we've been called from dotnet 
+       This can happen if one of the targets is used by a test project called by dotnet test no-build.
+       Note that the scenario does not cover WPF by dotnet test.
+  -->
+  <Import Project="$(MSBuildThisFileDirectory)..\LanguageTargets\Desktop.targets" Condition=" '$(OS)' == 'Windows_NT' and '$(MSBuildRuntimeType)' == 'Full' " />
+
+  <!-- Settings only apply to .NET Framework -->
+  <ItemGroup Condition="'$(EnableDefaultItems)' == 'True' and '$(EnableDefaultSettingsItems)' == 'true' ">
+    <None Update="**/*.settings" Generator="SettingsSingleFileGenerator" LastGenOutput="%(Filename).Designer$(_SdkLanguageExtension)" />
+    <_SettingsFiles Include="**/*.settings" DesignerName="%(RecursiveDir)%(Filename).Designer$(_SdkLanguageExtension)" />
+    <Compile Update="@(_SettingsFiles -> '%(DesignerName)')" AutoGen="True" DesignTimeSharedInput="True" DependentUpon="$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('.Designer','')).settings" />
+  </ItemGroup>
+  
+  
+  <PropertyGroup>
+    <EnableDefaultSettingsItems Condition="'$(EnableDefaultSettingsItems)' == ''">true</EnableDefaultSettingsItems>
+  </PropertyGroup>
+  
+</Project>

@@ -1,0 +1,13 @@
+<Project>
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <ImportGroup>
+    <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(_SdkVisualStudioVersion)\Microsoft.Windows.UI.Xaml.$(_SdkLanguageName).targets"
+        Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(_SdkVisualStudioVersion)\Microsoft.Windows.UI.Xaml.$(_SdkLanguageName).targets')" />
+
+    <Import Project="$(MSBuildThisFileDirectory)CheckMissing.targets" />
+  </ImportGroup>
+
+</Project>

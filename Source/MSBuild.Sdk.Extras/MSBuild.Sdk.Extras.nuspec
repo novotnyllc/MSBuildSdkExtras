@@ -21,8 +21,7 @@
     </packageTypes>
   </metadata>
   <files>
-    <file src="build\**\*" target="build" />
-    <file src="buildMultiTargeting\**\*" target="buildMultiTargeting" />
+    <file src="Build\**\*" target="Build" />
     <file src="Sdk\**\*" target="Sdk" />
   </files>
 </package>
