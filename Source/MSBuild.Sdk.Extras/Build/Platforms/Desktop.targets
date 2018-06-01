@@ -3,8 +3,8 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)..\FrameworkResolvers\MSBuild.NETFramework.$(TargetFrameworkVersion).targets"
-			Condition="Exists('$(MSBuildThisFileDirectory)..\FrameworkResolvers\MSBuild.NETFramework.$(TargetFrameworkVersion).targets')"/>
+  <Import Project="$(MSBuildThisFileDirectory)..\FrameworkResolvers\MSBuild.NETFramework.$(TargetFrameworkVersion).targets"
+      Condition="Exists('$(MSBuildThisFileDirectory)..\FrameworkResolvers\MSBuild.NETFramework.$(TargetFrameworkVersion).targets')"/>
 
   <!-- If the target doesn't exist, don't use it, means we've been called from dotnet 
        This can happen if one of the targets is used by a test project called by dotnet test no-build.

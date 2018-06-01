@@ -2,7 +2,7 @@
 
 namespace MSBuild.NET.Sdk.Tests
 {
-	public class Class
-	{
-	}
+    public class Class
+    {
+    }
 }

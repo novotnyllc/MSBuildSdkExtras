@@ -4,23 +4,23 @@
   </PropertyGroup>
 
   <PropertyGroup>
-		<SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
-		<LanguageTargets>$(MSBuildThisFileDirectory)..\LanguageTargets\Silverlight.targets</LanguageTargets>
-		<DefineConstants Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(DefineConstants);SILVERLIGHT</DefineConstants>
-		<ValidateXaml Condition="'$(ValidateXaml)' == ''">true</ValidateXaml>
-		<AppDesignerFolder Condition="'$(AppDesignerFolder)' == ''">Properties</AppDesignerFolder>
-		<SilverlightApplication Condition="'$(SilverlightApplication)' == ''">false</SilverlightApplication>
-		<ThrowErrorsInValidation Condition="'$(ThrowErrorsInValidation)' == ''">true</ThrowErrorsInValidation>
-	</PropertyGroup>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <LanguageTargets>$(MSBuildThisFileDirectory)..\LanguageTargets\Silverlight.targets</LanguageTargets>
+    <DefineConstants Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(DefineConstants);SILVERLIGHT</DefineConstants>
+    <ValidateXaml Condition="'$(ValidateXaml)' == ''">true</ValidateXaml>
+    <AppDesignerFolder Condition="'$(AppDesignerFolder)' == ''">Properties</AppDesignerFolder>
+    <SilverlightApplication Condition="'$(SilverlightApplication)' == ''">false</SilverlightApplication>
+    <ThrowErrorsInValidation Condition="'$(ThrowErrorsInValidation)' == ''">true</ThrowErrorsInValidation>
+  </PropertyGroup>
 
-	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
-		<Reference Include="mscorlib" />
-		<Reference Include="System" />
-		<Reference Include="System.Core" />
-		<Reference Include="System.Xml" />
-		<Reference Include="System.Net" />
-		<Reference Include="System.Windows" />
-		<Reference Include="System.Windows.Browser" />
-	</ItemGroup>
+  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Browser" />
+  </ItemGroup>
 
 </Project>

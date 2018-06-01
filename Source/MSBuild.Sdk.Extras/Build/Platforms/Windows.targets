@@ -4,54 +4,54 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'win' or '$(TargetFramework)' == 'win8' or '$(TargetFramework)' == 'win80'">
-		<TargetPlatformVersion>8.0</TargetPlatformVersion>
-		<TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-		<NugetTargetMoniker>Windows,Version=v8.0</NugetTargetMoniker>
-		<DefineConstants Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(DefineConstants);NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <TargetPlatformVersion>8.0</TargetPlatformVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <NugetTargetMoniker>Windows,Version=v8.0</NugetTargetMoniker>
+    <DefineConstants Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(DefineConstants);NETFX_CORE;WINDOWS_APP</DefineConstants>
 
-		<LanguageTargets>$(MSBuildThisFileDirectory)..\LanguageTargets\Windows.targets</LanguageTargets>
-		<!-- Need to override the built-in implicit defines for win80 or it'll be NETCORE4_5 -->
-		<ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">WINDOWS8</ImplicitFrameworkDefine>
-	</PropertyGroup>
+    <LanguageTargets>$(MSBuildThisFileDirectory)..\LanguageTargets\Windows.targets</LanguageTargets>
+    <!-- Need to override the built-in implicit defines for win80 or it'll be NETCORE4_5 -->
+    <ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">WINDOWS8</ImplicitFrameworkDefine>
+  </PropertyGroup>
 
-	<PropertyGroup Condition="'$(TargetFramework)' == 'win81'">
-		<TargetPlatformVersion>8.1</TargetPlatformVersion>
-		<TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-		<NugetTargetMoniker>Windows,Version=v8.1</NugetTargetMoniker>
-		<DefineConstants Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(DefineConstants);NETFX_CORE;WINDOWS_APP</DefineConstants>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'win81'">
+    <TargetPlatformVersion>8.1</TargetPlatformVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <NugetTargetMoniker>Windows,Version=v8.1</NugetTargetMoniker>
+    <DefineConstants Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(DefineConstants);NETFX_CORE;WINDOWS_APP</DefineConstants>
 
-		<LanguageTargets>$(MSBuildThisFileDirectory)..\LanguageTargets\Windows.targets</LanguageTargets>
-		<!-- Need to override the built-in implicit defines for win81 or it'll be NETCORE4_5_1 -->
-		<ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">WINDOWS8_1</ImplicitFrameworkDefine>
-	</PropertyGroup>
+    <LanguageTargets>$(MSBuildThisFileDirectory)..\LanguageTargets\Windows.targets</LanguageTargets>
+    <!-- Need to override the built-in implicit defines for win81 or it'll be NETCORE4_5_1 -->
+    <ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">WINDOWS8_1</ImplicitFrameworkDefine>
+  </PropertyGroup>
 
-	<PropertyGroup Condition="'$(_SdkShortFrameworkIdentifier)' == 'uap'">
-		<TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-		<TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
-		<!-- Only set for the 10.0 version -->
+  <PropertyGroup Condition="'$(_SdkShortFrameworkIdentifier)' == 'uap'">
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+    <!-- Only set for the 10.0 version -->
     <NugetTargetMoniker Condition="'$(_SdkShortFrameworkVersion)' == '10.0'">UAP,Version=v10.0</NugetTargetMoniker>
-		<DefineConstants Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(DefineConstants);NETFX_CORE;WINDOWS_UWP</DefineConstants>
-		<CopyLocalLockFileAssemblies Condition="'$(CopyLocalLockFileAssemblies)' == ''">false</CopyLocalLockFileAssemblies>
+    <DefineConstants Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(DefineConstants);NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <CopyLocalLockFileAssemblies Condition="'$(CopyLocalLockFileAssemblies)' == ''">false</CopyLocalLockFileAssemblies>
 
-		<!-- Calculate either default based on 10.0 or specific version based on TFM to handle uap10.0.16296, etc -->
+    <!-- Calculate either default based on 10.0 or specific version based on TFM to handle uap10.0.16296, etc -->
     <TargetPlatformVersion Condition="'$(TargetPlatformVersion)' == '' and '$(_SdkShortFrameworkVersion)' == '10.0'">10.0.14393.0</TargetPlatformVersion>
     <TargetPlatformVersion Condition="'$(TargetPlatformVersion)' == ''">$([System.Version]::Parse('$(_SdkShortFrameworkVersion)')).0</TargetPlatformVersion>
     <TargetPlatformMinVersion Condition="'$(TargetPlatformMinVersion)' == '' and '$(_SdkShortFrameworkVersion)' == '10.0' ">10.0.14393.0</TargetPlatformMinVersion>
     <TargetPlatformMinVersion Condition="'$(TargetPlatformMinVersion)' == ''">$([System.Version]::Parse('$(_SdkShortFrameworkVersion)')).0</TargetPlatformMinVersion>
 
-		<LanguageTargets>$(MSBuildThisFileDirectory)..\LanguageTargets\Windows.targets</LanguageTargets>
-		<!-- Need to override the built-in implicit defines for UAP (UAP10_0_10240) or it'll be NETCORE5_0 -->
-		<ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">UAP$(TargetPlatformMinVersion.Replace('.', '_'))</ImplicitFrameworkDefine>
-	</PropertyGroup>
+    <LanguageTargets>$(MSBuildThisFileDirectory)..\LanguageTargets\Windows.targets</LanguageTargets>
+    <!-- Need to override the built-in implicit defines for UAP (UAP10_0_10240) or it'll be NETCORE5_0 -->
+    <ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">UAP$(TargetPlatformMinVersion.Replace('.', '_'))</ImplicitFrameworkDefine>
+  </PropertyGroup>
 
-	<!-- Include the default platform packages  -->
-	<!-- TODO: use metadata to detect if we've added it or it already exists -->
-	<!--<ItemGroup Condition=" '$(TargetFramework)' == 'uap10.0' ">
-		<PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="5.4.0"/>
-	</ItemGroup>-->
+  <!-- Include the default platform packages  -->
+  <!-- TODO: use metadata to detect if we've added it or it already exists -->
+  <!--<ItemGroup Condition=" '$(TargetFramework)' == 'uap10.0' ">
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="5.4.0"/>
+  </ItemGroup>-->
 
-	<PropertyGroup>
-		<DisableImplicitFrameworkDefines Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">true</DisableImplicitFrameworkDefines>
-	</PropertyGroup>
+  <PropertyGroup>
+    <DisableImplicitFrameworkDefines Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">true</DisableImplicitFrameworkDefines>
+  </PropertyGroup>
 
 </Project>

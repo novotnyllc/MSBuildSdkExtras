@@ -1,15 +1,15 @@
 ﻿<Project>
 
-	<PropertyGroup>
-		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
-	</PropertyGroup>
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
 
-	<PropertyGroup>
-		<!-- Detect the SDK version. For now, we have to check the BundledNETCoreAppTargetFrameworkVersion prop
-			 since there's no separate SDK version property -->
-		<_SdkDotNetVersion>$(BundledNETCoreAppTargetFrameworkVersion)</_SdkDotNetVersion>
-		<_SdkDotNetVersion Condition="'$(_SdkDotNetVersion)' == ''">1.0</_SdkDotNetVersion>
-	</PropertyGroup>
+  <PropertyGroup>
+    <!-- Detect the SDK version. For now, we have to check the BundledNETCoreAppTargetFrameworkVersion prop
+       since there's no separate SDK version property -->
+    <_SdkDotNetVersion>$(BundledNETCoreAppTargetFrameworkVersion)</_SdkDotNetVersion>
+    <_SdkDotNetVersion Condition="'$(_SdkDotNetVersion)' == ''">1.0</_SdkDotNetVersion>
+  </PropertyGroup>
 
   <ItemDefinitionGroup Condition="'$(EnableEmbeddedResourceGenerator)' == 'true' ">
     <EmbeddedResource>

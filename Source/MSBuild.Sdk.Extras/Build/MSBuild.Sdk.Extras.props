@@ -1,9 +1,9 @@
 <Project>
 
-	<PropertyGroup>
-		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
-		<MSBuildSDKExtrasTargets>$(MSBuildThisFileDirectory)MSBuild.NET.Inference.targets</MSBuildSDKExtrasTargets>
-	</PropertyGroup>
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <MSBuildSDKExtrasTargets>$(MSBuildThisFileDirectory)MSBuild.NET.Inference.targets</MSBuildSDKExtrasTargets>
+  </PropertyGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Extras.Sdk.props" />
 

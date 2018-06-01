@@ -1,8 +1,8 @@
 <Project>
 
-	<PropertyGroup>
-		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
-	</PropertyGroup>
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
 
   <Choose>
     <When Condition="'$(MSBuildProjectExtension)' == '.csproj' or ('$(MSBuildProjectExtension)' == '.tmp_proj' and Exists('$(MSBuildProjectDirectory)\$(AssemblyName).csproj'))">
