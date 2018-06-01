@@ -1,0 +1,27 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <!--
+    Automatically reference implicit package if targeting the corresponding target framework.
+    We can refer here in the .props file to properties set in the .targets files because items and their conditions are
+    evaluated in the second pass of evaluation, after all properties have been evaluated.
+  -->
+  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(TargetFrameworkIdentifier)' == '.NETCore' AND '$(_TargetFrameworkVersionWithoutV)' >= '5.0'">
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="$(_ImplicitPlatformPackageVersion)" IsImplicitlyDefined="true"/>
+    <!--
+      Update the implicit package based on target framework output types and other conditions if necessary
+      Packing should include the implicit package dependency for non-executables.
+    -->
+    <PackageReference Update="Microsoft.NETCore.UniversalWindowsPlatform" PrivateAssets="All" Publish="false"
+      Condition="'$(OutputType)' != 'Exe' OR '$(OutputType)' != 'AppContainerExe'"/>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(TargetFrameworkIdentifier)' == 'Tizen'">
+    <PackageReference Include="Tizen.NET" Version="$(_ImplicitPlatformPackageVersion)" IsImplicitlyDefined="true"/>
+    <PackageReference Update="Tizen.NET" PrivateAssets="All" Publish="false" Condition="'$(OutputType)' != 'Exe'"/>
+  </ItemGroup>
+
+</Project>

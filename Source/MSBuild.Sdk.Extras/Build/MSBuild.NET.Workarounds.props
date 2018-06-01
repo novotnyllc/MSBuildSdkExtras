@@ -1,0 +1,34 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <ImportProjectExtensionProps Condition="'$(ImportProjectExtensionProps)' == ''">true</ImportProjectExtensionProps>
+  </PropertyGroup>
+
+  <!-- Check for _*_wpftmp.*proj files -->
+  <PropertyGroup>
+    <GeneratedProjectSuffixPattern>_[a-z0-9]{8}_wpftmp</GeneratedProjectSuffixPattern>
+    <IsGeneratedProject Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(MSBuildProjectName)', '$(GeneratedProjectSuffixPattern)%24'))">true</IsGeneratedProject>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(IsGeneratedProject)' == 'true'">
+    <_OriginalProjectName>$(_TargetAssemblyProjectName)</_OriginalProjectName>
+    <_OriginalProjectName Condition="'$(_OriginalProjectName)' == ''">$([System.Text.RegularExpressions.Regex]::Replace('$(MSBuildProjectName)', '$(GeneratedProjectSuffixPattern)', ''))</_OriginalProjectName>
+    <_OriginalProjectFile>$(_OriginalProjectName)$(MSBuildProjectExtension)</_OriginalProjectFile>
+    <_OriginalProjectExtensionsPath Condition="$(MSBuildProjectExtensionsPath.Contains('$(MSBuildProjectName)'))">$(MSBuildProjectExtensionsPath.Replace('$(MSBuildProjectName)', '$(_OriginalProjectName)'))</_OriginalProjectExtensionsPath>
+
+    <RestoreOutputPath>$(_OriginalProjectExtensionsPath)</RestoreOutputPath>
+  </PropertyGroup>
+
+  <!--
+    WPF sometimes creates a temporary project, since it changes the peoject file, it breaks Project Extensions import.
+    In order to properly import Project Extensions, we need the user to set '_OriginalProjectFile' and use it to import Project Extensions.
+  -->
+  <ImportGroup Condition="'$(_OriginalProjectFile)' != '' AND '$(ImportProjectExtensionProps)' == 'true'">
+    <Import Project="$(_OriginalProjectExtensionsPath)$(_OriginalProjectFile).*.props" Condition="Exists('$(_OriginalProjectExtensionsPath)')"/>
+  </ImportGroup>
+
+</Project>
