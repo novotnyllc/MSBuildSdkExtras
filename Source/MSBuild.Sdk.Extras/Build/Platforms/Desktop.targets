@@ -1,27 +1,32 @@
-<Project>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
-  <Import Project="$(MSBuildThisFileDirectory)..\FrameworkResolvers\MSBuild.NETFramework.$(TargetFrameworkVersion).targets"
-      Condition="Exists('$(MSBuildThisFileDirectory)..\FrameworkResolvers\MSBuild.NETFramework.$(TargetFrameworkVersion).targets')"/>
-
-  <!-- If the target doesn't exist, don't use it, means we've been called from dotnet 
-       This can happen if one of the targets is used by a test project called by dotnet test no-build.
-       Note that the scenario does not cover WPF by dotnet test.
-  -->
-  <Import Project="$(MSBuildThisFileDirectory)..\LanguageTargets\Desktop.targets" Condition=" '$(OS)' == 'Windows_NT' and '$(MSBuildRuntimeType)' == 'Full' " />
-
-  <!-- Settings only apply to .NET Framework -->
-  <ItemGroup Condition="'$(EnableDefaultItems)' == 'True' and '$(EnableDefaultSettingsItems)' == 'true' ">
-    <None Update="**/*.settings" Generator="SettingsSingleFileGenerator" LastGenOutput="%(Filename).Designer$(_SdkLanguageExtension)" />
-    <_SettingsFiles Include="**/*.settings" DesignerName="%(RecursiveDir)%(Filename).Designer$(_SdkLanguageExtension)" />
-    <Compile Update="@(_SettingsFiles -> '%(DesignerName)')" AutoGen="True" DesignTimeSharedInput="True" DependentUpon="$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('.Designer','')).settings" />
+  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
+    <_SdkImplicitReference Include="System.Data.DataSetExtensions" Condition="'$(_TargetFrameworkVersionWithoutV)' >= '3.5'"/>
+    <_SdkImplicitReference Include="System.Net.Http"/>
   </ItemGroup>
-  
-  
-  <PropertyGroup>
-    <EnableDefaultSettingsItems Condition="'$(EnableDefaultSettingsItems)' == ''">true</EnableDefaultSettingsItems>
-  </PropertyGroup>
-  
+
+  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(EnableImplicitWpfReferences)' == 'true'">
+    <_SdkImplicitReference Include="System.Xaml" Condition="'$(_TargetFrameworkVersionWithoutV)' >= '4.0'"/>
+    <_SdkImplicitReference Include="WindowsBase" Condition="'$(_TargetFrameworkVersionWithoutV)' >= '3.0'"/>
+    <_SdkImplicitReference Include="PresentationCore" Condition="'$(_TargetFrameworkVersionWithoutV)' >= '3.0'"/>
+    <_SdkImplicitReference Include="PresentationFramework" Condition="'$(_TargetFrameworkVersionWithoutV)' >= '3.0'"/>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(EnableImplicitAspNetReferences)' == 'true'">
+    <_SdkImplicitReference Include="System.Web"/>
+    <_SdkImplicitReference Include="System.Web.Http"/>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(EnableImplicitWinFormsReferences)' == 'true'">
+    <_SdkImplicitReference Include="System.Design"/>
+    <_SdkImplicitReference Include="System.Drawing"/>
+    <_SdkImplicitReference Include="System.Deployment"/>
+    <_SdkImplicitReference Include="System.Windows"/>
+    <_SdkImplicitReference Include="System.Windows.Forms"/>
+  </ItemGroup>
+
 </Project>

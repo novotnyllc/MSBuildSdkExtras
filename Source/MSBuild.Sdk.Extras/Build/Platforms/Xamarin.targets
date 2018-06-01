@@ -1,0 +1,28 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <_SdkImplicitPlatformLibraryName>$(TargetFrameworkIdentifier)</_SdkImplicitPlatformLibraryName>
+    <_SdkImplicitPlatformLibraryName Condition="$(_SdkImplicitPlatformLibraryName.StartsWith('Mono'))">$(_SdkImplicitPlatformLibraryName.Replace('Mono', 'Mono.'))</_SdkImplicitPlatformLibraryName>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
+    <_SdkImplicitReference Include="System"/>
+    <_SdkImplicitReference Include="System.Runtime"/>
+    <_SdkImplicitReference Include="System.Core"/>
+    <_SdkImplicitReference Include="System.Collections"/>
+    <_SdkImplicitReference Include="System.IdentityModel"/>
+    <_SdkImplicitReference Include="System.Threading.Tasks"/>
+    <_SdkImplicitReference Include="System.Net.Http"/>
+    <_SdkImplicitReference Include="System.Xml"/>
+    <_SdkImplicitReference Include="System.Xml.Linq"/>
+    <_SdkImplicitReference Include="System.Runtime.Serialization"/>
+    <_SdkImplicitReference Include="$(_SdkImplicitPlatformLibraryName)"/>
+  </ItemGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)Xamarin\$(TargetFrameworkIdentifier).targets" Condition="Exists('$(MSBuildThisFileDirectory)Xamarin\$(TargetFrameworkIdentifier).targets')"/>
+
+</Project>

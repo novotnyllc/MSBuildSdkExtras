@@ -1,15 +1,19 @@
-<Project>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
   <PropertyGroup>
-    <!-- Default to v3 since it's the lowest one -->
-    <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v3.0</TargetFrameworkVersion>
+    <!-- Default to v4 since it's the lowest one that supports .NET Standard and is public -->
+    <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v4.0</TargetFrameworkVersion>
     <DefineConstants Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(DefineConstants);TIZEN</DefineConstants>
-    <_SdkSkipLanguageTargetsCheck>true</_SdkSkipLanguageTargetsCheck>
     <DisableStandardFrameworkResolution>true</DisableStandardFrameworkResolution>
     <AutoUnifyAssemblyReferences>true</AutoUnifyAssemblyReferences>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(_ImplicitPlatformPackageVersion)' == ''">
+    <_ImplicitPlatformPackageVersion>$(TargetFrameworkVersion.TrimStart('vV')).0</_ImplicitPlatformPackageVersion>
   </PropertyGroup>
 
 </Project>
