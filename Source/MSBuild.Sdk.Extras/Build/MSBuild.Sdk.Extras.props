@@ -8,7 +8,7 @@
   <Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Extras.Sdk.props"/>
 
   <PropertyGroup>
-    <MSBuildSdkExtrasTargets>$(MSBuildThisFileDirectory)MSBuild.NET.Extras.Sdk.targets</MSBuildSdkExtrasTargets>
+    <MSBuildSdkExtrasTargets>$(MSBuildThisFileDirectory)MSBuild.NET.Platforms.targets</MSBuildSdkExtrasTargets>
   </PropertyGroup>
 
 </Project>

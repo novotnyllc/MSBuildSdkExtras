@@ -25,19 +25,19 @@
     <ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">WINDOWS8_1</ImplicitFrameworkDefine>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(_SdkShortFrameworkIdentifier)' == 'uap'">
+  <PropertyGroup Condition="'$(_ShortFrameworkIdentifier)' == 'uap'">
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
     <!-- Only set for the 10.0 version -->
-    <NugetTargetMoniker Condition="'$(_SdkShortFrameworkVersion)' == '10.0'">UAP,Version=v10.0</NugetTargetMoniker>
+    <NugetTargetMoniker Condition="'$(_ShortFrameworkVersion)' == '10.0'">UAP,Version=v10.0</NugetTargetMoniker>
     <DefineConstants Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(DefineConstants);NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <CopyLocalLockFileAssemblies Condition="'$(CopyLocalLockFileAssemblies)' == ''">false</CopyLocalLockFileAssemblies>
 
     <!-- Calculate either default based on 10.0 or specific version based on TFM to handle uap10.0.16296, etc -->
-    <TargetPlatformVersion Condition="'$(TargetPlatformVersion)' == '' and '$(_SdkShortFrameworkVersion)' == '10.0'">10.0.14393.0</TargetPlatformVersion>
-    <TargetPlatformVersion Condition="'$(TargetPlatformVersion)' == ''">$([System.Version]::Parse('$(_SdkShortFrameworkVersion)')).0</TargetPlatformVersion>
-    <TargetPlatformMinVersion Condition="'$(TargetPlatformMinVersion)' == '' and '$(_SdkShortFrameworkVersion)' == '10.0' ">10.0.14393.0</TargetPlatformMinVersion>
-    <TargetPlatformMinVersion Condition="'$(TargetPlatformMinVersion)' == ''">$([System.Version]::Parse('$(_SdkShortFrameworkVersion)')).0</TargetPlatformMinVersion>
+    <TargetPlatformVersion Condition="'$(TargetPlatformVersion)' == '' and '$(_ShortFrameworkVersion)' == '10.0'">10.0.14393.0</TargetPlatformVersion>
+    <TargetPlatformVersion Condition="'$(TargetPlatformVersion)' == ''">$([System.Version]::Parse('$(_ShortFrameworkVersion)')).0</TargetPlatformVersion>
+    <TargetPlatformMinVersion Condition="'$(TargetPlatformMinVersion)' == '' and '$(_ShortFrameworkVersion)' == '10.0' ">10.0.14393.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion Condition="'$(TargetPlatformMinVersion)' == ''">$([System.Version]::Parse('$(_ShortFrameworkVersion)')).0</TargetPlatformMinVersion>
 
     <LanguageTargets>$(MSBuildThisFileDirectory)..\LanguageTargets\Windows.targets</LanguageTargets>
     <!-- Need to override the built-in implicit defines for UAP (UAP10_0_10240) or it'll be NETCORE5_0 -->

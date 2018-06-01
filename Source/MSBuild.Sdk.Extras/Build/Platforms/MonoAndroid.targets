@@ -7,8 +7,6 @@
     <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v4.0.3</TargetFrameworkVersion>
     <LanguageTargets>$(MSBuildThisFileDirectory)..\LanguageTargets\MonoAndroid.targets</LanguageTargets>
     <AndroidUseLatestPlatformSdk Condition="'$(AndroidUseLatestPlatformSdk)' == ''">false</AndroidUseLatestPlatformSdk>
-    <_SdkSetAndroidResgenFile Condition="'$(AndroidResgenFile)' == ''">true</_SdkSetAndroidResgenFile>
-    <AndroidResgenFile Condition="'$(AndroidResgenFile)' == ''">$(IntermediateOutputPath)$(TargetFramework)\Resource.Designer$(_SdkLanguageExtension)</AndroidResgenFile>
     <!-- This is here to prevent a warning in the Xamarin.Android.Common.Debugging.targets when a blank is passed into _GetPrimaryCpuAbi -->
     <AdbTarget Condition="'$(AdbTarget)' == ''">none</AdbTarget>
     <AndroidClassParser Condition="'$(AndroidClassParser)' == ''">class-parse</AndroidClassParser>
@@ -32,7 +30,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="$(AndroidResgenFile)" Condition="'$(_SdkSetAndroidResgenFile)' == 'true'" Visible="false" />
+    <Compile Include="$(IntermediateOutputPath)$(TargetFramework)\Resource.Designer$(_SdkLanguageExtension)" Condition="'$(AndroidResgenFile)' == ''" Visible="false" />
+    <Compile Include="$(AndroidResgenFile)" Condition="'$(AndroidResgenFile)' != ''" Visible="false" />
   </ItemGroup>
 
 </Project>

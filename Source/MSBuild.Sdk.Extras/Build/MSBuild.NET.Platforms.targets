@@ -3,6 +3,8 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
+  <Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Inference.targets" />
+
   <Import Project="$(MSBuildThisFileDirectory)Platforms\$(TargetFrameworkIdentifier).targets"
       Condition="Exists('$(MSBuildThisFileDirectory)Platforms\$(TargetFrameworkIdentifier).targets')" />
 

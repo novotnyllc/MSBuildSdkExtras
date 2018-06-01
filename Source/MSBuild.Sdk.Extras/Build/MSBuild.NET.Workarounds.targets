@@ -4,8 +4,8 @@
   </PropertyGroup>
 
   <Target Name="DisplayMissingLanguageTargetsError" Condition="'$(_SdkLanguageTargetsMissing)' == 'true'" BeforeTargets="_CheckForUnsupportedTargetFramework">
-    <Error Condition="'$(_SdkShortFrameworkIdentifier)' != 'portable'" Text="The specified language targets for $(TargetFramework) is missing. Ensure correct tooling is installed for '$(_SdkShortFrameworkIdentifier)'" />
-    <Error Condition="'$(_SdkShortFrameworkIdentifier)' == 'portable'" Text="The specified TFM '$(TargetFramework)' is not valid. Check that it's a valid combination: https://portablelibraryprofiles.stephencleary.com/"  />
+    <Error Condition="'$(_ShortFrameworkIdentifier)' != 'portable'" Text="The specified language targets for $(TargetFramework) is missing. Ensure correct tooling is installed for '$(_ShortFrameworkIdentifier)'" />
+    <Error Condition="'$(_ShortFrameworkIdentifier)' == 'portable'" Text="The specified TFM '$(TargetFramework)' is not valid. Check that it's a valid combination: https://portablelibraryprofiles.stephencleary.com/"  />
   </Target>
 
   <!--
