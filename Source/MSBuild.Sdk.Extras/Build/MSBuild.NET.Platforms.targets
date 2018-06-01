@@ -1,25 +1,34 @@
-﻿<Project>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
-  <Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Inference.targets" />
+  <PropertyGroup>
+    <_SdkPlatformName>$(TargetFrameworkIdentifier)</_SdkPlatformName>
+    <_SdkPlatformName Condition="'$(TargetFrameworkIdentifier)' == '.NETCore' OR '$(TargetFrameworkIdentifier)' == 'WindowsPhoneApp'">Windows</_SdkPlatformName>
+    <_SdkPlatformName Condition="'$(TargetFrameworkIdentifier)' == '.NETPortable'">Portable</_SdkPlatformName>
+    <_SdkPlatformName Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">Desktop</_SdkPlatformName>
+    <_SdkPlatformName Condition="$(TargetFrameworkIdentifier.StartsWith('Xamarin'))">Xamarin</_SdkPlatformName>
+    <_SdkPlatformName Condition="'$(TargetFrameworkIdentifier)' == 'MonoAndroid' OR '$(TargetFrameworkIdentifier)' == 'MonoTouch' OR '$(TargetFrameworkIdentifier)' == 'MonoMac'">Xamarin</_SdkPlatformName>
 
-  <Import Project="$(MSBuildThisFileDirectory)Platforms\$(TargetFrameworkIdentifier).targets"
-      Condition="Exists('$(MSBuildThisFileDirectory)Platforms\$(TargetFrameworkIdentifier).targets')" />
+    <_SdkPlatformTargets>$(MSBuildThisFileDirectory)Platforms\$(_SdkPlatformName).targets</_SdkPlatformTargets>
+    <_SdkLanguageTargets>$(MSBuildThisFileDirectory)LanguageTargets\$(_SdkPlatformName).targets</_SdkLanguageTargets>
+    <LanguageTargets Condition="Exists('$(_SdkLanguageTargets)')">$(_SdkLanguageTargets)</LanguageTargets>
+  </PropertyGroup>
 
-  <ImportGroup Condition="!Exists('$(MSBuildThisFileDirectory)Platforms\$(TargetFrameworkIdentifier).targets')">
-    <Import Project="$(MSBuildThisFileDirectory)Platforms\Windows.targets"
-        Condition="'$(TargetFrameworkIdentifier)' == '.NETCore'" />
-    <Import Project="$(MSBuildThisFileDirectory)Platforms\Portable.targets"
-        Condition="'$(TargetFrameworkIdentifier)' == '.NETPortable'" />
-    <Import Project="$(MSBuildThisFileDirectory)Platforms\Desktop.targets"
-        Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'" />
-  </ImportGroup>
+  <Import Project="$(_SdkPlatformTargets)" Condition="Exists('$(_SdkPlatformTargets)')"/>
 
-  <!-- Add conditional compilation symbols for the target framework (for example NET461, NETSTANDARD2_0, NETCOREAPP1_0) -->
-  <!--<PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">
-    <ImplicitFrameworkDefine>$(TargetFramework.Replace('.','_').ToUpperInvariant())</ImplicitFrameworkDefine>
-  </PropertyGroup>-->
+  <PropertyGroup>
+    <!-- Add conditional compilation symbols for the target framework (for example NET471, NETSTANDARD2_0, NETCOREAPP2_1) -->
+    <ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(TargetFramework.Replace('.','_').ToUpperInvariant())</ImplicitFrameworkDefine>
+    <DisableImplicitFrameworkDefines Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">true</DisableImplicitFrameworkDefines>
+  </PropertyGroup>
+
+  <!-- Update '_TargetFrameworkVersionWithoutV'. Since, we could have updated 'TargetFrameworkVersion' within platform targets -->
+  <PropertyGroup Condition="'$(TargetFrameworkVersion)' != ''">
+    <_TargetFrameworkVersionWithoutV>$(TargetFrameworkVersion.TrimStart('vV'))</_TargetFrameworkVersionWithoutV>
+    <TargetFrameworkVersion>v$(_TargetFrameworkVersionWithoutV)</TargetFrameworkVersion>
+  </PropertyGroup>
 
 </Project>
