@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk"/>
-  <Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.NET.Extras.Sdk.props"/>
 
+  <Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.NET.Extras.Sdk.props"/>
   <Import Project="$(MSBuildThisFileDirectory)..\DefaultItems\MSBuild.NET.ImplicitPackages.props"/>
 
 </Project>

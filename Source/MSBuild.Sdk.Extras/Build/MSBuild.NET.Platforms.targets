@@ -25,6 +25,21 @@
     <DisableImplicitFrameworkDefines Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">true</DisableImplicitFrameworkDefines>
   </PropertyGroup>
 
+  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
+    <!-- Set Pack=false on implicit references so they don't get added to NuGet packages as framework assemblies -->
+    <_SdkImplicitReference Update="@(_SdkImplicitReference)" Pack="false"/>
+
+    <!--
+      Don't duplicate any references that are explicit in the project file.
+      This means that if you do want to include a framework assembly in your NuGet package,
+      you can just add the Reference to your project file.
+    -->
+    <_SdkImplicitReference Remove="@(Reference)"/>
+
+    <!-- Add the implicit references to @(Reference) -->
+    <Reference Include="@(_SdkImplicitReference)"/>
+  </ItemGroup>
+
   <!-- Update '_TargetFrameworkVersionWithoutV'. Since, we could have updated 'TargetFrameworkVersion' within platform targets -->
   <PropertyGroup Condition="'$(TargetFrameworkVersion)' != ''">
     <_TargetFrameworkVersionWithoutV>$(TargetFrameworkVersion.TrimStart('vV'))</_TargetFrameworkVersionWithoutV>

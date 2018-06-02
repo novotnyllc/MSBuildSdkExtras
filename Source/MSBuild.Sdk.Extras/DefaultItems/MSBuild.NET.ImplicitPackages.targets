@@ -1,0 +1,20 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <!--
+    Package Version property for Implicit Packages included in the props file
+  -->
+  <PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETCore' AND '$(_TargetFrameworkVersionWithoutV)' >= '5.0' AND '$(_ImplicitPlatformPackageVersion)' == ''">
+    <_ImplicitPlatformPackageVersion Condition="'$(TargetPlatformVersion)' >= '10.0.10150'">5.4.2</_ImplicitPlatformPackageVersion>
+    <_ImplicitPlatformPackageVersion Condition="'$(TargetPlatformVersion)' >= '10.0.15138'">6.0.8</_ImplicitPlatformPackageVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == 'Tizen' AND '$(_ImplicitPlatformPackageVersion)' == ''">
+    <_ImplicitPlatformPackageVersion Condition="'$(_TargetFrameworkVersionWithoutV)' == '3.0'">3.0.0</_ImplicitPlatformPackageVersion>
+    <_ImplicitPlatformPackageVersion Condition="'$(_TargetFrameworkVersionWithoutV)' == '4.0'">4.0.0</_ImplicitPlatformPackageVersion>
+  </PropertyGroup>
+
+</Project>

@@ -22,6 +22,8 @@
   </metadata>
   <files>
     <file src="Build\**\*" target="Build" />
+    <file src="DefaultItems\**\*" target="DefaultItems" />
+    <file src="ProjectSystem\**\*" target="ProjectSystem" />
     <file src="Sdk\**\*" target="Sdk" />
   </files>
 </package>

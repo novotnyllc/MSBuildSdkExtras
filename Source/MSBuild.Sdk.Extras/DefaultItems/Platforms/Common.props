@@ -1,0 +1,50 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <ItemDefinitionGroup>
+    <_SdkImplicitReference>
+      <IsImplicitlyDefined>true</IsImplicitlyDefined>
+    </_SdkImplicitReference>
+  </ItemDefinitionGroup>
+
+  <ItemDefinitionGroup>
+    <Compile>
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemDefinitionGroup>
+
+  <PropertyGroup>
+    <!-- REGEX: '(?:\.([a-z]{2,3})(?:-([A-Z][a-z]{3}|[a-z]{3,5}))?(?:-([A-Z]{2}))?)%24' for LCIDs -->
+    <LangIdRegEx>(?:\.([a-z]{2,3})(?:-([A-Z][a-z]{3}|[a-z]{3,5}))?(?:-([A-Z]{2}))?)%24</LangIdRegEx>
+  </PropertyGroup>
+
+  <!--
+    HACK: WORST HACK IN THE HISTORY OF HACKS!
+    TODO: Replace with a more elegant solution without involving RegEx if it's even pssible!
+  -->
+  <ItemGroup Condition="'$(EnableDefaultEmbeddedResourceItems)' == 'true' AND '$(EnableEmbeddedResourceCodeGenerator)' == 'true'">
+    <EmbeddedResource Update="**\*.resx">
+      <HasLangId>$([System.Text.RegularExpressions.Regex]::IsMatch('%(FileName)', '$(LangIdRegEx)'))</HasLangId>
+    </EmbeddedResource>
+    <EmbeddedResource Update="**\*.resx">
+      <Generator Condition="!%(HasLangId)">$(EmbeddedResourceCodeGeneratorTool)</Generator>
+      <LastGenOutput Condition="!%(HasLangId)">%(Filename)$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</LastGenOutput>
+      <GenFilePath Condition="!%(HasLangId)">%(RecursiveDir)%(Filename)$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</GenFilePath>
+      <DependentUpon Condition="%(HasLangId)">$([System.Text.RegularExpressions.Regex]::Replace('%(FileName)', '$(LangIdRegEx)', '%(Extension)'))</DependentUpon>
+    </EmbeddedResource>
+    <Compile Update="@(EmbeddedResource->'%(GenFilePath)')">
+      <AutoGen>true</AutoGen>
+      <DesignTime>true</DesignTime>
+      <DesignTimeSharedInput>true</DesignTimeSharedInput>
+      <DependentUpon>$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('$(DefaultDesignerFileSuffix)', '.resx'))</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>

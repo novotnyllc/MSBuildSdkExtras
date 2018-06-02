@@ -4,22 +4,9 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(FrameworkProjectType)' == 'Wpf'">
-    <EnableWpfProjectSetup>true</EnableWpfProjectSetup>
-    <EnableAspNetProjectSetup>false</EnableAspNetProjectSetup>
-    <EnableWinFormsProjectSetup>false</EnableWinFormsProjectSetup>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(FrameworkProjectType)' == 'AspNet'">
-    <EnableWpfProjectSetup>false</EnableWpfProjectSetup>
-    <EnableAspNetProjectSetup>true</EnableAspNetProjectSetup>
-    <EnableWinFormsProjectSetup>false</EnableWinFormsProjectSetup>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(FrameworkProjectType)' == 'WinForms'">
-    <EnableWpfProjectSetup>false</EnableWpfProjectSetup>
-    <EnableAspNetProjectSetup>false</EnableAspNetProjectSetup>
-    <EnableWinFormsProjectSetup>true</EnableWinFormsProjectSetup>
-  </PropertyGroup>
+  <Import Project="$(MSBuildThisFileDirectory)Platforms\Common.targets"/>
+  <Import Project="$(MSBuildThisFileDirectory)Platforms\Desktop.targets"/>
+  <Import Project="$(MSBuildThisFileDirectory)Platforms\Desktop.$(_LanguageSourceName).targets" Condition="Exists('$(MSBuildThisFileDirectory)Platforms\Desktop.$(_LanguageSourceName).targets')"/>
+  <Import Project="$(MSBuildThisFileDirectory)Platforms\Xaml.targets"/>
 
 </Project>

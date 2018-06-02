@@ -8,4 +8,9 @@
     <DefaultDesignerFileSuffix Condition="'$(DefaultDesignerFileSuffix)' == ''">.Designer</DefaultDesignerFileSuffix>
   </PropertyGroup>
 
+  <Import Project="$(MSBuildThisFileDirectory)Platforms\Common.props"/>
+  <Import Project="$(MSBuildThisFileDirectory)Platforms\Desktop.props"/>
+  <Import Project="$(MSBuildThisFileDirectory)Platforms\Desktop.$(_LanguageSourceName).props" Condition="Exists('$(MSBuildThisFileDirectory)Platforms\Desktop.$(_LanguageSourceName).props')"/>
+  <Import Project="$(MSBuildThisFileDirectory)Platforms\Xaml.props"/>
+
 </Project>

@@ -1,0 +1,41 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <EnableDefaultMyAppItems Condition="'$(EnableDefaultMyAppItems)' == ''">true</EnableDefaultMyAppItems>
+    <EnableMyAppCodeGenerator Condition="'$(EnableMyAppCodeGenerator)' == ''">true</EnableMyAppCodeGenerator>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(EnableMyAppCodeGenerator)' == 'true'">
+    <MyAppCodeGeneratorTool Condition="'$(MyAppGeneratedCodeIsPublic)' != 'true'">MyApplicationCodeGenerator</MyAppCodeGeneratorTool>
+    <MyAppCodeGeneratorTool Condition="'$(MyAppGeneratedCodeIsPublic)' == 'true'">PublicMyApplicationCodeGenerator</MyAppCodeGeneratorTool>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(EnableDefaultWpfItems)' == 'true' AND '$(ApplicationExtensionFile)' != ''">
+    <ApplicationExtensionFile Condition="$(ApplicationExtensionFile.Contains(';'))"/>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(EnableDefaultWpfItems)' == 'true' AND '$(ApplicationExtensionFile)' == ''">
+    <ApplicationExtensionPath>$(AppDesignerFolder)\MyExtensions</ApplicationExtensionPath>
+    <ApplicationExtensionFile Condition="Exists('$(MSBuildProjectDirectory)\$(ApplicationExtensionPath)\MyWpfExtension.vb')">$(ApplicationExtensionPath)\MyWpfExtension.vb</ApplicationExtensionFile>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(DisableImplicitNamespaceImports)' != 'true'">
+    <!-- Set IsImplicitlyDefined=true on implicit imports so they don't get added again by the IDE -->
+    <_SdkImplicitImport Update="@(_SdkImplicitImport)"/>
+
+    <!--
+      Don't duplicate any imports that are explicit in the project file.
+      This means that if you do want to include an import in your project file(s),
+      you can just add the Import to your project file.
+    -->
+    <_SdkImplicitImport Remove="@(Import)"/>
+
+    <!-- Add the implicit imports to @(Import) -->
+    <Import Include="@(_SdkImplicitImport)"/>
+  </ItemGroup>
+
+</Project>
