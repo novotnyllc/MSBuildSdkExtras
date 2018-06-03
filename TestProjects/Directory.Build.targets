@@ -3,10 +3,9 @@
   <PropertyGroup>
     <Company>NIRIN</Company>
     <Authors>Nirmal Guru</Authors>
-    <Copyright>© NIRIN Foundation</Copyright>
+    <Copyright>© NIRIN Foundation.</Copyright>
     <Product>MSBuild-Sdks Test Projects</Product>
-    <Description>Project for Sdk testing.</Description>
-    <Description>$(AssemblyTitle) $(Description)</Description>
+    <Description>$(AssemblyTitle) Template Project using the SDK.</Description>
     <IsPackable>false</IsPackable>
     <FileVersion>1.0.0.0</FileVersion>
     <AssemblyVersion>1.0.0</AssemblyVersion>

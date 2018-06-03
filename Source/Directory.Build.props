@@ -22,7 +22,7 @@
     <RepositoryUrl>git://github.com/onovotny/MSBuildSdkExtras</RepositoryUrl>
     <PackageProjectUrl>https://github.com/onovotny/MSBuildSdkExtras</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/onovotny/MSBuildSdkExtras/blob/master/LICENSE.md</PackageLicenseUrl>
-    <PackageReleaseNotes>https://github.com/onovotny/MSBuildSdkExtras/blob/master/Docs/Releases.md</PackageReleaseNotes>
+    <PackageReleaseNotes>https://github.com/onovotny/MSBuildSdkExtras/blob/master/README.md</PackageReleaseNotes>
   </PropertyGroup>
 
 </Project>

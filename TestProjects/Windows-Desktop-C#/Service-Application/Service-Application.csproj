@@ -1,0 +1,22 @@
+﻿<Project Sdk="MSBuild.Sdk.Extras">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net45</TargetFramework>
+    <ProjectGuid>{03E6FF17-BEFC-48C5-A953-303C2CE7EB6B}</ProjectGuid>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AssemblyName>WinServiceApp</AssemblyName>
+    <AssemblyTitle>Windows Service Application</AssemblyTitle>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="System.ServiceProcess"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Framework-Library\Framework-Library.csproj"/>
+  </ItemGroup>
+
+</Project>

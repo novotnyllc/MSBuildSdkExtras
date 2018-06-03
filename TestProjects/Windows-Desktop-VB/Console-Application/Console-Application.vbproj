@@ -1,0 +1,19 @@
+﻿<Project Sdk="MSBuild.Sdk.Extras">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net45</TargetFramework>
+    <MyType>Console</MyType>
+    <ProjectGuid>{170B7CE1-695C-49F4-A8F7-378B7803212E}</ProjectGuid>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AssemblyName>WinConsoleApp</AssemblyName>
+    <AssemblyTitle>Windows Console Application</AssemblyTitle>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Framework-Library\Framework-Library.vbproj"/>
+  </ItemGroup>
+
+</Project>
