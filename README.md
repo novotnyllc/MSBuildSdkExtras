@@ -1,136 +1,139 @@
 # MSBuild.Sdk.Extras
 
-This package contains a few extra extensions to the SDK-style projects that are currently not available
-in the main SDK. That feature is tracked in [dotnet/sdk#491](https://github.com/dotnet/sdk/issues/491)
+## Summary
 
-The primary goal is to enable multi-targeting without you having to enter in tons of properties within your
-`csproj`, `vbproj`, `fsproj`, thus keeping it nice and clean.
+This package contains a few extra extensions to the SDK-style projects that are currently not available in `Microsoft.NET.Sdk` SDK. This feature is tracked in [dotnet/sdk#491](https://github.com/dotnet/sdk/issues/491)
 
-See my [blog article](https://oren.codes/2017/01/04/multi-targeting-the-world-a-single-project-to-rule-them-all/) for some background on how to get started. Installing
-this package, `MSBuild.Sdk.Extras` adds the missing properties so that you can use any TFM you want.
+The primary goal of this project is to enable multi-targeting without you having to enter in tons of properties within your `csproj`, `vbproj`, `fsproj`, thus keeping it nice and clean.
 
-In short: Create a new .NET Standard class library in VS 2017. Then you can edit the `TargetFramework` to a different TFM (after installing this package), or you can rename `TargetFramework` to `TargetFrameworks` and specify multiple TFM's with a `;` separator.
+See the [blog post](https://oren.codes/2017/01/04/multi-targeting-the-world-a-single-project-to-rule-them-all) for more information.
 
-After building, you can use the `Pack` target to easily create a NuGet package: `msbuild /t:Pack ...`
-
-Few notes:
-
-- This will only work in VS 2017, Visual Studio for Mac. It's possible it will work in Code, but only as an editor as this requires full `msbuild` to build.
-- To compile, you'll need the desktop build engine -- `msbuild`. Most of the platforms rely on tasks and utilities that are not yet cross platform
-- You must install the tools of the platforms you intend to build. For Xamarin, that means the Xamarin Workload; for UWP install those tools as well.
-
-NuGet: `MSBuild.Sdk.Extras`
+### Package Name: `MSBuild.Sdk.Extras`
 
 [![MSBuild.Sdk.Extras](https://img.shields.io/nuget/v/MSBuild.Sdk.Extras.svg)](https://nuget.org/packages/MSBuild.Sdk.Extras)
+[![MSBuild.Sdk.Extras](https://img.shields.io/myget/msbuildsdkextras/v/MSBuild.Sdk.Extras.svg)](https://myget.org/feed/msbuildsdkextras/package/nuget/MSBuild.Sdk.Extras)
+[![MSBuildSDKExtras](https://img.shields.io/badge/MSBuildSDKExtras-myget-brightgreen.svg)](https://myget.org/gallery/msbuildsdkextras)
 
-MyGet CI feed: `https://myget.org/F/msbuildsdkextras/api/v3/index.json`
+### Getting started (VS 15.6+)
 
-[![MSBuild.Sdk.Extras](https://img.shields.io/myget/msbuildsdkextras/v/MSBuild.Sdk.Extras.svg)](https://myget.org/gallery/msbuildsdkextras)
+Visual Studio 2017 Update 6 (aka _v15.6_) includes support for SDK's resolved from NuGet. That makes using the custom Sdks much easier.
 
-## Using the package (VS 2017 15.6+)
+#### Using the SDK
 
-Visual Studio 2017 Update 6 includes support for SDK's resolved from NuGet. That makes using these extras much easier. This approach is recommended and support for the "old" way will be removed in a future release of the Extras.
+1. Create a new project
+    - .NET Core console app or .NET Standard class library.
+    - With your exisiting SDK-style project.
+    - With the templates in the repo's [TestProjects](/TestProjects) folder.
 
-After creating a new .NET Standard class library, replace:
-`<Project Sdk="Microsoft.NET.Sdk">` with `<Project Sdk="MSBuild.Sdk.Extras/1.2.2">`. That's it. You do not need to specify the UWP or Tizen meta-packages as they'll be automatically included.
+2. Replace `Microsoft.NET.Sdk` with `MSBuild.Sdk.Extras` to the project's top-level `Sdk` attribute.
 
-For solutions with more than one project using the Extras, it's recommended to put the version in your `global.json` next to your solution like this:
+3. You have to tell MSBuild that the `Sdk` should resolve from NuGet by
+    - Adding a `global.json` containing the Sdk name and version.
+    - Appending a version info to the `Sdk` attribute value.
+
+4. Then you can edit the `TargetFramework` to a different TFM, or you can rename `TargetFramework` to `TargetFrameworks` and specify multiple TFM's with a `;` separator.
+
+The final project should look like this:
+
+```xml
+<Project Sdk="MSBuild.Sdk.Extras">
+  <PropertyGroup>
+    <TargetFrameworks>net46;uwp10.0;tizen40</TargetFrameworks>
+  </PropertyGroup>
+</Project>
+```
+
+You can put the `global.json` file next to your solution:
 
 ```json
 {
     "msbuild-sdks": {
-        "MSBuild.Sdk.Extras": "1.2.2"
+        "MSBuild.Sdk.Extras": "1.6.0"
     }
 }
 ```
-Then, in your project file, just use `<Project Sdk="MSBuild.Sdk.Extras">`, and it'll use the version from the `global.json`.
+
+Then, all of your project files, from that directory forward, uses the version from the `global.json` file.
+This would be a preferred solution for all the projects in your solution.
+
+Then again, you might want to override the version for just one project _OR_ if you have only one project in your solution (without adding `global.json`), you can do so like this:
+
+```xml
+<Project Sdk="MSBuild.Sdk.Extras/1.6.0">
+  <PropertyGroup>
+    <TargetFrameworks>net46;uwp10.0;tizen40</TargetFrameworks>
+  </PropertyGroup>
+</Project>
+```
+
+That's it. You do not need to specify the UWP or Tizen meta-packages as they'll be automatically included.
+After that, you can use the `Restore`, `Build`, `Pack` targets to restore packages, build the project and create NuGet packages. E.g.: `msbuild /t:Pack ...`
+
+#### Important to Note
+
+- It will only work with Visual Studio IDE (Windows/Mac) as it requires the desktop `msbuild` and the target Platform SDKs which are not cross platform.
+- It might work in Visual Studio Code, but you have to configure build tasks in `launch.json` to use desktop `msbuild` to build.
+- You must install the tools of the platforms you intend to build. For Xamarin, that means the Xamarin Workload; for UWP install those tools as well.
 
 More information on how SDK's are resolved can be found [here](https://docs.microsoft.com/en-us/visualstudio/msbuild/how-to-use-project-sdk#how-project-sdks-are-resolved).
 
+### Migrate from the old way (VS pre-15.6)
 
-## Using the Package (pre VS 2017 15.6)
+For those who are using in a `PackageReference` style, you can't do that with v2.0+ of this package. So update VS to 15.6+ and manually upgrade your projects as shown below:
 
-**IMPORTANT** This approach should be considered deprecated with the upcoming release of 15.6. Update your projects to use the mechanism above.
+1. The same as above, replace the Sdk attribute's value.
+2. Remove the workaround import specified with the old way. The import property should be `MSBuildSdkExtrasTargets`.
+3. Do a trial build and then compare your project with the templates in the repo's [TestProjects](/TestProjects) folder to troubleshoot any issues if you encounter them.
+4. Please file a issue if you can't troubleshoot on your own. So, that I can help you with the issue you are facing.
 
-To use this package, add a `PackageReference` to your project file like this (specify whatever version of the package or wildcard):
+Your project diff:
 
-``` xml
-<PackageReference Include="MSBuild.Sdk.Extras" Version="1.1.0" PrivateAssets="All" />
+```diff
+- <Project Sdk="Microsoft.NET.Sdk">
++ <Project Sdk="MSBuild.Sdk.Extras">
+  <!-- OTHER PROPERTIES -->
+  <PropertyGroup>
+    <TargetFrameworks>net46;uwp10.0;tizen40</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+-    <PackageReference Include="MSBuild.Sdk.Extras" Version="1.6.0" PrivateAssets="All"/>
+  <!-- OTHER PACKAGES/INCLUDES -->
+  </ItemGroup>
+
+-  <Import Project="$(MSBuildSdkExtrasTargets)" Condition="Exists('$(MSBuildSdkExtrasTargets)')"/>
+  <!-- OTHER IMPORTS -->
+</Project>
 ```
 
-Setting `PrivateAssets="All"` means that this build-time dependency won't be added as a dependency to any packages you create by
-using the Pack targets (`msbuild /t:Pack` or `dotnet pack`).
-
-Then, at the end of your project file, either `.csproj`, `.vbproj` or `.fsproj`, add the following `Import` just before the closing tag
-
-``` xml
-<Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
+```diff
+- PackageReference style
++ SDK style
 ```
 
-This last step is required until [Microsoft/msbuild#1045](https://github.com/Microsoft/msbuild/issues/1045) is resolved.
-
-## Targeting UWP
-
-If you plan to target UWP, then you must include the UWP meta-package in your project as well, something like this:
-
-``` xml
-<ItemGroup Condition=" '$(TargetFramework)' == 'uap10.0' ">
-  <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="5.4.0" />
-</ItemGroup>
-```
-
-Starting with VS 2017 15.4, you can specify the `TargetPlatformMinVersion` with the TFM. The exact value depends on your installed Windows SDK; it may be something like `uap10.0.16278`. You can even multi-target to support older versions too, so have a `uap10.0` and `uap10.0.16278` target with different capabilities.
-
-## Targeting Tizen
-
-If you plan to target Tizen, then you should include the following meta-package:
-
-```xml
-<ItemGroup Condition=" '$(TargetFramework)' == 'tizen30' ">
-  <PackageReference Include="Tizen.NET" Version="3.0.0" />
-</ItemGroup>
-```
-
-## Targeting UWP, Windows 8.x, Windows Phone 8.1, etc. using the 1.0 SDK tooling
-
-**This workaround is needed when using the SDK 1.x tooling. Recommendation is to use the 2.0+ SDK even if targeting 1.x**
-
-If you're targeting a WinRT platform and you use the `Pack` target, there's an important workaround needed to ensure
-that the `.pri` files are included in the package correctly. When you call `Pack`, you also must override `NuGetBuildTasksPackTargets` on the command-line
-to ensure the fixed targets get applied. The value you specify must not be a real file.
-
-You also need to add a `PackageReference` to the `NuGet.Build.Tasks.Pack` v4.3.0 to your project., something like this:
-
-`<PackageReference Include="NuGet.Build.Tasks.Pack" Version="4.3.0" PrivateAssets="All" />`
-
-On the command line, you need to invoke something like: `msbuild MyProject.csproj /t:Pack /p:NuGetBuildTasksPackTargets="workaround"`
-
-[NuGet/Home#4136](https://github.com/NuGet/Home/issues/4136) is tracking this.
+**Note**: If you're using Visual Studio for Mac, currently there's no support for resolving SDKs from NuGet. Until VS for Mac supports it, you can use `PackageReference` style. Also you have to include any UWP or Tizen meta-package manually. If you are already using the package, just update it to get the new fixes.
 
 ## Single or multi-targeting
 
 Once this package is configured, you can now use any supported TFM in your `TargetFramework` or `TargetFrameworks` element. The supported TFM families are:
 
 - `netstandard` (.NET Standard)
-- `net` (.NET Framework - with support for WPF)
-- `net35-client`/`net40-client` (.NET Framework Client profile)
 - `netcoreapp` (.NET Core App)
+- `net` (.NET Framework)
+- `net35-client`/`net40-client` (.NET Framework legacy Client profile)
 - `wpa` (Windows Phone App 8.1)
 - `win` (Windows 8 / 8.1)
-- `uap` (UWP)
+- `uap` (Windows 10 / UWP)
 - `wp` (Windows Phone Silverlight, WP7+)
 - `sl` (Silverlight 4+)
-- `tizen` (Tizen 3.0+)
-- `monoandroid`/`Xamarin.Android`
-- `xamarinios` / `Xamarin.iOS`
-- `xamarinmac` / `Xamarin.Mac`
-- `xamarinwatchos` / `Xamarin.WatchOS`
-- `xamarintvos` / `Xamarin.TVOS`
-- `portable-`/`portableNN-` (legacy PCL profiles like `portable-net45+win8+wpa81+wp8`)
+- `tizen` (Tizen 3+)
+- `xamarin.android`
+- `xamarin.ios`
+- `xamarin.mac`
+- `xamarin.watchos`
+- `xamarin.tvos`
+- `portableNN-`/`portable-` (legacy PCL profiles like `portable-net45+win8+wpa81+wp8`)
 
- For legacy PCL profiles, the order of the TFM's in the list does not matter but the profile must be an exact match
- to one of the known profiles. If it's not, you'll get a compile error saying it's unknown. You can see the full
- list of known profiles here: [Portable Library Profiles by Stephen Cleary](https://portablelibraryprofiles.stephencleary.com/).
+ For legacy PCL profiles, the order of the TFM's in the list does not matter but the profile must be an exact match to one of the known profiles. If it's not, you'll get a compile error saying it's unknown. You can see the full list of known profiles here: [Portable Library Profiles by Stephen Cleary](https://portablelibraryprofiles.stephencleary.com/).
 
- If you try to use a framework that you don't have tools installed for, you'll get an error as well saying to check the tools. In some cases
- this might mean installing an older version of VS (like 2015) to ensure that the necessary targets are installed on the machine.
+ If you try to use a framework that you don't have tools installed for, you'll get an error as well saying to check the tools. In some cases this might mean installing an older version of Visual Studio IDE (_like 2015_) to ensure that the necessary targets are installed on the machine.
