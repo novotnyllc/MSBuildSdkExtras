@@ -17,12 +17,19 @@
     <LanguageTargets Condition="Exists('$(_SdkLanguageTargets)')">$(_SdkLanguageTargets)</LanguageTargets>
   </PropertyGroup>
 
+  <!-- Add conditional compilation symbols for the target framework and one with version -->
+  <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">
+    <ImplicitFrameworkIdentifierDefine>$(TargetFrameworkIdentifier.TrimStart('.').Replace('.','_').ToUpperInvariant())</ImplicitFrameworkIdentifierDefine>
+    <ImplicitFrameworkDefine>$(TargetFramework.Replace('.','_').Replace('-','_').ToUpperInvariant())</ImplicitFrameworkDefine>
+  </PropertyGroup>
+
   <Import Project="$(_SdkPlatformTargets)" Condition="Exists('$(_SdkPlatformTargets)')"/>
 
-  <PropertyGroup>
-    <!-- Add conditional compilation symbols for the target framework (for example NET471, NETSTANDARD2_0, NETCOREAPP2_1) -->
-    <ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(TargetFramework.Replace('.','_').ToUpperInvariant())</ImplicitFrameworkDefine>
-    <DisableImplicitFrameworkDefines Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">true</DisableImplicitFrameworkDefines>
+  <!-- The conditional compilation symbols defined in the above import and the property-group flows to the Main SDK -->
+  <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">
+    <DisableImplicitFrameworkDefines>true</DisableImplicitFrameworkDefines>
+    <DefineConstants>$(DefineConstants);$(ImplicitFrameworkProfileDefine)</DefineConstants>
+    <VersionlessImplicitFrameworkDefine>$(ImplicitFrameworkIdentifierDefine)</VersionlessImplicitFrameworkDefine>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">

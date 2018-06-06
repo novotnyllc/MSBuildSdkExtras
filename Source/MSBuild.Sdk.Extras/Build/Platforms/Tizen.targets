@@ -7,13 +7,8 @@
   <PropertyGroup>
     <!-- Default to v4 since it's the lowest one that supports .NET Standard and is public -->
     <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v4.0</TargetFrameworkVersion>
-    <DefineConstants Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(DefineConstants);TIZEN</DefineConstants>
     <DisableStandardFrameworkResolution>true</DisableStandardFrameworkResolution>
     <AutoUnifyAssemblyReferences>true</AutoUnifyAssemblyReferences>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(_ImplicitPlatformPackageVersion)' == ''">
-    <_ImplicitPlatformPackageVersion>$(TargetFrameworkVersion.TrimStart('vV')).0</_ImplicitPlatformPackageVersion>
   </PropertyGroup>
 
 </Project>

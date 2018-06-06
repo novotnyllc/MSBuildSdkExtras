@@ -9,9 +9,11 @@
     <_NuGetTargetVersion>v0.0</_NuGetTargetVersion>
     <_NuGetTargetVersion Condition="'$(EnableTargetFrameworkVersionForNuGet)' == 'true'">$(TargetFrameworkVersion)</_NuGetTargetVersion>
     <NugetTargetMoniker>$(TargetFrameworkIdentifier),Version=$(_NuGetTargetVersion),Profile=$(TargetFrameworkProfile)</NugetTargetMoniker>
-    <!-- .NET Portable gets profiles as defines as that's how most people refer to them NET_PORTABLE259, etc. This also gets NET_PORTABLE and PROFILE259 -->
-    <ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">NET_PORTABLE;$(TargetFrameworkProfile.ToUpperInvariant());NET_PORTABLE$(TargetFrameworkProfile.Substring('7'))</ImplicitFrameworkDefine>
-    <DisableImplicitFrameworkDefines Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">true</DisableImplicitFrameworkDefines>
+  </PropertyGroup>
+
+  <!-- .NET Portable gets profiles as defines as that's how most people refer to them NET_PORTABLE259, PROFILE259 -->
+  <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">
+    <ImplicitFrameworkProfileDefine>$(TargetFrameworkProfile.ToUpperInvariant());$(ImplicitFrameworkIdentifierDefine)$(TargetFrameworkProfile.Substring('7'))</ImplicitFrameworkProfileDefine>
   </PropertyGroup>
 
 </Project>

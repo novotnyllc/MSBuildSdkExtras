@@ -6,7 +6,6 @@
 
   <PropertyGroup>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
-    <DefineConstants Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(DefineConstants);SILVERLIGHT</DefineConstants>
     <ValidateXaml Condition="'$(ValidateXaml)' == ''">true</ValidateXaml>
     <SilverlightApplication Condition="'$(SilverlightApplication)' == ''">false</SilverlightApplication>
     <ThrowErrorsInValidation Condition="'$(ThrowErrorsInValidation)' == ''">true</ThrowErrorsInValidation>
