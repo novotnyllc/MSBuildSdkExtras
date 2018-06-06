@@ -4,7 +4,7 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
-  <PropertyGroup Condition="!$(TargetFramework.Contains(','))">
+  <PropertyGroup>
     <!-- Convert $(TargetFramework) to lower case -->
     <TargetFramework>$(TargetFramework.ToLowerInvariant())</TargetFramework>
     <!-- if version-less framework-profile is specified then default to the highest supported version of that framework-profile -->
@@ -24,8 +24,6 @@
       portable45-net45+win8+wp8+wpa81 into 'portable', '45', '+net45+win8+wp8+wpa81+'
   -->
   <Choose>
-    <When Condition="$(TargetFramework.Contains(','))"/>
-
     <When Condition="$(TargetFramework.Contains('-'))">
       <!-- Handle short framework ids with profiles -->
       <PropertyGroup>
@@ -100,12 +98,6 @@
     </Otherwise>
   </Choose>
 
-  <PropertyGroup>
-    <_TargetFrameworkVersionWithoutV>$(TargetFrameworkVersion)</_TargetFrameworkVersionWithoutV>
-    <_TargetFrameworkVersionWithV>v$(TargetFrameworkVersion)</_TargetFrameworkVersionWithV>
-    <TargetFrameworkVersion>$(_TargetFrameworkVersionWithV)</TargetFrameworkVersion>
-  </PropertyGroup>
-
   <Import Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'" Project="$(MSBuildThisFileDirectory)FrameworkResolvers\MSBuild.NETFramework.targets"/>
 
   <!-- Support for resolving portable framework profiles -->
@@ -113,5 +105,11 @@
     <Import Condition="'$(TargetFrameworkVersion)' == ''" Project="$(MSBuildThisFileDirectory)FrameworkResolvers\MSBuild.NETPortable.v*.targets"/>
     <Import Condition="'$(TargetFrameworkVersion)' != ''" Project="$(MSBuildThisFileDirectory)FrameworkResolvers\MSBuild.NETPortable.v$(TargetFrameworkVersion).targets"/>
   </ImportGroup>
+
+  <PropertyGroup>
+    <_TargetFrameworkVersionWithoutV>$(TargetFrameworkVersion)</_TargetFrameworkVersionWithoutV>
+    <_TargetFrameworkVersionWithV>v$(TargetFrameworkVersion)</_TargetFrameworkVersionWithV>
+    <TargetFrameworkVersion>$(_TargetFrameworkVersionWithV)</TargetFrameworkVersion>
+  </PropertyGroup>
 
 </Project>

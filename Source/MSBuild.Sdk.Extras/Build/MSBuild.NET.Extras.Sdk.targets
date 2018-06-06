@@ -14,8 +14,10 @@
   </PropertyGroup>
 
   <ImportGroup Condition="'$(IsMultiTargetingBuild)' != 'true'">
-    <Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Inference.targets" Condition="'$(TargetFramework)' != ''"/>
-    <Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Platforms.targets" Condition="'$(TargetFrameworkIdentifier)' != ''"/>
+    <Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Inference.targets"
+            Condition="'$(TargetFramework)' != '' AND !($(TargetFramework.Contains(',')) OR $(TargetFramework.Contains(';')))"/>
+    <Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Platforms.targets"
+            Condition="'$(TargetFrameworkIdentifier)' != ''"/>
   </ImportGroup>
 
   <PropertyGroup Condition="'$(AppendTargetFrameworkToOutputPath)' == ''">

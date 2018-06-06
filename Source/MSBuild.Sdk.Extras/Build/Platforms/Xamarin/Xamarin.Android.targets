@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v5</TargetFrameworkVersion>
+    <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v5.0</TargetFrameworkVersion>
     <AndroidUseLatestPlatformSdk Condition="'$(AndroidUseLatestPlatformSdk)' == ''">false</AndroidUseLatestPlatformSdk>
     <!-- This is here to prevent a warning in the Xamarin.Android.Common.Debugging.targets when a blank is passed into _GetPrimaryCpuAbi -->
     <AdbTarget Condition="'$(AdbTarget)' == ''">none</AdbTarget>

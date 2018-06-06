@@ -5,7 +5,7 @@
       ($(_ShortFrameworkProfile.Contains('+sl4+')) OR $(_ShortFrameworkProfile.Contains('+sl40+'))) AND
       ($(_ShortFrameworkProfile.Contains('+win+')) OR $(_ShortFrameworkProfile.Contains('+win8+')) OR $(_ShortFrameworkProfile.Contains('+win80+'))) AND
       ($(_ShortFrameworkProfile.Contains('+wp+')) OR $(_ShortFrameworkProfile.Contains('+wp7+')) OR $(_ShortFrameworkProfile.Contains('+wp70+'))) ">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile2</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -13,7 +13,7 @@
   <PropertyGroup Condition="$(_ShortFrameworkProfileCount) == 2 AND
       ($(_ShortFrameworkProfile.Contains('+net4+')) OR $(_ShortFrameworkProfile.Contains('+net40+'))) AND
       ($(_ShortFrameworkProfile.Contains('+sl4+')) OR $(_ShortFrameworkProfile.Contains('+sl40+'))) ">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile3</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -23,7 +23,7 @@
       ($(_ShortFrameworkProfile.Contains('+sl4+')) OR $(_ShortFrameworkProfile.Contains('+sl40+'))) AND
       ($(_ShortFrameworkProfile.Contains('+win+')) OR $(_ShortFrameworkProfile.Contains('+win8+')) OR $(_ShortFrameworkProfile.Contains('+win80+'))) AND
       ($(_ShortFrameworkProfile.Contains('+wp+')) OR $(_ShortFrameworkProfile.Contains('+wp7+')) OR $(_ShortFrameworkProfile.Contains('+wp70+'))) ">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile4</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -31,7 +31,7 @@
   <PropertyGroup Condition="$(_ShortFrameworkProfileCount) == 2 AND
       ($(_ShortFrameworkProfile.Contains('+net4+')) OR $(_ShortFrameworkProfile.Contains('+net40+'))) AND
       ($(_ShortFrameworkProfile.Contains('+win+')) OR $(_ShortFrameworkProfile.Contains('+win8+')) OR $(_ShortFrameworkProfile.Contains('+win80+')))">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile5</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -39,7 +39,7 @@
   <PropertyGroup Condition="$(_ShortFrameworkProfileCount) == 2 AND
       $(_ShortFrameworkProfile.Contains('+net403+')) AND
       ($(_ShortFrameworkProfile.Contains('+win+')) OR $(_ShortFrameworkProfile.Contains('+win8+')) OR $(_ShortFrameworkProfile.Contains('+win80+')))">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile6</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -47,7 +47,7 @@
   <PropertyGroup Condition="$(_ShortFrameworkProfileCount) == 2 AND
       ($(_ShortFrameworkProfile.Contains('+net4+')) OR $(_ShortFrameworkProfile.Contains('+net40+'))) AND
       ($(_ShortFrameworkProfile.Contains('+sl5+')) OR $(_ShortFrameworkProfile.Contains('+sl50+')))">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile14</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -55,7 +55,7 @@
   <PropertyGroup Condition="$(_ShortFrameworkProfileCount) == 2 AND
       $(_ShortFrameworkProfile.Contains('+net403+')) AND
       ($(_ShortFrameworkProfile.Contains('+sl4+')) OR $(_ShortFrameworkProfile.Contains('+sl40+')))">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile18</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -63,7 +63,7 @@
   <PropertyGroup Condition="$(_ShortFrameworkProfileCount) == 2 AND
       $(_ShortFrameworkProfile.Contains('+net403+')) AND
       ($(_ShortFrameworkProfile.Contains('+sl5+')) OR $(_ShortFrameworkProfile.Contains('+sl50+')))">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile19</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -71,7 +71,7 @@
   <PropertyGroup Condition="$(_ShortFrameworkProfileCount) == 2 AND
       $(_ShortFrameworkProfile.Contains('+net45+')) AND
       ($(_ShortFrameworkProfile.Contains('+sl4+')) OR $(_ShortFrameworkProfile.Contains('+sl40+')))">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile23</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -79,7 +79,7 @@
   <PropertyGroup Condition="$(_ShortFrameworkProfileCount) == 2 AND
       $(_ShortFrameworkProfile.Contains('+net45+')) AND
       ($(_ShortFrameworkProfile.Contains('+sl5+')) OR $(_ShortFrameworkProfile.Contains('+sl50+')))">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile24</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -89,7 +89,7 @@
       ($(_ShortFrameworkProfile.Contains('+sl4+')) OR $(_ShortFrameworkProfile.Contains('+sl40+'))) AND
       ($(_ShortFrameworkProfile.Contains('+win+')) OR $(_ShortFrameworkProfile.Contains('+win8+')) OR $(_ShortFrameworkProfile.Contains('+win80+'))) AND
       ($(_ShortFrameworkProfile.Contains('+wp8+')) OR $(_ShortFrameworkProfile.Contains('+wp80+')))">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile36</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -98,7 +98,7 @@
       ($(_ShortFrameworkProfile.Contains('+net4+')) OR $(_ShortFrameworkProfile.Contains('+net40+'))) AND
       ($(_ShortFrameworkProfile.Contains('+sl5+')) OR $(_ShortFrameworkProfile.Contains('+sl50+'))) AND
       ($(_ShortFrameworkProfile.Contains('+win+')) OR $(_ShortFrameworkProfile.Contains('+win8+')) OR $(_ShortFrameworkProfile.Contains('+win80+')))">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile37</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -107,7 +107,7 @@
       $(_ShortFrameworkProfile.Contains('+net403+')) AND
       ($(_ShortFrameworkProfile.Contains('+sl4+')) OR $(_ShortFrameworkProfile.Contains('+sl40+'))) AND
       ($(_ShortFrameworkProfile.Contains('+win+')) OR $(_ShortFrameworkProfile.Contains('+win8+')) OR $(_ShortFrameworkProfile.Contains('+win80+')))">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile41</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -116,7 +116,7 @@
       $(_ShortFrameworkProfile.Contains('+net403+')) AND
       ($(_ShortFrameworkProfile.Contains('+sl5+')) OR $(_ShortFrameworkProfile.Contains('+sl50+'))) AND
       ($(_ShortFrameworkProfile.Contains('+win+')) OR $(_ShortFrameworkProfile.Contains('+win8+')) OR $(_ShortFrameworkProfile.Contains('+win80+')))">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile42</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -125,7 +125,7 @@
       $(_ShortFrameworkProfile.Contains('+net45+')) AND
       ($(_ShortFrameworkProfile.Contains('+sl4+')) OR $(_ShortFrameworkProfile.Contains('+sl40+'))) AND
       ($(_ShortFrameworkProfile.Contains('+win+')) OR $(_ShortFrameworkProfile.Contains('+win8+')) OR $(_ShortFrameworkProfile.Contains('+win80+')))">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile46</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -134,7 +134,7 @@
       $(_ShortFrameworkProfile.Contains('+net45+')) AND
       ($(_ShortFrameworkProfile.Contains('+sl5+')) OR $(_ShortFrameworkProfile.Contains('+sl50+'))) AND
       ($(_ShortFrameworkProfile.Contains('+win+')) OR $(_ShortFrameworkProfile.Contains('+win8+')) OR $(_ShortFrameworkProfile.Contains('+win80+')))">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile47</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -144,7 +144,7 @@
       ($(_ShortFrameworkProfile.Contains('+sl4+')) OR $(_ShortFrameworkProfile.Contains('+sl40+'))) AND
       ($(_ShortFrameworkProfile.Contains('+win+')) OR $(_ShortFrameworkProfile.Contains('+win8+')) OR $(_ShortFrameworkProfile.Contains('+win80+'))) AND
       $(_ShortFrameworkProfile.Contains('wp75'))">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile88</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -153,7 +153,7 @@
       ($(_ShortFrameworkProfile.Contains('+net4+')) OR $(_ShortFrameworkProfile.Contains('+net40+'))) AND
       ($(_ShortFrameworkProfile.Contains('+win+')) OR $(_ShortFrameworkProfile.Contains('+win8+')) OR $(_ShortFrameworkProfile.Contains('+win80+'))) AND
       ($(_ShortFrameworkProfile.Contains('+wpa+')) OR $(_ShortFrameworkProfile.Contains('+wpa81+')))">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile92</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -163,7 +163,7 @@
       ($(_ShortFrameworkProfile.Contains('+sl4+')) OR $(_ShortFrameworkProfile.Contains('+sl40+'))) AND
       ($(_ShortFrameworkProfile.Contains('+win+')) OR $(_ShortFrameworkProfile.Contains('+win8+')) OR $(_ShortFrameworkProfile.Contains('+win80+'))) AND
       ($(_ShortFrameworkProfile.Contains('+wp+')) OR $(_ShortFrameworkProfile.Contains('+wp7+')) OR $(_ShortFrameworkProfile.Contains('+wp70+')))">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile95</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -173,7 +173,7 @@
       ($(_ShortFrameworkProfile.Contains('+sl4+')) OR $(_ShortFrameworkProfile.Contains('+sl40+'))) AND
       (($(_ShortFrameworkProfile.Contains('+win+')) OR $(_ShortFrameworkProfile.Contains('+win8+')) OR $(_ShortFrameworkProfile.Contains('+win80+'))) OR $(_ShortFrameworkProfile.Contains('win8')) OR $(_ShortFrameworkProfile.Contains('win80'))) AND
       $(_ShortFrameworkProfile.Contains('wp75'))">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile96</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -182,7 +182,7 @@
       $(_ShortFrameworkProfile.Contains('+net403+')) AND
       ($(_ShortFrameworkProfile.Contains('+win+')) OR $(_ShortFrameworkProfile.Contains('+win8+')) OR $(_ShortFrameworkProfile.Contains('+win80+'))) AND
       ($(_ShortFrameworkProfile.Contains('+wpa81+')) OR $(_ShortFrameworkProfile.Contains('+wpa+')))">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile102</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -192,7 +192,7 @@
       ($(_ShortFrameworkProfile.Contains('+sl4+')) OR $(_ShortFrameworkProfile.Contains('+sl40+'))) AND
       ($(_ShortFrameworkProfile.Contains('+win+')) OR $(_ShortFrameworkProfile.Contains('+win8+')) OR $(_ShortFrameworkProfile.Contains('+win80+'))) AND
       $(_ShortFrameworkProfile.Contains('wp75'))">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile104</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -202,7 +202,7 @@
       ($(_ShortFrameworkProfile.Contains('+sl5+')) OR $(_ShortFrameworkProfile.Contains('+sl50+'))) AND
       ($(_ShortFrameworkProfile.Contains('+win+')) OR $(_ShortFrameworkProfile.Contains('+win8+')) OR $(_ShortFrameworkProfile.Contains('+win80+'))) AND
       ($(_ShortFrameworkProfile.Contains('+wp8+')) OR $(_ShortFrameworkProfile.Contains('+wp80+')))">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile136</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -212,7 +212,7 @@
       ($(_ShortFrameworkProfile.Contains('+sl4+')) OR $(_ShortFrameworkProfile.Contains('+sl40+'))) AND
       ($(_ShortFrameworkProfile.Contains('+win+')) OR $(_ShortFrameworkProfile.Contains('+win8+')) OR $(_ShortFrameworkProfile.Contains('+win80+'))) AND
       ($(_ShortFrameworkProfile.Contains('+wp8+')) OR $(_ShortFrameworkProfile.Contains('+wp80+')))">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile143</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -222,7 +222,7 @@
       ($(_ShortFrameworkProfile.Contains('+sl5+')) OR $(_ShortFrameworkProfile.Contains('+sl50+'))) AND
       ($(_ShortFrameworkProfile.Contains('+win+')) OR $(_ShortFrameworkProfile.Contains('+win8+')) OR $(_ShortFrameworkProfile.Contains('+win80+'))) AND
       ($(_ShortFrameworkProfile.Contains('+wp8+')) OR $(_ShortFrameworkProfile.Contains('+wp80+')))">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile147</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -232,7 +232,7 @@
       ($(_ShortFrameworkProfile.Contains('+sl4+')) OR $(_ShortFrameworkProfile.Contains('+sl40+'))) AND
       ($(_ShortFrameworkProfile.Contains('+win+')) OR $(_ShortFrameworkProfile.Contains('+win8+')) OR $(_ShortFrameworkProfile.Contains('+win80+'))) AND
       ($(_ShortFrameworkProfile.Contains('+wp8+')) OR $(_ShortFrameworkProfile.Contains('+wp80+')))">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile154</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -242,7 +242,7 @@
       ($(_ShortFrameworkProfile.Contains('+sl5+')) OR $(_ShortFrameworkProfile.Contains('+sl50+'))) AND
       ($(_ShortFrameworkProfile.Contains('+win+')) OR $(_ShortFrameworkProfile.Contains('+win8+')) OR $(_ShortFrameworkProfile.Contains('+win80+'))) AND
       ($(_ShortFrameworkProfile.Contains('+wp8+')) OR $(_ShortFrameworkProfile.Contains('+wp80+')))">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile158</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -252,7 +252,7 @@
       ($(_ShortFrameworkProfile.Contains('+sl5+')) OR $(_ShortFrameworkProfile.Contains('+sl50+'))) AND
       ($(_ShortFrameworkProfile.Contains('+win+')) OR $(_ShortFrameworkProfile.Contains('+win8+')) OR $(_ShortFrameworkProfile.Contains('+win80+'))) AND
       ($(_ShortFrameworkProfile.Contains('+wpa+')) OR $(_ShortFrameworkProfile.Contains('+wpa81+')))">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile225</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -262,7 +262,7 @@
       ($(_ShortFrameworkProfile.Contains('+sl5+')) OR $(_ShortFrameworkProfile.Contains('+sl50+'))) AND
       ($(_ShortFrameworkProfile.Contains('+win+')) OR $(_ShortFrameworkProfile.Contains('+win8+')) OR $(_ShortFrameworkProfile.Contains('+win80+'))) AND
       ($(_ShortFrameworkProfile.Contains('+wpa+')) OR $(_ShortFrameworkProfile.Contains('+wpa81+')))">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile240</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -272,7 +272,7 @@
       ($(_ShortFrameworkProfile.Contains('+sl5+')) OR $(_ShortFrameworkProfile.Contains('+sl50+'))) AND
       ($(_ShortFrameworkProfile.Contains('+win+')) OR $(_ShortFrameworkProfile.Contains('+win8+')) OR $(_ShortFrameworkProfile.Contains('+win80+'))) AND
       ($(_ShortFrameworkProfile.Contains('+wpa+')) OR $(_ShortFrameworkProfile.Contains('+wpa81+')))">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile255</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -283,7 +283,7 @@
       ($(_ShortFrameworkProfile.Contains('+win+')) OR $(_ShortFrameworkProfile.Contains('+win8+')) OR $(_ShortFrameworkProfile.Contains('+win80+'))) AND
       ($(_ShortFrameworkProfile.Contains('+wpa+')) OR $(_ShortFrameworkProfile.Contains('+wpa81+'))) AND
       ($(_ShortFrameworkProfile.Contains('+wp8+')) OR $(_ShortFrameworkProfile.Contains('+wp80+')))">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile328</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -294,7 +294,7 @@
       ($(_ShortFrameworkProfile.Contains('+win+')) OR $(_ShortFrameworkProfile.Contains('+win8+')) OR $(_ShortFrameworkProfile.Contains('+win80+'))) AND
       ($(_ShortFrameworkProfile.Contains('+wpa+')) OR $(_ShortFrameworkProfile.Contains('+wpa81+'))) AND
       ($(_ShortFrameworkProfile.Contains('+wp8+')) OR $(_ShortFrameworkProfile.Contains('+wp80+')))">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile336</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -305,7 +305,7 @@
       ($(_ShortFrameworkProfile.Contains('+win+')) OR $(_ShortFrameworkProfile.Contains('+win8+')) OR $(_ShortFrameworkProfile.Contains('+win80+'))) AND
       ($(_ShortFrameworkProfile.Contains('+wpa+')) OR $(_ShortFrameworkProfile.Contains('+wpa81+'))) AND
       ($(_ShortFrameworkProfile.Contains('+wp8+')) OR $(_ShortFrameworkProfile.Contains('+wp80+')))">
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile344</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>

@@ -26,7 +26,12 @@
       </PropertyGroup>
     </When>
 
-    <Otherwise/>
+    <Otherwise>
+      <PropertyGroup>
+        <_LanguageSourceName>Common</_LanguageSourceName>
+        <!--<DefaultLanguageSourceExtension>.msil</DefaultLanguageSourceExtension>-->
+      </PropertyGroup>
+    </Otherwise>
   </Choose>
 
   <PropertyGroup>

@@ -3,21 +3,21 @@
   <PropertyGroup Condition="$(_ShortFrameworkProfileCount) == 2 AND
       $(_ShortFrameworkProfile.Contains('+wp81+')) AND
       $(_ShortFrameworkProfile.Contains('+win81+'))">
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.6</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile31</TargetFrameworkProfile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ShortFrameworkProfileCount) == 2 AND
       ($(_ShortFrameworkProfile.Contains('+wpa+')) OR $(_ShortFrameworkProfile.Contains('+wpa81+'))) AND
       $(_ShortFrameworkProfile.Contains('+win81+'))">
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.6</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile32</TargetFrameworkProfile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_ShortFrameworkProfileCount) == 2 AND
       $(_ShortFrameworkProfile.Contains('+net451+')) AND
       $(_ShortFrameworkProfile.Contains('+win81+'))">
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.6</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile44</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -25,7 +25,7 @@
   <PropertyGroup Condition="$(_ShortFrameworkProfileCount) == 2 AND
       $(_ShortFrameworkProfile.Contains('+wp81+')) AND
       ($(_ShortFrameworkProfile.Contains('+wpa+')) OR $(_ShortFrameworkProfile.Contains('+wpa81+')))">
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.6</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile84</TargetFrameworkProfile>
   </PropertyGroup>
 
@@ -33,7 +33,7 @@
       $(_ShortFrameworkProfile.Contains('+win81+')) AND
       $(_ShortFrameworkProfile.Contains('+net451+')) AND
       ($(_ShortFrameworkProfile.Contains('+wpa+')) OR $(_ShortFrameworkProfile.Contains('+wpa81+')))">
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.6</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile151</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -42,7 +42,7 @@
       $(_ShortFrameworkProfile.Contains('+win81+')) AND
       $(_ShortFrameworkProfile.Contains('+wp81+')) AND
       ($(_ShortFrameworkProfile.Contains('+wpa+')) OR $(_ShortFrameworkProfile.Contains('+wpa81+')))">
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.6</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile157</TargetFrameworkProfile>
   </PropertyGroup>
 
