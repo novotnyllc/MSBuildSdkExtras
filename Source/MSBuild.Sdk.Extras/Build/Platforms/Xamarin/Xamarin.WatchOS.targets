@@ -6,7 +6,7 @@
 
   <PropertyGroup>
     <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v1.0</TargetFrameworkVersion>
-    <IPhoneResourcePrefix Condition="'$(IPhoneResourcePrefix)' == ''">Resources</IPhoneResourcePrefix>
+    <iPhoneResourcePrefix Condition="'$(iPhoneResourcePrefix)' == ''">Resources</iPhoneResourcePrefix>
     <MtouchUseRefCounting Condition="'$(MtouchUseRefCounting)' == ''">true</MtouchUseRefCounting>
     <MtouchUseSGen Condition="'$(MtouchUseSGen)' == ''">true</MtouchUseSGen>
   </PropertyGroup>

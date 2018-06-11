@@ -6,7 +6,7 @@
 
   <PropertyGroup>
     <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v1.0</TargetFrameworkVersion>
-    <IPhoneResourcePrefix Condition="'$(IPhoneResourcePrefix)' == ''">Resources</IPhoneResourcePrefix>
+    <iPhoneResourcePrefix Condition="'$(iPhoneResourcePrefix)' == ''">Resources</iPhoneResourcePrefix>
   </PropertyGroup>
 
 </Project>
