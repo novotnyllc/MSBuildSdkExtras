@@ -23,7 +23,7 @@ steps:
     arguments: -c $(BuildConfiguration)
 
 - powershell: |
-    mkdir $Env:Temp\Packages
+    mkdir $Env:Temp\Packages -Force
     msbuild /Restore /t:Build
   displayName: Build
 

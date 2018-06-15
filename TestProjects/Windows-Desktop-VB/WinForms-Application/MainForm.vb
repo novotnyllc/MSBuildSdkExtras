@@ -1,3 +1,3 @@
-﻿Public Class MainForm
+Public Class MainForm
 
 End Class

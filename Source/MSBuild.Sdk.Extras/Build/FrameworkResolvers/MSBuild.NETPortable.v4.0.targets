@@ -1,4 +1,4 @@
-﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup Condition="$(_ShortFrameworkProfileCount) == 4 AND
       ($(_ShortFrameworkProfile.Contains('+net4+')) OR $(_ShortFrameworkProfile.Contains('+net40+'))) AND

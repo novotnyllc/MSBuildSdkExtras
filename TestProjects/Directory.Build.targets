@@ -12,12 +12,6 @@
     <InformationalVersion>1.0 Test Project</InformationalVersion>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(IsLegacyProject)' != 'true' AND '$(RootNamespace)' == '$(MSBuildProjectName)'">
-    <RootNamespace Condition="$(RootNamespace.Contains('-'))">$(RootNamespace.Replace('-', '_'))</RootNamespace>
-  </PropertyGroup>
-
-  <Import Project="$(BuildToolsPath)MSBuild.TestOutput.targets"/>
-
   <Import Project="$(MSBuildThisFileDirectory)..\$(MSBuildThisFile)"/>
 
 </Project>

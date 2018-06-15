@@ -1,4 +1,4 @@
-﻿namespace WinForms_Library
+namespace WinForms_Library
 {
     partial class MainUserControl
     {

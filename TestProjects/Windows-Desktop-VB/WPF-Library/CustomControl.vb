@@ -1,4 +1,4 @@
-﻿Public Class CustomControl
+Public Class CustomControl
     Inherits Control
 
     Shared Sub New()

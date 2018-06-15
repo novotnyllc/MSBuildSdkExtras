@@ -4,6 +4,10 @@
 
   <Import Project="$(BuildToolsPath)MSBuild.OutputPaths.props"/>
 
+  <PropertyGroup>
+    <PublishFolder>~Packages</PublishFolder>
+  </PropertyGroup>
+
   <PropertyGroup Label="OutputPaths">
     <CustomBeforeSdkTargets>$(BuildToolsPath)MSBuild.OutputPaths.targets</CustomBeforeSdkTargets>
   </PropertyGroup>

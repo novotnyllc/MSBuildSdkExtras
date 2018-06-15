@@ -1,4 +1,4 @@
-﻿Imports System.ServiceProcess
+Imports System.ServiceProcess
 
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class MainService

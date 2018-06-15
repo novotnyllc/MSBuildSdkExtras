@@ -1,4 +1,4 @@
-﻿namespace Service_Application
+namespace Service_Application
 {
     partial class MainService
     {

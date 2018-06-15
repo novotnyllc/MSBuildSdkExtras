@@ -8,10 +8,10 @@
   <PropertyGroup Label="Output">
     <BuildFolder>~Builds</BuildFolder>
     <BuildPath>$(RepoRootDir)</BuildPath>
-    <PublishFolder>~Packages</PublishFolder>
+    <PublishFolder>~Publish</PublishFolder>
     <PublishPath>$(RepoRootDir)</PublishPath>
-    <IntermediateOutputFolder>Objects</IntermediateOutputFolder>
     <OutputFolder>Binaries</OutputFolder>
+    <IntermediateOutputFolder>Objects</IntermediateOutputFolder>
   </PropertyGroup>
 
 </Project>

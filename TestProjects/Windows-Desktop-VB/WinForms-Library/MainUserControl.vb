@@ -1,3 +1,3 @@
-﻿Public Class MainUserControl
+Public Class MainUserControl
 
 End Class

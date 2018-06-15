@@ -1,3 +1,3 @@
-﻿Class MainPage
+Class MainPage
 
 End Class

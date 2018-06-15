@@ -3,9 +3,7 @@
   <Import Project="$(MSBuildThisFileDirectory)..\$(MSBuildThisFile)"/>
 
   <PropertyGroup>
-    <BuildFolder>~Builds</BuildFolder>
     <BuildPath>$(SolutionDir)</BuildPath>
-    <PublishFolder>~Publish</PublishFolder>
     <PublishPath>$(SolutionDir)</PublishPath>
   </PropertyGroup>
 
@@ -13,6 +11,11 @@
 
   <PropertyGroup>
     <CustomBeforeSdkTargets>$(BuildToolsPath)MSBuild.OutputPaths.targets</CustomBeforeSdkTargets>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(MSBuildProjectName.Contains('-'))">
+    <AssemblyName>$(MSBuildProjectName.Replace('-', '_'))</AssemblyName>
+    <RootNamespace>$(MSBuildProjectName.Replace('-', '_'))</RootNamespace>
   </PropertyGroup>
 
 </Project>

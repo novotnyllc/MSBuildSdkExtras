@@ -1,3 +1,3 @@
-﻿Public Class MainClass
+Public Class MainClass
 
 End Class

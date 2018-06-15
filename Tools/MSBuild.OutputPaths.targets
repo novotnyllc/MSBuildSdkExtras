@@ -35,14 +35,14 @@
   </PropertyGroup>
 
   <PropertyGroup Label="Build">
-    <IntermediateOutputFolder Condition="'$(IntermediateOutputFolder)' == ''">Objects</IntermediateOutputFolder>
+    <IntermediateOutputFolder Condition="'$(IntermediateOutputFolder)' == ''">obj</IntermediateOutputFolder>
     <BaseIntermediateOutputPath>$(BuildPath)$(IntermediateOutputFolder)\</BaseIntermediateOutputPath>
 
     <IntermediateOutputPath Condition="'$(Platform)' == 'AnyCPU'">$(BaseIntermediateOutputPath)$(Configuration)\</IntermediateOutputPath>
     <IntermediateOutputPath Condition="'$(Platform)' != 'AnyCPU'">$(BaseIntermediateOutputPath)$(Configuration)-$(Platform)\</IntermediateOutputPath>
     <IntermediateOutputPath Condition="!HasTrailingSlash('$(IntermediateOutputPath)')">$(IntermediateOutputPath)\</IntermediateOutputPath>
 
-    <OutputFolder Condition="'$(OutputFolder)' == ''">Binaries</OutputFolder>
+    <OutputFolder Condition="'$(OutputFolder)' == ''">bin</OutputFolder>
     <BaseOutputPath>$(BuildPath)$(OutputFolder)\</BaseOutputPath>
 
     <OutputPath Condition="'$(Platform)' == 'AnyCPU'">$(BaseOutputPath)$(Configuration)\</OutputPath>
@@ -51,7 +51,7 @@
   </PropertyGroup>
 
   <PropertyGroup Label="Publish">
-    <PublishFolder Condition="'$(PublishFolder)' == ''">Publish</PublishFolder>
+    <PublishFolder Condition="'$(PublishFolder)' == ''">publish</PublishFolder>
     <PublishPath Condition="'$(PublishPath)' == ''">$(PublishFolder)\</PublishPath>
     <PublishPath Condition="!HasTrailingSlash('$(PublishPath)')">$(PublishPath)\</PublishPath>
     <PublishPath Condition="$([System.IO.Path]::IsPathRooted('$(PublishPath)')) AND !$(PublishPath.StartsWith('$(MSBuildProjectDirectory)'))">$(PublishPath)$(PublishFolder)\</PublishPath>
@@ -69,6 +69,7 @@
   </PropertyGroup>
 
   <PropertyGroup Label="NuGet">
+    <RestoreOutputPath Condition="'$(RestoreOutputPath)' == ''">$(MSBuildProjectExtensionsPath)</RestoreOutputPath>
     <PackageOutputPath>$(PublishPath)$(Configuration)\</PackageOutputPath>
     <NuspecOutputPath>$(PublishPath)$(Configuration)\</NuspecOutputPath>
   </PropertyGroup>
