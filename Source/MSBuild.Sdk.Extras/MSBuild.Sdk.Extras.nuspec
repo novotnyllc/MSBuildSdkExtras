@@ -12,10 +12,9 @@
     <licenseUrl>$licenseUrl$</licenseUrl>
     <projectUrl>$projectUrl$</projectUrl>
     <releaseNotes>$releaseNotes$</releaseNotes>
-    <repository type="$repositoryType$" url="$repositoryUrl$" />
+    <repository type="$repositoryType$" url="$repositoryUrl$" commit="$SourceRevisionId$" />
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <developmentDependency>true</developmentDependency>
-    <serviceable>true</serviceable>
     <packageTypes>
       <packageType name="$packageType$" />
     </packageTypes>

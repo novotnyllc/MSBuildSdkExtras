@@ -23,7 +23,7 @@
     <Authors>Oren Novotny</Authors>
     <Copyright>© Oren Novotny</Copyright>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>git://github.com/onovotny/MSBuildSdkExtras</RepositoryUrl>
+    <RepositoryUrl>https://github.com/onovotny/MSBuildSdkExtras</RepositoryUrl>
     <PackageProjectUrl>https://github.com/onovotny/MSBuildSdkExtras</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/onovotny/MSBuildSdkExtras/blob/master/LICENSE.md</PackageLicenseUrl>
     <PackageReleaseNotes>https://github.com/onovotny/MSBuildSdkExtras/blob/master/README.md</PackageReleaseNotes>

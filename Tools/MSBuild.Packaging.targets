@@ -30,6 +30,7 @@
   <PropertyGroup>
     <!-- This property must be overridden to remove a few targets that compile assemblies -->
     <CoreBuildDependsOn>
+      InitializeSourceControlInformationFromSourceControlManager;
       BuildOnlySettings;
       PrepareForBuild;
       PreBuildEvent;
@@ -65,7 +66,8 @@
         projectUrl=$(PackageProjectUrl);
         licenseUrl=$(PackageLicenseUrl);
         packageType=$(PackageType);
-        releaseNotes=$(PackageReleaseNotes)
+        releaseNotes=$(PackageReleaseNotes);
+        sourceRevisionId=$(SourceRevisionId)
       </NuspecProperties>
     </PropertyGroup>
   </Target>
