@@ -4,10 +4,6 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <DefaultDesignerFileSuffix Condition="'$(DefaultDesignerFileSuffix)' == ''">.Designer</DefaultDesignerFileSuffix>
-  </PropertyGroup>
-
   <Import Project="$(MSBuildThisFileDirectory)Platforms\Common.props"/>
 
   <Import Project="$(MSBuildThisFileDirectory)Platforms\Desktop.props"/>

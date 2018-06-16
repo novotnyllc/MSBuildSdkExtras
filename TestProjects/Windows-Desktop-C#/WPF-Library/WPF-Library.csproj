@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net45</TargetFramework>
-    <FrameworkProjectType>Wpf</FrameworkProjectType>
+    <EnableWpfProjectSetup>true</EnableWpfProjectSetup>
     <ProjectGuid>{030239AC-25E6-45DB-81AF-250728672D9E}</ProjectGuid>
   </PropertyGroup>
 

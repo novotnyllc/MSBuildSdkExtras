@@ -7,8 +7,7 @@
   <ItemDefinitionGroup>
     <Page>
       <SubType>Designer</SubType>
-      <!-- XamlIntelliSenseFileGenerator, UpdateDesignTimeXaml -->
-      <Generator>MSBuild:XamlIntelliSenseFileGenerator</Generator>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Resource>
       <SubType>Designer</SubType>
@@ -16,27 +15,31 @@
     </Resource>
     <ApplicationDefinition>
       <SubType>Designer</SubType>
-      <Generator>MSBuild:XamlIntelliSenseFileGenerator</Generator>
+      <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
   </ItemDefinitionGroup>
 
   <ItemGroup Condition="'$(EnableDefaultResourceItems)' == 'true'">
     <None Remove="$(DefaultResourceIncludes)" Condition="'$(EnableDefaultPageItems)' != 'true'"/>
     <Resource Include="$(DefaultResourceIncludes)" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder);$(DefaultResourceExcludes)">
-      <Generator>MSBuild:XamlIntelliSenseFileGenerator</Generator>
+      <Generator Condition="'$(EnableXamlIntelliSenseGenerator)' == 'true'">$(XamlIntelliSenseGeneratorTool)</Generator>
     </Resource>
     <UpToDateCheckInput Include="@(DefaultResourceIncludes)"/>
   </ItemGroup>
 
   <ItemGroup Condition="'$(EnableDefaultPageItems)' == 'true'">
     <None Remove="$(ApplicationDefinitionFile)"/>
-    <ApplicationDefinition Include="$(ApplicationDefinitionFile)" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)"/>
+    <ApplicationDefinition Include="$(ApplicationDefinitionFile)" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)">
+      <Generator Condition="'$(EnableXamlCodeGenerator)' == 'true'">$(XamlCodeGeneratorTool)</Generator>
+    </ApplicationDefinition>
     <UpToDateCheckInput Include="@(ApplicationDefinition)"/>
   </ItemGroup>
 
   <ItemGroup Condition="'$(EnableDefaultPageItems)' == 'true'">
     <None Remove="**\*.xaml"/>
-    <Page Include="**\*.xaml" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder);$(DefaultPageExcludes)"/>
+    <Page Include="**\*.xaml" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder);$(DefaultPageExcludes)">
+      <Generator Condition="'$(EnableXamlCodeGenerator)' == 'true'">$(XamlCodeGeneratorTool)</Generator>
+    </Page>
     <UpToDateCheckInput Include="@(Page)"/>
     <Compile Update="**\*.xaml$(DefaultLanguageSourceExtension)">
       <DependentUpon>%(Filename)</DependentUpon>

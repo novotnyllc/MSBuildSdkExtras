@@ -28,10 +28,6 @@
     </Compile>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(EnableDefaultAspNetItems)' == 'true'">
-    <!-- TODO: Add Support ASP.NET Projects -->
-  </ItemGroup>
-
   <ItemGroup>
     <Compile Update="**\*$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)">
       <DependentUpon Condition="'%(DependentUpon)' == ''">$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('$(DefaultDesignerFileSuffix)', '$(DefaultLanguageSourceExtension)'))</DependentUpon>
@@ -47,6 +43,10 @@
       ISSUE: SubType(s) for Windows Forms Project doesn't work in CPS anyway!
     -->
     <Service Include="$(UserControlDesignerService)" Condition="'$(EnableUserControlDesigner)' == 'true'"/>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(EnableDefaultWebItems)' == 'true'">
+    <!-- TODO: Add Support ASP.NET Projects -->
   </ItemGroup>
 
 </Project>

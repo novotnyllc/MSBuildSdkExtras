@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net45</TargetFramework>
-    <FrameworkProjectType>Wpf</FrameworkProjectType>
+    <EnableWpfProjectSetup>true</EnableWpfProjectSetup>
     <ProjectGuid>{456BA5AF-3E07-4C45-9A76-1CACD2119523}</ProjectGuid>
   </PropertyGroup>
 

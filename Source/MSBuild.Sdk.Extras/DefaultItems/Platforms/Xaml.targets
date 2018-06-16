@@ -4,10 +4,33 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(ApplicationDefinitionFile)' != ''">
+    <ApplicationDefinitionFile Condition="$(ApplicationDefinitionFile.Contains(';'))"/>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(ApplicationDefinitionFile)' == ''">
+    <ApplicationDefinitionFile Condition="Exists('$(MSBuildProjectDirectory)\App.xaml')">App.xaml</ApplicationDefinitionFile>
+    <ApplicationDefinitionFile Condition="Exists('$(MSBuildProjectDirectory)\Application.xaml')">Application.xaml</ApplicationDefinitionFile>
+  </PropertyGroup>
+
   <PropertyGroup>
     <EnableDefaultPageItems Condition="'$(EnableDefaultPageItems)' == ''">true</EnableDefaultPageItems>
     <EnableDefaultResourceItems Condition="'$(EnableDefaultResourceItems)' == ''">true</EnableDefaultResourceItems>
-    <EnableDefaultApplicationDefinitionItems Condition="'$(EnableDefaultApplicationDefinitionItems)' == ''">true</EnableDefaultApplicationDefinitionItems>
+
+    <DefaultResourceIncludes Condition="'$(DefaultResourceIncludes)' == ''">Themes\*.xaml;Resources\*.xaml</DefaultResourceIncludes>
+    <DefaultPageExcludes Condition="'$(DefaultPageExcludes)' != ''">$(ApplicationDefinitionFile);$(DefaultResourceIncludes);$(DefaultPageExcludes)</DefaultPageExcludes>
+    <DefaultPageExcludes Condition="'$(DefaultPageExcludes)' == ''">$(ApplicationDefinitionFile);$(DefaultResourceIncludes)</DefaultPageExcludes>
+
+    <EnableXamlCodeGenerator Condition="'$(EnableXamlCodeGenerator)' == ''">false</EnableXamlCodeGenerator>
+    <EnableXamlIntelliSenseGenerator Condition="'$(EnableXamlIntelliSenseGenerator)' == ''">false</EnableXamlIntelliSenseGenerator>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(EnableXamlCodeGenerator)' == 'true'">
+    <XamlCodeGeneratorTool Condition="'$(XamlCodeGeneratorTool)' == ''">MSBuild:Compile</XamlCodeGeneratorTool>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(EnableXamlIntelliSenseGenerator)' == 'true'">
+    <XamlIntelliSenseGeneratorTool Condition="'$(XamlIntelliSenseGeneratorTool)' == ''">MSBuild:XamlIntelliSenseFileGenerator</XamlIntelliSenseGeneratorTool>
   </PropertyGroup>
 
   <!--

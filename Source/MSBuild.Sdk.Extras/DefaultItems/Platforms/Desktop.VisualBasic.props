@@ -65,7 +65,7 @@
     <_SdkImplicitImport Include="System.Windows.Navigation"/>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(DisableImplicitNamespaceImports)' != 'true' AND '$(EnableImplicitAspNetReferences)' == 'true'">
+  <ItemGroup Condition="'$(DisableImplicitNamespaceImports)' != 'true' AND '$(EnableImplicitWebReferences)' == 'true'">
     <_SdkImplicitImport Include="System.Web"/>
     <_SdkImplicitImport Include="System.Web.Http"/>
   </ItemGroup>

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net45</TargetFramework>
-    <FrameworkProjectType>WinForms</FrameworkProjectType>
+    <EnableWinFormsProjectSetup>true</EnableWinFormsProjectSetup>
     <ProjectGuid>{98664BDA-D86F-4A1F-ABF7-9EA7734ECA0D}</ProjectGuid>
   </PropertyGroup>
 

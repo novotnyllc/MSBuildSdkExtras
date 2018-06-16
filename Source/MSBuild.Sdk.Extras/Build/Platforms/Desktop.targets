@@ -21,17 +21,17 @@
     <_SdkImplicitReference Include="PresentationFramework" Condition="'$(_TargetFrameworkVersionWithoutV)' >= '3.0'"/>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(EnableImplicitAspNetReferences)' == 'true'">
-    <_SdkImplicitReference Include="System.Web"/>
-    <_SdkImplicitReference Include="System.Web.Http"/>
-  </ItemGroup>
-
   <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(EnableImplicitWinFormsReferences)' == 'true'">
     <_SdkImplicitReference Include="System.Design"/>
     <_SdkImplicitReference Include="System.Drawing"/>
     <_SdkImplicitReference Include="System.Deployment"/>
     <_SdkImplicitReference Include="System.Windows"/>
     <_SdkImplicitReference Include="System.Windows.Forms"/>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(EnableImplicitWebReferences)' == 'true'">
+    <_SdkImplicitReference Include="System.Web"/>
+    <_SdkImplicitReference Include="System.Web.Http"/>
   </ItemGroup>
 
 </Project>
