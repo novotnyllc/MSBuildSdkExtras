@@ -1,0 +1,16 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)Platforms\Common.props"/>
+
+  <Import Project="$(MSBuildThisFileDirectory)Platforms\Desktop.props"/>
+  <Import Project="$(MSBuildThisFileDirectory)Platforms\Desktop.$(_LanguageSourceName).props" Condition="Exists('$(MSBuildThisFileDirectory)Platforms\Desktop.$(_LanguageSourceName).props')"/>
+
+  <Import Project="$(MSBuildThisFileDirectory)Platforms\Xaml.props"/>
+
+  <Import Project="$(MSBuildThisFileDirectory)Platforms\Xamarin.props"/>
+
+</Project>

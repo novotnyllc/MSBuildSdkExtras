@@ -5,7 +5,7 @@
     since `MSBuildProjectExtensionsPath` uses it to import custom props from Package Managers and Tools.
   -->
   <PropertyGroup Label="Build">
-    <BuildFolder Condition="'$(BuildFolder)' == ''">Build</BuildFolder>
+    <BuildFolder Condition="'$(BuildFolder)' == ''">build</BuildFolder>
     <BuildPath Condition="'$(BuildPath)' == ''">$(BuildFolder)\</BuildPath>
     <BuildPath Condition="!HasTrailingSlash('$(BuildPath)')">$(BuildPath)\</BuildPath>
     <BuildPath Condition="$([System.IO.Path]::IsPathRooted('$(BuildPath)')) AND !$(BuildPath.StartsWith('$(MSBuildProjectDirectory)'))">$(BuildPath)$(BuildFolder)\$(MSBuildProjectName)\</BuildPath>
@@ -15,15 +15,11 @@
     <DefaultItemExcludes>$(DefaultItemExcludes);$(BuildPath)\**</DefaultItemExcludes>
   </PropertyGroup>
 
-  <PropertyGroup>
+  <PropertyGroup Label="ProjectExtensions">
     <MSBuildProjectExtensionsPath Condition="'$(MSBuildProjectExtensionsPath)' == ''">$(BuildPath)</MSBuildProjectExtensionsPath>
     <MSBuildProjectExtensionsPath Condition="!HasTrailingSlash('$(MSBuildProjectExtensionsPath)')">$(MSBuildProjectExtensionsPath)\</MSBuildProjectExtensionsPath>
-    <MSBuildProjectExtensionsPath Condition="'$([System.IO.Path]::IsPathRooted($(MSBuildProjectExtensionsPath)))' == 'false'">$([System.IO.Path]::Combine('$(MSBuildProjectDirectory)', '$(MSBuildProjectExtensionsPath)'))</MSBuildProjectExtensionsPath>
+    <MSBuildProjectExtensionsPath Condition="!$([System.IO.Path]::IsPathRooted('$(MSBuildProjectExtensionsPath)'))">$([System.IO.Path]::Combine('$(MSBuildProjectDirectory)', '$(MSBuildProjectExtensionsPath)'))</MSBuildProjectExtensionsPath>
     <_InitialMSBuildProjectExtensionsPath>$(MSBuildProjectExtensionsPath)</_InitialMSBuildProjectExtensionsPath>
-  </PropertyGroup>
-
-  <PropertyGroup Label="NuGet">
-    <RestoreOutputPath>$(MSBuildProjectExtensionsPath)</RestoreOutputPath>
   </PropertyGroup>
 
   <PropertyGroup>

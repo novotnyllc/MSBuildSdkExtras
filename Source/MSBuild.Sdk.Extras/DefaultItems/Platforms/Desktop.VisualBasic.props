@@ -1,0 +1,81 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <ItemDefinitionGroup>
+    <_SdkImplicitImport>
+      <IsImplicitlyDefined>true</IsImplicitlyDefined>
+    </_SdkImplicitImport>
+  </ItemDefinitionGroup>
+
+  <ItemGroup Condition="'$(EnableDefaultMyAppItems)' == 'true'">
+    <None Update="**\*.myapp" SubType="Designer">
+      <Generator Condition="'$(EnableMyAppCodeGenerator)' == 'false'">MSBuild:Compile</Generator>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(EnableDefaultMyAppItems)' == 'true' AND '$(EnableMyAppCodeGenerator)' == 'true'">
+    <None Update="**\*.myapp">
+      <Generator>$(MyAppCodeGeneratorTool)</Generator>
+      <LastGenOutput>%(Filename)$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</LastGenOutput>
+    </None>
+
+    <_MyAppFiles Include="**\*.myapp">
+      <GenFilePath>%(RecursiveDir)%(Filename)$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</GenFilePath>
+    </_MyAppFiles>
+
+    <Compile Update="@(_MyAppFiles->'%(GenFilePath)')">
+      <AutoGen>true</AutoGen>
+      <DesignTime>true</DesignTime>
+      <DesignTimeSharedInput>true</DesignTimeSharedInput>
+      <DependentUpon>$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('$(DefaultDesignerFileSuffix)', '.myapp'))</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(EnableDefaultEmbeddedResourceItems)' == 'true' AND '$(EnableEmbeddedResourceCodeGenerator)' == 'true'">
+    <EmbeddedResource Update="**\*.resx">
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(EnableDefaultSettingsItems)' == 'true' AND '$(EnableSettingsCodeGenerator)' == 'true'">
+    <None Update="**\*.settings">
+      <CustomToolNamespace>My</CustomToolNamespace>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(EnableDefaultWpfItems)' == 'true'">
+    <Compile Update="$(ApplicationExtensionFile)" Condition="'$(ApplicationExtensionFile)' != ''">
+      <VBMyExtensionTemplateID>Microsoft.VisualBasic.WPF.MyExtension</VBMyExtensionTemplateID>
+      <VBMyExtensionTemplateVersion>1.0.0.0</VBMyExtensionTemplateVersion>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(DisableImplicitNamespaceImports)' != 'true' AND '$(EnableImplicitWpfReferences)' == 'true'">
+    <_SdkImplicitImport Include="System.Windows"/>
+    <_SdkImplicitImport Include="System.Windows.Controls"/>
+    <_SdkImplicitImport Include="System.Windows.Data"/>
+    <_SdkImplicitImport Include="System.Windows.Documents"/>
+    <_SdkImplicitImport Include="System.Windows.Input"/>
+    <_SdkImplicitImport Include="System.Windows.Shapes"/>
+    <_SdkImplicitImport Include="System.Windows.Media"/>
+    <_SdkImplicitImport Include="System.Windows.Media.Imaging"/>
+    <_SdkImplicitImport Include="System.Windows.Navigation"/>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(DisableImplicitNamespaceImports)' != 'true' AND '$(EnableImplicitWebReferences)' == 'true'">
+    <_SdkImplicitImport Include="System.Web"/>
+    <_SdkImplicitImport Include="System.Web.Http"/>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(DisableImplicitNamespaceImports)' != 'true' AND '$(EnableImplicitWinFormsReferences)' == 'true'">
+    <_SdkImplicitImport Include="System.Design"/>
+    <_SdkImplicitImport Include="System.Drawing"/>
+    <_SdkImplicitImport Include="System.Deployment"/>
+    <_SdkImplicitImport Include="System.Windows"/>
+    <_SdkImplicitImport Include="System.Windows.Forms"/>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,36 @@
+<Project Sdk="MSBuild.Sdk.Extras">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net45</TargetFramework>
+    <EnableWpfProjectSetup>true</EnableWpfProjectSetup>
+    <ProjectGuid>{456BA5AF-3E07-4C45-9A76-1CACD2119523}</ProjectGuid>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AssemblyName>WpfBrowserApp</AssemblyName>
+    <AssemblyTitle>Windows Presentation Foundation Browser Application</AssemblyTitle>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Project">
+    <Install>False</Install>
+    <StartAction>URL</StartAction>
+    <StartArguments/>
+    <HostInBrowser>true</HostInBrowser>
+    <TargetZone>Internet</TargetZone>
+    <BootstrapperEnabled>false</BootstrapperEnabled>
+    <GenerateManifests>true</GenerateManifests>
+    <SignManifests>True</SignManifests>
+    <EnableSecurityDebugging>true</EnableSecurityDebugging>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Build">
+    <ManifestKeyFile>WPF-Browser-Application_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestCertificateThumbprint>00C1E7F6B7BD82D452547A71F4E96FA20224A6EF</ManifestCertificateThumbprint>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WPF-Library\WPF-Library.csproj"/>
+  </ItemGroup>
+
+</Project>

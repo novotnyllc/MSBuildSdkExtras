@@ -1,0 +1,19 @@
+<Project Sdk="MSBuild.Sdk.Extras">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net45</TargetFramework>
+    <EnableWpfProjectSetup>true</EnableWpfProjectSetup>
+    <ProjectGuid>{BAC1E118-ABBD-4294-B671-E36A3F1D3D6B}</ProjectGuid>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AssemblyName>WpfApp</AssemblyName>
+    <AssemblyTitle>Windows Presentation Foundation Application</AssemblyTitle>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WPF-Library\WPF-Library.csproj"/>
+  </ItemGroup>
+
+</Project>

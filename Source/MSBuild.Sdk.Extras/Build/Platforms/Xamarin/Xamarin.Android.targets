@@ -1,0 +1,15 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v5.0</TargetFrameworkVersion>
+    <AndroidUseLatestPlatformSdk Condition="'$(AndroidUseLatestPlatformSdk)' == ''">false</AndroidUseLatestPlatformSdk>
+    <!-- This is here to prevent a warning in the Xamarin.Android.Common.Debugging.targets when a blank is passed into _GetPrimaryCpuAbi -->
+    <AdbTarget Condition="'$(AdbTarget)' == ''">none</AdbTarget>
+    <AndroidClassParser Condition="'$(AndroidClassParser)' == ''">class-parse</AndroidClassParser>
+  </PropertyGroup>
+
+</Project>

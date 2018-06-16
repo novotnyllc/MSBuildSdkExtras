@@ -1,4 +1,4 @@
-﻿<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>$id$</id>
     <title>$title$</title>
@@ -22,6 +22,8 @@
   </metadata>
   <files>
     <file src="Build\**\*" target="Build" />
+    <file src="DefaultItems\**\*" target="DefaultItems" />
+    <file src="ProjectSystem\**\*" target="ProjectSystem" />
     <file src="Sdk\**\*" target="Sdk" />
   </files>
 </package>

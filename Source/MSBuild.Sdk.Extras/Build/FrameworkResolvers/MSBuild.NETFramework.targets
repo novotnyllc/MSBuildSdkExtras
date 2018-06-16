@@ -1,14 +1,17 @@
-﻿<Project>
-  <PropertyGroup>
-    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup Condition="$(_ShortFrameworkProfileCount) == 1 AND $(_ShortFrameworkProfile.Contains('+client+'))">
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">4.0</TargetFrameworkVersion>
+    <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
 
-  <PropertyGroup Condition="$(_SdkShortFrameworkProfileCount) == 1 and
-      $(_SdkShortFrameworkProfile.Contains('+client+'))">
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
-    <IncludeProjectPriFile>false</IncludeProjectPriFile>
-    <!-- .NET Client profiles defines as NET35_CLIENT, NET40_CLIENT etc -->
-    <ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(_SdkShortFrameworkIdentifierWithVersion.ToUpperInvariant())_CLIENT</ImplicitFrameworkDefine>
+  <PropertyGroup>
+    <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
 </Project>

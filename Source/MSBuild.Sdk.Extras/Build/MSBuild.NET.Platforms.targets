@@ -1,0 +1,65 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <_SdkPlatformName>$(TargetFrameworkIdentifier)</_SdkPlatformName>
+    <_SdkPlatformName Condition="'$(TargetFrameworkIdentifier)' == '.NETCore' OR '$(TargetFrameworkIdentifier)' == 'WindowsPhoneApp'">Windows</_SdkPlatformName>
+    <_SdkPlatformName Condition="'$(TargetFrameworkIdentifier)' == '.NETPortable'">Portable</_SdkPlatformName>
+    <_SdkPlatformName Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">Desktop</_SdkPlatformName>
+    <_SdkPlatformName Condition="$(TargetFrameworkIdentifier.StartsWith('Xamarin'))">Xamarin</_SdkPlatformName>
+    <_SdkPlatformName Condition="'$(TargetFrameworkIdentifier)' == 'MonoAndroid' OR '$(TargetFrameworkIdentifier)' == 'MonoTouch' OR '$(TargetFrameworkIdentifier)' == 'MonoMac'">Xamarin</_SdkPlatformName>
+
+    <_SdkPlatformTargets>$(MSBuildThisFileDirectory)Platforms\$(_SdkPlatformName).targets</_SdkPlatformTargets>
+    <_SdkLanguageTargets>$(MSBuildThisFileDirectory)LanguageTargets\$(_SdkPlatformName).targets</_SdkLanguageTargets>
+    <LanguageTargets Condition="Exists('$(_SdkLanguageTargets)')">$(_SdkLanguageTargets)</LanguageTargets>
+  </PropertyGroup>
+
+  <!-- Add conditional compilation symbols for the target framework and one with version -->
+  <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">
+    <ImplicitFrameworkIdentifierDefine>$(TargetFrameworkIdentifier.TrimStart('.').Replace('.','_').ToUpperInvariant())</ImplicitFrameworkIdentifierDefine>
+    <ImplicitFrameworkDefine>$(TargetFramework.Replace('.','_').Replace('-','_').ToUpperInvariant())</ImplicitFrameworkDefine>
+  </PropertyGroup>
+
+  <Import Project="$(_SdkPlatformTargets)" Condition="Exists('$(_SdkPlatformTargets)')"/>
+
+  <!-- The conditional compilation symbols defined in the above import and the property-group flows to the Main SDK -->
+  <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">
+    <DisableImplicitFrameworkDefines>true</DisableImplicitFrameworkDefines>
+    <VersionlessImplicitFrameworkDefine>$(ImplicitFrameworkIdentifierDefine)</VersionlessImplicitFrameworkDefine>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true' AND '$(_LanguageSourceName)' != 'VisualBasic'">
+    <DefineConstants Condition="'$(DefineConstants)' != '' AND !$(DefineConstants.EndsWith(';'))">$(DefineConstants);</DefineConstants>
+    <DefineConstants>$(DefineConstants)$(ImplicitFrameworkProfileDefine)</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true' AND '$(_LanguageSourceName)' == 'VisualBasic'">
+    <FinalDefineConstants Condition="'$(FinalDefineConstants)' != '' AND !$(DefineConstants.EndsWith(','))">$(FinalDefineConstants),</FinalDefineConstants>
+    <FinalDefineConstants Condition="'$(ImplicitFrameworkProfileDefine)' != ''">$(FinalDefineConstants)$(ImplicitFrameworkProfileDefine)=-1</FinalDefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
+    <!-- Set Pack=false on implicit references so they don't get added to NuGet packages as framework assemblies -->
+    <_SdkImplicitReference Update="@(_SdkImplicitReference)" Pack="false"/>
+
+    <!--
+      Don't duplicate any references that are explicit in the project file.
+      This means that if you do want to include a framework assembly in your NuGet package,
+      you can just add the Reference to your project file.
+    -->
+    <_SdkImplicitReference Remove="@(Reference)"/>
+
+    <!-- Add the implicit references to @(Reference) -->
+    <Reference Include="@(_SdkImplicitReference)"/>
+  </ItemGroup>
+
+  <!-- Update '_TargetFrameworkVersionWithoutV'. Since, we could have updated 'TargetFrameworkVersion' within platform targets -->
+  <PropertyGroup Condition="'$(TargetFrameworkVersion)' != ''">
+    <_TargetFrameworkVersionWithoutV>$(TargetFrameworkVersion.TrimStart('vV'))</_TargetFrameworkVersionWithoutV>
+    <TargetFrameworkVersion>v$(_TargetFrameworkVersionWithoutV)</TargetFrameworkVersion>
+  </PropertyGroup>
+
+</Project>

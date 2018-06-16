@@ -1,12 +1,21 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <PropertyGroup Label="Globals">
-    <RepoRootDir>$(MSBuildThisFileDirectory)..\</RepoRootDir>
-    <BuildToolsPath>$(RepoRootDir)Tools\</BuildToolsPath>
-  </PropertyGroup>
+  <Import Project="$(MSBuildThisFileDirectory)..\$(MSBuildThisFile)"/>
 
   <PropertyGroup>
-    <IsLegacyProject>false</IsLegacyProject>
+    <BuildPath>$(SolutionDir)</BuildPath>
+    <PublishPath>$(SolutionDir)</PublishPath>
+  </PropertyGroup>
+
+  <Import Project="$(BuildToolsPath)MSBuild.OutputPaths.props"/>
+
+  <PropertyGroup>
+    <CustomBeforeSdkTargets>$(BuildToolsPath)MSBuild.OutputPaths.targets</CustomBeforeSdkTargets>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(MSBuildProjectName.Contains('-'))">
+    <AssemblyName>$(MSBuildProjectName.Replace('-', '_'))</AssemblyName>
+    <RootNamespace>$(MSBuildProjectName.Replace('-', '_'))</RootNamespace>
   </PropertyGroup>
 
 </Project>

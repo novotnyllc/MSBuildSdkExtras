@@ -1,5 +1,17 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <Import Project="$(BuildToolsPath)MSBuild.TestOutput.targets" Condition="'$(IsLegacyProject)' != 'true'"/>
+  <PropertyGroup>
+    <Company>NIRIN</Company>
+    <Authors>Nirmal Guru</Authors>
+    <Copyright>© NIRIN Foundation.</Copyright>
+    <Product>MSBuild-Sdks Test Projects</Product>
+    <Description>$(AssemblyTitle) Template Project using the SDK.</Description>
+    <IsPackable>false</IsPackable>
+    <FileVersion>1.0.0.0</FileVersion>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <InformationalVersion>1.0 Test Project</InformationalVersion>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)..\$(MSBuildThisFile)"/>
 
 </Project>

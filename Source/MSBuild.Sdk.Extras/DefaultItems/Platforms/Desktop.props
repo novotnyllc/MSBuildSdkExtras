@@ -1,0 +1,52 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(EnableDefaultSettingsItems)' == 'true'">
+    <None Update="**\*.settings" SubType="Designer">
+      <Generator Condition="'$(EnableSettingsCodeGenerator)' == 'false'">MSBuild:Compile</Generator>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(EnableDefaultSettingsItems)' == 'true' AND '$(EnableSettingsCodeGenerator)' == 'true'">
+    <None Update="**\*.settings">
+      <Generator>$(SettingsCodeGeneratorTool)</Generator>
+      <LastGenOutput>%(Filename)$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</LastGenOutput>
+    </None>
+
+    <_SettingsFiles Include="**\*.settings">
+      <GenFilePath>%(RecursiveDir)%(Filename)$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</GenFilePath>
+    </_SettingsFiles>
+
+    <Compile Update="@(_SettingsFiles->'%(GenFilePath)')">
+      <AutoGen>true</AutoGen>
+      <DesignTime>true</DesignTime>
+      <DesignTimeSharedInput>true</DesignTimeSharedInput>
+      <DependentUpon>$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('$(DefaultDesignerFileSuffix)', '.settings'))</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="**\*$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)">
+      <DependentUpon Condition="'%(DependentUpon)' == ''">$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('$(DefaultDesignerFileSuffix)', '$(DefaultLanguageSourceExtension)'))</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(EnableDefaultWinFormsItems)' == 'true'">
+    <EmbeddedResource Update="**\*.resx" Condition="'$(EnableDefaultEmbeddedResourceItems)' == 'true' AND '$(EnableEmbeddedResourceCodeGenerator)' == 'true'">
+      <DependentUpon Condition="'$(DependentUpon)' != ''">$([System.Text.RegularExpressions.Regex]::Replace('%(FileName)', '$(LangIdRegEx)|\$(DefaultDesignerFileSuffix)', '%(DefaultLanguageSourceExtension)'))</DependentUpon>
+    </EmbeddedResource>
+    <!--
+      TODO: Add SubType(s) for Windows Forms Project
+      ISSUE: SubType(s) for Windows Forms Project doesn't work in CPS anyway!
+    -->
+    <Service Include="$(UserControlDesignerService)" Condition="'$(EnableUserControlDesigner)' == 'true'"/>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(EnableDefaultWebItems)' == 'true'">
+    <!-- TODO: Add Support ASP.NET Projects -->
+  </ItemGroup>
+
+</Project>

@@ -9,7 +9,7 @@ root = true
 indent_style = space
 # (Please don't specify an indent_size here; that has too many unintended consequences.)
 
-# Don't use tabs for indentation.
+# Use tabs for solution files.
 [*.sln]
 indent_style = tab
 indent_size = 4
@@ -17,7 +17,6 @@ indent_size = 4
 # Code files
 [*.{cs,csx,vb,vbx}]
 indent_size = 4
-insert_final_newline = true
 charset = utf-8-bom
 
 # Xml project files
@@ -29,7 +28,7 @@ indent_size = 2
 indent_size = 2
 
 # JSON/YAML files
-[*.{json,yaml}]
+[*.{json,yml,yaml}]
 indent_size = 2
 
 # Dotnet code style settings:

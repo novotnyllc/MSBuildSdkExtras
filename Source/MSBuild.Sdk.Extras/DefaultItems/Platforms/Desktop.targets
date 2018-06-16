@@ -1,0 +1,63 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <!-- Force disable other projects' setup, Since it does not play very well with each other. -->
+  <PropertyGroup Condition="'$(EnableWpfProjectSetup)' == 'true'">
+    <EnableWebProjectSetup>false</EnableWebProjectSetup>
+    <EnableWinFormsProjectSetup>false</EnableWinFormsProjectSetup>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(EnableWebProjectSetup)' == 'true'">
+    <EnableWpfProjectSetup>false</EnableWpfProjectSetup>
+    <EnableWinFormsProjectSetup>false</EnableWinFormsProjectSetup>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(EnableWinFormsProjectSetup)' == 'true'">
+    <EnableWpfProjectSetup>false</EnableWpfProjectSetup>
+    <EnableWebProjectSetup>false</EnableWebProjectSetup>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(ApplicationManifest)' == ''">
+    <ApplicationManifest Condition="Exists('$(MSBuildProjectDirectory)\$(AppDesignerFolder)\app.manifest')">$(AppDesignerFolder)\app.manifest</ApplicationManifest>
+    <ApplicationManifest Condition="Exists('$(MSBuildProjectDirectory)\app.manifest')">app.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <EnableDefaultSettingsItems Condition="'$(EnableDefaultSettingsItems)' == ''">true</EnableDefaultSettingsItems>
+    <EnableSettingsCodeGenerator Condition="'$(EnableSettingsCodeGenerator)' == ''">true</EnableSettingsCodeGenerator>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(EnableSettingsCodeGenerator)' == 'true'">
+    <SettingsCodeGeneratorTool Condition="'$(SettingsGeneratedCodeIsPublic)' != 'true'">SettingsSingleFileGenerator</SettingsCodeGeneratorTool>
+    <SettingsCodeGeneratorTool Condition="'$(SettingsGeneratedCodeIsPublic)' == 'true'">PublicSettingsSingleFileGenerator</SettingsCodeGeneratorTool>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(EnableWpfProjectSetup)' == 'true'">
+    <EnableDefaultWpfItems Condition="'$(EnableDefaultWpfItems)' == ''">true</EnableDefaultWpfItems>
+    <EnableDefaultXamlItems>$(EnableDefaultWpfItems)</EnableDefaultXamlItems>
+    <EnableImplicitWpfReferences Condition="'$(EnableImplicitWpfReferences)' == ''">true</EnableImplicitWpfReferences>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(EnableWinFormsProjectSetup)' == 'true'">
+    <EnableDefaultWinFormsItems Condition="'$(EnableDefaultWinFormsItems)' == ''">true</EnableDefaultWinFormsItems>
+    <EnableImplicitWinFormsReferences Condition="'$(EnableImplicitWinFormsReferences)' == ''">true</EnableImplicitWinFormsReferences>
+    <EnableUserControlDesigner Condition="'$(EnableUserControlDesigner)' == ''">false</EnableUserControlDesigner>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(EnableDefaultWinFormsItems)' == 'true'">
+    <UserControlDesignerService Condition="'$(UserControlDesignerService)' == ''">{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}</UserControlDesignerService>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(EnableWebProjectSetup)' == 'true'">
+    <EnableDefaultWebItems Condition="'$(EnableDefaultWebItems)' == ''">true</EnableDefaultWebItems>
+    <EnableImplicitWebReferences Condition="'$(EnableImplicitWebReferences)' == ''">true</EnableImplicitWebReferences>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(EnableDefaultWebItems)' == 'true'">
+
+  </PropertyGroup>
+
+</Project>

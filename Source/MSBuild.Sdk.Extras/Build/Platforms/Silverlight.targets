@@ -1,26 +1,24 @@
-<Project>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
   <PropertyGroup>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
-    <LanguageTargets>$(MSBuildThisFileDirectory)..\LanguageTargets\Silverlight.targets</LanguageTargets>
-    <DefineConstants Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(DefineConstants);SILVERLIGHT</DefineConstants>
     <ValidateXaml Condition="'$(ValidateXaml)' == ''">true</ValidateXaml>
-    <AppDesignerFolder Condition="'$(AppDesignerFolder)' == ''">Properties</AppDesignerFolder>
     <SilverlightApplication Condition="'$(SilverlightApplication)' == ''">false</SilverlightApplication>
     <ThrowErrorsInValidation Condition="'$(ThrowErrorsInValidation)' == ''">true</ThrowErrorsInValidation>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
-    <Reference Include="mscorlib" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Net" />
-    <Reference Include="System.Windows" />
-    <Reference Include="System.Windows.Browser" />
+    <_SdkImplicitReference Include="mscorlib"/>
+    <_SdkImplicitReference Include="System"/>
+    <_SdkImplicitReference Include="System.Core"/>
+    <_SdkImplicitReference Include="System.Xml"/>
+    <_SdkImplicitReference Include="System.Net"/>
+    <_SdkImplicitReference Include="System.Windows"/>
+    <_SdkImplicitReference Include="System.Windows.Browser"/>
   </ItemGroup>
 
 </Project>

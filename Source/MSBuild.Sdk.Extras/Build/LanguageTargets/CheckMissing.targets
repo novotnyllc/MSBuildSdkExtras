@@ -1,29 +1,20 @@
-<Project>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
-  <!-- Check to see if the Lang targets exist and if not, trigger an error on Compile -->
-  <!-- We clear out the lang targets so the defaults are used for the error to show -->
-  <PropertyGroup Condition="'$(_SdkSkipLanguageTargetsCheck)' != 'true' and '$(_SdkLanguageTargetsMissing)' == 'true'">
-    <_SdkLanguageTargetsMissing>true</_SdkLanguageTargetsMissing>
-    <_SdkLanguageTargets>$(LanguageTargets)</_SdkLanguageTargets>
-
-    <!-- Reset LanguageTargets Evaluation -->
-    <!-- https://github.com/dotnet/sdk/blob/master/src/Tasks/Microsoft.NET.Build.Tasks/sdk/Sdk.targets#L28-L37 -->
-    <LanguageTargets></LanguageTargets>
-    <LanguageTargets Condition="'$(_SdkLanguageName)' == 'CSharp'">$(MSBuildToolsPath)\Microsoft.CSharp.targets</LanguageTargets>
-    <LanguageTargets Condition="'$(_SdkLanguageName)' == 'VisualBasic'">$(MSBuildToolsPath)\Microsoft.VisualBasic.targets</LanguageTargets>
-    <LanguageTargets Condition="'$(_SdkLanguageName)' == 'FSharp'">$(MicrosoftNETBuildTasksDirectoryRoot)..\build\Microsoft.NET.Sdk.FSharp.targets</LanguageTargets>
-
-    <!-- If LanguageTargets isn't otherwise set, then just import the common targets.  This should allow the restore target to run,
-       which could bring in NuGet packages that set the LanguageTargets to something else.  This means support for different
-       languages could either be supplied via an SDK or via a NuGet package. -->
-    <LanguageTargets Condition="'$(LanguageTargets)' == ''">$(MSBuildToolsPath)\Microsoft.Common.CurrentVersion.targets</LanguageTargets>
+  <PropertyGroup>
+    <_SdkFallbackLanguageTargets Condition="'$(IsMultiTargetingBuild)' != 'true'">$(MSBuildToolsPath)\Microsoft.Common.CurrentVersion.targets</_SdkFallbackLanguageTargets>
+    <_SdkFallbackLanguageTargets Condition="'$(IsMultiTargetingBuild)' == 'true'">$(MSBuildToolsPath)\Microsoft.Common.CrossTargeting.targets</_SdkFallbackLanguageTargets>
   </PropertyGroup>
 
-  <!-- Import common targets so NuGet restore succeeds -->
-  <!-- https://github.com/dotnet/sdk/blob/master/src/Tasks/Microsoft.NET.Build.Tasks/sdk/Sdk.targets#L33 -->
-  <Import Condition="'$(_SdkLanguageTargetsMissing)' == 'true'" Project="$(LanguageTargets)" />
+  <!-- Import the fallback targets so the NuGet restore succeeds -->
+  <Import Project="$(_SdkFallbackLanguageTargets)" Condition="Exists('$(_SdkFallbackLanguageTargets)')"/>
+
+  <Target Name="ShowMissingLanguageTargetsError" BeforeTargets="_CheckForUnsupportedTargetFramework">
+    <Error Condition="'$(_ShortFrameworkIdentifier)' != 'portable'" Text="The specified language targets for $(TargetFramework) is missing. Ensure correct tooling is installed for '$(_ShortFrameworkIdentifier)'"/>
+    <Error Condition="'$(_ShortFrameworkIdentifier)' == 'portable'" Text="The specified TFM '$(TargetFramework)' is not valid. Check that it's a valid combination: https://portablelibraryprofiles.stephencleary.com/"/>
+  </Target>
 
 </Project>

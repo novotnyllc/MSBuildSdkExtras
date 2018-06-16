@@ -1,0 +1,19 @@
+<Project Sdk="MSBuild.Sdk.Extras">
+
+  <PropertyGroup>
+    <TargetFramework>net45</TargetFramework>
+    <EnableWinFormsProjectSetup>true</EnableWinFormsProjectSetup>
+    <EnableUserControlDesigner>true</EnableUserControlDesigner>
+    <ProjectGuid>{542764AB-B54B-4A6E-8871-61C33E4BCF78}</ProjectGuid>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AssemblyName>WinFormsClassLib</AssemblyName>
+    <AssemblyTitle>Windows Forms Library</AssemblyTitle>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Framework-Library\Framework-Library.csproj"/>
+  </ItemGroup>
+
+</Project>

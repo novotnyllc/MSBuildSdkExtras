@@ -1,0 +1,18 @@
+<Project Sdk="MSBuild.Sdk.Extras">
+
+  <PropertyGroup>
+    <TargetFramework>net45</TargetFramework>
+    <EnableWpfProjectSetup>true</EnableWpfProjectSetup>
+    <ProjectGuid>{030239AC-25E6-45DB-81AF-250728672D9E}</ProjectGuid>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AssemblyName>WpfClassLib</AssemblyName>
+    <AssemblyTitle>Windows Presentation Foundation Library</AssemblyTitle>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Framework-Library\Framework-Library.csproj"/>
+  </ItemGroup>
+
+</Project>

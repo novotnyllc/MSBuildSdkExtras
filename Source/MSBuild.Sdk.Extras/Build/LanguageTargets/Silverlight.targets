@@ -1,13 +1,17 @@
-<Project>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
-  <ImportGroup>
-    <Import Project="$(MSBuildProgramFiles32)\MSBuild\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.$(_SdkLanguageName).targets"
-        Condition="Exists('$(MSBuildProgramFiles32)\MSBuild\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.$(_SdkLanguageName).targets')" />
+  <PropertyGroup>
+    <!-- HACK: $(MSBuildExtensionsPath) for VS <= 14.0 -->
+    <_SdkMSBuildExtensionsPath>$(MSBuildProgramFiles32)\MSBuild</_SdkMSBuildExtensionsPath>
+    <_SdkSilverlightTargets Condition="'$(_SdkSilverlightTargets)' == ''">$(_SdkMSBuildExtensionsPath)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.$(_LanguageSourceName).targets</_SdkSilverlightTargets>
+    <_SdkLanguageTargetsMissing Condition="!Exists('$(_SdkSilverlightTargets)')">true</_SdkLanguageTargetsMissing>
+  </PropertyGroup>
 
-    <Import Project="$(MSBuildThisFileDirectory)CheckMissing.targets" />
-  </ImportGroup>
+  <Import Project="$(_SdkSilverlightTargets)" Condition="Exists('$(_SdkSilverlightTargets)')"/>
+  <Import Project="$(MSBuildThisFileDirectory)CheckMissing.targets" Condition="'$(_SdkLanguageTargetsMissing)' == 'true'"/>
 
 </Project>

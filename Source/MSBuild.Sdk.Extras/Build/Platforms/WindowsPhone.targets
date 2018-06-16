@@ -1,11 +1,41 @@
-<Project>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <LanguageTargets>$(MSBuildThisFileDirectory)..\LanguageTargets\WindowsPhone.targets</LanguageTargets>
-    <DefineConstants Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(DefineConstants);SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+  <!--
+    USER Side Props: AssemblyName, RootNamespace, SilverlightAppEntry, CopyNuGetImplementations, SilverlightManifestTemplate
+   -->
+
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('wp8'))">
+    <TargetFrameworkProfile/>
+    <SilverlightVersion Condition="'$(SilverlightVersion)' == ''">$(TargetFrameworkVersion)</SilverlightVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('wp7'))">
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <TargetFrameworkProfile Condition="'$(TargetFrameworkVersion)' == 'v7.0'">WindowsPhone</TargetFrameworkProfile>
+    <TargetFrameworkProfile Condition="'$(TargetFrameworkVersion)' == 'v7.1'">WindowsPhone71</TargetFrameworkProfile>
+    <SilverlightVersion Condition="'$(TargetFrameworkVersion)' == 'v7.0'">v3.0</SilverlightVersion>
+    <SilverlightVersion Condition="'$(TargetFrameworkVersion)' == 'v7.1'">v4.0</SilverlightVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(MakeXapAppPackage)' == 'true'">
+    <XapOutputs Condition="'$(XapOutputs)' == ''">true</XapOutputs>
+    <ValidateXaml Condition="'$(ValidateXaml)' == ''">true</ValidateXaml>
+    <XapFilename Condition="'$(XapFilename)' == ''">$(MSBuildProjectName)_$(Configuration)_$(Platform).xap</XapFilename>
+
+    <SilverlightApplication Condition="'$(SilverlightApplication)' == ''">true</SilverlightApplication>
+    <GenerateSilverlightManifest Condition="'$(GenerateSilverlightManifest)' == ''">true</GenerateSilverlightManifest>
+    <SilverlightManifestTemplate Condition="'$(SilverlightManifestTemplate)' == ''">$(AppDesignerFolder)\AppManifest.xml</SilverlightManifestTemplate>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">
+    <!-- Need to override the built-in implicit defines for Windows Phone 8.x -->
+    <ImplicitFrameworkDefine>WINDOWS_PHONE_$(_ShortFrameworkVersion)</ImplicitFrameworkDefine>
+    <ImplicitFrameworkIdentifierDefine>SILVERLIGHT</ImplicitFrameworkIdentifierDefine>
+    <ImplicitFrameworkProfileDefine>WINDOWS_PHONE</ImplicitFrameworkProfileDefine>
   </PropertyGroup>
 
 </Project>
