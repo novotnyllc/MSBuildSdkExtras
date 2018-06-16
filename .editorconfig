@@ -6,6 +6,7 @@ root = true
 
 # Don't use tabs for indentation.
 [*]
+charset = utf-8
 indent_style = space
 # (Please don't specify an indent_size here; that has too many unintended consequences.)
 
@@ -17,7 +18,10 @@ indent_size = 4
 # Code files
 [*.{cs,csx,vb,vbx}]
 indent_size = 4
-charset = utf-8-bom
+
+# Script files
+[*.{cmd,bat,ps1}]
+indent_size = 4
 
 # Xml project files
 [*.{csproj,vbproj,vcxproj,vcxproj.filters,proj,projitems,shproj}]

@@ -12,17 +12,14 @@
     <licenseUrl>$licenseUrl$</licenseUrl>
     <projectUrl>$projectUrl$</projectUrl>
     <releaseNotes>$releaseNotes$</releaseNotes>
-    <repository type="$repositoryType$" url="$repositoryUrl$" commit="$SourceRevisionId$" />
+    <repository type="$repositoryType$" url="$repositoryUrl$" commit="$sourceRevisionId$"/>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <developmentDependency>true</developmentDependency>
     <packageTypes>
-      <packageType name="$packageType$" />
+      <packageType name="$packageType$"/>
     </packageTypes>
   </metadata>
   <files>
-    <file src="Build\**\*" target="Build" />
-    <file src="DefaultItems\**\*" target="DefaultItems" />
-    <file src="ProjectSystem\**\*" target="ProjectSystem" />
-    <file src="Sdk\**\*" target="Sdk" />
+    <file src="*\**\*" target=""/>
   </files>
 </package>

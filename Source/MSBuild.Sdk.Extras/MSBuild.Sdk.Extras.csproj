@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="*\**\*.*" Pack="true" PackagePath="." Exclude="$(DefaultItemExcludes)"/>
+    <Content Include="*\**\*.*" Pack="true" PackagePath="" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)"/>
     <!-- Make sure VS considers any change to any of the targets as requiring a new build/pack -->
     <UpToDateCheckInput Include="@(Content)"/>
   </ItemGroup>

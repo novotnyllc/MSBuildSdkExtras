@@ -1,6 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <PropertyGroup>
+  <PropertyGroup Label="AssemblyInfo">
     <Company>NIRIN</Company>
     <Authors>Nirmal Guru</Authors>
     <Copyright>© NIRIN Foundation.</Copyright>
