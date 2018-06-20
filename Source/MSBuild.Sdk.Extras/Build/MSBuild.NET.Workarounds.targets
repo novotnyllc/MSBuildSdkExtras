@@ -16,10 +16,10 @@
   -->
   <Target Name="_CheckAndFixupRootNamespaceWithGeneratedSuffix"
       BeforeTargets="_CompileTemporaryAssembly;CoreCompile"
-      Condition="('$(IsGeneratedProject)' == 'true') AND $([System.Text.RegularExpressions.Regex]::IsMatch('$(RootNamespace)', '$(GeneratedProjectSuffixPattern)'))">
+      Condition="('$(IsGeneratedProject)' == 'true') AND $([System.Text.RegularExpressions.Regex]::IsMatch('$(RootNamespace)', '$(_GeneratedProjectSuffixPattern)'))">
     <PropertyGroup>
       <_RootNamespaceInGeneratedProject>$(RootNamespace)</_RootNamespaceInGeneratedProject>
-      <RootNamespace>$([System.Text.RegularExpressions.Regex]::Replace('$(_RootNamespaceInGeneratedProject)', '$(GeneratedProjectSuffixPattern)', ''))</RootNamespace>
+      <RootNamespace>$([System.Text.RegularExpressions.Regex]::Replace('$(_RootNamespaceInGeneratedProject)', '$(_GeneratedProjectSuffixPattern)', ''))</RootNamespace>
     </PropertyGroup>
     <Message Importance="High" Text="The RootNamespace in the generated project was '$(_RootNamespaceInGeneratedProject)' and the fixed-up RootNamespace is $(RootNamespace)."/>
   </Target>
@@ -44,7 +44,7 @@
     </PropertyGroup>
   </Target>
 
-  <Target Name="IncludeWindowsLibraryLayoutItems"
+  <Target Name="_IncludeWindowsLibraryLayoutItems"
       Condition="'$(GenerateLibraryLayout)' == 'true' AND '$(SDKIdentifier)' == 'Windows'"
       DependsOnTargets="PrepareLibraryLayout">
     <ItemGroup>
@@ -54,7 +54,7 @@
 
   <!-- Handle Library Layout in NuGet packages -->
   <PropertyGroup>
-    <TargetsForTfmSpecificContentInPackage Condition="'$(SkipWindowsLibraryLayout)' != 'true'">$(TargetsForTfmSpecificContentInPackage);IncludeWindowsLibraryLayoutItems</TargetsForTfmSpecificContentInPackage>
+    <TargetsForTfmSpecificContentInPackage Condition="'$(SkipWindowsLibraryLayout)' != 'true'">$(TargetsForTfmSpecificContentInPackage);_IncludeWindowsLibraryLayoutItems</TargetsForTfmSpecificContentInPackage>
   </PropertyGroup>
 
   <!--
@@ -74,7 +74,7 @@
     Workaround for bug in Microsoft.NET.Sdk < v2.0 where satellites were deployed on top of each other in root.
     ISSUE: https://github.com/dotnet/sdk/issues/1360
   -->
-  <Target Name="SatelliteDeploymentOldSdkWorkaround"
+  <Target Name="_SatelliteDeploymentOldSdkWorkaround"
       AfterTargets="ResolveLockFileCopyLocalProjectDeps"
       Condition="'$(_NETCoreSdkVersion)' &lt; '2.0' AND '$(IsMultiTargetingBuild)' != 'true'">
     <ItemGroup>
@@ -87,12 +87,12 @@
 
   <!-- By default we suppress the old sdk warning, if the user has loaded v4.3.0+ NuGet 'Pack' target, which contain some fixes around PRI files. -->
   <PropertyGroup Condition="'$(_NETCoreSdkVersion)' &lt; '2.0'">
-    <PackDependsOn>WarnWhenUsingOldSdk;$(PackDependsOn)</PackDependsOn>
+    <PackDependsOn>_WarnWhenUsingOldSdk;$(PackDependsOn)</PackDependsOn>
     <SuppressOldSdkWarning Condition="'$(SuppressOldSdkWarning)' == '' AND '$(ImportNuGetBuildTasksPackTargetsFromSdk)' == 'false'">true</SuppressOldSdkWarning>
   </PropertyGroup>
 
   <!-- Check to see if we are on an Old SDK and warn the user about 'Pack' target! -->
-  <Target Name="WarnWhenUsingOldSdk" Condition="'$(_NETCoreSdkVersion)' &lt; '2.0' AND '$(SuppressOldSdkWarning)' != 'true'">
+  <Target Name="_WarnWhenUsingOldSdk" Condition="'$(_NETCoreSdkVersion)' &lt; '2.0' AND '$(SuppressOldSdkWarning)' != 'true'">
     <Warning Text="There are known issues using the 'Pack' target that comes with the v1 SDKs. Update to v2 and above SDKs to use the fixed 'Pack' target. If you don't need the fixed 'Pack' target the set 'SuppressOldSdkWarning' property to 'true'. If you need to use the v1 SDKs and to use the 'Pack' target, then add a 'NuGet.Build.Tasks.Pack' v4.3.0 and above, as a dependency to proceed."/>
   </Target>
 

@@ -10,13 +10,13 @@
 
   <!-- Check for _*_wpftmp.*proj files -->
   <PropertyGroup>
-    <GeneratedProjectSuffixPattern>_[a-z0-9]{8}_wpftmp</GeneratedProjectSuffixPattern>
-    <IsGeneratedProject Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(MSBuildProjectName)', '$(GeneratedProjectSuffixPattern)%24'))">true</IsGeneratedProject>
+    <_GeneratedProjectSuffixPattern>_[a-z0-9]{8}_wpftmp</_GeneratedProjectSuffixPattern>
+    <IsGeneratedProject Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(MSBuildProjectName)', '$(_GeneratedProjectSuffixPattern)%24'))">true</IsGeneratedProject>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(IsGeneratedProject)' == 'true'">
     <_OriginalProjectName>$(_TargetAssemblyProjectName)</_OriginalProjectName>
-    <_OriginalProjectName Condition="'$(_OriginalProjectName)' == ''">$([System.Text.RegularExpressions.Regex]::Replace('$(MSBuildProjectName)', '$(GeneratedProjectSuffixPattern)', ''))</_OriginalProjectName>
+    <_OriginalProjectName Condition="'$(_OriginalProjectName)' == ''">$([System.Text.RegularExpressions.Regex]::Replace('$(MSBuildProjectName)', '$(_GeneratedProjectSuffixPattern)', ''))</_OriginalProjectName>
     <_OriginalProjectFile>$(_OriginalProjectName)$(MSBuildProjectExtension)</_OriginalProjectFile>
     <_OriginalProjectExtensionsPath Condition="$(MSBuildProjectExtensionsPath.Contains('$(MSBuildProjectName)'))">$(MSBuildProjectExtensionsPath.Replace('$(MSBuildProjectName)', '$(_OriginalProjectName)'))</_OriginalProjectExtensionsPath>
 
