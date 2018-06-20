@@ -5,19 +5,21 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <!-- Convert $(TargetFramework) to lower case -->
+    <!-- Convert 'TargetFramework' to lower case -->
     <TargetFramework>$(TargetFramework.ToLowerInvariant())</TargetFramework>
     <!-- if version-less framework-profile is specified then default to the highest supported version of that framework-profile -->
     <TargetFramework Condition="'$(TargetFramework)' == 'net-client'">net40-client</TargetFramework>
+    <TargetFramework Condition="'$(TargetFramework)' == 'net-cf'">net35-cf</TargetFramework>
+    <TargetFramework Condition="'$(TargetFramework)' == 'netmf'">netmf44</TargetFramework>
     <TargetFramework Condition="'$(TargetFramework)' == 'net'">net45</TargetFramework>
-    <TargetFramework Condition="'$(TargetFramework)' == 'wp'">wp8</TargetFramework>
     <TargetFramework Condition="'$(TargetFramework)' == 'wpa'">wpa81</TargetFramework>
     <TargetFramework Condition="'$(TargetFramework)' == 'win'">win8</TargetFramework>
+    <TargetFramework Condition="'$(TargetFramework)' == 'wp'">wp8</TargetFramework>
     <TargetFramework Condition="'$(TargetFramework)' == 'sl'">sl5</TargetFramework>
   </PropertyGroup>
 
   <!--
-    Split $(TargetFramework) into short identifier, version and profile list
+    Split 'TargetFramework' into short identifier, version and profile list
     For Example:
       net45 into 'net', '45'
       net40-client into 'net', '40', '+client+'
@@ -47,7 +49,7 @@
   </Choose>
 
   <!-- Map short name to long name. See earlier comment for example of how to work with identifiers that are not recognized here -->
-  <PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == ''">
+  <PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == '' AND '$(_ShortFrameworkIdentifier)' != ''">
     <TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'net'">.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'netstandard'">.NETStandard</TargetFrameworkIdentifier>
     <TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'netcoreapp'">.NETCoreApp</TargetFrameworkIdentifier>
