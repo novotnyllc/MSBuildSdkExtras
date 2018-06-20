@@ -16,7 +16,7 @@
   -->
   <Target Name="_CheckAndFixupRootNamespaceWithGeneratedSuffix"
       BeforeTargets="_CompileTemporaryAssembly;CoreCompile"
-      Condition="('$(IsGeneratedProject)' == 'true') AND $([System.Text.RegularExpressions.Regex]::IsMatch('$(RootNamespace)', '$(_GeneratedProjectSuffixPattern)'))">
+      Condition="'$(IsGeneratedProject)' == 'true' AND $([System.Text.RegularExpressions.Regex]::IsMatch('$(RootNamespace)', '$(_GeneratedProjectSuffixPattern)'))">
     <PropertyGroup>
       <_RootNamespaceInGeneratedProject>$(RootNamespace)</_RootNamespaceInGeneratedProject>
       <RootNamespace>$([System.Text.RegularExpressions.Regex]::Replace('$(_RootNamespaceInGeneratedProject)', '$(_GeneratedProjectSuffixPattern)', ''))</RootNamespace>
@@ -38,9 +38,10 @@
   -->
   <Target Name="_DesignTimeBuildAndIntelliSenseWorkaround"
       AfterTargets="_CheckCompileDesignTimePrerequisite"
-      Condition="'@(Page)' != ''">
+      Condition="'@(ApplicationDefinition)' != '' OR '@(Page)' != '' OR '@(Resource)' != ''">
     <PropertyGroup>
       <BuildingProject>false</BuildingProject>
+      <DesignTimeBuild>true</DesignTimeBuild>
     </PropertyGroup>
   </Target>
 

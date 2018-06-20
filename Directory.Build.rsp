@@ -1,6 +1,6 @@
 /MaxCPUCount
 /BinaryLogger
 /DetailedSummary
-/Verbosity:minimal
+/Verbosity:normal
 /NodeReuse:false
 /Restore

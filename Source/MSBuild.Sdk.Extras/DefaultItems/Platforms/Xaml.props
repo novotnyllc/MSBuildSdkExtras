@@ -41,6 +41,9 @@
       <Generator Condition="'$(EnableXamlCodeGenerator)' == 'true'">$(XamlCodeGeneratorTool)</Generator>
     </Page>
     <UpToDateCheckInput Include="@(Page)"/>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(EnableDefaultPageItems)' == 'true'">
     <Compile Update="**\*.xaml$(DefaultLanguageSourceExtension)">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>

@@ -27,7 +27,7 @@
     </When>
 
     <Otherwise>
-      <PropertyGroup>
+      <PropertyGroup Condition="'$(_LanguageSourceName)' == ''">
         <_LanguageSourceName>Common</_LanguageSourceName>
         <!--<DefaultLanguageSourceExtension>.msil</DefaultLanguageSourceExtension>-->
       </PropertyGroup>

@@ -8,18 +8,36 @@
     <ImportProjectExtensionProps Condition="'$(ImportProjectExtensionProps)' == ''">true</ImportProjectExtensionProps>
   </PropertyGroup>
 
-  <!-- Check for _*_wpftmp.*proj files -->
   <PropertyGroup>
     <_GeneratedProjectSuffixPattern>_[a-z0-9]{8}_wpftmp</_GeneratedProjectSuffixPattern>
-    <IsGeneratedProject Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(MSBuildProjectName)', '$(_GeneratedProjectSuffixPattern)%24'))">true</IsGeneratedProject>
   </PropertyGroup>
 
+  <Choose>
+    <!-- Check for *.tmp_proj files -->
+    <When Condition="'$(MSBuildProjectExtension)' == '.tmp_proj'">
+      <PropertyGroup>
+        <IsGeneratedProject>true</IsGeneratedProject>
+        <_OriginalProjectName Condition="'$(_OriginalProjectName)' == ''">$(AssemblyName)</_OriginalProjectName>
+        <_LanguageSourceName Condition="Exists('$(MSBuildProjectDirectory)\$(_OriginalProjectName).csproj')">CSharp</_LanguageSourceName>
+        <_LanguageSourceName Condition="Exists('$(MSBuildProjectDirectory)\$(_OriginalProjectName).vbproj')">VisualBasic</_LanguageSourceName>
+      </PropertyGroup>
+    </When>
+
+    <!-- Check for _*_wpftmp.*proj files -->
+    <When Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(MSBuildProjectName)', '$(_GeneratedProjectSuffixPattern)%24'))">
+      <PropertyGroup>
+        <IsGeneratedProject>true</IsGeneratedProject>
+        <_OriginalProjectName Condition="'$(_OriginalProjectName)' == ''">$(_TargetAssemblyProjectName)</_OriginalProjectName>
+        <_OriginalProjectName Condition="'$(_OriginalProjectName)' == ''">$([System.Text.RegularExpressions.Regex]::Replace('$(MSBuildProjectName)', '$(_GeneratedProjectSuffixPattern)', ''))</_OriginalProjectName>
+      </PropertyGroup>
+    </When>
+
+    <Otherwise/>
+  </Choose>
+
   <PropertyGroup Condition="'$(IsGeneratedProject)' == 'true'">
-    <_OriginalProjectName>$(_TargetAssemblyProjectName)</_OriginalProjectName>
-    <_OriginalProjectName Condition="'$(_OriginalProjectName)' == ''">$([System.Text.RegularExpressions.Regex]::Replace('$(MSBuildProjectName)', '$(_GeneratedProjectSuffixPattern)', ''))</_OriginalProjectName>
     <_OriginalProjectFile>$(_OriginalProjectName)$(MSBuildProjectExtension)</_OriginalProjectFile>
     <_OriginalProjectExtensionsPath Condition="$(MSBuildProjectExtensionsPath.Contains('$(MSBuildProjectName)'))">$(MSBuildProjectExtensionsPath.Replace('$(MSBuildProjectName)', '$(_OriginalProjectName)'))</_OriginalProjectExtensionsPath>
-
     <RestoreOutputPath>$(_OriginalProjectExtensionsPath)</RestoreOutputPath>
   </PropertyGroup>
 
