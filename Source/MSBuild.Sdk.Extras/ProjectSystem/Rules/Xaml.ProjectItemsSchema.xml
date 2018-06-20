@@ -1,0 +1,27 @@
+<ProjectSchemaDefinitions xmlns="http://schemas.microsoft.com/build/2009/properties">
+
+    <ContentType
+        Name="Page"
+        DisplayName="Page file"
+        ItemType="Page">
+            <NameValuePair Name="DependentExtensions" Value=".xaml.cs" />
+            <NameValuePair Name="DefaultMetadata_SubType" Value="Designer" />
+            <NameValuePair Name="DefaultMetadata_Generator" Value="MSBuild:Compile" />
+    </ContentType>
+
+    <ContentType
+        Name="ApplicationDefinition"
+        DisplayName="Application Definition file"
+        ItemType="ApplicationDefinition">
+            <NameValuePair Name="DependentExtensions" Value=".xaml.cs" />
+            <NameValuePair Name="DefaultMetadata_SubType" Value="Designer" />
+            <NameValuePair Name="DefaultMetadata_Generator" Value="MSBuild:Compile" />
+    </ContentType>
+
+    <ItemType Name="Page" DisplayName="Page"/>
+    <ItemType Name="ApplicationDefinition" DisplayName="Application definition"/>
+    <ItemType Name="Resource" DisplayName="Resource"/>
+
+    <FileExtension Name=".xaml" ContentType="Page"/>
+
+</ProjectSchemaDefinitions>
