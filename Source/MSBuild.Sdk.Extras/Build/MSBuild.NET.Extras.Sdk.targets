@@ -8,11 +8,6 @@
     <IsMultiTargetingBuild>true</IsMultiTargetingBuild>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <_SdkVisualStudioVersion>$(VisualStudioVersion)</_SdkVisualStudioVersion>
-    <_SdkVisualStudioVersion Condition="'$(_SdkVisualStudioVersion)' == '' OR '$(_SdkVisualStudioVersion)' &lt; '14.0'">15.0</_SdkVisualStudioVersion>
-  </PropertyGroup>
-
   <ImportGroup Condition="'$(IsMultiTargetingBuild)' != 'true'">
     <Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Inference.targets"
             Condition="'$(TargetFramework)' != '' AND !($(TargetFramework.Contains(',')) OR $(TargetFramework.Contains(';')))"/>

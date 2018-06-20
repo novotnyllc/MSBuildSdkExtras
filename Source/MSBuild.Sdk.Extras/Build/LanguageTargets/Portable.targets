@@ -4,9 +4,9 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
-  <PropertyGroup Condition="$(_SdkPortableTargets) == ''">
+  <PropertyGroup Condition="'$(_SdkPortableTargets)' == ''">
     <_SdkPortableTargets Condition="'$(_LanguageSourceName)' != 'FSharp'">$(MSBuildExtensionsPath)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.$(_LanguageSourceName).targets</_SdkPortableTargets>
-    <_SdkPortableTargets Condition="'$(_LanguageSourceName)' == 'FSharp'">$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(_SdkVisualStudioVersion)\FSharp\Microsoft.Portable.FSharp.Targets</_SdkPortableTargets>
+    <_SdkPortableTargets Condition="'$(_LanguageSourceName)' == 'FSharp'">$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\FSharp\Microsoft.Portable.FSharp.Targets</_SdkPortableTargets>
   </PropertyGroup>
 
   <PropertyGroup>

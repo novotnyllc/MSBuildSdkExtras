@@ -40,6 +40,10 @@
     <SupportedCultures Condition="'$(SupportedCultures)' == ''">$(DefaultLanguage)</SupportedCultures>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == '' OR '$(VisualStudioVersion)' &lt; '14.0'">15.0</VisualStudioVersion>
+  </PropertyGroup>
+
   <PropertyGroup Condition="'$(AppDesignerFolder)' == ''">
     <AppDesignerFolder Condition="'$(_LanguageSourceName)' != 'VisualBasic'">Properties</AppDesignerFolder>
     <AppDesignerFolder Condition="'$(_LanguageSourceName)' == 'VisualBasic'">My Project</AppDesignerFolder>

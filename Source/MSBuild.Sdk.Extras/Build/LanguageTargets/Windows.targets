@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <_SdkWindowsTargets Condition="'$(_SdkWindowsTargets)' == ''">$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(_SdkVisualStudioVersion)\Microsoft.Windows.UI.Xaml.$(_LanguageSourceName).targets</_SdkWindowsTargets>
+    <_SdkWindowsTargets Condition="'$(_SdkWindowsTargets)' == ''">$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.$(_LanguageSourceName).targets</_SdkWindowsTargets>
     <_SdkLanguageTargetsMissing Condition="!Exists('$(_SdkWindowsTargets)')">true</_SdkLanguageTargetsMissing>
   </PropertyGroup>
 
