@@ -12,12 +12,7 @@
     <CustomBeforeSdkTargets>$(BuildToolsPath)MSBuild.OutputPaths.targets</CustomBeforeSdkTargets>
   </PropertyGroup>
 
-  <PropertyGroup Label="Build">
-    <NoPackageAnalysis>true</NoPackageAnalysis>
-    <IncludeBuildOutput>false</IncludeBuildOutput>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackOnBuild>true</PackOnBuild>
-  </PropertyGroup>
+  <Import Project="$(BuildToolsPath)MSBuild.Packaging.props"/>
 
   <PropertyGroup Label="PackageInfo">
     <Authors>Oren Novotny</Authors>

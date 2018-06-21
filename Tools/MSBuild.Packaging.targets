@@ -9,23 +9,33 @@
     <Serviceable>true</Serviceable>
   </PropertyGroup>
 
-  <PropertyGroup Label="Build" Condition="'$(GeneratePackageOnBuild)' == 'true'">
+  <PropertyGroup>
+    <EnableDefaultContentItems Condition="'$(EnableDefaultContentItems)' == ''">true</EnableDefaultContentItems>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(EnableDefaultContentItems)' == 'true'">
+    <IncludeContentInPack>true</IncludeContentInPack>
+    <DefaultContentItemExcludes>$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)</DefaultContentItemExcludes>
+    <DefaultContentItemExcludes>$(DefaultContentItemExcludes);**\*$(DefaultLanguageSourceExtension);**\*.resx</DefaultContentItemExcludes>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(PackageOnlyBuild)' == 'true'">
+    <NoPackageAnalysis>true</NoPackageAnalysis>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
-    <DefaultItemExcludes>**\*$(DefaultLanguageSourceExtension)</DefaultItemExcludes>
     <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
-    <!-- Full symbols so that unit test assertions have more info -->
-    <DebugType Condition="'$(Configuration)' == 'Debug'">Full</DebugType>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(GeneratePackageOnBuild)' == 'true'">
+  <ItemGroup Condition="'$(PackageOnlyBuild)' == 'true'">
     <IntermediateAssembly Remove="@(IntermediateAssembly)"/>
     <IntermediateRefAssembly Remove="@(IntermediateRefAssembly)"/>
   </ItemGroup>
 
   <!-- This property must be overridden to remove a few targets that compile assemblies -->
-  <PropertyGroup Condition="'$(GeneratePackageOnBuild)' == 'true'">
+  <PropertyGroup Condition="'$(PackageOnlyBuild)' == 'true'">
     <CoreBuildDependsOn>
       BuildOnlySettings;
       PrepareForBuild;
