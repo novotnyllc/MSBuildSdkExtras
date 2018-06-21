@@ -23,19 +23,19 @@
       </PropertyGroup>
     </When>
 
-    <!-- Check for _*_wpftmp.*proj files -->
-    <When Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(MSBuildProjectName)', '$(_GeneratedProjectSuffixPattern)%24'))">
+    <!-- Check for '_TargetAssemblyProjectName' that tells us that we're within _*_wpftmp.*proj files -->
+    <When Condition="'$(_TargetAssemblyProjectName)' != ''">
       <PropertyGroup>
         <IsGeneratedProject>true</IsGeneratedProject>
         <_OriginalProjectName Condition="'$(_OriginalProjectName)' == ''">$(_TargetAssemblyProjectName)</_OriginalProjectName>
-        <_OriginalProjectName Condition="'$(_OriginalProjectName)' == ''">$([System.Text.RegularExpressions.Regex]::Replace('$(MSBuildProjectName)', '$(_GeneratedProjectSuffixPattern)', ''))</_OriginalProjectName>
+        <_OriginalProjectName Condition="'$(_OriginalProjectName)' == ''">$([System.Text.RegularExpressions.Regex]::Replace('$(MSBuildProjectName)', '$(_GeneratedProjectSuffixPattern)%24', ''))</_OriginalProjectName>
       </PropertyGroup>
     </When>
 
     <Otherwise/>
   </Choose>
 
-  <PropertyGroup Condition="'$(IsGeneratedProject)' == 'true'">
+  <PropertyGroup Condition="'$(_OriginalProjectName)' != ''">
     <_OriginalProjectFile>$(_OriginalProjectName)$(MSBuildProjectExtension)</_OriginalProjectFile>
     <_OriginalProjectExtensionsPath Condition="$(MSBuildProjectExtensionsPath.Contains('$(MSBuildProjectName)'))">$(MSBuildProjectExtensionsPath.Replace('$(MSBuildProjectName)', '$(_OriginalProjectName)'))</_OriginalProjectExtensionsPath>
     <RestoreOutputPath>$(_OriginalProjectExtensionsPath)</RestoreOutputPath>
@@ -43,7 +43,7 @@
 
   <!--
     WPF sometimes creates a temporary project, since it changes the peoject file, it breaks Project Extensions import.
-    In order to properly import Project Extensions, we need the user to set '_OriginalProjectFile' and use it to import Project Extensions.
+    In order to properly import Project Extensions, we need the user to set '_OriginalProjectName' or '_OriginalProjectFile' and use it to import Project Extensions.
   -->
   <ImportGroup Condition="'$(_OriginalProjectFile)' != '' AND '$(ImportProjectExtensionProps)' == 'true'">
     <Import Project="$(_OriginalProjectExtensionsPath)$(_OriginalProjectFile).*.props" Condition="Exists('$(_OriginalProjectExtensionsPath)')"/>

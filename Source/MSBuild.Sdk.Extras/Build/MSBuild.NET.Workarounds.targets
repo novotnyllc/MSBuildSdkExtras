@@ -11,22 +11,34 @@
   </PropertyGroup>
 
   <!--
-    WPF sometimes creates a temporary project, since it changes the peoject file, it breaks MSBuildProjectName and inturn RootNamespace.
-    When that is the case we simply fix-up RootNamespace by removing the project generated suffix.
+    WPF sometimes creates a temporary project, since it changes the peoject file, it breaks MSBuildProjectName dependent properies.
+    When that is the case we simply fix-up those properties by removing the project generated suffix.
   -->
-  <Target Name="_CheckAndFixupRootNamespaceWithGeneratedSuffix"
+  <Target Name="_CheckAndFixupPropertiesWithGeneratedSuffix"
       BeforeTargets="_CompileTemporaryAssembly;CoreCompile"
-      Condition="'$(IsGeneratedProject)' == 'true' AND $([System.Text.RegularExpressions.Regex]::IsMatch('$(RootNamespace)', '$(_GeneratedProjectSuffixPattern)'))">
-    <PropertyGroup>
+      Condition="'$(IsGeneratedProject)' == 'true' AND '$(DisableFixupPropertiesWithGeneratedSuffix)' != 'true'">
+
+    <PropertyGroup Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(RootNamespace)', '[a-z0-9]{8}'))">
       <_RootNamespaceInGeneratedProject>$(RootNamespace)</_RootNamespaceInGeneratedProject>
-      <RootNamespace>$([System.Text.RegularExpressions.Regex]::Replace('$(_RootNamespaceInGeneratedProject)', '$(_GeneratedProjectSuffixPattern)', ''))</RootNamespace>
+      <RootNamespace/>
+
+      <!-- Default Scenarios -->
+      <RootNamespace Condition="'$(_RootNamespaceInGeneratedProject.Length)' == '8'">$(_OriginalProjectName)</RootNamespace>
+      <RootNamespace Condition="'$(RootNamespace)' == '' AND $(_RootNamespaceInGeneratedProject.Contains('$(MSBuildProjectName)'))">$(_RootNamespaceInGeneratedProject.Replace('$(MSBuildProjectName)', '$(_OriginalProjectName)'))</RootNamespace>
+
+      <!-- Common Special cases -->
+      <RootNamespace Condition="'$(RootNamespace)' == '' AND $(_RootNamespaceInGeneratedProject.Contains('_wpftmp'))">$([System.Text.RegularExpressions.Regex]::Replace('$(_RootNamespaceInGeneratedProject)', '$(_GeneratedProjectSuffixPattern)', ''))</RootNamespace>
+      <RootNamespace Condition="'$(RootNamespace)' == '' AND $(_RootNamespaceInGeneratedProject.Contains('.wpftmp'))">$([System.Text.RegularExpressions.Regex]::Replace('$(_RootNamespaceInGeneratedProject)', $(_GeneratedProjectSuffixPattern.Replace('_', '.')), ''))</RootNamespace>
     </PropertyGroup>
-    <Message Importance="High" Text="The RootNamespace in the generated project was '$(_RootNamespaceInGeneratedProject)' and the fixed-up RootNamespace is $(RootNamespace)."/>
+
+    <Message Importance="High" Condition="'$(_RootNamespaceInGeneratedProject)' != ''"
+      Text="The RootNamespace in the generated project was '$(_RootNamespaceInGeneratedProject)' and the fixed-up RootNamespace is $(RootNamespace)."/>
+
   </Target>
 
   <!--
     WPF sometimes creates a temporary project, since it changes the peoject file, it breaks Project Extensions import.
-    In order to properly import Project Extensions, we need the user to set '_OriginalProjectFile' and use it to import Project Extensions.
+    In order to properly import Project Extensions, we need the user to set '_OriginalProjectName' or '_OriginalProjectFile' and use it to import Project Extensions.
   -->
   <ImportGroup Condition="'$(_OriginalProjectFile)' != '' AND '$(ImportProjectExtensionTargets)' == 'true'">
     <Import Project="$(_OriginalProjectExtensionsPath)$(_OriginalProjectFile).*.targets" Condition="Exists('$(_OriginalProjectExtensionsPath)')"/>
@@ -45,18 +57,19 @@
     </PropertyGroup>
   </Target>
 
+  <!-- Handle Library Layout in NuGet packages -->
+
+  <PropertyGroup Condition="'$(SkipWindowsLibraryLayout)' != 'true'">
+    <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_IncludeWindowsLibraryLayoutItems</TargetsForTfmSpecificContentInPackage>
+  </PropertyGroup>
+
   <Target Name="_IncludeWindowsLibraryLayoutItems"
-      Condition="'$(GenerateLibraryLayout)' == 'true' AND '$(SDKIdentifier)' == 'Windows'"
-      DependsOnTargets="PrepareLibraryLayout">
+      DependsOnTargets="PrepareLibraryLayout"
+      Condition="'$(GenerateLibraryLayout)' == 'true' AND '$(SDKIdentifier)' == 'Windows'">
     <ItemGroup>
       <TfmSpecificPackageFile Include="@(_LayoutFile)" PackagePath="lib\$(TargetFramework)\%(_LayoutFile.TargetPath)"/>
     </ItemGroup>
   </Target>
-
-  <!-- Handle Library Layout in NuGet packages -->
-  <PropertyGroup>
-    <TargetsForTfmSpecificContentInPackage Condition="'$(SkipWindowsLibraryLayout)' != 'true'">$(TargetsForTfmSpecificContentInPackage);_IncludeWindowsLibraryLayoutItems</TargetsForTfmSpecificContentInPackage>
-  </PropertyGroup>
 
   <!--
     Detect the SDK version. For now, we have to check the NETCoreSdkVersion

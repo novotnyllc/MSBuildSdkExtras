@@ -4,13 +4,13 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(DefineCommonManagedCapabilities)' == 'true' AND '$(_SdkDisableAdditionalCapabilities)' != 'true'">
+  <ItemGroup Condition="'$(DefineCommonManagedCapabilities)' == 'true' AND '$(DisableAdditionalCapabilities)' != 'true'">
     <ProjectCapability Include="SupportHierarchyContextSvc"/>
     <ProjectCapability Include="DynamicDependentFile"/>
     <ProjectCapability Include="DynamicFileNesting"/>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(DefineCommonManagedItemSchemas)' == 'true' AND '$(_SdkDisableAdditionalItemSchemas)' != 'true'">
+  <ItemGroup Condition="'$(DefineCommonManagedItemSchemas)' == 'true' AND '$(DisableAdditionalItemSchemas)' != 'true'">
     <PropertyPageSchema Include="$(_SdkProjectSystemRulesDirectory)Xaml.ProjectItemsSchema.xml">
       <Context>Project</Context>
     </PropertyPageSchema>
@@ -25,12 +25,12 @@
     </PropertyPageSchema>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(DefineCommonManagedReferenceSchemas)' == 'true' AND '$(_SdkDisableAdditionalReferenceSchemas)' != 'true'">
+  <ItemGroup Condition="'$(DefineCommonManagedReferenceSchemas)' == 'true' AND '$(DisableAdditionalReferenceSchemas)' != 'true'">
     <!-- Add Addtional Reference Schemas -->
   </ItemGroup>
 
   <!-- Workaround for Including generated code so that Intellisense, CodeAnalysis and other features just work -->
-  <ItemGroup Condition="'$(_SdkDisableWorkaroundCapabilities)' != 'true'">
+  <ItemGroup Condition="'$(DisableWorkaroundCapabilities)' != 'true'">
     <ProjectCapability Condition="'$(EnableWpfProjectSetup)' == 'true'"
       Include="WindowsXaml;WindowsXamlPage;WindowsXamlCodeBehind;WindowsXamlResourceDictionary;WindowsXamlUserControl"/>
   </ItemGroup>
