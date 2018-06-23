@@ -1,0 +1,14 @@
+<ProjectSchemaDefinitions xmlns="http://schemas.microsoft.com/build/2009/properties">
+
+    <ContentType
+        Name="CSharpFile"
+        DisplayName="C# file"
+        ItemType="Compile">
+            <NameValuePair Name="DefaultMetadata_SubType" Value="Code"/>
+            <NameValuePair Name="DefaultMetadata_Generator" Value="MSBuild:Compile"/>
+    </ContentType>
+
+    <FileExtension Name=".cs" ContentType="CSharpFile"/>
+    <FileExtension Name=".csx" ContentType="CSharpFile"/>
+
+</ProjectSchemaDefinitions>

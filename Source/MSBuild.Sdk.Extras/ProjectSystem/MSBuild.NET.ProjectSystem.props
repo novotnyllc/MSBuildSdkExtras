@@ -5,22 +5,25 @@
   </PropertyGroup>
 
   <ItemGroup Condition="'$(DefineCommonManagedCapabilities)' == 'true' AND '$(DisableAdditionalCapabilities)' != 'true'">
-    <ProjectCapability Include="SupportHierarchyContextSvc"/>
-    <ProjectCapability Include="DynamicDependentFile"/>
     <ProjectCapability Include="DynamicFileNesting"/>
+    <ProjectCapability Include="DynamicDependentFile"/>
+    <ProjectCapability Include="SupportHierarchyContextSvc"/>
   </ItemGroup>
 
   <ItemGroup Condition="'$(DefineCommonManagedItemSchemas)' == 'true' AND '$(DisableAdditionalItemSchemas)' != 'true'">
-    <PropertyPageSchema Include="$(_SdkProjectSystemRulesDirectory)Xaml.ProjectItemsSchema.xml">
+    <PropertyPageSchema Include="$(_SdkProjectSystemRulesDirectory)$(_LanguageSourceName).ProjectItemsSchema.xaml">
       <Context>Project</Context>
     </PropertyPageSchema>
-    <PropertyPageSchema Include="$(_SdkProjectSystemRulesDirectory)ApplicationDefinition.xml">
+    <PropertyPageSchema Include="$(_SdkProjectSystemRulesDirectory)ProjectItemsSchema.xaml">
+      <Context>Project</Context>
+    </PropertyPageSchema>
+    <PropertyPageSchema Include="$(_SdkProjectSystemRulesDirectory)ApplicationDefinition.xaml">
       <Context>File;BrowseObject</Context>
     </PropertyPageSchema>
-    <PropertyPageSchema Include="$(_SdkProjectSystemRulesDirectory)Resource.xml">
+    <PropertyPageSchema Include="$(_SdkProjectSystemRulesDirectory)Resource.xaml">
       <Context>File;BrowseObject</Context>
     </PropertyPageSchema>
-    <PropertyPageSchema Include="$(_SdkProjectSystemRulesDirectory)Page.xml">
+    <PropertyPageSchema Include="$(_SdkProjectSystemRulesDirectory)Page.xaml">
       <Context>File;BrowseObject</Context>
     </PropertyPageSchema>
   </ItemGroup>

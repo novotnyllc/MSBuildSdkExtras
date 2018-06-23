@@ -20,5 +20,6 @@
   </PropertyGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)..\DefaultItems\MSBuild.NET.DefaultItems.targets"/>
+  <Import Project="$(MSBuildThisFileDirectory)..\ProjectSystem\MSBuild.NET.ProjectSystem.targets"/>
 
 </Project>

@@ -21,8 +21,8 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(ApplicationManifest)' == ''">
-    <ApplicationManifest Condition="Exists('$(MSBuildProjectDirectory)\$(AppDesignerFolder)\app.manifest')">$(AppDesignerFolder)\app.manifest</ApplicationManifest>
-    <ApplicationManifest Condition="Exists('$(MSBuildProjectDirectory)\app.manifest')">app.manifest</ApplicationManifest>
+    <ApplicationManifest Condition="Exists('$(MSBuildProjectDirectory)\$(AppDesignerFolder)\App.manifest')">$(AppDesignerFolder)\App.manifest</ApplicationManifest>
+    <ApplicationManifest Condition="Exists('$(MSBuildProjectDirectory)\App.manifest')">App.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <PropertyGroup>
