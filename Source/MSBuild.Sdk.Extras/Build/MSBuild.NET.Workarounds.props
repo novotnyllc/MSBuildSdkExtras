@@ -16,7 +16,7 @@
     <!-- Check for *.tmp_proj files -->
     <When Condition="'$(MSBuildProjectExtension)' == '.tmp_proj'">
       <PropertyGroup>
-        <IsGeneratedProject>true</IsGeneratedProject>
+        <_IsGeneratedProject>true</_IsGeneratedProject>
         <_OriginalProjectName Condition="'$(_OriginalProjectName)' == ''">$(AssemblyName)</_OriginalProjectName>
         <_LanguageSourceName Condition="Exists('$(MSBuildProjectDirectory)\$(_OriginalProjectName).csproj')">CSharp</_LanguageSourceName>
         <_LanguageSourceName Condition="Exists('$(MSBuildProjectDirectory)\$(_OriginalProjectName).vbproj')">VisualBasic</_LanguageSourceName>
@@ -26,7 +26,7 @@
     <!-- Check for '_TargetAssemblyProjectName' that tells us that we're within _*_wpftmp.*proj files -->
     <When Condition="'$(_TargetAssemblyProjectName)' != ''">
       <PropertyGroup>
-        <IsGeneratedProject>true</IsGeneratedProject>
+        <_IsGeneratedProject>true</_IsGeneratedProject>
         <_OriginalProjectName Condition="'$(_OriginalProjectName)' == ''">$(_TargetAssemblyProjectName)</_OriginalProjectName>
         <_OriginalProjectName Condition="'$(_OriginalProjectName)' == ''">$([System.Text.RegularExpressions.Regex]::Replace('$(MSBuildProjectName)', '$(_GeneratedProjectSuffixPattern)%24', ''))</_OriginalProjectName>
       </PropertyGroup>

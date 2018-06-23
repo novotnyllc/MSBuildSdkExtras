@@ -6,7 +6,7 @@
 
   <PropertyGroup>
     <!-- Don't generate assembly info for generated projects -->
-    <GenerateAssemblyInfo Condition="'$(IsGeneratedProject)' == 'true'">false</GenerateAssemblyInfo>
+    <GenerateAssemblyInfo Condition="'$(_IsGeneratedProject)' == 'true'">false</GenerateAssemblyInfo>
     <ImportProjectExtensionTargets Condition="'$(ImportProjectExtensionTargets)' == ''">true</ImportProjectExtensionTargets>
   </PropertyGroup>
 
@@ -16,7 +16,7 @@
   -->
   <Target Name="_CheckAndFixupPropertiesWithGeneratedSuffix"
       BeforeTargets="_CompileTemporaryAssembly;CoreCompile"
-      Condition="'$(IsGeneratedProject)' == 'true' AND '$(DisableFixupPropertiesWithGeneratedSuffix)' != 'true'">
+      Condition="'$(_IsGeneratedProject)' == 'true' AND '$(DisableFixupPropertiesWithGeneratedSuffix)' != 'true'">
 
     <PropertyGroup Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(RootNamespace)', '[a-z0-9]{8}'))">
       <_RootNamespaceInGeneratedProject>$(RootNamespace)</_RootNamespaceInGeneratedProject>
