@@ -8,8 +8,7 @@
     Package Version property for Implicit Packages included in the props file
   -->
   <PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETCore' AND '$(_TargetFrameworkVersionWithoutV)' >= '5.0' AND '$(_ImplicitPlatformPackageVersion)' == ''">
-    <_ImplicitPlatformPackageVersion Condition="'$(TargetPlatformVersion)' >= '10.0.10150.0'">5.4.2</_ImplicitPlatformPackageVersion>
-    <_ImplicitPlatformPackageVersion Condition="'$(TargetPlatformVersion)' >= '10.0.15138.0'">6.1.5</_ImplicitPlatformPackageVersion>
+    <_ImplicitPlatformPackageVersion>6.1.5</_ImplicitPlatformPackageVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == 'Tizen' AND '$(_ImplicitPlatformPackageVersion)' == ''">

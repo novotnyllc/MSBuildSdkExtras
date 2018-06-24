@@ -20,6 +20,7 @@
         <_OriginalProjectName Condition="'$(_OriginalProjectName)' == ''">$(AssemblyName)</_OriginalProjectName>
         <_LanguageSourceName Condition="Exists('$(MSBuildProjectDirectory)\$(_OriginalProjectName).csproj')">CSharp</_LanguageSourceName>
         <_LanguageSourceName Condition="Exists('$(MSBuildProjectDirectory)\$(_OriginalProjectName).vbproj')">VisualBasic</_LanguageSourceName>
+        <_LanguageSourceName Condition="Exists('$(MSBuildProjectDirectory)\$(_OriginalProjectName).fsproj')">FSharp</_LanguageSourceName>
       </PropertyGroup>
     </When>
 
@@ -42,7 +43,7 @@
   </PropertyGroup>
 
   <!--
-    WPF sometimes creates a temporary project, since it changes the peoject file, it breaks Project Extensions import.
+    WPF sometimes creates a temporary project, since it changes the project file, it breaks Project Extensions import.
     In order to properly import Project Extensions, we need the user to set '_OriginalProjectName' or '_OriginalProjectFile' and use it to import Project Extensions.
   -->
   <ImportGroup Condition="'$(_OriginalProjectFile)' != '' AND '$(ImportProjectExtensionProps)' == 'true'">

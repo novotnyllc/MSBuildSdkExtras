@@ -51,7 +51,7 @@
       <RootNamespace Condition="'$(RootNamespace)' == '' AND $(_RootNamespaceInGeneratedProject.Contains('.wpftmp'))">$([System.Text.RegularExpressions.Regex]::Replace('$(_RootNamespaceInGeneratedProject)', $(_GeneratedProjectSuffixPattern.Replace('_', '.')), ''))</RootNamespace>
     </PropertyGroup>
 
-    <Message Importance="High" Condition="'$(_RootNamespaceInGeneratedProject)' != ''"
+    <Message Importance="Low" Condition="'$(_RootNamespaceInGeneratedProject)' != ''"
       Text="The RootNamespace in the generated project was '$(_RootNamespaceInGeneratedProject)' and the fixed-up RootNamespace is $(RootNamespace)."/>
 
   </Target>

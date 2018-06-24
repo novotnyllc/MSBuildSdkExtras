@@ -100,12 +100,12 @@
     </Otherwise>
   </Choose>
 
-  <Import Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'" Project="$(MSBuildThisFileDirectory)FrameworkResolvers\MSBuild.NETFramework.targets"/>
+  <Import Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'" Project="$(MSBuildThisFileDirectory)FrameworkResolvers\NETFramework.targets"/>
 
   <!-- Support for resolving portable framework profiles -->
   <ImportGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETPortable'">
-    <Import Condition="'$(TargetFrameworkVersion)' == ''" Project="$(MSBuildThisFileDirectory)FrameworkResolvers\MSBuild.NETPortable.v*.targets"/>
-    <Import Condition="'$(TargetFrameworkVersion)' != ''" Project="$(MSBuildThisFileDirectory)FrameworkResolvers\MSBuild.NETPortable.v$(TargetFrameworkVersion).targets"/>
+    <Import Condition="'$(TargetFrameworkVersion)' == ''" Project="$(MSBuildThisFileDirectory)FrameworkResolvers\NETPortable.v*.targets"/>
+    <Import Condition="'$(TargetFrameworkVersion)' != ''" Project="$(MSBuildThisFileDirectory)FrameworkResolvers\NETPortable.v$(TargetFrameworkVersion).targets"/>
   </ImportGroup>
 
   <PropertyGroup>

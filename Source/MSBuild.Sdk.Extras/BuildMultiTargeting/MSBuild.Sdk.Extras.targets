@@ -4,6 +4,6 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
-  <Import Project="$(MSBuildThisFileDirectory)Workarounds.targets"/>
+  <Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.Sdk.Extras.targets" />
 
 </Project>

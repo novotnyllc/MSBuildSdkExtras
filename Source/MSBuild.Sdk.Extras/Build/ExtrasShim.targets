@@ -43,7 +43,7 @@
             Condition="'%(_SdkObsoleteProperty.Replacement)' != ''"/>
 
     <Warning Text="The property '%(_SdkObsoleteProperty.Identity)' is now implicitly applied. You can remove the property, as it's no longer needed!"
-            Condition="'%(_SdkObsoleteProperty.Replacement)' == ''"/>
+            Condition="'%(_SdkObsoleteProperty.Replacement)' == '' and '%(_SdkObsoleteProperty.Identity)' != '' "/>
   </Target>
 
 </Project>

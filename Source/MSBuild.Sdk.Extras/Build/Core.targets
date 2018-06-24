@@ -4,16 +4,16 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
-  <Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.Sdk.ExtrasShim.targets" Condition="'$(DisableExtrasSdkLegacyCompat)' != 'true'"/>
+  <Import Project="$(MSBuildThisFileDirectory)..\Build\ExtrasShim.targets" Condition="'$(DisableExtrasSdkLegacyCompat)' != 'true'"/>
 
   <PropertyGroup Condition="'$(TargetFrameworks)' != '' AND '$(TargetFramework)' == ''">
     <IsMultiTargetingBuild>true</IsMultiTargetingBuild>
   </PropertyGroup>
 
   <ImportGroup Condition="'$(IsMultiTargetingBuild)' != 'true'">
-    <Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Inference.targets"
+    <Import Project="$(MSBuildThisFileDirectory)Inference.targets"
             Condition="'$(TargetFramework)' != '' AND !($(TargetFramework.Contains(',')) OR $(TargetFramework.Contains(';')))"/>
-    <Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Platforms.targets"
+    <Import Project="$(MSBuildThisFileDirectory)Platforms.targets"
             Condition="'$(TargetFrameworkIdentifier)' != ''"/>
   </ImportGroup>
 
@@ -21,7 +21,7 @@
     <AppendTargetFrameworkToOutputPath Condition="'$(TargetFrameworks)' == ''">false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
 
-  <Import Project="$(MSBuildThisFileDirectory)..\DefaultItems\MSBuild.NET.DefaultItems.targets"/>
-  <Import Project="$(MSBuildThisFileDirectory)..\ProjectSystem\MSBuild.NET.ProjectSystem.targets"/>
+  <Import Project="$(MSBuildThisFileDirectory)..\DefaultItems\DefaultItems.targets"/>
+  <Import Project="$(MSBuildThisFileDirectory)..\ProjectSystem\ProjectSystem.targets"/>
 
 </Project>
