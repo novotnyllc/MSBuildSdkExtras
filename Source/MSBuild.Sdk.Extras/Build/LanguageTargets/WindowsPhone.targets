@@ -7,15 +7,19 @@
   <PropertyGroup>
     <!-- HACK: $(MSBuildExtensionsPath) for VS <= 14.0 -->
     <_SdkMSBuildExtensionsPath>$(MSBuildProgramFiles32)\MSBuild</_SdkMSBuildExtensionsPath>
-    <_SdkWindowsPhoneOverridesTargets Condition="'$(_SdkWindowsPhoneOverridesTargets)' == ''">$(_SdkMSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets</_SdkWindowsPhoneOverridesTargets>
-    <_SdkWindowsPhoneTargets Condition="'$(_SdkWindowsPhoneTargets)' == ''">$(_SdkMSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(_LanguageSourceName).targets</_SdkWindowsPhoneTargets>
-    <_SdkLanguageTargetsMissing Condition="!Exists('$(_SdkWindowsPhoneTargets)')">true</_SdkLanguageTargetsMissing>
   </PropertyGroup>
 
-  <ImportGroup>
-    <Import Project="$(_SdkWindowsPhoneOverridesTargets)" Condition="Exists('$(_SdkWindowsPhoneOverridesTargets)')"/>
-    <Import Project="$(_SdkWindowsPhoneTargets)" Condition="Exists('$(_SdkWindowsPhoneTargets)')"/>
-    <Import Project="$(MSBuildThisFileDirectory)CheckMissing.targets" Condition="'$(_SdkLanguageTargetsMissing)' == 'true'"/>
-  </ImportGroup>
+  <PropertyGroup>
+    <_SdkLanguageTargets>$(_SdkMSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(_LanguageSourceName).targets</_SdkLanguageTargets>
+    <_SdkLanguageOverridesTargets>$(_SdkMSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets</_SdkLanguageOverridesTargets>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <_SdkLanguageTargetsMissing Condition="!Exists('$(_SdkLanguageTargets)')">true</_SdkLanguageTargetsMissing>
+  </PropertyGroup>
+
+  <Import Project="$(_SdkLanguageOverridesTargets)" Condition="Exists('$(_SdkLanguageOverridesTargets)')"/>
+  <Import Project="$(_SdkLanguageTargets)" Condition="Exists('$(_SdkLanguageTargets)')"/>
+  <Import Project="$(MSBuildThisFileDirectory)CheckMissing.targets" Condition="'$(_SdkLanguageTargetsMissing)' == 'true'"/>
 
 </Project>

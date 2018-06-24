@@ -5,8 +5,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <_SdkFallbackLanguageTargets Condition="'$(IsMultiTargetingBuild)' != 'true'">$(MSBuildToolsPath)\Microsoft.Common.CurrentVersion.targets</_SdkFallbackLanguageTargets>
-    <_SdkFallbackLanguageTargets Condition="'$(IsMultiTargetingBuild)' == 'true'">$(MSBuildToolsPath)\Microsoft.Common.CrossTargeting.targets</_SdkFallbackLanguageTargets>
+    <_SdkFallbackLanguageTargets>$(MSBuildToolsPath)\Microsoft.Common.targets</_SdkFallbackLanguageTargets>
   </PropertyGroup>
 
   <!-- Import the fallback targets so the NuGet restore succeeds -->

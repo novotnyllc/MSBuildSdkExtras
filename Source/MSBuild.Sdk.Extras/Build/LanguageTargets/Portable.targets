@@ -4,16 +4,16 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(_SdkPortableTargets)' == ''">
-    <_SdkPortableTargets Condition="'$(_LanguageSourceName)' != 'FSharp'">$(MSBuildExtensionsPath)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.$(_LanguageSourceName).targets</_SdkPortableTargets>
-    <_SdkPortableTargets Condition="'$(_LanguageSourceName)' == 'FSharp'">$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\FSharp\Microsoft.Portable.FSharp.Targets</_SdkPortableTargets>
+  <PropertyGroup>
+    <_SdkLanguageTargets Condition="'$(_LanguageSourceName)' != 'FSharp'">$(MSBuildExtensionsPath)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.$(_LanguageSourceName).targets</_SdkLanguageTargets>
+    <_SdkLanguageTargets Condition="'$(_LanguageSourceName)' == 'FSharp'">$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\FSharp\Microsoft.Portable.FSharp.Targets</_SdkLanguageTargets>
   </PropertyGroup>
 
   <PropertyGroup>
-    <_SdkLanguageTargetsMissing Condition="!Exists('$(_SdkPortableTargets)')">true</_SdkLanguageTargetsMissing>
+    <_SdkLanguageTargetsMissing Condition="!Exists('$(_SdkLanguageTargets)')">true</_SdkLanguageTargetsMissing>
   </PropertyGroup>
 
-  <Import Project="$(_SdkPortableTargets)" Condition="Exists('$(_SdkPortableTargets)')"/>
+  <Import Project="$(_SdkLanguageTargets)" Condition="Exists('$(_SdkLanguageTargets)')"/>
   <Import Project="$(MSBuildThisFileDirectory)CheckMissing.targets" Condition="'$(_SdkLanguageTargetsMissing)' == 'true'"/>
 
 </Project>
