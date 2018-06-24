@@ -1,4 +1,4 @@
-<Project InitialTargets="_WarnWhenUsingObsoleteProperties" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project InitialTargets="_WarnWhenUsingObsoleteProperties" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
     <EmbeddedResourceGeneratedCodeIsPublic Condition="'$(EmbeddedResourceGeneratorVisibilityIsInternal)' == 'true'">false</EmbeddedResourceGeneratedCodeIsPublic>
@@ -7,18 +7,17 @@
 
   <PropertyGroup>
     <IgnoreOldSdkWarning>$(SuppressWarnIfOldSdkPack)</IgnoreOldSdkWarning>
-    <SkipWindowsLibraryLayout>$(ExtrasSkipLibraryLayout)</SkipWindowsLibraryLayout>
     <IncludeAndroidResgenFile>$(_SdkSetAndroidResgenFile)</IncludeAndroidResgenFile>
   </PropertyGroup>
 
   <PropertyGroup>
-    <_ImplicitPlatformPackageVersion Condition="$(TargetFramework.StartsWith('uap'))">$(ExtrasUwpMetaPackageVersion)</_ImplicitPlatformPackageVersion>
-    <DisableImplicitFrameworkReferences Condition="$(TargetFramework.StartsWith('uap')) OR $(TargetFramework.StartsWith('tizen'))">$(ExtrasImplicitPlatformPackageDisabled)</DisableImplicitFrameworkReferences>
+    <_ImplicitPlatformPackageVersion Condition="'$(_ShortFrameworkIdentifier)' == 'uap'">$(ExtrasUwpMetaPackageVersion)</_ImplicitPlatformPackageVersion>
+    <DisableImplicitFrameworkReferences Condition="'$(_ShortFrameworkIdentifier)' == 'uap' OR '$(_ShortFrameworkIdentifier)' == 'tizen'">$(ExtrasImplicitPlatformPackageDisabled)</DisableImplicitFrameworkReferences>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(ExtrasImplicitPlatformPackageIsPrivate)' != 'true'">
-    <PackageReference Update="Microsoft.NETCore.UniversalWindowsPlatform" KeepMetadata="false" Condition="$(TargetFramework.StartsWith('uap'))"/>
-    <PackageReference Update="Tizen.NET" KeepMetadata="false" Condition="$(TargetFramework.StartsWith('tizen'))"/>
+    <PackageReference Update="Microsoft.NETCore.UniversalWindowsPlatform" KeepMetadata="false" Condition="'$(_ShortFrameworkIdentifier)' == 'uap'"/>
+    <PackageReference Update="Tizen.NET" KeepMetadata="false" Condition="'$(_ShortFrameworkIdentifier)' == 'tizen'"/>
   </ItemGroup>
 
   <Target
@@ -27,7 +26,6 @@
     Condition="'$(_IgnoreObsoletePropertyWarnings)' != 'true'">
 
   <ItemGroup>
-    <_SdkObsoleteProperty Include="ExtrasSkipLibraryLayout" Replacement="SkipWindowsLibraryLayout" Condition="'$(ExtrasSkipLibraryLayout)' != ''"/>
     <_SdkObsoleteProperty Include="_SdkSetAndroidResgenFile" Replacement="IncludeAndroidResgenFile" Condition="'$(_SdkSetAndroidResgenFile)' != ''"/>
     <_SdkObsoleteProperty Include="SuppressWarnIfOldSdkPack" Replacement="IgnoreOldSdkWarning" Condition="'$(SuppressWarnIfOldSdkPack)' != ''"/>
     <_SdkObsoleteProperty Include="ExtrasUwpMetaPackageVersion" Replacement="_ImplicitPlatformPackageVersion (with TargetFramework condition)" Condition="'$(ExtrasUwpMetaPackageVersion)' != ''"/>
