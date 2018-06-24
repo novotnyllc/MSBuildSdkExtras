@@ -8,9 +8,12 @@
   </PropertyGroup>
 
   <Import Project="..\Tools\MSBuild.DevLocal.targets" Condition="'$(IsCloudBuild)' != 'true'"/>
-
-  <ItemGroup Condition="'$(IsCloudBuild)' == 'true'">
+  
+  <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-62925-02" PrivateAssets="All"/>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(IsCloudBuild)' == 'true'">    
     <PackageReference Include="Nerdbank.GitVersioning" Version="2.1.23" PrivateAssets="All"/>
   </ItemGroup>
 
