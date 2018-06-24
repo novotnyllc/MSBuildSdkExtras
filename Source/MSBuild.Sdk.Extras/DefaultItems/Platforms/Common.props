@@ -16,7 +16,7 @@
     </Compile>
     <EmbeddedResource>
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
+      <Generator>$(DefaultGeneratorTool)</Generator>
     </EmbeddedResource>
   </ItemDefinitionGroup>
 

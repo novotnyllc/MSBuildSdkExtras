@@ -24,8 +24,6 @@
         Name="Page"
         DisplayName="Page file"
         ItemType="Page">
-            <NameValuePair Name="DependentFileExtensions" Value=".cs;.vb"/>
-            <NameValuePair Name="DependentExtensions" Value=".xaml.cs;.xaml.vb"/>
             <NameValuePair Name="DefaultMetadata_SubType" Value="Designer"/>
             <NameValuePair Name="DefaultMetadata_Generator" Value="MSBuild:Compile"/>
     </ContentType>
@@ -36,8 +34,6 @@
         Name="ApplicationDefinition"
         DisplayName="Application Definition file"
         ItemType="ApplicationDefinition">
-            <NameValuePair Name="DependentFileExtensions" Value=".cs;.vb"/>
-            <NameValuePair Name="DependentExtensions" Value=".xaml.cs;.xaml.vb"/>
             <NameValuePair Name="DefaultMetadata_SubType" Value="Designer"/>
             <NameValuePair Name="DefaultMetadata_Generator" Value="MSBuild:Compile"/>
     </ContentType>

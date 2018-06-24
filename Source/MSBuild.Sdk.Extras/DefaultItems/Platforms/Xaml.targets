@@ -26,11 +26,11 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(EnableXamlCodeGenerator)' == 'true'">
-    <XamlCodeGeneratorTool Condition="'$(XamlCodeGeneratorTool)' == ''">MSBuild:Compile</XamlCodeGeneratorTool>
+    <XamlCodeGeneratorTool Condition="'$(XamlCodeGeneratorTool)' == ''">$(DefaultGeneratorTool)</XamlCodeGeneratorTool>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(EnableXamlIntelliSenseGenerator)' == 'true'">
-    <XamlIntelliSenseGeneratorTool Condition="'$(XamlIntelliSenseGeneratorTool)' == ''">MSBuild:XamlIntelliSenseFileGenerator</XamlIntelliSenseGeneratorTool>
+    <XamlIntelliSenseGeneratorTool Condition="'$(XamlIntelliSenseGeneratorTool)' == ''">XamlIntelliSenseFileGenerator</XamlIntelliSenseGeneratorTool>
   </PropertyGroup>
 
   <!--

@@ -7,15 +7,15 @@
   <ItemDefinitionGroup>
     <Page>
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
+      <Generator>$(DefaultGeneratorTool)</Generator>
     </Page>
     <Resource>
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
+      <Generator>$(DefaultGeneratorTool)</Generator>
     </Resource>
     <ApplicationDefinition>
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
+      <Generator>$(DefaultGeneratorTool)</Generator>
     </ApplicationDefinition>
   </ItemDefinitionGroup>
 

@@ -8,7 +8,7 @@
 
   <ItemGroup Condition="'$(EnableDefaultSettingsItems)' == 'true'">
     <None Update="**\*.settings" SubType="Designer">
-      <Generator Condition="'$(EnableSettingsCodeGenerator)' == 'false'">MSBuild:Compile</Generator>
+      <Generator Condition="'$(EnableSettingsCodeGenerator)' == 'false'">$(DefaultGeneratorTool)</Generator>
     </None>
   </ItemGroup>
 

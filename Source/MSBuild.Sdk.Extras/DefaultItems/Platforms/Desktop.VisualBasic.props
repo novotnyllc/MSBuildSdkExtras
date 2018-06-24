@@ -12,7 +12,7 @@
 
   <ItemGroup Condition="'$(EnableDefaultMyAppItems)' == 'true'">
     <None Update="**\*.myapp" SubType="Designer">
-      <Generator Condition="'$(EnableMyAppCodeGenerator)' == 'false'">MSBuild:Compile</Generator>
+      <Generator Condition="'$(EnableMyAppCodeGenerator)' == 'false'">$(DefaultGeneratorTool)</Generator>
     </None>
   </ItemGroup>
 
