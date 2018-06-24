@@ -1,0 +1,15 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup Label="Build">
+    <!-- Full symbols so that unit test assertions have more info -->
+    <DebugType Condition="'$(Configuration)' == 'Debug'">Full</DebugType>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(EnableDefaultBuildItems)' == 'true'">
+    <Content Include="*\**\*.props;*\**\*.targets;*\**\*.tasks;*\**\*.items" Pack="true" Exclude="$(DefaultContentItemExcludes)"/>
+    <None Remove="@(Content)"/>
+    <!-- Make sure VS considers any change to any of the targets as requiring a new build/pack -->
+    <UpToDateCheckInput Include="@(Content)"/>
+  </ItemGroup>
+
+</Project>

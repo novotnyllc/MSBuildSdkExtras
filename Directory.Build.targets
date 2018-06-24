@@ -6,6 +6,6 @@
     <DefaultItemExcludes>$(DefaultItemExcludes)$(_ProjectItemExcludes)</DefaultItemExcludes>
   </PropertyGroup>
 
-  <Import Project="$(BuildToolsPath)MSBuild.OutputPathChecks.targets"/>
+  <Import Project="$(BuildToolsPath)MSBuild.OutputPathChecks.targets" Label="OutputPaths"/>
 
 </Project>

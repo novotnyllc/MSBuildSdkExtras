@@ -2,9 +2,9 @@
 
   <Import Project="$(MSBuildThisFileDirectory)..\$(MSBuildThisFile)"/>
 
-  <Import Project="$(BuildToolsPath)MSBuild.OutputPaths.props"/>
+  <Import Project="$(BuildToolsPath)MSBuild.OutputPaths.props" Label="OutputPaths"/>
 
-  <PropertyGroup>
+  <PropertyGroup Label="Output">
     <PublishFolder>~Packages</PublishFolder>
   </PropertyGroup>
 
@@ -12,12 +12,7 @@
     <CustomBeforeSdkTargets>$(BuildToolsPath)MSBuild.OutputPaths.targets</CustomBeforeSdkTargets>
   </PropertyGroup>
 
-  <PropertyGroup Label="Build">
-    <NoPackageAnalysis>true</NoPackageAnalysis>
-    <IncludeBuildOutput>false</IncludeBuildOutput>
-    <PackOnBuild>true</PackOnBuild>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-  </PropertyGroup>
+  <Import Project="$(BuildToolsPath)MSBuild.Packaging.props"/>
 
   <PropertyGroup Label="PackageInfo">
     <Authors>Oren Novotny</Authors>

@@ -1,0 +1,50 @@
+<ProjectSchemaDefinitions xmlns="http://schemas.microsoft.com/build/2009/properties">
+
+    <ContentType
+        Name="EmbeddedResource"
+        DisplayName="Embedded Resource"
+        ItemType="EmbeddedResource">
+            <NameValuePair Name="DefaultMetadata_SubType" Value="Designer"/>
+            <NameValuePair Name="DefaultMetadata_Generator" Value="MSBuild:ResXFileCodeGenerator"/>
+    </ContentType>
+
+    <FileExtension Name=".resx" ContentType="EmbeddedResource"/>
+
+    <ContentType
+        Name="Settings"
+        DisplayName="Settings file"
+        ItemType="None">
+            <NameValuePair Name="DefaultMetadata_SubType" Value="Designer"/>
+            <NameValuePair Name="DefaultMetadata_Generator" Value="MSBuild:SettingsSingleFileGenerator"/>
+    </ContentType>
+
+    <FileExtension Name=".settings" ContentType="Settings"/>
+
+    <ContentType
+        Name="Page"
+        DisplayName="Page file"
+        ItemType="Page">
+            <NameValuePair Name="DefaultMetadata_SubType" Value="Designer"/>
+            <NameValuePair Name="DefaultMetadata_Generator" Value="MSBuild:Compile"/>
+    </ContentType>
+
+    <FileExtension Name=".xaml" ContentType="Page"/>
+
+    <ContentType
+        Name="ApplicationDefinition"
+        DisplayName="Application Definition file"
+        ItemType="ApplicationDefinition">
+            <NameValuePair Name="DefaultMetadata_SubType" Value="Designer"/>
+            <NameValuePair Name="DefaultMetadata_Generator" Value="MSBuild:Compile"/>
+    </ContentType>
+
+    <ContentType
+        Name="Resource"
+        DisplayName="Resource file"
+        ItemType="Resource">
+            <NameValuePair Name="DefaultMetadata_Generator" Value="MSBuild:Compile"/>
+    </ContentType>
+
+    <ItemType Name="Resource" DisplayName="Resource"/>
+
+</ProjectSchemaDefinitions>

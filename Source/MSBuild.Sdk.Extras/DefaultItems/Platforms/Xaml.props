@@ -7,15 +7,15 @@
   <ItemDefinitionGroup>
     <Page>
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
+      <Generator>$(DefaultGeneratorTool)</Generator>
     </Page>
     <Resource>
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
+      <Generator>$(DefaultGeneratorTool)</Generator>
     </Resource>
     <ApplicationDefinition>
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
+      <Generator>$(DefaultGeneratorTool)</Generator>
     </ApplicationDefinition>
   </ItemDefinitionGroup>
 
@@ -41,6 +41,9 @@
       <Generator Condition="'$(EnableXamlCodeGenerator)' == 'true'">$(XamlCodeGeneratorTool)</Generator>
     </Page>
     <UpToDateCheckInput Include="@(Page)"/>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(EnableDefaultPageItems)' == 'true'">
     <Compile Update="**\*.xaml$(DefaultLanguageSourceExtension)">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>

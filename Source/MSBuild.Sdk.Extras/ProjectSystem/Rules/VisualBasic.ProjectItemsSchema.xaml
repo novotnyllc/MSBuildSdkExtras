@@ -1,0 +1,22 @@
+<ProjectSchemaDefinitions xmlns="http://schemas.microsoft.com/build/2009/properties">
+
+    <ContentType
+        Name="VisualBasicFile"
+        DisplayName="VB file"
+        ItemType="Compile">
+            <NameValuePair Name="DefaultMetadata_SubType" Value="Code"/>
+            <NameValuePair Name="DefaultMetadata_Generator" Value="MSBuild:Compile"/>
+    </ContentType>
+
+    <FileExtension Name=".vb" ContentType="VisualBasicFile"/>
+    <FileExtension Name=".vbx" ContentType="VisualBasicFile"/>
+
+    <ContentType
+        Name="MyApplication"
+        DisplayName="My Application file"
+        ItemType="None">
+    </ContentType>
+
+    <FileExtension Name=".myapp" ContentType="MyApplication"/>
+
+</ProjectSchemaDefinitions>

@@ -27,7 +27,7 @@
     </When>
 
     <Otherwise>
-      <PropertyGroup>
+      <PropertyGroup Condition="'$(_LanguageSourceName)' == ''">
         <_LanguageSourceName>Common</_LanguageSourceName>
         <!--<DefaultLanguageSourceExtension>.msil</DefaultLanguageSourceExtension>-->
       </PropertyGroup>
@@ -38,6 +38,10 @@
     <DefaultLanguage Condition="'$(DefaultLanguage)' == ''">$(LangName)</DefaultLanguage>
     <DefaultLanguage Condition="'$(DefaultLanguage)' == ''">$([System.Globalization.CultureInfo]::CurrentUICulture.Name)</DefaultLanguage>
     <SupportedCultures Condition="'$(SupportedCultures)' == ''">$(DefaultLanguage)</SupportedCultures>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == '' OR '$(VisualStudioVersion)' &lt; '14.0'">15.0</VisualStudioVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(AppDesignerFolder)' == ''">

@@ -1,36 +1,42 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <PropertyGroup Label="Build">
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
-    <!-- Full symbols so that unit test assertions have more info -->
-    <DebugType Condition="'$(Configuration)' == 'Debug'">Full</DebugType>
-  </PropertyGroup>
-
   <PropertyGroup Label="PackageInfo">
     <PackageType>MSBuildSdk</PackageType>
     <_DefaultTags>msbuild;sdk;dotnet</_DefaultTags>
     <PackageTags Condition="'$(PackageTags)' != ''">$(_DefaultTags);$(PackageTags)</PackageTags>
     <PackageTags Condition="'$(PackageTags)' == ''">$(_DefaultTags)</PackageTags>
-    <Serviceable>true</Serviceable>
     <DevelopmentDependency>true</DevelopmentDependency>
+    <Serviceable>true</Serviceable>
   </PropertyGroup>
-
-  <PropertyGroup Label="Items">
-    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
-    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
-    <DefaultItemExcludes>**\*$(DefaultLanguageSourceExtension)</DefaultItemExcludes>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <IntermediateAssembly Remove="@(IntermediateAssembly)" />
-    <IntermediateRefAssembly Remove="@(IntermediateRefAssembly)" />
-  </ItemGroup>
 
   <PropertyGroup>
-    <!-- This property must be overridden to remove a few targets that compile assemblies -->
+    <EnableDefaultContentItems Condition="'$(EnableDefaultContentItems)' == ''">true</EnableDefaultContentItems>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(EnableDefaultContentItems)' == 'true'">
+    <IncludeContentInPack>true</IncludeContentInPack>
+    <DefaultContentItemExcludes>$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)</DefaultContentItemExcludes>
+    <DefaultContentItemExcludes>$(DefaultContentItemExcludes);**\*$(DefaultLanguageSourceExtension);**\*.resx</DefaultContentItemExcludes>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(PackageOnlyBuild)' == 'true'">
+    <NoPackageAnalysis>true</NoPackageAnalysis>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(PackageOnlyBuild)' == 'true'">
+    <IntermediateAssembly Remove="@(IntermediateAssembly)"/>
+    <IntermediateRefAssembly Remove="@(IntermediateRefAssembly)"/>
+  </ItemGroup>
+
+  <!-- This property must be overridden to remove a few targets that compile assemblies -->
+  <PropertyGroup Condition="'$(PackageOnlyBuild)' == 'true'">
     <CoreBuildDependsOn>
-      InitializeSourceControlInformationFromSourceControlManager;
       BuildOnlySettings;
       PrepareForBuild;
       PreBuildEvent;
@@ -42,15 +48,25 @@
     </CoreBuildDependsOn>
   </PropertyGroup>
 
-  <PropertyGroup Condition="Exists('$(MSBuildProjectDirectory)\$(MSBuildProjectName).nuspec')">
-    <NuspecFile>$(MSBuildProjectDirectory)\$(MSBuildProjectName).nuspec</NuspecFile>
+  <!-- Add SourceControlInformation if the feature is supported -->
+  <PropertyGroup Condition="'$(SourceControlInformationFeatureSupported)' == 'true'">
+    <CoreBuildDependsOn>InitializeSourceControlInformation;$(CoreBuildDependsOn)</CoreBuildDependsOn>
   </PropertyGroup>
 
-  <PropertyGroup Condition="Exists('$(NuspecFile)')">
+  <PropertyGroup Condition="'$(NuspecFile)' == ''">
+    <NuspecFile Condition="Exists('$(MSBuildProjectDirectory)\$(MSBuildProjectName).nuspec')">$(MSBuildProjectName).nuspec</NuspecFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(NuspecFile)' != ''">
     <GenerateNuspecDependsOn>$(GenerateNuspecDependsOn);SetNuSpecProperties</GenerateNuspecDependsOn>
   </PropertyGroup>
 
-  <Target Name="SetNuSpecProperties" Condition="Exists('$(NuspecFile)')">
+  <Target Name="SetNuSpecProperties" Condition="'$(NuspecFile)' != ''">
+    <PropertyGroup>
+      <!-- Reset 'SourceRevisionId' to default value when not set -->
+      <SourceRevisionId Condition="'$(SourceRevisionId)' == ''">0</SourceRevisionId>
+    </PropertyGroup>
+
     <PropertyGroup>
       <NuspecProperties>
         id=$(PackageId);

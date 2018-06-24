@@ -2,6 +2,7 @@
 
   <PropertyGroup Label="Build">
     <TargetFramework>netstandard1.0</TargetFramework>
+    <PackageOnlyBuild>true</PackageOnlyBuild>
   </PropertyGroup>
 
   <PropertyGroup Label="PackageInfo">
@@ -10,12 +11,6 @@
     <Summary>An MSBuild SDK package for SDK-style .NET projects which extends `Microsoft.NET.Sdk`.</Summary>
     <Description>An MSBuild SDK package for SDK-style .NET projects that has additional properties and targets which extends `Microsoft.NET.Sdk`.</Description>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Content Include="*\**\*.*" Pack="true" PackagePath="." Exclude="$(DefaultItemExcludes)"/>
-    <!-- Make sure VS considers any change to any of the targets as requiring a new build/pack -->
-    <UpToDateCheckInput Include="@(Content)"/>
-  </ItemGroup>
 
   <Import Project="$(CustomBeforeSdkTargets)"/>
 

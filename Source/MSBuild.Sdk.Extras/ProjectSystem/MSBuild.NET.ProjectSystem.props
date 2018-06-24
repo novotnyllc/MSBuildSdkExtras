@@ -4,19 +4,38 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(EnableWpfProjectSetup)' == 'true' AND '$(TargetFrameworkIdentifier)' == '.NETFramework'">
-    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules/Wpf.ProjectItemsSchema.xml">
+  <ItemGroup Condition="'$(DefineCommonManagedCapabilities)' == 'true' AND '$(DisableAdditionalCapabilities)' != 'true'">
+    <ProjectCapability Include="DynamicFileNesting"/>
+    <ProjectCapability Include="DynamicDependentFile"/>
+    <ProjectCapability Include="SupportHierarchyContextSvc"/>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(DefineCommonManagedItemSchemas)' == 'true' AND '$(DisableAdditionalItemSchemas)' != 'true'">
+    <PropertyPageSchema Include="$(_SdkProjectSystemRulesDirectory)$(_LanguageSourceName).ProjectItemsSchema.xaml">
       <Context>Project</Context>
     </PropertyPageSchema>
-    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules/ApplicationDefinition.xml">
+    <PropertyPageSchema Include="$(_SdkProjectSystemRulesDirectory)ProjectItemsSchema.xaml">
+      <Context>Project</Context>
+    </PropertyPageSchema>
+    <PropertyPageSchema Include="$(_SdkProjectSystemRulesDirectory)ApplicationDefinition.xaml">
       <Context>File;BrowseObject</Context>
     </PropertyPageSchema>
-    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules/Resource.xml">
+    <PropertyPageSchema Include="$(_SdkProjectSystemRulesDirectory)Resource.xaml">
       <Context>File;BrowseObject</Context>
     </PropertyPageSchema>
-    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules/Page.xml">
+    <PropertyPageSchema Include="$(_SdkProjectSystemRulesDirectory)Page.xaml">
       <Context>File;BrowseObject</Context>
     </PropertyPageSchema>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(DefineCommonManagedReferenceSchemas)' == 'true' AND '$(DisableAdditionalReferenceSchemas)' != 'true'">
+    <!-- Add Addtional Reference Schemas -->
+  </ItemGroup>
+
+  <!-- Workaround for Including generated code so that Intellisense, CodeAnalysis and other features just work -->
+  <ItemGroup Condition="'$(DisableWorkaroundCapabilities)' != 'true'">
+    <ProjectCapability Condition="'$(EnableWpfProjectSetup)' == 'true'"
+      Include="WindowsXaml;WindowsXamlPage;WindowsXamlCodeBehind;WindowsXamlResourceDictionary;WindowsXamlUserControl"/>
   </ItemGroup>
 
 </Project>

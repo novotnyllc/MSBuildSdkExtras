@@ -8,24 +8,42 @@
     <ImportProjectExtensionProps Condition="'$(ImportProjectExtensionProps)' == ''">true</ImportProjectExtensionProps>
   </PropertyGroup>
 
-  <!-- Check for _*_wpftmp.*proj files -->
   <PropertyGroup>
-    <GeneratedProjectSuffixPattern>_[a-z0-9]{8}_wpftmp</GeneratedProjectSuffixPattern>
-    <IsGeneratedProject Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(MSBuildProjectName)', '$(GeneratedProjectSuffixPattern)%24'))">true</IsGeneratedProject>
+    <_GeneratedProjectSuffixPattern>_[a-z0-9]{8}_wpftmp</_GeneratedProjectSuffixPattern>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(IsGeneratedProject)' == 'true'">
-    <_OriginalProjectName>$(_TargetAssemblyProjectName)</_OriginalProjectName>
-    <_OriginalProjectName Condition="'$(_OriginalProjectName)' == ''">$([System.Text.RegularExpressions.Regex]::Replace('$(MSBuildProjectName)', '$(GeneratedProjectSuffixPattern)', ''))</_OriginalProjectName>
+  <Choose>
+    <!-- Check for *.tmp_proj files -->
+    <When Condition="'$(MSBuildProjectExtension)' == '.tmp_proj'">
+      <PropertyGroup>
+        <_IsGeneratedProject>true</_IsGeneratedProject>
+        <_OriginalProjectName Condition="'$(_OriginalProjectName)' == ''">$(AssemblyName)</_OriginalProjectName>
+        <_LanguageSourceName Condition="Exists('$(MSBuildProjectDirectory)\$(_OriginalProjectName).csproj')">CSharp</_LanguageSourceName>
+        <_LanguageSourceName Condition="Exists('$(MSBuildProjectDirectory)\$(_OriginalProjectName).vbproj')">VisualBasic</_LanguageSourceName>
+      </PropertyGroup>
+    </When>
+
+    <!-- Check for '_TargetAssemblyProjectName' that tells us that we're within _*_wpftmp.*proj files -->
+    <When Condition="'$(_TargetAssemblyProjectName)' != ''">
+      <PropertyGroup>
+        <_IsGeneratedProject>true</_IsGeneratedProject>
+        <_OriginalProjectName Condition="'$(_OriginalProjectName)' == ''">$(_TargetAssemblyProjectName)</_OriginalProjectName>
+        <_OriginalProjectName Condition="'$(_OriginalProjectName)' == ''">$([System.Text.RegularExpressions.Regex]::Replace('$(MSBuildProjectName)', '$(_GeneratedProjectSuffixPattern)%24', ''))</_OriginalProjectName>
+      </PropertyGroup>
+    </When>
+
+    <Otherwise/>
+  </Choose>
+
+  <PropertyGroup Condition="'$(_OriginalProjectName)' != ''">
     <_OriginalProjectFile>$(_OriginalProjectName)$(MSBuildProjectExtension)</_OriginalProjectFile>
     <_OriginalProjectExtensionsPath Condition="$(MSBuildProjectExtensionsPath.Contains('$(MSBuildProjectName)'))">$(MSBuildProjectExtensionsPath.Replace('$(MSBuildProjectName)', '$(_OriginalProjectName)'))</_OriginalProjectExtensionsPath>
-
     <RestoreOutputPath>$(_OriginalProjectExtensionsPath)</RestoreOutputPath>
   </PropertyGroup>
 
   <!--
     WPF sometimes creates a temporary project, since it changes the peoject file, it breaks Project Extensions import.
-    In order to properly import Project Extensions, we need the user to set '_OriginalProjectFile' and use it to import Project Extensions.
+    In order to properly import Project Extensions, we need the user to set '_OriginalProjectName' or '_OriginalProjectFile' and use it to import Project Extensions.
   -->
   <ImportGroup Condition="'$(_OriginalProjectFile)' != '' AND '$(ImportProjectExtensionProps)' == 'true'">
     <Import Project="$(_OriginalProjectExtensionsPath)$(_OriginalProjectFile).*.props" Condition="Exists('$(_OriginalProjectExtensionsPath)')"/>

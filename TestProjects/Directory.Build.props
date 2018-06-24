@@ -2,14 +2,14 @@
 
   <Import Project="$(MSBuildThisFileDirectory)..\$(MSBuildThisFile)"/>
 
-  <PropertyGroup>
+  <PropertyGroup Label="Output">
     <BuildPath>$(SolutionDir)</BuildPath>
     <PublishPath>$(SolutionDir)</PublishPath>
   </PropertyGroup>
 
-  <Import Project="$(BuildToolsPath)MSBuild.OutputPaths.props"/>
+  <Import Project="$(BuildToolsPath)MSBuild.OutputPaths.props" Label="OutputPaths"/>
 
-  <PropertyGroup>
+  <PropertyGroup Label="OutputPaths">
     <CustomBeforeSdkTargets>$(BuildToolsPath)MSBuild.OutputPaths.targets</CustomBeforeSdkTargets>
   </PropertyGroup>
 

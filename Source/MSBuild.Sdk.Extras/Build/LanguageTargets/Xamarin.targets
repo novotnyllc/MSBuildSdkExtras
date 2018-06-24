@@ -20,15 +20,15 @@
     <_SdkTargetsImportType Condition="'$(IsApplePlatform)' == 'true'">ObjCBinding.$(_LanguageSourceName)</_SdkTargetsImportType>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(_SdkXamarinPlatformTargets)' == ''">
-    <_SdkXamarinPlatformTargets>$(MSBuildExtensionsPath)\Xamarin\$(_SdkTargetPlatformName)\Xamarin.$(_SdkTargetPlatformName).$(_SdkTargetsImportType).targets</_SdkXamarinPlatformTargets>
+  <PropertyGroup>
+    <_SdkLanguageTargets>$(MSBuildExtensionsPath)\Xamarin\$(_SdkTargetPlatformName)\Xamarin.$(_SdkTargetPlatformName).$(_SdkTargetsImportType).targets</_SdkLanguageTargets>
   </PropertyGroup>
 
   <PropertyGroup>
-    <_SdkLanguageTargetsMissing Condition="!Exists('$(_SdkXamarinPlatformTargets)')">true</_SdkLanguageTargetsMissing>
+    <_SdkLanguageTargetsMissing Condition="!Exists('$(_SdkLanguageTargets)')">true</_SdkLanguageTargetsMissing>
   </PropertyGroup>
 
-  <Import Project="$(_SdkXamarinPlatformTargets)" Condition="Exists('$(_SdkXamarinPlatformTargets)')"/>
+  <Import Project="$(_SdkLanguageTargets)" Condition="Exists('$(_SdkLanguageTargets)')"/>
   <Import Project="$(MSBuildThisFileDirectory)CheckMissing.targets" Condition="'$(_SdkLanguageTargetsMissing)' == 'true'"/>
 
   <!-- CSharp is the only language supported for Binding Projects for Now -->

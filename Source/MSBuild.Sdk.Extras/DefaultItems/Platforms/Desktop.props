@@ -4,9 +4,11 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
+  <!-- Desktop Support -->
+
   <ItemGroup Condition="'$(EnableDefaultSettingsItems)' == 'true'">
     <None Update="**\*.settings" SubType="Designer">
-      <Generator Condition="'$(EnableSettingsCodeGenerator)' == 'false'">MSBuild:Compile</Generator>
+      <Generator Condition="'$(EnableSettingsCodeGenerator)' == 'false'">$(DefaultGeneratorTool)</Generator>
     </None>
   </ItemGroup>
 
@@ -32,18 +34,22 @@
     <Compile Update="**\*$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)">
       <DependentUpon Condition="'%(DependentUpon)' == ''">$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('$(DefaultDesignerFileSuffix)', '$(DefaultLanguageSourceExtension)'))</DependentUpon>
     </Compile>
+    <Service Include="$(UserControlDesignerService)" Condition="'$(EnableUserControlDesigner)' == 'true'"/>
   </ItemGroup>
+
+  <!-- Windows Forms Support -->
 
   <ItemGroup Condition="'$(EnableDefaultWinFormsItems)' == 'true'">
     <EmbeddedResource Update="**\*.resx" Condition="'$(EnableDefaultEmbeddedResourceItems)' == 'true' AND '$(EnableEmbeddedResourceCodeGenerator)' == 'true'">
-      <DependentUpon Condition="'$(DependentUpon)' != ''">$([System.Text.RegularExpressions.Regex]::Replace('%(FileName)', '$(LangIdRegEx)|\$(DefaultDesignerFileSuffix)', '%(DefaultLanguageSourceExtension)'))</DependentUpon>
+      <DependentUpon Condition="'%(DependentUpon)' == '' AND Exists('%(ResursiveDir)%(Filename)$(DefaultLanguageSourceExtension)')">%(Filename)$(DefaultLanguageSourceExtension)</DependentUpon>
     </EmbeddedResource>
     <!--
       TODO: Add SubType(s) for Windows Forms Project
-      ISSUE: SubType(s) for Windows Forms Project doesn't work in CPS anyway!
+      ISSUE: SubType(s) for Windows Forms Project doesn't work in CPS yet!
     -->
-    <Service Include="$(UserControlDesignerService)" Condition="'$(EnableUserControlDesigner)' == 'true'"/>
   </ItemGroup>
+
+  <!-- WEB Support -->
 
   <ItemGroup Condition="'$(EnableDefaultWebItems)' == 'true'">
     <!-- TODO: Add Support ASP.NET Projects -->

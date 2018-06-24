@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <DefaultGeneratorTool Condition="'$(DefaultGeneratorTool)' == ''">MSBuild:Compile</DefaultGeneratorTool>
     <DefaultDesignerFileSuffix Condition="'$(DefaultDesignerFileSuffix)' == ''">.Designer</DefaultDesignerFileSuffix>
   </PropertyGroup>
 

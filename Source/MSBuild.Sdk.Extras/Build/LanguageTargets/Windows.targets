@@ -5,11 +5,14 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <_SdkWindowsTargets Condition="'$(_SdkWindowsTargets)' == ''">$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(_SdkVisualStudioVersion)\Microsoft.Windows.UI.Xaml.$(_LanguageSourceName).targets</_SdkWindowsTargets>
-    <_SdkLanguageTargetsMissing Condition="!Exists('$(_SdkWindowsTargets)')">true</_SdkLanguageTargetsMissing>
+    <_SdkLanguageTargets>$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.$(_LanguageSourceName).targets</_SdkLanguageTargets>
   </PropertyGroup>
 
-  <Import Project="$(_SdkWindowsTargets)" Condition="Exists('$(_SdkWindowsTargets)')"/>
+  <PropertyGroup>
+    <_SdkLanguageTargetsMissing Condition="!Exists('$(_SdkLanguageTargets)')">true</_SdkLanguageTargetsMissing>
+  </PropertyGroup>
+
+  <Import Project="$(_SdkLanguageTargets)" Condition="Exists('$(_SdkLanguageTargets)')"/>
   <Import Project="$(MSBuildThisFileDirectory)CheckMissing.targets" Condition="'$(_SdkLanguageTargetsMissing)' == 'true'"/>
 
 </Project>
