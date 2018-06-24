@@ -1,4 +1,4 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
@@ -43,7 +43,7 @@
 
 
     <!-- Only set for the 10.0 version -->
-    <NugetTargetMoniker Condition="'$(_SdkShortFrameworkVersion)' == '10.0'">UAP,Version=v10.0</NugetTargetMoniker>
+    <NugetTargetMoniker Condition="'$(_ShortFrameworkVersion)' == '10.0'">UAP,Version=v10.0</NugetTargetMoniker>
     
 
     <!-- Calculate defaults based on 10.0 or specific version based on TFM to handle uap10.0, uap10.0.10240, etc -->
