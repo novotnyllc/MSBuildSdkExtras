@@ -3,7 +3,7 @@
   <Import Project="..\Tools\MSBuild.Packaging.targets"/>
 
   <PropertyGroup Condition="'$(IsCloudBuild)' == ''">
-    <IsCloudBuild Condition="'$(APPVEYOR)' != '' OR '$(TF_BUILD)' == 'true'">true</IsCloudBuild>
+    <IsCloudBuild Condition="'$(TF_BUILD)' == 'true'">true</IsCloudBuild>
     <IsCloudBuild Condition="'$(IsCloudBuild)' == ''">false</IsCloudBuild>
   </PropertyGroup>
 
