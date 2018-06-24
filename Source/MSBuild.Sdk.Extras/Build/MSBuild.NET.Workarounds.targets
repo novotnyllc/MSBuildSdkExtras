@@ -4,6 +4,26 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
+  <!-- By default we warn about using the msbuild core, if the projects require full MSBuild targets. -->
+  <PropertyGroup Condition="'$(MSBuildRuntimeType)' == 'Core'">
+    <_IgnoreMSBuildCoreWarning>true</_IgnoreMSBuildCoreWarning>
+    <_IgnoreMSBuildCoreWarning Condition="'$(EnableWpfProjectSetup)' == 'true'">false</_IgnoreMSBuildCoreWarning>
+    <_IgnoreMSBuildCoreWarning Condition="'$(_SdkPlatformName)' == 'Silverlight'">false</_IgnoreMSBuildCoreWarning>
+    <_IgnoreMSBuildCoreWarning Condition="$(_SdkPlatformName.StartsWith('Windows'))">false</_IgnoreMSBuildCoreWarning>
+  </PropertyGroup>
+
+  <!-- Check to see if we are using msbuild core! -->
+  <Target Name="_WarnWhenUsingMSBuildCore"
+          BeforeTargets="_ShowMissingLanguageTargetsError;_CheckForUnsupportedTargetFramework"
+          Condition="'$(MSBuildRuntimeType)' == 'Core' AND '$(_IgnoreMSBuildCoreWarning)' == 'false'">
+
+    <PropertyGroup>
+      <_IgnoreMissingLanguageTargetsError>$(_SdkLanguageTargetsMissing)</_IgnoreMissingLanguageTargetsError>
+    </PropertyGroup>
+
+    <Warning Text="If you are building projects that require targets from full MSBuild or MSBuildFrameworkToolsPath, you need to use desktop msbuild ('msbuild.exe') instead of 'dotnet build' or 'dotnet msbuild'"/>
+  </Target>
+
   <PropertyGroup>
     <!-- Don't generate assembly info for generated projects -->
     <GenerateAssemblyInfo Condition="'$(_IsGeneratedProject)' == 'true'">false</GenerateAssemblyInfo>
@@ -99,15 +119,15 @@
     </ItemGroup>
   </Target>
 
-  <!-- By default we suppress the old sdk warning, if the user has loaded v4.3.0+ NuGet 'Pack' target, which contain some fixes around PRI files. -->
+  <!-- By default we ignore the old sdk warning, if the user has loaded v4.3.0+ NuGet 'Pack' target, which contain some fixes around PRI files. -->
   <PropertyGroup Condition="'$(_NETCoreSdkVersion)' &lt; '2.0'">
     <PackDependsOn>_WarnWhenUsingOldSdk;$(PackDependsOn)</PackDependsOn>
-    <SuppressOldSdkWarning Condition="'$(SuppressOldSdkWarning)' == '' AND '$(ImportNuGetBuildTasksPackTargetsFromSdk)' == 'false'">true</SuppressOldSdkWarning>
+    <IgnoreOldSdkWarning Condition="'$(IgnoreOldSdkWarning)' == '' AND '$(ImportNuGetBuildTasksPackTargetsFromSdk)' == 'false'">true</IgnoreOldSdkWarning>
   </PropertyGroup>
 
   <!-- Check to see if we are on an Old SDK and warn the user about 'Pack' target! -->
-  <Target Name="_WarnWhenUsingOldSdk" Condition="'$(_NETCoreSdkVersion)' &lt; '2.0' AND '$(SuppressOldSdkWarning)' != 'true'">
-    <Warning Text="There are known issues using the 'Pack' target that comes with the v1 SDKs. Update to v2 and above SDKs to use the fixed 'Pack' target. If you don't need the fixed 'Pack' target the set 'SuppressOldSdkWarning' property to 'true'. If you need to use the v1 SDKs and to use the 'Pack' target, then add a 'NuGet.Build.Tasks.Pack' v4.3.0 and above, as a dependency to proceed."/>
+  <Target Name="_WarnWhenUsingOldSdk" Condition="'$(_NETCoreSdkVersion)' &lt; '2.0' AND '$(IgnoreOldSdkWarning)' != 'true'">
+    <Warning Text="There are known issues using the 'Pack' target that comes with the v1 SDKs. Update to v2 and above SDKs to use the fixed 'Pack' target. If you don't need the fixed 'Pack' target the set 'IgnoreOldSdkWarning' property to 'true'. If you need to use the v1 SDKs and to use the 'Pack' target, then add a 'NuGet.Build.Tasks.Pack' v4.3.0 and above, as a dependency to proceed."/>
   </Target>
 
 </Project>

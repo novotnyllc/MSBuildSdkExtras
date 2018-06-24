@@ -4,13 +4,20 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
-  <!--
-    Only MSBuild Full Framework build includes WPF targets which redirects to MSBuildFrameworkToolsPath.
-    So to have WPF support, we need to use the targets in the MSBuild Full Framework build path.
-  -->
+  <PropertyGroup Condition="'$(MicrosoftNETSdkTargetsPath)' == ''">
+    <MicrosoftNETSdkTargetsPath>$(ToolDepsJsonGeneratorProject.TrimEnd('GenerateDeps\GenerateDeps.proj'))</MicrosoftNETSdkTargetsPath>
+    <MicrosoftNETSdkTargetsPath Condition="!Exists('$(MicrosoftNETSdkTargetsPath)')">$(_NugetFallbackFolder.TrimEnd('..\..\..\..\NuGetFallbackFolder'))</MicrosoftNETSdkTargetsPath>
+    <MicrosoftNETSdkTargetsPath Condition="!Exists('$(MicrosoftNETSdkTargetsPath)')">$(NETCoreSdkBundledVersionsProps.TrimEnd('..\..\..\Microsoft.NETCoreSdk.BundledVersions.props'))</MicrosoftNETSdkTargetsPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(_FSharpTargetsPath)' == ''">
+    <_FSharpTargetsPath>$(MicrosoftNETSdkTargetsPath)Microsoft.NET.Sdk.FSharpTargetsShim.targets</_FSharpTargetsPath>
+    <_FSharpTargetsPath Condition="!Exists('$(_FSharpTargetsPath)')">$(MicrosoftNETSdkTargetsPath)Microsoft.NET.Sdk.FSharp.targets</_FSharpTargetsPath>
+  </PropertyGroup>
+
   <PropertyGroup>
-    <_SdkLanguageTargets Condition="'$(_LanguageSourceName)' != 'FSharp'">$(MSBuildExtensionsPath)\$(VisualStudioVersion)\Bin\Microsoft.$(_LanguageSourceName).targets</_SdkLanguageTargets>
-    <_SdkLanguageTargets Condition="'$(_LanguageSourceName)' == 'FSharp'">$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\FSharp\Microsoft.FSharp.Targets</_SdkLanguageTargets>
+    <_SdkLanguageTargets Condition="'$(_LanguageSourceName)' != 'FSharp'">$(MSBuildToolsPath)\Microsoft.$(_LanguageSourceName).targets</_SdkLanguageTargets>
+    <_SdkLanguageTargets Condition="'$(_LanguageSourceName)' == 'FSharp'">$(_FSharpTargetsPath)</_SdkLanguageTargets>
   </PropertyGroup>
 
   <PropertyGroup>
