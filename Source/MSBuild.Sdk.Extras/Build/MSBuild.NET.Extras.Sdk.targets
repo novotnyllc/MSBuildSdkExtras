@@ -4,6 +4,8 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
+  <Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.Sdk.ExtrasShim.targets" Condition="'$(DisableExtrasSdkLegacyCompat)' != 'true'"/>
+
   <PropertyGroup Condition="'$(TargetFrameworks)' != '' AND '$(TargetFramework)' == ''">
     <IsMultiTargetingBuild>true</IsMultiTargetingBuild>
   </PropertyGroup>
