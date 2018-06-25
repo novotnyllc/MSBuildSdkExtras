@@ -121,8 +121,7 @@ Your project diff:
 
    | Old Property                                    | New Property/Behaviour                                             |
    | ---                                             | ----                                                               
-   | `SuppressWarnIfOldSdkPack`                      | `ExtrasIgnoreOldSdkWarning`                                              |
-   | `ExtrasUwpMetaPackageVersion`                   | `ExtrasImplicitPlatformPackageVersion` + `TargetFramework` condition    |
+   | `SuppressWarnIfOldSdkPack`                      | `ExtrasIgnoreOldSdkWarning`                                              |   
    | `ExtrasImplicitPlatformPackageDisabled`         | `DisableImplicitFrameworkReferences` + `TargetFramework` condition |
    | `EmbeddedResourceGeneratorVisibilityIsInternal` | opposite of `ExtrasExtrasEmbeddedResourceGeneratedCodeIsPublic`                |
 

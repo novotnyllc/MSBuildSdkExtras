@@ -9,10 +9,6 @@
     <_SdkImplicitFrameworkProfileDefine>$(TargetFrameworkProfile.ToUpperInvariant())$(_SdkShortFrameworkVersion)</_SdkImplicitFrameworkProfileDefine>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
-    <_SdkImplicitReference Include="System.Net.Http" Condition="'$(TargetFrameworkProfile)' != 'Client'"/>
-  </ItemGroup>
-
   <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(ExtrasEnableImplicitWpfReferences)' == 'true'">
     <_SdkImplicitReference Include="System.Xaml" Condition="'$(_SdkTargetFrameworkVersionWithoutV)' >= '4.0'"/>
     <_SdkImplicitReference Include="WindowsBase" Condition="'$(_SdkTargetFrameworkVersionWithoutV)' >= '3.0'"/>

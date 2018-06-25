@@ -7,18 +7,31 @@
   <!--
     Package Version property for Implicit Packages included in the props file
   -->
-  <PropertyGroup Condition="'$(_SdkShortFrameworkIdentifier)' == 'uap' AND '$(ExtrasImplicitPlatformPackageVersion)' == ''">
-    <ExtrasImplicitPlatformPackageVersion>6.1.5</ExtrasImplicitPlatformPackageVersion>
+  <PropertyGroup Condition="'$(ExtrasUwpMetaPackageVersion)' == ''">
+    <ExtrasUwpMetaPackageVersion>6.1.5</ExtrasUwpMetaPackageVersion>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(_SdkShortFrameworkIdentifier)' == 'tizen' AND '$(ExtrasImplicitPlatformPackageVersion)' == ''">
-    <ExtrasImplicitPlatformPackageVersion Condition="'$(_SdkTargetFrameworkVersionWithoutV)' == '3.0'">3.0.0</ExtrasImplicitPlatformPackageVersion>
-    <ExtrasImplicitPlatformPackageVersion Condition="'$(_SdkTargetFrameworkVersionWithoutV)' == '4.0'">4.0.0</ExtrasImplicitPlatformPackageVersion>
+  <PropertyGroup Condition="'$(_SdkShortFrameworkIdentifier)' == 'tizen'">
+    <ExtrasTizenMetaPackage Condition="'$(ExtrasTizenMetaPackage)' == ''">$(_SdkTargetFrameworkVersionWithoutV)</ExtrasTizenMetaPackage>
   </PropertyGroup>
-
 
   <PropertyGroup>
     <ExtrasImplicitPlatformPackageIsPrivate Condition="'$(ExtrasImplicitPlatformPackageIsPrivate)' == ''">false</ExtrasImplicitPlatformPackageIsPrivate>
   </PropertyGroup>
+
+  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(_SdkShortFrameworkIdentifier)' == 'uap' ">
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="$(ExtrasUwpMetaPackageVersion)" IsImplicitlyDefined="true"/>
+    <!--
+      Update the implicit package based on target framework output types and other conditions if necessary
+      Packing should include the implicit package dependency for non-executables.
+    -->
+    <PackageReference Update="Microsoft.NETCore.UniversalWindowsPlatform" PrivateAssets="All"
+                      Condition="'$(ExtrasImplicitPlatformPackageIsPrivate)' == 'true'"/>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(_SdkShortFrameworkIdentifier)' == 'tizen'">
+    <PackageReference Include="Tizen.NET" Version="$(ExtrasTizenMetaPackage)" IsImplicitlyDefined="true"/>
+    <PackageReference Update="Tizen.NET" PrivateAssets="All" Condition="'$(ExtrasImplicitPlatformPackageIsPrivate)' == 'true'"/>
+  </ItemGroup>
 
 </Project>
