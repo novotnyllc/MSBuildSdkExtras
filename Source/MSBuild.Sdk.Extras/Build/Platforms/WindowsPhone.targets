@@ -35,7 +35,7 @@
     <!-- Need to override the built-in implicit defines for Windows Phone 8.x -->
     <ImplicitFrameworkDefine>WINDOWS_PHONE_$(_SdkShortFrameworkVersion)</ImplicitFrameworkDefine>
     <ImplicitFrameworkIdentifierDefine>SILVERLIGHT</ImplicitFrameworkIdentifierDefine>
-    <ImplicitFrameworkProfileDefine>WINDOWS_PHONE</ImplicitFrameworkProfileDefine>
+    <_SdkImplicitFrameworkProfileDefine>WINDOWS_PHONE</_SdkImplicitFrameworkProfileDefine>
   </PropertyGroup>
 
 </Project>

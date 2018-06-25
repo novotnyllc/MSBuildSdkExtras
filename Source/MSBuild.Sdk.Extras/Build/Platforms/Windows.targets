@@ -6,8 +6,8 @@
 
   <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">
     <ImplicitFrameworkIdentifierDefine>NETFX_CORE</ImplicitFrameworkIdentifierDefine>
-    <ImplicitFrameworkProfileDefine Condition="'$(_SdkShortFrameworkIdentifier)' == 'win'">WINDOWS_APP</ImplicitFrameworkProfileDefine>
-    <ImplicitFrameworkProfileDefine Condition="'$(_SdkShortFrameworkIdentifier)' == 'uap'">WINDOWS_UAP</ImplicitFrameworkProfileDefine>
+    <_SdkImplicitFrameworkProfileDefine Condition="'$(_SdkShortFrameworkIdentifier)' == 'win'">WINDOWS_APP</_SdkImplicitFrameworkProfileDefine>
+    <_SdkImplicitFrameworkProfileDefine Condition="'$(_SdkShortFrameworkIdentifier)' == 'uap'">WINDOWS_UAP</_SdkImplicitFrameworkProfileDefine>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'win' OR '$(TargetFramework)' == 'win8' OR '$(TargetFramework)' == 'win80'">

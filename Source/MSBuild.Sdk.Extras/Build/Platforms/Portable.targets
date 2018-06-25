@@ -1,4 +1,4 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
@@ -6,15 +6,15 @@
 
   <PropertyGroup>
     <!-- Version=v0.0 https://github.com/dotnet/sdk/issues/492 -->
-    <_NuGetTargetVersion>v0.0</_NuGetTargetVersion>
-    <_NuGetTargetVersion Condition="'$(EnableTargetFrameworkVersionForNuGet)' == 'true'">$(TargetFrameworkVersion)</_NuGetTargetVersion>
-    <NugetTargetMoniker>$(TargetFrameworkIdentifier),Version=$(_NuGetTargetVersion),Profile=$(TargetFrameworkProfile)</NugetTargetMoniker>
+    <_SdkNuGetTargetVersion>v0.0</_SdkNuGetTargetVersion>
+    <_SdkNuGetTargetVersion Condition="'$(ExtrasEnableTargetFrameworkVersionForNuGet)' == 'true'">$(TargetFrameworkVersion)</_SdkNuGetTargetVersion>
+    <NugetTargetMoniker>$(TargetFrameworkIdentifier),Version=$(_SdkNuGetTargetVersion),Profile=$(TargetFrameworkProfile)</NugetTargetMoniker>
   </PropertyGroup>
 
   <!-- .NET Portable gets profiles as defines as that's how most people refer to them NET_PORTABLE259, PROFILE259 -->
   <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">
-    <ImplicitFrameworkProfileDefine Condition="'$(_SdkLanguageSourceName)' != 'VisualBasic'">$(TargetFrameworkProfile.ToUpperInvariant());$(ImplicitFrameworkIdentifierDefine)$(TargetFrameworkProfile.Substring('7'))</ImplicitFrameworkProfileDefine>
-    <ImplicitFrameworkProfileDefine Condition="'$(_SdkLanguageSourceName)' == 'VisualBasic'">$(TargetFrameworkProfile.ToUpperInvariant())=-1,$(ImplicitFrameworkIdentifierDefine)$(TargetFrameworkProfile.Substring('7'))=-1</ImplicitFrameworkProfileDefine>
+    <_SdkImplicitFrameworkProfileDefine Condition="'$(_SdkLanguageSourceName)' != 'VisualBasic'">$(TargetFrameworkProfile.ToUpperInvariant());$(ImplicitFrameworkIdentifierDefine)$(TargetFrameworkProfile.Substring('7'))</_SdkImplicitFrameworkProfileDefine>
+    <_SdkImplicitFrameworkProfileDefine Condition="'$(_SdkLanguageSourceName)' == 'VisualBasic'">$(TargetFrameworkProfile.ToUpperInvariant())=-1,$(ImplicitFrameworkIdentifierDefine)$(TargetFrameworkProfile.Substring('7'))=-1</_SdkImplicitFrameworkProfileDefine>
   </PropertyGroup>
 
 </Project>

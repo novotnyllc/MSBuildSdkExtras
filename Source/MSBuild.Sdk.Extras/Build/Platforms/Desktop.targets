@@ -6,7 +6,7 @@
 
   <!-- Add conditional compilation symbols for the target framework (for example NET, CLIENT40, NET40_CLIENT) -->
   <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true' AND '$(TargetFrameworkProfile)' != ''">
-    <ImplicitFrameworkProfileDefine>$(TargetFrameworkProfile.ToUpperInvariant())$(_SdkShortFrameworkVersion)</ImplicitFrameworkProfileDefine>
+    <_SdkImplicitFrameworkProfileDefine>$(TargetFrameworkProfile.ToUpperInvariant())$(_SdkShortFrameworkVersion)</_SdkImplicitFrameworkProfileDefine>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">

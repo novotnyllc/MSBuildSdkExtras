@@ -38,12 +38,12 @@
 
   <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true' AND '$(_SdkLanguageSourceName)' != 'VisualBasic'">
     <DefineConstants Condition="'$(DefineConstants)' != '' AND !$(DefineConstants.EndsWith(';'))">$(DefineConstants);</DefineConstants>
-    <DefineConstants>$(DefineConstants)$(ImplicitFrameworkProfileDefine)</DefineConstants>
+    <DefineConstants>$(DefineConstants)$(_SdkImplicitFrameworkProfileDefine)</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true' AND '$(_SdkLanguageSourceName)' == 'VisualBasic'">
     <FinalDefineConstants Condition="'$(FinalDefineConstants)' != '' AND !$(DefineConstants.EndsWith(','))">$(FinalDefineConstants),</FinalDefineConstants>
-    <FinalDefineConstants Condition="'$(ImplicitFrameworkProfileDefine)' != ''">$(FinalDefineConstants)$(ImplicitFrameworkProfileDefine)=-1</FinalDefineConstants>
+    <FinalDefineConstants Condition="'$(_SdkImplicitFrameworkProfileDefine)' != ''">$(FinalDefineConstants)$(_SdkImplicitFrameworkProfileDefine)=-1</FinalDefineConstants>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
