@@ -1,13 +1,15 @@
 ﻿<Project InitialTargets="_WarnWhenUsingObsoleteProperties" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
-    <EmbeddedResourceGeneratedCodeIsPublic Condition="'$(EmbeddedResourceGeneratorVisibilityIsInternal)' == 'true'">false</EmbeddedResourceGeneratedCodeIsPublic>
-    <EmbeddedResourceGeneratedCodeIsPublic Condition="'$(EmbeddedResourceGeneratorVisibilityIsInternal)' == 'false'">true</EmbeddedResourceGeneratedCodeIsPublic>
+    <ExtrasEmbeddedResourceGeneratedCodeIsPublic Condition="'$(EmbeddedResourceGeneratorVisibilityIsInternal)' == 'true'">false</ExtrasEmbeddedResourceGeneratedCodeIsPublic>
+    <ExtrasEmbeddedResourceGeneratedCodeIsPublic Condition="'$(EmbeddedResourceGeneratorVisibilityIsInternal)' == 'false'">true</ExtrasEmbeddedResourceGeneratedCodeIsPublic>
   </PropertyGroup>
 
   <PropertyGroup>
     <ExtrasIgnoreOldSdkWarning>$(SuppressWarnIfOldSdkPack)</ExtrasIgnoreOldSdkWarning>
     <ExtrasEnableDefaultWpfItems Condition="'$(EnableDefaultWpfItems)' != ''">$(EnableDefaultWpfItems)</ExtrasEnableDefaultWpfItems>
+    <ExtrasEnableDefaultSettingsItems Condition="'$(EnableDefaultSettingsItems)' != ''">$(EnableDefaultSettingsItems)</ExtrasEnableDefaultSettingsItems>
+    <ExtrasEnableEmbeddedResourceCodeGenerator Condition="'$(EnableEmbeddedResourceGenerator)' != ''">$(EnableEmbeddedResourceGenerator)</ExtrasEnableEmbeddedResourceCodeGenerator>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -24,8 +26,10 @@
     <_SdkObsoleteProperty Include="SuppressWarnIfOldSdkPack" Replacement="ExtrasIgnoreOldSdkWarning" Condition="'$(SuppressWarnIfOldSdkPack)' != ''"/>
     <_SdkObsoleteProperty Include="ExtrasUwpMetaPackageVersion" Replacement="ExtrasImplicitPlatformPackageVersion (with TargetFramework condition)" Condition="'$(ExtrasUwpMetaPackageVersion)' != ''"/>
     <_SdkObsoleteProperty Include="ExtrasImplicitPlatformPackageDisabled" Replacement="DisableImplicitFrameworkReferences (with TargetFramework condition)" Condition="'$(ExtrasImplicitPlatformPackageDisabled)' != ''"/>
-    <_SdkObsoleteProperty Include="EmbeddedResourceGeneratorVisibilityIsInternal" Replacement="EmbeddedResourceGeneratedCodeIsPublic" Condition="'$(EmbeddedResourceGeneratorVisibilityIsInternal)' != ''"/>
+    <_SdkObsoleteProperty Include="EmbeddedResourceGeneratorVisibilityIsInternal" Replacement="ExtrasEmbeddedResourceGeneratedCodeIsPublic" Condition="'$(EmbeddedResourceGeneratorVisibilityIsInternal)' != ''"/>
     <_SdkObsoleteProperty Include="EnableDefaultWpfItems" Replacement="ExtrasEnableDefaultWpfItems" Condition="'$(EnableDefaultWpfItems)' != ''"/>
+    <_SdkObsoleteProperty Include="EnableDefaultSettingsItems" Replacement="ExtrasEnableDefaultSettingsItems" Condition="'$(EnableDefaultSettingsItems)' != ''"/>
+    <_SdkObsoleteProperty Include="EnableEmbeddedResourceGenerator" Replacement="ExtrasEnableEmbeddedResourceCodeGenerator" Condition="'$(EnableEmbeddedResourceGenerator)' != ''"/>
   </ItemGroup>
 
     <Warning Text="The property '%(_SdkObsoleteProperty.Identity)' is deprecated and will be removed in the future. Please use '%(_SdkObsoleteProperty.Replacement)' instead."

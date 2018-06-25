@@ -34,13 +34,13 @@
     </Compile>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(EnableDefaultEmbeddedResourceItems)' == 'true' AND '$(EnableEmbeddedResourceCodeGenerator)' == 'true'">
+  <ItemGroup Condition="'$(EnableDefaultEmbeddedResourceItems)' == 'true' AND '$(ExtrasEnableEmbeddedResourceCodeGenerator)' == 'true'">
     <EmbeddedResource Update="**\*.resx">
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(EnableDefaultSettingsItems)' == 'true' AND '$(EnableSettingsCodeGenerator)' == 'true'">
+  <ItemGroup Condition="'$(ExtrasEnableDefaultSettingsItems)' == 'true' AND '$(ExtrasEnableSettingsCodeGenerator)' == 'true'">
     <None Update="**\*.settings">
       <CustomToolNamespace>My</CustomToolNamespace>
     </None>

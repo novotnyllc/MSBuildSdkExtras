@@ -29,7 +29,7 @@
     HACK: WORST HACK IN THE HISTORY OF HACKS!
     TODO: Replace with a more elegant solution without involving RegEx if it's even pssible!
   -->
-  <ItemGroup Condition="'$(EnableDefaultEmbeddedResourceItems)' == 'true' AND '$(EnableEmbeddedResourceCodeGenerator)' == 'true'">
+  <ItemGroup Condition="'$(EnableDefaultEmbeddedResourceItems)' == 'true' AND '$(ExtrasEnableEmbeddedResourceCodeGenerator)' == 'true'">
     <EmbeddedResource Update="**\*.resx">
       <_SdkHasLangId>$([System.Text.RegularExpressions.Regex]::IsMatch('%(FileName)', '$(_SdkLangIdRegEx)'))</_SdkHasLangId>
     </EmbeddedResource>

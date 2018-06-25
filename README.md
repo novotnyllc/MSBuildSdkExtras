@@ -124,7 +124,7 @@ Your project diff:
    | `SuppressWarnIfOldSdkPack`                      | `ExtrasIgnoreOldSdkWarning`                                              |
    | `ExtrasUwpMetaPackageVersion`                   | `ExtrasImplicitPlatformPackageVersion` + `TargetFramework` condition    |
    | `ExtrasImplicitPlatformPackageDisabled`         | `DisableImplicitFrameworkReferences` + `TargetFramework` condition |
-   | `EmbeddedResourceGeneratorVisibilityIsInternal` | opposite of `EmbeddedResourceGeneratedCodeIsPublic`                |
+   | `EmbeddedResourceGeneratorVisibilityIsInternal` | opposite of `ExtrasExtrasEmbeddedResourceGeneratedCodeIsPublic`                |
 
  - Support for WPF and Windows Forms requires an opt-in property to enable:
 Set `ExtrasEnableWpfProjectSetup`/`ExtrasEnableWinFormsProjectSetup` to `true` to include required references and default items.

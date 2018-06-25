@@ -6,13 +6,13 @@
 
   <!-- Desktop Support -->
 
-  <ItemGroup Condition="'$(EnableDefaultSettingsItems)' == 'true'">
+  <ItemGroup Condition="'$(ExtrasEnableDefaultSettingsItems)' == 'true'">
     <None Update="**\*.settings" SubType="Designer">
-      <Generator Condition="'$(EnableSettingsCodeGenerator)' == 'false'">$(ExtrasDefaultGeneratorTool)</Generator>
+      <Generator Condition="'$(ExtrasEnableSettingsCodeGenerator)' == 'false'">$(ExtrasDefaultGeneratorTool)</Generator>
     </None>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(EnableDefaultSettingsItems)' == 'true' AND '$(EnableSettingsCodeGenerator)' == 'true'">
+  <ItemGroup Condition="'$(ExtrasEnableDefaultSettingsItems)' == 'true' AND '$(ExtrasEnableSettingsCodeGenerator)' == 'true'">
     <None Update="**\*.settings">
       <Generator>$(_SdkSettingsCodeGeneratorTool)</Generator>
       <LastGenOutput>%(Filename)$(ExtrasDefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</LastGenOutput>
@@ -40,7 +40,7 @@
   <!-- Windows Forms Support -->
 
   <ItemGroup Condition="'$(ExtrasEnableDefaultWinFormsItems)' == 'true'">
-    <EmbeddedResource Update="**\*.resx" Condition="'$(EnableDefaultEmbeddedResourceItems)' == 'true' AND '$(EnableEmbeddedResourceCodeGenerator)' == 'true'">
+    <EmbeddedResource Update="**\*.resx" Condition="'$(EnableDefaultEmbeddedResourceItems)' == 'true' AND '$(ExtrasEnableEmbeddedResourceCodeGenerator)' == 'true'">
       <DependentUpon Condition="'%(DependentUpon)' == '' AND Exists('%(ResursiveDir)%(Filename)$(DefaultLanguageSourceExtension)')">%(Filename)$(DefaultLanguageSourceExtension)</DependentUpon>
     </EmbeddedResource>
     <!--

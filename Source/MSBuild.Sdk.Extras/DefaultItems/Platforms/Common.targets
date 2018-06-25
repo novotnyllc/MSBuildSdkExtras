@@ -9,20 +9,20 @@
     <ExtrasDefaultDesignerFileSuffix Condition="'$(ExtrasDefaultDesignerFileSuffix)' == ''">.Designer</ExtrasDefaultDesignerFileSuffix>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(EnableEmbeddedResourceCodeGenerator)' == ''">
-    <EnableEmbeddedResourceCodeGenerator Condition="'$(_SdkLanguageSourceName)' == 'CSharp'">true</EnableEmbeddedResourceCodeGenerator>
-    <EnableEmbeddedResourceCodeGenerator Condition="'$(_SdkLanguageSourceName)' == 'VisualBasic'">true</EnableEmbeddedResourceCodeGenerator>
-    <EnableEmbeddedResourceCodeGenerator Condition="'$(EnableEmbeddedResourceCodeGenerator)' == ''">false</EnableEmbeddedResourceCodeGenerator>
+  <PropertyGroup Condition="'$(ExtrasEnableEmbeddedResourceCodeGenerator)' == ''">
+    <ExtrasEnableEmbeddedResourceCodeGenerator Condition="'$(_SdkLanguageSourceName)' == 'CSharp'">true</ExtrasEnableEmbeddedResourceCodeGenerator>
+    <ExtrasEnableEmbeddedResourceCodeGenerator Condition="'$(_SdkLanguageSourceName)' == 'VisualBasic'">true</ExtrasEnableEmbeddedResourceCodeGenerator>
+    <ExtrasEnableEmbeddedResourceCodeGenerator Condition="'$(ExtrasEnableEmbeddedResourceCodeGenerator)' == ''">false</ExtrasEnableEmbeddedResourceCodeGenerator>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(EnableEmbeddedResourceCodeGenerator)' == 'true' AND '$(_SdkLanguageSourceName)' == 'CSharp'">
-    <_SdkEmbeddedResourceCodeGeneratorTool Condition="'$(EmbeddedResourceGeneratedCodeIsPublic)' != 'true'">ResXFileCodeGenerator</_SdkEmbeddedResourceCodeGeneratorTool>
-    <_SdkEmbeddedResourceCodeGeneratorTool Condition="'$(EmbeddedResourceGeneratedCodeIsPublic)' == 'true'">PublicResXFileCodeGenerator</_SdkEmbeddedResourceCodeGeneratorTool>
+  <PropertyGroup Condition="'$(ExtrasEnableEmbeddedResourceCodeGenerator)' == 'true' AND '$(_SdkLanguageSourceName)' == 'CSharp'">
+    <_SdkEmbeddedResourceCodeGeneratorTool Condition="'$(ExtrasEmbeddedResourceGeneratedCodeIsPublic)' != 'true'">ResXFileCodeGenerator</_SdkEmbeddedResourceCodeGeneratorTool>
+    <_SdkEmbeddedResourceCodeGeneratorTool Condition="'$(ExtrasEmbeddedResourceGeneratedCodeIsPublic)' == 'true'">PublicResXFileCodeGenerator</_SdkEmbeddedResourceCodeGeneratorTool>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(EnableEmbeddedResourceCodeGenerator)' == 'true' AND '$(_SdkLanguageSourceName)' == 'VisualBasic'">
-    <_SdkEmbeddedResourceCodeGeneratorTool Condition="'$(EmbeddedResourceGeneratedCodeIsPublic)' != 'true'">VbMyResourcesResXFileCodeGenerator</_SdkEmbeddedResourceCodeGeneratorTool>
-    <_SdkEmbeddedResourceCodeGeneratorTool Condition="'$(EmbeddedResourceGeneratedCodeIsPublic)' == 'true'">PublicVbMyResourcesResXFileCodeGenerator</_SdkEmbeddedResourceCodeGeneratorTool>
+  <PropertyGroup Condition="'$(ExtrasEnableEmbeddedResourceCodeGenerator)' == 'true' AND '$(_SdkLanguageSourceName)' == 'VisualBasic'">
+    <_SdkEmbeddedResourceCodeGeneratorTool Condition="'$(ExtrasEmbeddedResourceGeneratedCodeIsPublic)' != 'true'">VbMyResourcesResXFileCodeGenerator</_SdkEmbeddedResourceCodeGeneratorTool>
+    <_SdkEmbeddedResourceCodeGeneratorTool Condition="'$(ExtrasEmbeddedResourceGeneratedCodeIsPublic)' == 'true'">PublicVbMyResourcesResXFileCodeGenerator</_SdkEmbeddedResourceCodeGeneratorTool>
   </PropertyGroup>
 
 </Project>
