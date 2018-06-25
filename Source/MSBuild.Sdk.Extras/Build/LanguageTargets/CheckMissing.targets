@@ -1,4 +1,4 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
@@ -11,9 +11,9 @@
   <!-- Import the fallback targets so the NuGet restore succeeds -->
   <Import Project="$(_SdkFallbackLanguageTargets)" Condition="Exists('$(_SdkFallbackLanguageTargets)')"/>
 
-  <Target Name="_ShowMissingLanguageTargetsError" BeforeTargets="_CheckForUnsupportedTargetFramework" Condition="'$(_IgnoreMissingLanguageTargetsError)' != 'true'">
-    <Error Condition="'$(_ShortFrameworkIdentifier)' != 'portable'" Text="The specified language targets for $(TargetFramework) is missing. Ensure correct tooling is installed for '$(_ShortFrameworkIdentifier)'"/>
-    <Error Condition="'$(_ShortFrameworkIdentifier)' == 'portable'" Text="The specified TFM '$(TargetFramework)' is not valid. Check that it's a valid combination: https://portablelibraryprofiles.stephencleary.com/"/>
+  <Target Name="_ShowMissingLanguageTargetsError" BeforeTargets="_CheckForUnsupportedTargetFramework" Condition="'$(_SdkIgnoreMissingLanguageTargetsError)' != 'true'">
+    <Error Condition="'$(_SdkShortFrameworkIdentifier)' != 'portable'" Text="The specified language targets for $(TargetFramework) is missing. Ensure correct tooling is installed for '$(_SdkShortFrameworkIdentifier)'"/>
+    <Error Condition="'$(_SdkShortFrameworkIdentifier)' == 'portable'" Text="The specified TFM '$(TargetFramework)' is not valid. Check that it's a valid combination: https://portablelibraryprofiles.stephencleary.com/"/>
   </Target>
 
 </Project>

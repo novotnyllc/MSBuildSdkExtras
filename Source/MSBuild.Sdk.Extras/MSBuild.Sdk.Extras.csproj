@@ -12,6 +12,4 @@
     <Description>An MSBuild SDK package for SDK-style .NET projects that has additional properties and targets which extends `Microsoft.NET.Sdk`.</Description>
   </PropertyGroup>
 
-  <Import Project="$(CustomBeforeSdkTargets)"/>
-
 </Project>

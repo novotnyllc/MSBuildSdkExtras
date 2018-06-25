@@ -1,10 +1,9 @@
-<Project Sdk="MSBuild.Sdk.Extras">
+﻿<Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net45</TargetFramework>
     <MyType>Console</MyType>
-    <ProjectGuid>{F93B809B-BC8B-4366-B4FA-466E1E2B4059}</ProjectGuid>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -13,11 +12,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="System.ServiceProcess"/>
+    <Reference Include="System.ServiceProcess" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Framework-Library\Framework-Library.vbproj"/>
+    <ProjectReference Include="..\Framework-Library\Framework-Library.vbproj" />
   </ItemGroup>
 
 </Project>

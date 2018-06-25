@@ -1,0 +1,36 @@
+﻿<Project InitialTargets="_WarnWhenUsingObsoleteProperties" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <EmbeddedResourceGeneratedCodeIsPublic Condition="'$(EmbeddedResourceGeneratorVisibilityIsInternal)' == 'true'">false</EmbeddedResourceGeneratedCodeIsPublic>
+    <EmbeddedResourceGeneratedCodeIsPublic Condition="'$(EmbeddedResourceGeneratorVisibilityIsInternal)' == 'false'">true</EmbeddedResourceGeneratedCodeIsPublic>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <ExtrasIgnoreOldSdkWarning>$(SuppressWarnIfOldSdkPack)</ExtrasIgnoreOldSdkWarning>
+    <ExtrasEnableDefaultWpfItems Condition="'$(EnableDefaultWpfItems)' != ''">$(EnableDefaultWpfItems)</ExtrasEnableDefaultWpfItems>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <ExtrasImplicitPlatformPackageVersion Condition="'$(_SdkShortFrameworkIdentifier)' == 'uap' and '$(ExtrasUwpMetaPackageVersion)' != '' ">$(ExtrasUwpMetaPackageVersion)</ExtrasImplicitPlatformPackageVersion>
+    <DisableImplicitFrameworkReferences Condition=" '$(ExtrasImplicitPlatformPackageDisabled)' != '' and ('$(_SdkShortFrameworkIdentifier)' == 'uap' OR '$(_SdkShortFrameworkIdentifier)' == 'tizen') ">$(ExtrasImplicitPlatformPackageDisabled)</DisableImplicitFrameworkReferences>
+  </PropertyGroup>
+
+  <Target
+    Name="_WarnWhenUsingObsoleteProperties"
+    BeforeTargets="_CheckForInvalidConfigurationAndPlatform"
+    Condition="'$(_IgnoreObsoletePropertyWarnings)' != 'true'">
+
+  <ItemGroup>
+    <_SdkObsoleteProperty Include="SuppressWarnIfOldSdkPack" Replacement="ExtrasIgnoreOldSdkWarning" Condition="'$(SuppressWarnIfOldSdkPack)' != ''"/>
+    <_SdkObsoleteProperty Include="ExtrasUwpMetaPackageVersion" Replacement="ExtrasImplicitPlatformPackageVersion (with TargetFramework condition)" Condition="'$(ExtrasUwpMetaPackageVersion)' != ''"/>
+    <_SdkObsoleteProperty Include="ExtrasImplicitPlatformPackageDisabled" Replacement="DisableImplicitFrameworkReferences (with TargetFramework condition)" Condition="'$(ExtrasImplicitPlatformPackageDisabled)' != ''"/>
+    <_SdkObsoleteProperty Include="EmbeddedResourceGeneratorVisibilityIsInternal" Replacement="EmbeddedResourceGeneratedCodeIsPublic" Condition="'$(EmbeddedResourceGeneratorVisibilityIsInternal)' != ''"/>
+    <_SdkObsoleteProperty Include="EnableDefaultWpfItems" Replacement="ExtrasEnableDefaultWpfItems" Condition="'$(EnableDefaultWpfItems)' != ''"/>
+  </ItemGroup>
+
+    <Warning Text="The property '%(_SdkObsoleteProperty.Identity)' is deprecated and will be removed in the future. Please use '%(_SdkObsoleteProperty.Replacement)' instead."
+            Condition="'%(_SdkObsoleteProperty.Replacement)' != ''"/>
+
+  </Target>
+
+</Project>

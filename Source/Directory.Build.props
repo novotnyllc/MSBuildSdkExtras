@@ -1,18 +1,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <Import Project="$(MSBuildThisFileDirectory)..\$(MSBuildThisFile)"/>
 
-  <Import Project="$(BuildToolsPath)MSBuild.OutputPaths.props" Label="OutputPaths"/>
-
-  <PropertyGroup Label="Output">
-    <PublishFolder>~Packages</PublishFolder>
-  </PropertyGroup>
-
-  <PropertyGroup Label="OutputPaths">
-    <CustomBeforeSdkTargets>$(BuildToolsPath)MSBuild.OutputPaths.targets</CustomBeforeSdkTargets>
-  </PropertyGroup>
-
-  <Import Project="$(BuildToolsPath)MSBuild.Packaging.props"/>
+  <Import Project="..\Tools\MSBuild.Packaging.props"/>
 
   <PropertyGroup Label="PackageInfo">
     <Authors>Oren Novotny</Authors>

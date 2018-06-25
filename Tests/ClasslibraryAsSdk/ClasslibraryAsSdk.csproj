@@ -1,0 +1,20 @@
+﻿<Project>
+
+	<Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\Sdk\Sdk.props" />
+
+	<PropertyGroup>
+		<!--<TargetFramework>uap10.0</TargetFramework>-->
+		<!--<TargetFrameworks>uap10.0;uap10.0.16278;monoandroid70;xamarin.ios10;xamarin.mac20</TargetFrameworks>-->
+    <TargetFrameworks>uap10.0;uap10.0.16299;monoandroid70;xamarin.ios10;xamarin.mac20;tizen40</TargetFrameworks>
+    <IsPackable>false</IsPackable>
+	</PropertyGroup>
+
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'xamarin.mac20'">
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\Sdk\Sdk.targets" />
+	<Import Project="..\Test.targets" />
+
+</Project>

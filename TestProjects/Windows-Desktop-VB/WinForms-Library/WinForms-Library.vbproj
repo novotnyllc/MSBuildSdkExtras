@@ -1,12 +1,11 @@
-<Project Sdk="MSBuild.Sdk.Extras">
+﻿<Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
     <TargetFramework>net45</TargetFramework>
-    <EnableWinFormsProjectSetup>true</EnableWinFormsProjectSetup>
-    <EnableUserControlDesigner>true</EnableUserControlDesigner>
+    <ExtrasEnableWinFormsProjectSetup>true</ExtrasEnableWinFormsProjectSetup>
+    <ExtrasEnableUserControlDesigner>true</ExtrasEnableUserControlDesigner>
     <MyType>Windows</MyType>
     <DefineConstants>_MYFORMS=True</DefineConstants>
-    <ProjectGuid>{FF55A1DF-39A3-447C-8461-FA360CA293DC}</ProjectGuid>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -15,7 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Framework-Library\Framework-Library.vbproj"/>
+    <ProjectReference Include="..\Framework-Library\Framework-Library.vbproj" />
   </ItemGroup>
 
 </Project>

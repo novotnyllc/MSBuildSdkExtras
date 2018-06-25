@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <_SdkLanguageTargets>$(_SdkMSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(_LanguageSourceName).targets</_SdkLanguageTargets>
+    <_SdkLanguageTargets>$(_SdkMSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(_SdkLanguageSourceName).targets</_SdkLanguageTargets>
     <_SdkLanguageOverridesTargets>$(_SdkMSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets</_SdkLanguageOverridesTargets>
   </PropertyGroup>
 

@@ -1,28 +1,28 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
   <PropertyGroup>
-    <DefaultGeneratorTool Condition="'$(DefaultGeneratorTool)' == ''">MSBuild:Compile</DefaultGeneratorTool>
-    <DefaultDesignerFileSuffix Condition="'$(DefaultDesignerFileSuffix)' == ''">.Designer</DefaultDesignerFileSuffix>
+    <ExtrasDefaultGeneratorTool Condition="'$(ExtrasDefaultGeneratorTool)' == ''">MSBuild:Compile</ExtrasDefaultGeneratorTool>
+    <ExtrasDefaultDesignerFileSuffix Condition="'$(ExtrasDefaultDesignerFileSuffix)' == ''">.Designer</ExtrasDefaultDesignerFileSuffix>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(EnableEmbeddedResourceCodeGenerator)' == ''">
-    <EnableEmbeddedResourceCodeGenerator Condition="'$(_LanguageSourceName)' == 'CSharp'">true</EnableEmbeddedResourceCodeGenerator>
-    <EnableEmbeddedResourceCodeGenerator Condition="'$(_LanguageSourceName)' == 'VisualBasic'">true</EnableEmbeddedResourceCodeGenerator>
+    <EnableEmbeddedResourceCodeGenerator Condition="'$(_SdkLanguageSourceName)' == 'CSharp'">true</EnableEmbeddedResourceCodeGenerator>
+    <EnableEmbeddedResourceCodeGenerator Condition="'$(_SdkLanguageSourceName)' == 'VisualBasic'">true</EnableEmbeddedResourceCodeGenerator>
     <EnableEmbeddedResourceCodeGenerator Condition="'$(EnableEmbeddedResourceCodeGenerator)' == ''">false</EnableEmbeddedResourceCodeGenerator>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(EnableEmbeddedResourceCodeGenerator)' == 'true' AND '$(_LanguageSourceName)' == 'CSharp'">
-    <EmbeddedResourceCodeGeneratorTool Condition="'$(EmbeddedResourceGeneratedCodeIsPublic)' != 'true'">ResXFileCodeGenerator</EmbeddedResourceCodeGeneratorTool>
-    <EmbeddedResourceCodeGeneratorTool Condition="'$(EmbeddedResourceGeneratedCodeIsPublic)' == 'true'">PublicResXFileCodeGenerator</EmbeddedResourceCodeGeneratorTool>
+  <PropertyGroup Condition="'$(EnableEmbeddedResourceCodeGenerator)' == 'true' AND '$(_SdkLanguageSourceName)' == 'CSharp'">
+    <_SdkEmbeddedResourceCodeGeneratorTool Condition="'$(EmbeddedResourceGeneratedCodeIsPublic)' != 'true'">ResXFileCodeGenerator</_SdkEmbeddedResourceCodeGeneratorTool>
+    <_SdkEmbeddedResourceCodeGeneratorTool Condition="'$(EmbeddedResourceGeneratedCodeIsPublic)' == 'true'">PublicResXFileCodeGenerator</_SdkEmbeddedResourceCodeGeneratorTool>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(EnableEmbeddedResourceCodeGenerator)' == 'true' AND '$(_LanguageSourceName)' == 'VisualBasic'">
-    <EmbeddedResourceCodeGeneratorTool Condition="'$(EmbeddedResourceGeneratedCodeIsPublic)' != 'true'">VbMyResourcesResXFileCodeGenerator</EmbeddedResourceCodeGeneratorTool>
-    <EmbeddedResourceCodeGeneratorTool Condition="'$(EmbeddedResourceGeneratedCodeIsPublic)' == 'true'">PublicVbMyResourcesResXFileCodeGenerator</EmbeddedResourceCodeGeneratorTool>
+  <PropertyGroup Condition="'$(EnableEmbeddedResourceCodeGenerator)' == 'true' AND '$(_SdkLanguageSourceName)' == 'VisualBasic'">
+    <_SdkEmbeddedResourceCodeGeneratorTool Condition="'$(EmbeddedResourceGeneratedCodeIsPublic)' != 'true'">VbMyResourcesResXFileCodeGenerator</_SdkEmbeddedResourceCodeGeneratorTool>
+    <_SdkEmbeddedResourceCodeGeneratorTool Condition="'$(EmbeddedResourceGeneratedCodeIsPublic)' == 'true'">PublicVbMyResourcesResXFileCodeGenerator</_SdkEmbeddedResourceCodeGeneratorTool>
   </PropertyGroup>
 
 </Project>

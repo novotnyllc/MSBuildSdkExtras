@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <CustomAfterMicrosoftCommonTargets>$(MSBuildThisFileDirectory)..\Build\MSBuild.NET.Workarounds.targets</CustomAfterMicrosoftCommonTargets>
+    <CustomAfterMicrosoftCommonTargets>$(MSBuildThisFileDirectory)..\Build\Workarounds.targets</CustomAfterMicrosoftCommonTargets>
   </PropertyGroup>
 
-  <Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.NET.Extras.Sdk.targets"/>
-  <Import Project="$(MSBuildThisFileDirectory)..\DefaultItems\MSBuild.NET.ImplicitPackages.targets"/>
+  <Import Project="$(MSBuildThisFileDirectory)..\Build\Core.targets"/>
+  <Import Project="$(MSBuildThisFileDirectory)..\DefaultItems\ImplicitPackages.targets"/>
 
   <Import Project="$(CustomBeforeSdkTargets)" Condition="'$(CustomBeforeSdkTargets)' != ''"/>
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk"/>

@@ -5,12 +5,12 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <CustomBeforeMicrosoftCommonProps>$(MSBuildThisFileDirectory)..\Build\MSBuild.NET.Workarounds.props</CustomBeforeMicrosoftCommonProps>
+    <CustomBeforeMicrosoftCommonProps>$(MSBuildThisFileDirectory)..\Build\Workarounds.props</CustomBeforeMicrosoftCommonProps>
   </PropertyGroup>
 
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk"/>
 
-  <Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.NET.Extras.Sdk.props"/>
-  <Import Project="$(MSBuildThisFileDirectory)..\DefaultItems\MSBuild.NET.ImplicitPackages.props"/>
+  <Import Project="$(MSBuildThisFileDirectory)..\Build\Core.props"/>
+  <Import Project="$(MSBuildThisFileDirectory)..\DefaultItems\ImplicitPackages.props"/>
 
 </Project>

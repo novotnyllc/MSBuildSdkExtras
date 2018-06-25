@@ -1,18 +1,5 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <Import Project="$(MSBuildThisFileDirectory)..\$(MSBuildThisFile)"/>
-
-  <PropertyGroup Label="Output">
-    <BuildPath>$(SolutionDir)</BuildPath>
-    <PublishPath>$(SolutionDir)</PublishPath>
-  </PropertyGroup>
-
-  <Import Project="$(BuildToolsPath)MSBuild.OutputPaths.props" Label="OutputPaths"/>
-
-  <PropertyGroup Label="OutputPaths">
-    <CustomBeforeSdkTargets>$(BuildToolsPath)MSBuild.OutputPaths.targets</CustomBeforeSdkTargets>
-  </PropertyGroup>
-
   <PropertyGroup Condition="$(MSBuildProjectName.Contains('-'))">
     <AssemblyName>$(MSBuildProjectName.Replace('-', '_'))</AssemblyName>
     <RootNamespace>$(MSBuildProjectName.Replace('-', '_'))</RootNamespace>

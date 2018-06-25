@@ -1,0 +1,59 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <Choose>
+    <When Condition="'$(MSBuildProjectExtension)' == '.csproj'">
+      <PropertyGroup>
+        <_SdkLanguageSourceName>CSharp</_SdkLanguageSourceName>
+        <_SdkLanguageExtension>.cs</_SdkLanguageExtension>
+      </PropertyGroup>
+    </When>
+
+    <When Condition="'$(MSBuildProjectExtension)' == '.vbproj'">
+      <PropertyGroup>
+        <_SdkLanguageSourceName>VisualBasic</_SdkLanguageSourceName>
+        <_SdkLanguageExtension>.vb</_SdkLanguageExtension>
+      </PropertyGroup>
+    </When>
+
+    <When Condition="'$(MSBuildProjectExtension)' == '.fsproj'">
+      <PropertyGroup>
+        <_SdkLanguageSourceName>FSharp</_SdkLanguageSourceName>
+        <_SdkLanguageExtension>.fs</_SdkLanguageExtension>
+      </PropertyGroup>
+    </When>
+
+  </Choose>
+
+  <PropertyGroup>
+    <DefaultLanguage Condition="'$(DefaultLanguage)' == ''">en-US</DefaultLanguage>
+    <SupportedCultures Condition="'$(SupportedCultures)' == ''">$(DefaultLanguage)</SupportedCultures>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == '' OR '$(VisualStudioVersion)' &lt; '14.0'">15.0</VisualStudioVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(AppDesignerFolder)' == ''">
+    <AppDesignerFolder Condition="'$(_SdkLanguageSourceName)' != 'VisualBasic'">Properties</AppDesignerFolder>
+    <AppDesignerFolder Condition="'$(_SdkLanguageSourceName)' == 'VisualBasic'">My Project</AppDesignerFolder>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(IncrementalBuild)' == '' AND '$(_SdkLanguageSourceName)' == 'VisualBasic'">
+    <IncrementalBuild Condition="'$(Configuration)' == 'Debug'">true</IncrementalBuild>
+    <IncrementalBuild Condition="'$(Configuration)' == 'Release'">false</IncrementalBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(_SdkLanguageSourceName)' == 'VisualBasic'">
+    <NoWarn Condition="'$(NoWarn)' != ''">$(NoWarn),42314</NoWarn>
+    <!--  Default: '-vbruntime:+', None: '-vbruntime:-', Embed: '-vbruntime:*' -->
+    <VBRuntime Condition="'$(VBRuntime)' == 'Embed'">Default</VBRuntime>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)..\DefaultItems\DefaultItems.props"/>
+  <Import Project="$(MSBuildThisFileDirectory)..\ProjectSystem\ProjectSystem.props"/>
+
+</Project>

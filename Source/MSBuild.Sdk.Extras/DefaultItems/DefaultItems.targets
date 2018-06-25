@@ -1,0 +1,22 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(_IsXamarinPlatform)' == ''">
+    <_IsXamarinPlatform Condition="$(TargetFrameworkIdentifier.StartsWith('Xamarin'))">true</_IsXamarinPlatform>
+    <_IsXamarinPlatform Condition="'$(TargetFrameworkIdentifier)' == 'MonoAndroid' OR '$(TargetFrameworkIdentifier)' == 'MonoTouch' OR '$(TargetFrameworkIdentifier)' == 'MonoMac'">true</_IsXamarinPlatform>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)Platforms\Common.targets"/>
+
+  <ImportGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
+    <Import Project="$(MSBuildThisFileDirectory)Platforms\Desktop.targets"/>
+    <Import Project="$(MSBuildThisFileDirectory)Platforms\Desktop.$(_SdkLanguageSourceName).targets" Condition="Exists('$(MSBuildThisFileDirectory)Platforms\Desktop.$(_SdkLanguageSourceName).targets')"/>
+  </ImportGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)Platforms\Xaml.targets" Condition="'$(ExtrasEnableDefaultXamlItems)' == 'true' AND '$(_IsXamarinPlatform)' != 'true'"/>
+
+
+</Project>

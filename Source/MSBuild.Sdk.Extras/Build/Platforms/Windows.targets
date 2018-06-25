@@ -1,4 +1,4 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
@@ -6,8 +6,8 @@
 
   <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">
     <ImplicitFrameworkIdentifierDefine>NETFX_CORE</ImplicitFrameworkIdentifierDefine>
-    <ImplicitFrameworkProfileDefine Condition="$(TargetFramework.StartsWith('win'))">WINDOWS_APP</ImplicitFrameworkProfileDefine>
-    <ImplicitFrameworkProfileDefine Condition="$(TargetFramework.StartsWith('uap'))">WINDOWS_UAP</ImplicitFrameworkProfileDefine>
+    <_SdkImplicitFrameworkProfileDefine Condition="'$(_SdkShortFrameworkIdentifier)' == 'win'">WINDOWS_APP</_SdkImplicitFrameworkProfileDefine>
+    <_SdkImplicitFrameworkProfileDefine Condition="'$(_SdkShortFrameworkIdentifier)' == 'uap'">WINDOWS_UAP</_SdkImplicitFrameworkProfileDefine>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'win' OR '$(TargetFramework)' == 'win8' OR '$(TargetFramework)' == 'win80'">
@@ -37,25 +37,25 @@
     <ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">WINDOWS_PHONE_APP</ImplicitFrameworkDefine>
   </PropertyGroup>
 
-  <PropertyGroup Condition="$(TargetFramework.StartsWith('uap10.0'))">
+  <PropertyGroup Condition="'$(_SdkShortFrameworkIdentifier)' == 'uap'">
     <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
 
+
+    <!-- Only set for the 10.0 version -->
+    <NugetTargetMoniker Condition="'$(_SdkShortFrameworkVersion)' == '10.0'">UAP,Version=v10.0</NugetTargetMoniker>
+    
+
     <!-- Calculate defaults based on 10.0 or specific version based on TFM to handle uap10.0, uap10.0.10240, etc -->
-    <TargetPlatformVersion Condition="'$(TargetPlatformVersion)' == '' AND '$(_ShortFrameworkVersion)' == '10.0'">10.0.17134.0</TargetPlatformVersion>
-    <TargetPlatformVersion Condition="'$(TargetPlatformVersion)' == ''">$([System.Version]::Parse('$(_ShortFrameworkVersion)')).0</TargetPlatformVersion>
-    <TargetPlatformMinVersion Condition="'$(TargetPlatformMinVersion)' == '' AND '$(_ShortFrameworkVersion)' == '10.0'">10.0.10240.0</TargetPlatformMinVersion>
-    <TargetPlatformMinVersion Condition="'$(TargetPlatformMinVersion)' == ''">$([System.Version]::Parse('$(_ShortFrameworkVersion)')).0</TargetPlatformMinVersion>
+    <TargetPlatformVersion Condition="'$(TargetPlatformVersion)' == '' AND '$(_SdkShortFrameworkVersion)' == '10.0'">10.0.17134.0</TargetPlatformVersion>
+    <TargetPlatformVersion Condition="'$(TargetPlatformVersion)' == ''">$([System.Version]::Parse('$(_SdkShortFrameworkVersion)')).0</TargetPlatformVersion>
+    <TargetPlatformMinVersion Condition="'$(TargetPlatformMinVersion)' == '' AND '$(_SdkShortFrameworkVersion)' == '10.0'">10.0.15063.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion Condition="'$(TargetPlatformMinVersion)' == ''">$([System.Version]::Parse('$(_SdkShortFrameworkVersion)')).0</TargetPlatformMinVersion>
 
     <!-- Need to override the built-in implicit defines for UAP (WINDOWS10_10240) or it'll be NETCORE5_0 -->
     <ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">WINDOWS10_$(TargetPlatformMinVersion.Split('.')[2])</ImplicitFrameworkDefine>
 
     <CopyLocalLockFileAssemblies Condition="'$(CopyLocalLockFileAssemblies)' == ''">false</CopyLocalLockFileAssemblies>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <NugetTargetMoniker>$(TargetPlatformIdentifier),Version=v$(TargetPlatformVersion)</NugetTargetMoniker>
-    <NugetTargetMoniker Condition="$(TargetFramework.StartsWith('uap10.0'))">$(TargetPlatformIdentifier),Version=v$(_ShortFrameworkVersion)</NugetTargetMoniker>
   </PropertyGroup>
 
 </Project>

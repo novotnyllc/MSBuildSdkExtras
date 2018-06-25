@@ -1,4 +1,4 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
@@ -8,12 +8,12 @@
     USER Side Props: AssemblyName, RootNamespace, SilverlightAppEntry, CopyNuGetImplementations, SilverlightManifestTemplate
    -->
 
-  <PropertyGroup Condition="$(TargetFramework.StartsWith('wp8'))">
+  <PropertyGroup Condition="'$(_SdkShortFrameworkIdentifier)' == 'wp' and $(TargetFramework.StartsWith('wp8'))">
     <TargetFrameworkProfile/>
     <SilverlightVersion Condition="'$(SilverlightVersion)' == ''">$(TargetFrameworkVersion)</SilverlightVersion>
   </PropertyGroup>
 
-  <PropertyGroup Condition="$(TargetFramework.StartsWith('wp7'))">
+  <PropertyGroup Condition="'$(_SdkShortFrameworkIdentifier)' == 'wp' and $(TargetFramework.StartsWith('wp7'))">
     <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
     <TargetFrameworkProfile Condition="'$(TargetFrameworkVersion)' == 'v7.0'">WindowsPhone</TargetFrameworkProfile>
     <TargetFrameworkProfile Condition="'$(TargetFrameworkVersion)' == 'v7.1'">WindowsPhone71</TargetFrameworkProfile>
@@ -33,9 +33,9 @@
 
   <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">
     <!-- Need to override the built-in implicit defines for Windows Phone 8.x -->
-    <ImplicitFrameworkDefine>WINDOWS_PHONE_$(_ShortFrameworkVersion)</ImplicitFrameworkDefine>
+    <ImplicitFrameworkDefine>WINDOWS_PHONE_$(_SdkShortFrameworkVersion)</ImplicitFrameworkDefine>
     <ImplicitFrameworkIdentifierDefine>SILVERLIGHT</ImplicitFrameworkIdentifierDefine>
-    <ImplicitFrameworkProfileDefine>WINDOWS_PHONE</ImplicitFrameworkProfileDefine>
+    <_SdkImplicitFrameworkProfileDefine>WINDOWS_PHONE</_SdkImplicitFrameworkProfileDefine>
   </PropertyGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
@@ -14,23 +14,23 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <EnableDefaultPageItems Condition="'$(EnableDefaultPageItems)' == ''">true</EnableDefaultPageItems>
-    <EnableDefaultResourceItems Condition="'$(EnableDefaultResourceItems)' == ''">true</EnableDefaultResourceItems>
+    <ExtrasEnableDefaultPageItems Condition="'$(ExtrasEnableDefaultPageItems)' == ''">true</ExtrasEnableDefaultPageItems>
+    <ExtrasEnableDefaultResourceItems Condition="'$(ExtrasEnableDefaultResourceItems)' == ''">true</ExtrasEnableDefaultResourceItems>
 
-    <DefaultResourceIncludes Condition="'$(DefaultResourceIncludes)' == ''">Themes\*.xaml;Resources\*.xaml</DefaultResourceIncludes>
-    <DefaultPageExcludes Condition="'$(DefaultPageExcludes)' != ''">$(ApplicationDefinitionFile);$(DefaultResourceIncludes);$(DefaultPageExcludes)</DefaultPageExcludes>
-    <DefaultPageExcludes Condition="'$(DefaultPageExcludes)' == ''">$(ApplicationDefinitionFile);$(DefaultResourceIncludes)</DefaultPageExcludes>
+    <ExtrasDefaultResourceIncludes Condition="'$(ExtrasDefaultResourceIncludes)' == ''">Themes\*.xaml;Resources\*.xaml</ExtrasDefaultResourceIncludes>
+    <ExtrasDefaultPageExcludes Condition="'$(ExtrasDefaultPageExcludes)' != ''">$(ApplicationDefinitionFile);$(ExtrasDefaultResourceIncludes);$(ExtrasDefaultPageExcludes)</ExtrasDefaultPageExcludes>
+    <ExtrasDefaultPageExcludes Condition="'$(ExtrasDefaultPageExcludes)' == ''">$(ApplicationDefinitionFile);$(ExtrasDefaultResourceIncludes)</ExtrasDefaultPageExcludes>
 
-    <EnableXamlCodeGenerator Condition="'$(EnableXamlCodeGenerator)' == ''">false</EnableXamlCodeGenerator>
-    <EnableXamlIntelliSenseGenerator Condition="'$(EnableXamlIntelliSenseGenerator)' == ''">false</EnableXamlIntelliSenseGenerator>
+    <ExtrasEnableXamlCodeGenerator Condition="'$(ExtrasEnableXamlCodeGenerator)' == ''">false</ExtrasEnableXamlCodeGenerator>
+    <ExtrasEnableXamlIntelliSenseGenerator Condition="'$(ExtrasEnableXamlIntelliSenseGenerator)' == ''">false</ExtrasEnableXamlIntelliSenseGenerator>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(EnableXamlCodeGenerator)' == 'true'">
-    <XamlCodeGeneratorTool Condition="'$(XamlCodeGeneratorTool)' == ''">$(DefaultGeneratorTool)</XamlCodeGeneratorTool>
+  <PropertyGroup Condition="'$(ExtrasEnableXamlCodeGenerator)' == 'true'">
+    <ExtrasXamlCodeGeneratorTool Condition="'$(ExtrasXamlCodeGeneratorTool)' == ''">$(ExtrasDefaultGeneratorTool)</ExtrasXamlCodeGeneratorTool>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(EnableXamlIntelliSenseGenerator)' == 'true'">
-    <XamlIntelliSenseGeneratorTool Condition="'$(XamlIntelliSenseGeneratorTool)' == ''">XamlIntelliSenseFileGenerator</XamlIntelliSenseGeneratorTool>
+  <PropertyGroup Condition="'$(ExtrasEnableXamlIntelliSenseGenerator)' == 'true'">
+    <ExtrasXamlIntelliSenseGeneratorTool Condition="'$(ExtrasXamlIntelliSenseGeneratorTool)' == ''">XamlIntelliSenseFileGenerator</ExtrasXamlIntelliSenseGeneratorTool>
   </PropertyGroup>
 
   <!--

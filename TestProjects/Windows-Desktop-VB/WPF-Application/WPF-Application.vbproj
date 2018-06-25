@@ -1,11 +1,10 @@
-<Project Sdk="MSBuild.Sdk.Extras">
+﻿<Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net45</TargetFramework>
-    <EnableWpfProjectSetup>true</EnableWpfProjectSetup>
+    <ExtrasEnableWpfProjectSetup>true</ExtrasEnableWpfProjectSetup>
     <MyType>Custom</MyType>
-    <ProjectGuid>{5A1DCB97-FBE7-43DF-B037-041938723283}</ProjectGuid>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -14,7 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WPF-Library\WPF-Library.vbproj"/>
+    <ProjectReference Include="..\WPF-Library\WPF-Library.vbproj" />
   </ItemGroup>
 
 </Project>

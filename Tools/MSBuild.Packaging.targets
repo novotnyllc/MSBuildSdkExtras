@@ -37,6 +37,7 @@
   <!-- This property must be overridden to remove a few targets that compile assemblies -->
   <PropertyGroup Condition="'$(PackageOnlyBuild)' == 'true'">
     <CoreBuildDependsOn>
+      InitializeSourceControlInformation;
       BuildOnlySettings;
       PrepareForBuild;
       PreBuildEvent;
@@ -46,11 +47,6 @@
       IncrementalClean;
       PostBuildEvent
     </CoreBuildDependsOn>
-  </PropertyGroup>
-
-  <!-- Add SourceControlInformation if the feature is supported -->
-  <PropertyGroup Condition="'$(SourceControlInformationFeatureSupported)' == 'true'">
-    <CoreBuildDependsOn>InitializeSourceControlInformation;$(CoreBuildDependsOn)</CoreBuildDependsOn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(NuspecFile)' == ''">

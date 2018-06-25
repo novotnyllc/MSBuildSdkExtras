@@ -1,4 +1,4 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
@@ -10,15 +10,15 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(EnableMyAppCodeGenerator)' == 'true'">
-    <MyAppCodeGeneratorTool Condition="'$(MyAppGeneratedCodeIsPublic)' != 'true'">MyApplicationCodeGenerator</MyAppCodeGeneratorTool>
-    <MyAppCodeGeneratorTool Condition="'$(MyAppGeneratedCodeIsPublic)' == 'true'">PublicMyApplicationCodeGenerator</MyAppCodeGeneratorTool>
+    <_SdkMyAppCodeGeneratorTool Condition="'$(MyAppGeneratedCodeIsPublic)' != 'true'">MyApplicationCodeGenerator</_SdkMyAppCodeGeneratorTool>
+    <_SdkMyAppCodeGeneratorTool Condition="'$(MyAppGeneratedCodeIsPublic)' == 'true'">PublicMyApplicationCodeGenerator</_SdkMyAppCodeGeneratorTool>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(EnableDefaultWpfItems)' == 'true' AND '$(ApplicationExtensionFile)' != ''">
+  <PropertyGroup Condition="'$(ExtrasEnableDefaultWpfItems)' == 'true' AND '$(ApplicationExtensionFile)' != ''">
     <ApplicationExtensionFile Condition="$(ApplicationExtensionFile.Contains(';'))"/>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(EnableDefaultWpfItems)' == 'true' AND '$(ApplicationExtensionFile)' == ''">
+  <PropertyGroup Condition="'$(ExtrasEnableDefaultWpfItems)' == 'true' AND '$(ApplicationExtensionFile)' == ''">
     <ApplicationExtensionPath>$(AppDesignerFolder)\MyExtensions</ApplicationExtensionPath>
     <ApplicationExtensionFile Condition="Exists('$(MSBuildProjectDirectory)\$(ApplicationExtensionPath)\MyWpfExtension.vb')">$(ApplicationExtensionPath)\MyWpfExtension.vb</ApplicationExtensionFile>
   </PropertyGroup>

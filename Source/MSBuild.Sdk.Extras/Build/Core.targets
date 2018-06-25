@@ -1,0 +1,23 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)..\Build\ExtrasShim.targets" Condition="'$(ExtrasDisableExtrasSdkLegacyCompat)' != 'true'"/>
+
+  <PropertyGroup Condition="'$(TargetFrameworks)' != '' AND '$(TargetFramework)' == ''">
+    <IsMultiTargetingBuild>true</IsMultiTargetingBuild>
+  </PropertyGroup>
+
+  <ImportGroup Condition="'$(IsMultiTargetingBuild)' != 'true'">
+    <Import Project="$(MSBuildThisFileDirectory)Inference.targets"
+            Condition="'$(TargetFramework)' != '' AND !($(TargetFramework.Contains(',')) OR $(TargetFramework.Contains(';')))"/>
+    <Import Project="$(MSBuildThisFileDirectory)Platforms.targets"
+            Condition="'$(TargetFrameworkIdentifier)' != ''"/>
+  </ImportGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)..\DefaultItems\DefaultItems.targets"/>
+  <Import Project="$(MSBuildThisFileDirectory)..\ProjectSystem\ProjectSystem.targets"/>
+
+</Project>

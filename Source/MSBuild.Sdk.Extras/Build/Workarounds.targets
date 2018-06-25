@@ -1,0 +1,133 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <!-- By default we warn about using the msbuild core, if the projects require full MSBuild targets. -->
+  <PropertyGroup Condition="'$(MSBuildRuntimeType)' == 'Core'">
+    <_SdkIgnoreMSBuildCoreWarning>true</_SdkIgnoreMSBuildCoreWarning>
+    <_SdkIgnoreMSBuildCoreWarning Condition="'$(ExtrasEnableWpfProjectSetup)' == 'true'">false</_SdkIgnoreMSBuildCoreWarning>
+    <_SdkIgnoreMSBuildCoreWarning Condition="'$(_SdkPlatformName)' == 'Silverlight'">false</_SdkIgnoreMSBuildCoreWarning>
+    <_SdkIgnoreMSBuildCoreWarning Condition="$(_SdkPlatformName.StartsWith('Windows'))">false</_SdkIgnoreMSBuildCoreWarning>
+  </PropertyGroup>
+
+  <!-- Check to see if we are using msbuild core! -->
+  <Target Name="_SdkWarnWhenUsingMSBuildCore"
+          BeforeTargets="_ShowMissingLanguageTargetsError;_CheckForUnsupportedTargetFramework"
+          Condition="'$(MSBuildRuntimeType)' == 'Core' AND '$(_SdkIgnoreMSBuildCoreWarning)' != 'true'">
+
+    <PropertyGroup>
+      <_SdkIgnoreMissingLanguageTargetsError>$(_SdkLanguageTargetsMissing)</_SdkIgnoreMissingLanguageTargetsError>
+    </PropertyGroup>
+
+    <Warning Text="If you are building projects that require targets from full MSBuild or MSBuildFrameworkToolsPath, you need to use desktop msbuild ('msbuild.exe') instead of 'dotnet build' or 'dotnet msbuild'"/>
+  </Target>
+
+  <PropertyGroup>
+    <!-- Don't generate assembly info for generated projects -->
+    <GenerateAssemblyInfo Condition="'$(_SdkIsGeneratedProject)' == 'true'">false</GenerateAssemblyInfo>
+    <ExtrasImportProjectExtensionTargets Condition="'$(ExtrasImportProjectExtensionTargets)' == ''">true</ExtrasImportProjectExtensionTargets>
+  </PropertyGroup>
+
+  <!--
+    WPF sometimes creates a temporary project, since it changes the peoject file, it breaks MSBuildProjectName dependent properies.
+    When that is the case we simply fix-up those properties by removing the project generated suffix.
+  -->
+  <Target Name="_SdkCheckAndFixupPropertiesWithGeneratedSuffix"
+      BeforeTargets="_CompileTemporaryAssembly;CoreCompile"
+      Condition="'$(_SdkIsGeneratedProject)' == 'true' AND '$(DisableFixupPropertiesWithGeneratedSuffix)' != 'true'">
+
+    <PropertyGroup Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(RootNamespace)', '[a-z0-9]{8}'))">
+      <_SdkRootNamespaceInGeneratedProject>$(RootNamespace)</_SdkRootNamespaceInGeneratedProject>
+      <RootNamespace/>
+
+      <!-- Default Scenarios -->
+      <RootNamespace Condition="'$(_SdkRootNamespaceInGeneratedProject.Length)' == '8'">$(_SdkOriginalProjectName)</RootNamespace>
+      <RootNamespace Condition="'$(RootNamespace)' == '' AND $(_SdkRootNamespaceInGeneratedProject.Contains('$(MSBuildProjectName)'))">$(_SdkRootNamespaceInGeneratedProject.Replace('$(MSBuildProjectName)', '$(_SdkOriginalProjectName)'))</RootNamespace>
+
+      <!-- Common Special cases -->
+      <RootNamespace Condition="'$(RootNamespace)' == '' AND $(_SdkRootNamespaceInGeneratedProject.Contains('_wpftmp'))">$([System.Text.RegularExpressions.Regex]::Replace('$(_SdkRootNamespaceInGeneratedProject)', '$(_SdkGeneratedProjectSuffixPattern)', ''))</RootNamespace>
+      <RootNamespace Condition="'$(RootNamespace)' == '' AND $(_SdkRootNamespaceInGeneratedProject.Contains('.wpftmp'))">$([System.Text.RegularExpressions.Regex]::Replace('$(_SdkRootNamespaceInGeneratedProject)', $(_SdkGeneratedProjectSuffixPattern.Replace('_', '.')), ''))</RootNamespace>
+    </PropertyGroup>
+
+    <Message Importance="Low" Condition="'$(_SdkRootNamespaceInGeneratedProject)' != ''"
+      Text="The RootNamespace in the generated project was '$(_SdkRootNamespaceInGeneratedProject)' and the fixed-up RootNamespace is $(RootNamespace)."/>
+
+  </Target>
+
+  <!--
+    WPF sometimes creates a temporary project, since it changes the peoject file, it breaks Project Extensions import.
+    In order to properly import Project Extensions, we need the user to set '_SdkOriginalProjectName' or '_SdkOriginalProjectFile' and use it to import Project Extensions.
+  -->
+  <ImportGroup Condition="'$(_SdkOriginalProjectFile)' != '' AND '$(ExtrasImportProjectExtensionTargets)' == 'true'">
+    <Import Project="$(_SdkOriginalProjectExtensionsPath)$(_SdkOriginalProjectFile).*.targets" Condition="Exists('$(_SdkOriginalProjectExtensionsPath)')"/>
+  </ImportGroup>
+
+  <!--
+    Workaround to fix IntelliSense file generation for XAML projects
+    ISSUE: https://github.com/dotnet/project-system/issues/2488
+  -->
+  <Target Name="_SdkDesignTimeBuildAndIntelliSenseWorkaround"
+      AfterTargets="_CheckCompileDesignTimePrerequisite"
+      Condition="'@(ApplicationDefinition)' != '' OR '@(Page)' != '' OR '@(Resource)' != ''">
+    <PropertyGroup>
+      <BuildingProject>false</BuildingProject>
+      <DesignTimeBuild>true</DesignTimeBuild>
+    </PropertyGroup>
+  </Target>
+
+  <!-- Handle Library Layout in NuGet packages -->
+
+  <PropertyGroup Condition="'$(ExtrasSkipLibraryLayout)' != 'true'">
+    <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_SdkIncludeWindowsLibraryLayoutItems</TargetsForTfmSpecificContentInPackage>
+  </PropertyGroup>
+
+  <Target Name="_SdkIncludeWindowsLibraryLayoutItems"
+      DependsOnTargets="PrepareLibraryLayout"
+      Condition="'$(GenerateLibraryLayout)' == 'true' AND '$(SDKIdentifier)' == 'Windows'">
+    <ItemGroup>
+      <TfmSpecificPackageFile Include="@(_LayoutFile)" PackagePath="lib\$(TargetFramework)\%(_LayoutFile.TargetPath)"/>
+    </ItemGroup>
+  </Target>
+
+  <!--
+    Detect the SDK version. For now, we have to check the NETCoreSdkVersion
+    else check BundledNETCoreAppTargetFrameworkVersion property for Sdk <= 2.1.300
+    else Give 1.0 version since that property doesn't exist in 1.x Sdks
+  -->
+  <PropertyGroup>
+    <_NETCoreSdkVersion>$(NETCoreSdkVersion)</_NETCoreSdkVersion>
+    <!--  Handle SemVer version like 2.1.300-preview, since MSBuild doesn't compare versions with alpha-numeric chars! -->
+    <_NETCoreSdkVersion Condition="$(_NETCoreSdkVersion.Contains('-'))">$(_NETCoreSdkVersion.Split('-')[0])</_NETCoreSdkVersion>
+    <_NETCoreSdkVersion Condition="'$(_NETCoreSdkVersion)' == ''">$(BundledNETCoreAppTargetFrameworkVersion)</_NETCoreSdkVersion>
+    <_NETCoreSdkVersion Condition="'$(_NETCoreSdkVersion)' == ''">1.0</_NETCoreSdkVersion>
+  </PropertyGroup>
+
+  <!--
+    Workaround for bug in Microsoft.NET.Sdk < v2.0 where satellites were deployed on top of each other in root.
+    ISSUE: https://github.com/dotnet/sdk/issues/1360
+  -->
+  <Target Name="_SatelliteDeploymentOldSdkWorkaround"
+      AfterTargets="ResolveLockFileCopyLocalProjectDeps"
+      Condition="'$(_NETCoreSdkVersion)' &lt; '2.0' AND '$(IsMultiTargetingBuild)' != 'true'">
+    <ItemGroup>
+      <ReferenceCopyLocalPaths Remove="@(ResourceCopyLocalItems)"/>
+      <ReferenceCopyLocalPaths Include="@(ResourceCopyLocalItems)" Condition="'@(ResourceCopyLocalItems)' != ''">
+        <DestinationSubDirectory>$([System.IO.Directory]::GetParent(%(ResourceCopyLocalItems.FullPath)).Name)\</DestinationSubDirectory>
+      </ReferenceCopyLocalPaths>
+    </ItemGroup>
+  </Target>
+
+  <!-- By default we ignore the old sdk warning, if the user has loaded v4.3.0+ NuGet 'Pack' target, which contain some fixes around PRI files. -->
+  <PropertyGroup Condition="'$(_NETCoreSdkVersion)' &lt; '2.0'">
+    <PackDependsOn>_WarnWhenUsingOldSdk;$(PackDependsOn)</PackDependsOn>
+    <ExtrasIgnoreOldSdkWarning Condition="'$(ExtrasIgnoreOldSdkWarning)' == '' AND '$(ImportNuGetBuildTasksPackTargetsFromSdk)' == 'false'">true</ExtrasIgnoreOldSdkWarning>
+  </PropertyGroup>
+
+  <!-- Check to see if we are on an Old SDK and warn the user about 'Pack' target! -->
+  <Target Name="_WarnWhenUsingOldSdk" Condition="'$(_NETCoreSdkVersion)' &lt; '2.0' AND '$(ExtrasIgnoreOldSdkWarning)' != 'true'">
+    <Warning Text="There are known issues using the 'Pack' target that comes with the v1 SDKs. Update to v2 and above SDKs to use the fixed 'Pack' target. If you don't need the fixed 'Pack' target the set 'ExtrasIgnoreOldSdkWarning' property to 'true'. If you need to use the v1 SDKs and to use the 'Pack' target, then add a 'NuGet.Build.Tasks.Pack' v4.3.0 and above, as a dependency to proceed."/>
+  </Target>
+
+</Project>

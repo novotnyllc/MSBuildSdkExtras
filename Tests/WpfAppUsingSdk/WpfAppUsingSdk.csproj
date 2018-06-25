@@ -1,0 +1,12 @@
+﻿<Project Sdk="MSBuild.Sdk.Extras/42.42.42">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net462</TargetFramework>
+    <ExtrasEnableWpfProjectSetup>true</ExtrasEnableWpfProjectSetup>
+    <EmbeddedResourceGeneratedCodeIsPublic>true</EmbeddedResourceGeneratedCodeIsPublic>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="PCLCommandBase" Version="0.3.5" />
+  </ItemGroup>
+</Project>

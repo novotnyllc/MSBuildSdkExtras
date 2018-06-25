@@ -8,7 +8,7 @@
     <_SdkTargetPlatformName Condition="$(TargetFrameworkIdentifier.StartsWith('Mono'))">$(TargetFrameworkIdentifier.Substring('4'))</_SdkTargetPlatformName>
     <_SdkTargetPlatformName Condition="$(TargetFrameworkIdentifier.Contains('.'))">$(TargetFrameworkIdentifier.Split('.')[1])</_SdkTargetPlatformName>
     <_SdkTargetPlatformName Condition="'$(_SdkTargetPlatformName)' == 'Touch'">iOS</_SdkTargetPlatformName>
-    <_SdkTargetsImportType>$(_LanguageSourceName)</_SdkTargetsImportType>
+    <_SdkTargetsImportType>$(_SdkLanguageSourceName)</_SdkTargetsImportType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(IsApplePlatform)' == ''">
@@ -17,7 +17,7 @@
 
   <PropertyGroup Condition="'$(IsBindingProject)' == 'true'">
     <_SdkTargetsImportType Condition="'$(_SdkTargetPlatformName)' == 'Android'">Bindings</_SdkTargetsImportType>
-    <_SdkTargetsImportType Condition="'$(IsApplePlatform)' == 'true'">ObjCBinding.$(_LanguageSourceName)</_SdkTargetsImportType>
+    <_SdkTargetsImportType Condition="'$(IsApplePlatform)' == 'true'">ObjCBinding.$(_SdkLanguageSourceName)</_SdkTargetsImportType>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -32,8 +32,8 @@
   <Import Project="$(MSBuildThisFileDirectory)CheckMissing.targets" Condition="'$(_SdkLanguageTargetsMissing)' == 'true'"/>
 
   <!-- CSharp is the only language supported for Binding Projects for Now -->
-  <Target Name="ShowAndroidBindingProjectError" Condition="'$(IsBindingProject)' == 'true' AND '$(_SdkTargetPlatformName)' == 'Android' AND '$(_LanguageSourceName)' != 'CSharp'" BeforeTargets="_CheckForUnsupportedTargetFramework">
-    <Error Text="The Binding Project for $(_SdkTargetPlatformName) is only supported with only C#, not with $(_LanguageSourceName). Please change the project to C# to use the Bindings Project.'"/>
+  <Target Name="ShowAndroidBindingProjectError" Condition="'$(IsBindingProject)' == 'true' AND '$(_SdkTargetPlatformName)' == 'Android' AND '$(_SdkLanguageSourceName)' != 'CSharp'" BeforeTargets="_CheckForUnsupportedTargetFramework">
+    <Error Text="The Binding Project for $(_SdkTargetPlatformName) is only supported with only C#, not with $(_SdkLanguageSourceName). Please change the project to C# to use the Bindings Project.'"/>
   </Target>
 
 </Project>

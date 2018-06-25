@@ -1,0 +1,24 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <!--
+    Package Version property for Implicit Packages included in the props file
+  -->
+  <PropertyGroup Condition="'$(_SdkShortFrameworkIdentifier)' == 'uap' AND '$(ExtrasImplicitPlatformPackageVersion)' == ''">
+    <ExtrasImplicitPlatformPackageVersion>6.1.5</ExtrasImplicitPlatformPackageVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(_SdkShortFrameworkIdentifier)' == 'tizen' AND '$(ExtrasImplicitPlatformPackageVersion)' == ''">
+    <ExtrasImplicitPlatformPackageVersion Condition="'$(_SdkTargetFrameworkVersionWithoutV)' == '3.0'">3.0.0</ExtrasImplicitPlatformPackageVersion>
+    <ExtrasImplicitPlatformPackageVersion Condition="'$(_SdkTargetFrameworkVersionWithoutV)' == '4.0'">4.0.0</ExtrasImplicitPlatformPackageVersion>
+  </PropertyGroup>
+
+
+  <PropertyGroup>
+    <ExtrasImplicitPlatformPackageIsPrivate Condition="'$(ExtrasImplicitPlatformPackageIsPrivate)' == ''">false</ExtrasImplicitPlatformPackageIsPrivate>
+  </PropertyGroup>
+
+</Project>

@@ -24,15 +24,17 @@ steps:
 
 - powershell: |
     mkdir $Env:Temp\Packages -Force
-    msbuild /Restore /t:Build
   displayName: Build
 
-- task: CopyFiles@2
-  displayName: Copy Files
+- task: DotNetCoreCLI@2
   inputs:
-    Contents: '$(System.DefaultWorkingDirectory)\~Packages\**\*.nupkg'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)\Packages'
-    flattenFolders: true
+    command: pack
+    packagesToPack: Source/MSBuild.Sdk.Extras/MSBuild.Sdk.Extras.csproj
+    configuration: $(BuildConfiguration)
+    packDirectory: $(Build.ArtifactStagingDirectory)\Packages    
+    verbosityPack: Minimal
+  displayName: Build Package
+
 
 - ${{ parameters.signSteps }}
 

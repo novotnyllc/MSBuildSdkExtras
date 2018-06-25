@@ -1,4 +1,4 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
@@ -6,22 +6,21 @@
 
   <!-- Add conditional compilation symbols for the target framework (for example NET, CLIENT40, NET40_CLIENT) -->
   <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true' AND '$(TargetFrameworkProfile)' != ''">
-    <ImplicitFrameworkProfileDefine>$(TargetFrameworkProfile.ToUpperInvariant())$(_ShortFrameworkVersion)</ImplicitFrameworkProfileDefine>
+    <_SdkImplicitFrameworkProfileDefine>$(TargetFrameworkProfile.ToUpperInvariant())$(_SdkShortFrameworkVersion)</_SdkImplicitFrameworkProfileDefine>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
-    <_SdkImplicitReference Include="System.Data.DataSetExtensions" Condition="'$(_TargetFrameworkVersionWithoutV)' >= '3.5'"/>
     <_SdkImplicitReference Include="System.Net.Http" Condition="'$(TargetFrameworkProfile)' != 'Client'"/>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(EnableImplicitWpfReferences)' == 'true'">
-    <_SdkImplicitReference Include="System.Xaml" Condition="'$(_TargetFrameworkVersionWithoutV)' >= '4.0'"/>
-    <_SdkImplicitReference Include="WindowsBase" Condition="'$(_TargetFrameworkVersionWithoutV)' >= '3.0'"/>
-    <_SdkImplicitReference Include="PresentationCore" Condition="'$(_TargetFrameworkVersionWithoutV)' >= '3.0'"/>
-    <_SdkImplicitReference Include="PresentationFramework" Condition="'$(_TargetFrameworkVersionWithoutV)' >= '3.0'"/>
+  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(ExtrasEnableImplicitWpfReferences)' == 'true'">
+    <_SdkImplicitReference Include="System.Xaml" Condition="'$(_SdkTargetFrameworkVersionWithoutV)' >= '4.0'"/>
+    <_SdkImplicitReference Include="WindowsBase" Condition="'$(_SdkTargetFrameworkVersionWithoutV)' >= '3.0'"/>
+    <_SdkImplicitReference Include="PresentationCore" Condition="'$(_SdkTargetFrameworkVersionWithoutV)' >= '3.0'"/>
+    <_SdkImplicitReference Include="PresentationFramework" Condition="'$(_SdkTargetFrameworkVersionWithoutV)' >= '3.0'"/>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(EnableImplicitWinFormsReferences)' == 'true'">
+  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(ExtrasEnableImplicitWinFormsReferences)' == 'true'">
     <_SdkImplicitReference Include="System.Design"/>
     <_SdkImplicitReference Include="System.Drawing"/>
     <_SdkImplicitReference Include="System.Deployment"/>
@@ -29,7 +28,7 @@
     <_SdkImplicitReference Include="System.Windows.Forms"/>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(EnableImplicitWebReferences)' == 'true'">
+  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(ExtrasEnableImplicitWebReferences)' == 'true'">
     <_SdkImplicitReference Include="System.Web"/>
     <_SdkImplicitReference Include="System.Web.Http"/>
   </ItemGroup>
