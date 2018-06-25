@@ -1,9 +1,8 @@
-<Project Sdk="MSBuild.Sdk.Extras">
+﻿<Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net45</TargetFramework>
-    <ProjectGuid>{F15AFA64-1CA5-486A-B9EA-B05377DF2FEC}</ProjectGuid>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -12,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Framework-Library\Framework-Library.csproj"/>
+    <ProjectReference Include="..\Framework-Library\Framework-Library.csproj" />
   </ItemGroup>
 
 </Project>

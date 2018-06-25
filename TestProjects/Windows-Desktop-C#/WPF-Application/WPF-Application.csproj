@@ -1,10 +1,9 @@
-<Project Sdk="MSBuild.Sdk.Extras">
+﻿<Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net45</TargetFramework>
-    <EnableWpfProjectSetup>true</EnableWpfProjectSetup>
-    <ProjectGuid>{BAC1E118-ABBD-4294-B671-E36A3F1D3D6B}</ProjectGuid>
+    <ExtrasEnableWpfProjectSetup>true</ExtrasEnableWpfProjectSetup>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -14,21 +13,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WPF-Library\WPF-Library.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

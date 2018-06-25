@@ -1,11 +1,10 @@
-<Project Sdk="MSBuild.Sdk.Extras">
+﻿<Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net45</TargetFramework>
-    <EnableWpfProjectSetup>true</EnableWpfProjectSetup>
+    <ExtrasEnableWpfProjectSetup>true</ExtrasEnableWpfProjectSetup>
     <MyType>Custom</MyType>
-    <ProjectGuid>{CEE5576C-A4D3-45E7-91AB-DE22AC6039C8}</ProjectGuid>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -16,7 +15,7 @@
   <PropertyGroup Label="Project">
     <Install>False</Install>
     <StartAction>URL</StartAction>
-    <StartArguments/>
+    <StartArguments />
     <HostInBrowser>true</HostInBrowser>
     <TargetZone>Internet</TargetZone>
     <BootstrapperEnabled>false</BootstrapperEnabled>
@@ -31,7 +30,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WPF-Library\WPF-Library.vbproj"/>
+    <ProjectReference Include="..\WPF-Library\WPF-Library.vbproj" />
   </ItemGroup>
 
 </Project>

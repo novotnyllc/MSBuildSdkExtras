@@ -1,11 +1,10 @@
-<Project Sdk="MSBuild.Sdk.Extras">
+﻿<Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net45</TargetFramework>
-    <EnableWinFormsProjectSetup>true</EnableWinFormsProjectSetup>
+    <ExtrasEnableWinFormsProjectSetup>true</ExtrasEnableWinFormsProjectSetup>
     <MyType>WindowsForms</MyType>
-    <ProjectGuid>{BE0F5979-8F85-4A20-B46C-4096BCBD5324}</ProjectGuid>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -14,7 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WinForms-Library\WinForms-Library.vbproj"/>
+    <ProjectReference Include="..\WinForms-Library\WinForms-Library.vbproj" />
   </ItemGroup>
 
 </Project>
