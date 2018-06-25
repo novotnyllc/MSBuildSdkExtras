@@ -54,7 +54,7 @@
 
     <!-- Need to override the built-in implicit defines for UAP (UAP10_0_10240) or it'll be NETCORE5_0 -->
     <ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true' AND '$(_SdkLanguageSourceName)' != 'VisualBasic'">UAP$(_SdkShortFrameworkVersion.Replace('.', '_'));UAP$(TargetPlatformMinVersion.Replace('.', '_'))</ImplicitFrameworkDefine>
-    <ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true' AND '$(_SdkLanguageSourceName)' == 'VisualBasic'">UAP$(_SdkShortFrameworkVersion.Replace('.', '_'))=-1,UAP$(TargetPlatformMinVersion.Replace('.', '_'))=-1</ImplicitFrameworkDefine>
+    <ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true' AND '$(_SdkLanguageSourceName)' == 'VisualBasic'">UAP$(_SdkShortFrameworkVersion.Replace('.', '_'))=-1,UAP$(TargetPlatformMinVersion.Replace('.', '_'))</ImplicitFrameworkDefine>
 
     <CopyLocalLockFileAssemblies Condition="'$(CopyLocalLockFileAssemblies)' == ''">false</CopyLocalLockFileAssemblies>
   </PropertyGroup>
