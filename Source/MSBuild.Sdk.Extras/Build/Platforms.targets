@@ -30,12 +30,6 @@
 
   <Import Project="$(PlatformTargets)" Condition="Exists('$(PlatformTargets)')"/>
 
-  <!-- The conditional compilation symbols defined in the above import and the property-group flows to the Main SDK -->
-  <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">
-    <DisableImplicitFrameworkDefines>true</DisableImplicitFrameworkDefines>
-    <VersionlessImplicitFrameworkDefine>$(ImplicitFrameworkIdentifierDefine)</VersionlessImplicitFrameworkDefine>
-  </PropertyGroup>
-
   <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true' AND '$(_SdkLanguageSourceName)' != 'VisualBasic'">
     <DefineConstants Condition="'$(DefineConstants)' != '' AND !$(DefineConstants.EndsWith(';'))">$(DefineConstants);</DefineConstants>
     <DefineConstants>$(DefineConstants)$(_SdkImplicitFrameworkProfileDefine)</DefineConstants>
@@ -44,6 +38,12 @@
   <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true' AND '$(_SdkLanguageSourceName)' == 'VisualBasic'">
     <FinalDefineConstants Condition="'$(FinalDefineConstants)' != '' AND !$(DefineConstants.EndsWith(','))">$(FinalDefineConstants),</FinalDefineConstants>
     <FinalDefineConstants Condition="'$(_SdkImplicitFrameworkProfileDefine)' != ''">$(FinalDefineConstants)$(_SdkImplicitFrameworkProfileDefine)=-1</FinalDefineConstants>
+  </PropertyGroup>
+
+  <!-- The conditional compilation symbols defined in the above import and the property-group flows to the Main SDK -->
+  <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">
+    <DisableImplicitFrameworkDefines>true</DisableImplicitFrameworkDefines>
+    <VersionlessImplicitFrameworkDefine>$(ImplicitFrameworkIdentifierDefine)</VersionlessImplicitFrameworkDefine>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">

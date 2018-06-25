@@ -7,7 +7,7 @@
   <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">
     <ImplicitFrameworkIdentifierDefine>NETFX_CORE</ImplicitFrameworkIdentifierDefine>
     <_SdkImplicitFrameworkProfileDefine Condition="'$(_SdkShortFrameworkIdentifier)' == 'win'">WINDOWS_APP</_SdkImplicitFrameworkProfileDefine>
-    <_SdkImplicitFrameworkProfileDefine Condition="'$(_SdkShortFrameworkIdentifier)' == 'uap'">WINDOWS_UAP</_SdkImplicitFrameworkProfileDefine>
+    <_SdkImplicitFrameworkProfileDefine Condition="'$(_SdkShortFrameworkIdentifier)' == 'uap'">WINDOWS_UWP</_SdkImplicitFrameworkProfileDefine>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'win' OR '$(TargetFramework)' == 'win8' OR '$(TargetFramework)' == 'win80'">
@@ -52,8 +52,9 @@
     <TargetPlatformMinVersion Condition="'$(TargetPlatformMinVersion)' == '' AND '$(_SdkShortFrameworkVersion)' == '10.0'">10.0.15063.0</TargetPlatformMinVersion>
     <TargetPlatformMinVersion Condition="'$(TargetPlatformMinVersion)' == ''">$([System.Version]::Parse('$(_SdkShortFrameworkVersion)')).0</TargetPlatformMinVersion>
 
-    <!-- Need to override the built-in implicit defines for UAP (WINDOWS10_10240) or it'll be NETCORE5_0 -->
-    <ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">WINDOWS10_$(TargetPlatformMinVersion.Split('.')[2])</ImplicitFrameworkDefine>
+    <!-- Need to override the built-in implicit defines for UAP (UAP10_0_10240) or it'll be NETCORE5_0 -->
+    <ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true' AND '$(_SdkLanguageSourceName)' != 'VisualBasic'">UAP$(_SdkShortFrameworkVersion.Replace('.', '_'));UAP$(TargetPlatformMinVersion.Replace('.', '_'))</ImplicitFrameworkDefine>
+    <ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true' AND '$(_SdkLanguageSourceName)' == 'VisualBasic'">UAP$(_SdkShortFrameworkVersion.Replace('.', '_'))=-1,UAP$(TargetPlatformMinVersion.Replace('.', '_'))=-1</ImplicitFrameworkDefine>
 
     <CopyLocalLockFileAssemblies Condition="'$(CopyLocalLockFileAssemblies)' == ''">false</CopyLocalLockFileAssemblies>
   </PropertyGroup>
