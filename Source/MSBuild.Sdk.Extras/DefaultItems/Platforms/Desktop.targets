@@ -31,8 +31,8 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(ExtrasEnableSettingsCodeGenerator)' == 'true'">
-    <_SdkSettingsCodeGeneratorTool Condition="'$(SettingsGeneratedCodeIsPublic)' != 'true'">SettingsSingleFileGenerator</_SdkSettingsCodeGeneratorTool>
-    <_SdkSettingsCodeGeneratorTool Condition="'$(SettingsGeneratedCodeIsPublic)' == 'true'">PublicSettingsSingleFileGenerator</_SdkSettingsCodeGeneratorTool>
+    <_SdkSettingsCodeGeneratorTool Condition="'$(ExtrasSettingsGeneratedCodeIsPublic)' != 'true'">SettingsSingleFileGenerator</_SdkSettingsCodeGeneratorTool>
+    <_SdkSettingsCodeGeneratorTool Condition="'$(ExtrasSettingsGeneratedCodeIsPublic)' == 'true'">PublicSettingsSingleFileGenerator</_SdkSettingsCodeGeneratorTool>
   </PropertyGroup>
 
   <!-- WPF Support -->
