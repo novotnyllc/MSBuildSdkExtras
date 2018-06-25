@@ -1,4 +1,4 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
@@ -61,11 +61,11 @@
     <TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'wpa'">WindowsPhoneApp</TargetFrameworkIdentifier>
     <TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'win'">.NETCore</TargetFrameworkIdentifier>
     <TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'uap'">.NETCore</TargetFrameworkIdentifier>
-    <TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'netcore'">.NETCore</TargetFrameworkIdentifier> <!-- Deprecated -->
+    <TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'netcore'">.NETCore</TargetFrameworkIdentifier> 
 
-    <TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'monoandroid'">MonoAndroid</TargetFrameworkIdentifier> <!-- Deprecated -->
-    <TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'monotouch'">MonoTouch</TargetFrameworkIdentifier> <!-- Deprecated -->
-    <TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'monomac'">MonoMac</TargetFrameworkIdentifier> <!-- Deprecated -->
+    <TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'monoandroid'">MonoAndroid</TargetFrameworkIdentifier> 
+    <TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'monotouch'">MonoTouch</TargetFrameworkIdentifier> 
+    <TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'monomac'">MonoMac</TargetFrameworkIdentifier> 
 
     <TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'xamarin.android' OR '$(_ShortFrameworkIdentifier)' == 'xamarinandroid'">Xamarin.Android</TargetFrameworkIdentifier>
     <TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'xamarin.ios' OR '$(_ShortFrameworkIdentifier)' == 'xamarinios'">Xamarin.iOS</TargetFrameworkIdentifier>
@@ -112,6 +112,24 @@
     <_TargetFrameworkVersionWithoutV>$(TargetFrameworkVersion)</_TargetFrameworkVersionWithoutV>
     <_TargetFrameworkVersionWithV>v$(TargetFrameworkVersion)</_TargetFrameworkVersionWithV>
     <TargetFrameworkVersion>$(_TargetFrameworkVersionWithV)</TargetFrameworkVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Build.Output">
+    <Configuration Condition="'$(Configuration)'==''">Debug</Configuration>
+    <Platform Condition="'$(Platform)'==''">AnyCPU</Platform>
+    <PlatformName Condition="'$(PlatformName)' == ''">$(Platform)</PlatformName>
+
+    <BaseOutputPath Condition="'$(BaseOutputPath)' == ''">bin\</BaseOutputPath>
+    <BaseOutputPath Condition="!HasTrailingSlash('$(BaseOutputPath)')">$(BaseOutputPath)\</BaseOutputPath>
+    <OutputPath Condition="'$(OutputPath)' == '' and '$(PlatformName)' == 'AnyCPU'">$(BaseOutputPath)$(Configuration)\</OutputPath>
+    <OutputPath Condition="'$(OutputPath)' == '' and '$(PlatformName)' != 'AnyCPU'">$(BaseOutputPath)$(PlatformName)\$(Configuration)\</OutputPath>
+    <OutputPath Condition="!HasTrailingSlash('$(OutputPath)')">$(OutputPath)\</OutputPath>
+
+    <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)' == ''">obj\</BaseIntermediateOutputPath>
+    <BaseIntermediateOutputPath Condition="!HasTrailingSlash('$(BaseIntermediateOutputPath)')">$(BaseIntermediateOutputPath)\</BaseIntermediateOutputPath>
+    <IntermediateOutputPath Condition=" $(IntermediateOutputPath) == '' and '$(PlatformName)' == 'AnyCPU' ">$(BaseIntermediateOutputPath)$(Configuration)\</IntermediateOutputPath>
+    <IntermediateOutputPath Condition=" $(IntermediateOutputPath) == '' and '$(PlatformName)' != 'AnyCPU' ">$(BaseIntermediateOutputPath)$(PlatformName)\$(Configuration)\</IntermediateOutputPath>
+    <IntermediateOutputPath Condition="!HasTrailingSlash('$(IntermediateOutputPath)')">$(IntermediateOutputPath)\</IntermediateOutputPath>
   </PropertyGroup>
 
 </Project>

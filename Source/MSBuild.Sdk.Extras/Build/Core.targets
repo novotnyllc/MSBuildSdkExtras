@@ -1,4 +1,4 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
@@ -16,10 +16,6 @@
     <Import Project="$(MSBuildThisFileDirectory)Platforms.targets"
             Condition="'$(TargetFrameworkIdentifier)' != ''"/>
   </ImportGroup>
-
-  <PropertyGroup Condition="'$(AppendTargetFrameworkToOutputPath)' == ''">
-    <AppendTargetFrameworkToOutputPath Condition="'$(TargetFrameworks)' == ''">false</AppendTargetFrameworkToOutputPath>
-  </PropertyGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)..\DefaultItems\DefaultItems.targets"/>
   <Import Project="$(MSBuildThisFileDirectory)..\ProjectSystem\ProjectSystem.targets"/>

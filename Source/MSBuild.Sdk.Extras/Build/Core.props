@@ -1,4 +1,4 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
@@ -8,30 +8,24 @@
     <When Condition="'$(MSBuildProjectExtension)' == '.csproj'">
       <PropertyGroup>
         <_LanguageSourceName>CSharp</_LanguageSourceName>
-        <!--<DefaultLanguageSourceExtension>.cs</DefaultLanguageSourceExtension>-->
+        <_SdkLanguageExtension>.cs</_SdkLanguageExtension>
       </PropertyGroup>
     </When>
 
     <When Condition="'$(MSBuildProjectExtension)' == '.vbproj'">
       <PropertyGroup>
         <_LanguageSourceName>VisualBasic</_LanguageSourceName>
-        <!--<DefaultLanguageSourceExtension>.vb</DefaultLanguageSourceExtension>-->
+        <_SdkLanguageExtension>.vb</_SdkLanguageExtension>
       </PropertyGroup>
     </When>
 
     <When Condition="'$(MSBuildProjectExtension)' == '.fsproj'">
       <PropertyGroup>
         <_LanguageSourceName>FSharp</_LanguageSourceName>
-        <!--<DefaultLanguageSourceExtension>.fs</DefaultLanguageSourceExtension>-->
+        <_SdkLanguageExtension>.fs</_SdkLanguageExtension>
       </PropertyGroup>
     </When>
 
-    <Otherwise>
-      <PropertyGroup Condition="'$(_LanguageSourceName)' == ''">
-        <_LanguageSourceName>Common</_LanguageSourceName>
-        <!--<DefaultLanguageSourceExtension>.msil</DefaultLanguageSourceExtension>-->
-      </PropertyGroup>
-    </Otherwise>
   </Choose>
 
   <PropertyGroup>

@@ -7,7 +7,6 @@
 
   <PropertyGroup>
     <IgnoreOldSdkWarning>$(SuppressWarnIfOldSdkPack)</IgnoreOldSdkWarning>
-    <IncludeAndroidResgenFile>$(_SdkSetAndroidResgenFile)</IncludeAndroidResgenFile>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -26,7 +25,6 @@
     Condition="'$(_IgnoreObsoletePropertyWarnings)' != 'true'">
 
   <ItemGroup>
-    <_SdkObsoleteProperty Include="_SdkSetAndroidResgenFile" Replacement="IncludeAndroidResgenFile" Condition="'$(_SdkSetAndroidResgenFile)' != ''"/>
     <_SdkObsoleteProperty Include="SuppressWarnIfOldSdkPack" Replacement="IgnoreOldSdkWarning" Condition="'$(SuppressWarnIfOldSdkPack)' != ''"/>
     <_SdkObsoleteProperty Include="ExtrasUwpMetaPackageVersion" Replacement="_ImplicitPlatformPackageVersion (with TargetFramework condition)" Condition="'$(ExtrasUwpMetaPackageVersion)' != ''"/>
     <_SdkObsoleteProperty Include="ExtrasImplicitPlatformPackageDisabled" Replacement="DisableImplicitFrameworkReferences (with TargetFramework condition)" Condition="'$(ExtrasImplicitPlatformPackageDisabled)' != ''"/>

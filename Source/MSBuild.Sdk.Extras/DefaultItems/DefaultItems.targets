@@ -1,4 +1,4 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
@@ -18,6 +18,5 @@
 
   <Import Project="$(MSBuildThisFileDirectory)Platforms\Xaml.targets" Condition="'$(EnableDefaultXamlItems)' == 'true' AND '$(_IsXamarinPlatform)' != 'true'"/>
 
-  <Import Project="$(MSBuildThisFileDirectory)Platforms\Xamarin.targets" Condition="'$(_IsXamarinPlatform)' == 'true'"/>
 
 </Project>
