@@ -18,12 +18,12 @@
 	</Target>
 
 	<Target Name="ExtrasSdkTest" BeforeTargets="CoreCompile">
-		<Message Text="Lang = $(_LanguageName)" />
-		<Message Text="_ShortFrameworkIdentifier = $(_ShortFrameworkIdentifier)" />
-		<Message Text="_ShortFrameworkVersion = $(_ShortFrameworkVersion)" />
-		<Message Text="_ShortFrameworkProfile = $(_ShortFrameworkProfile)" />
-		<Message Text="_ShortFrameworkProfileCount = $(_ShortFrameworkProfileCount)" />
-		<Message Text="_DotNetVersion = $(_DotNetVersion)" />
+		<Message Text="Lang = $(_SdkLanguageName)" />
+		<Message Text="_SdkShortFrameworkIdentifier = $(_SdkShortFrameworkIdentifier)" />
+		<Message Text="_SdkShortFrameworkVersion = $(_SdkShortFrameworkVersion)" />
+		<Message Text="_SdkShortFrameworkProfile = $(_SdkShortFrameworkProfile)" />
+		<Message Text="_SdkShortFrameworkProfileCount = $(_SdkShortFrameworkProfileCount)" />
+		<Message Text="_SdkDotNetVersion = $(_SdkDotNetVersion)" />
 	</Target>
 
 </Project>

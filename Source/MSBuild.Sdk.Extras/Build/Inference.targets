@@ -80,24 +80,19 @@
     <When Condition="'$(TargetFrameworkVersion)' == '' AND '$(_SdkShortFrameworkVersion)' != '' AND $(_SdkShortFrameworkVersion.Contains('.'))">
       <!-- Versions with dots are taken as is -->
       <PropertyGroup>
-        <TargetFrameworkVersion>$(_SdkShortFrameworkVersion)</TargetFrameworkVersion>
+        <TargetFrameworkVersion>v$(_SdkShortFrameworkVersion)</TargetFrameworkVersion>
       </PropertyGroup>
     </When>
 
     <When Condition="'$(TargetFrameworkVersion)' == '' AND '$(_SdkShortFrameworkVersion)' != ''">
       <!-- Versions with no dots and up to 3 characters gets implicit dots between characters -->
       <PropertyGroup>
-        <TargetFrameworkVersion Condition="$(_SdkShortFrameworkVersion.Length) == 1">$(_SdkShortFrameworkVersion[0]).0</TargetFrameworkVersion>
-        <TargetFrameworkVersion Condition="$(_SdkShortFrameworkVersion.Length) == 2">$(_SdkShortFrameworkVersion[0]).$(_SdkShortFrameworkVersion[1])</TargetFrameworkVersion>
-        <TargetFrameworkVersion Condition="$(_SdkShortFrameworkVersion.Length) == 3">$(_SdkShortFrameworkVersion[0]).$(_SdkShortFrameworkVersion[1]).$(_SdkShortFrameworkVersion[2])</TargetFrameworkVersion>
+        <TargetFrameworkVersion Condition="$(_SdkShortFrameworkVersion.Length) == 1">v$(_SdkShortFrameworkVersion[0]).0</TargetFrameworkVersion>
+        <TargetFrameworkVersion Condition="$(_SdkShortFrameworkVersion.Length) == 2">v$(_SdkShortFrameworkVersion[0]).$(_SdkShortFrameworkVersion[1])</TargetFrameworkVersion>
+        <TargetFrameworkVersion Condition="$(_SdkShortFrameworkVersion.Length) == 3">v$(_SdkShortFrameworkVersion[0]).$(_SdkShortFrameworkVersion[1]).$(_SdkShortFrameworkVersion[2])</TargetFrameworkVersion>
       </PropertyGroup>
     </When>
 
-    <Otherwise>
-      <PropertyGroup Condition="'$(TargetFrameworkVersion)' != ''">
-        <TargetFrameworkVersion>$(TargetFrameworkVersion.TrimStart('vV'))</TargetFrameworkVersion>
-      </PropertyGroup>
-    </Otherwise>
   </Choose>
 
   <Import Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'" Project="$(MSBuildThisFileDirectory)FrameworkResolvers\NETFramework.targets"/>
@@ -105,13 +100,12 @@
   <!-- Support for resolving portable framework profiles -->
   <ImportGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETPortable'">
     <Import Condition="'$(TargetFrameworkVersion)' == ''" Project="$(MSBuildThisFileDirectory)FrameworkResolvers\NETPortable.v*.targets"/>
-    <Import Condition="'$(TargetFrameworkVersion)' != ''" Project="$(MSBuildThisFileDirectory)FrameworkResolvers\NETPortable.v$(TargetFrameworkVersion).targets"/>
+    <Import Condition="'$(TargetFrameworkVersion)' != ''" Project="$(MSBuildThisFileDirectory)FrameworkResolvers\NETPortable.$(TargetFrameworkVersion).targets"/>
   </ImportGroup>
 
   <PropertyGroup>
     <_SdkTargetFrameworkVersionWithoutV>$(TargetFrameworkVersion)</_SdkTargetFrameworkVersionWithoutV>
-    <_SdkTargetFrameworkVersionWithV>v$(TargetFrameworkVersion)</_SdkTargetFrameworkVersionWithV>
-    <TargetFrameworkVersion>$(_SdkTargetFrameworkVersionWithV)</TargetFrameworkVersion>
+    <_SdkTargetFrameworkVersionWithoutV Condition="$(TargetFrameworkVersion.StartsWith('v'))">$(TargetFrameworkVersion.Substring(1))</_SdkTargetFrameworkVersionWithoutV>
   </PropertyGroup>
 
   <PropertyGroup Label="Build.Output">
