@@ -22,7 +22,7 @@ Visual Studio 2017 Update 6 (aka _v15.6_) includes support for SDK's resolved fr
 
 1. Create a new project
     - .NET Core console app or .NET Standard class library.
-    - With your exisiting SDK-style project.
+    - With your existing SDK-style project.
     - With the templates in the repo's [TestProjects](/TestProjects) folder.
 
 2. Replace `Microsoft.NET.Sdk` with `MSBuild.Sdk.Extras` to the project's top-level `Sdk` attribute.
