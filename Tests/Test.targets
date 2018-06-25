@@ -1,0 +1,29 @@
+﻿<Project>
+
+	<Target Name="MSBuildSdkTest" BeforeTargets="CoreCompile">
+		<Message Text="TargetFrameworkIdentifier = $(TargetFrameworkIdentifier)" />
+		<Message Text="TargetFrameworkVersion = $(TargetFrameworkVersion)" />
+		<Message Text="TargetFrameworkProfile = $(TargetFrameworkProfile)" />
+		<Message Text="TargetPlatformVersion = $(TargetPlatformVersion)" />
+		<Message Text="TargetPlatformMinVersion = $(TargetPlatformMinVersion)" />
+		<Message Text="NugetTargetMoniker = $(NugetTargetMoniker)" />
+		<Message Text="TargetPlatformIdentifier = $(TargetPlatformIdentifier)" />
+		<Message Text="NuGetBuildTasksPackTargets = $(NuGetBuildTasksPackTargets)" />
+		<Message Text="MSBuildSdksPath = $(MSBuildSdksPath)" />
+	</Target>
+
+	<Target Name="MSBuildAllProjectsTest" BeforeTargets="CoreCompile">
+		<Message Text="MSBuildAllProjects" />
+		<Message Text="$(MSBuildAllProjects.Replace(';', '%0D%0A'))" />
+	</Target>
+
+	<Target Name="ExtrasSdkTest" BeforeTargets="CoreCompile">
+		<Message Text="Lang = $(_LanguageName)" />
+		<Message Text="_ShortFrameworkIdentifier = $(_ShortFrameworkIdentifier)" />
+		<Message Text="_ShortFrameworkVersion = $(_ShortFrameworkVersion)" />
+		<Message Text="_ShortFrameworkProfile = $(_ShortFrameworkProfile)" />
+		<Message Text="_ShortFrameworkProfileCount = $(_ShortFrameworkProfileCount)" />
+		<Message Text="_DotNetVersion = $(_DotNetVersion)" />
+	</Target>
+
+</Project>
