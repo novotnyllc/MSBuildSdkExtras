@@ -16,7 +16,7 @@
     <Import Project="$(MSBuildThisFileDirectory)Platforms\Desktop.$(_SdkLanguageSourceName).targets" Condition="Exists('$(MSBuildThisFileDirectory)Platforms\Desktop.$(_SdkLanguageSourceName).targets')"/>
   </ImportGroup>
 
-  <Import Project="$(MSBuildThisFileDirectory)Platforms\Xaml.targets" Condition="'$(EnableDefaultXamlItems)' == 'true' AND '$(_IsXamarinPlatform)' != 'true'"/>
+  <Import Project="$(MSBuildThisFileDirectory)Platforms\Xaml.targets" Condition="'$(ExtrasEnableDefaultXamlItems)' == 'true' AND '$(_IsXamarinPlatform)' != 'true'"/>
 
 
 </Project>

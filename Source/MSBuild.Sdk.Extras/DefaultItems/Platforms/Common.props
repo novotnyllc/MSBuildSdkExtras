@@ -16,7 +16,7 @@
     </Compile>
     <EmbeddedResource>
       <SubType>Designer</SubType>
-      <Generator>$(DefaultGeneratorTool)</Generator>
+      <Generator>$(ExtrasDefaultGeneratorTool)</Generator>
     </EmbeddedResource>
   </ItemDefinitionGroup>
 
@@ -34,16 +34,16 @@
       <_SdkHasLangId>$([System.Text.RegularExpressions.Regex]::IsMatch('%(FileName)', '$(_SdkLangIdRegEx)'))</_SdkHasLangId>
     </EmbeddedResource>
     <EmbeddedResource Update="**\*.resx">
-      <Generator Condition="!%(_SdkHasLangId)">$(EmbeddedResourceCodeGeneratorTool)</Generator>
-      <LastGenOutput Condition="!%(_SdkHasLangId)">%(Filename)$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</LastGenOutput>
-      <GenFilePath Condition="!%(_SdkHasLangId)">%(RecursiveDir)%(Filename)$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</GenFilePath>
+      <Generator Condition="!%(_SdkHasLangId)">$(_SdkEmbeddedResourceCodeGeneratorTool)</Generator>
+      <LastGenOutput Condition="!%(_SdkHasLangId)">%(Filename)$(ExtrasDefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</LastGenOutput>
+      <GenFilePath Condition="!%(_SdkHasLangId)">%(RecursiveDir)%(Filename)$(ExtrasDefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</GenFilePath>
       <DependentUpon Condition="%(_SdkHasLangId)">$([System.Text.RegularExpressions.Regex]::Replace('%(FileName)', '$(_SdkLangIdRegEx)', '%(Extension)'))</DependentUpon>
     </EmbeddedResource>
     <Compile Update="@(EmbeddedResource->'%(GenFilePath)')">
       <AutoGen>true</AutoGen>
       <DesignTime>true</DesignTime>
       <DesignTimeSharedInput>true</DesignTimeSharedInput>
-      <DependentUpon>$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('$(DefaultDesignerFileSuffix)', '.resx'))</DependentUpon>
+      <DependentUpon>$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('$(ExtrasDefaultDesignerFileSuffix)', '.resx'))</DependentUpon>
     </Compile>
   </ItemGroup>
 

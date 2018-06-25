@@ -7,6 +7,7 @@
 
   <PropertyGroup>
     <IgnoreOldSdkWarning>$(SuppressWarnIfOldSdkPack)</IgnoreOldSdkWarning>
+    <ExtrasEnableDefaultWpfItems Condition="'$(EnableDefaultWpfItems)' != ''">$(EnableDefaultWpfItems)</ExtrasEnableDefaultWpfItems>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -30,6 +31,7 @@
     <_SdkObsoleteProperty Include="ExtrasImplicitPlatformPackageDisabled" Replacement="DisableImplicitFrameworkReferences (with TargetFramework condition)" Condition="'$(ExtrasImplicitPlatformPackageDisabled)' != ''"/>
     <_SdkObsoleteProperty Include="ExtrasImplicitPlatformPackageIsPrivate" Condition="'$(ExtrasImplicitPlatformPackageIsPrivate)' != ''"/>
     <_SdkObsoleteProperty Include="EmbeddedResourceGeneratorVisibilityIsInternal" Replacement="EmbeddedResourceGeneratedCodeIsPublic" Condition="'$(EmbeddedResourceGeneratorVisibilityIsInternal)' != ''"/>
+    <_SdkObsoleteProperty Include="EnableDefaultWpfItems" Replacement="ExtrasEnableDefaultWpfItems" Condition="'$(EnableDefaultWpfItems)' != ''"/>
   </ItemGroup>
 
     <Warning Text="The following properties are obsolete and will be removed from the next major version of the SDK. Please use the suggested replacements. Go here: https://tinyurl.com/sdk-extras-docs to learn more."

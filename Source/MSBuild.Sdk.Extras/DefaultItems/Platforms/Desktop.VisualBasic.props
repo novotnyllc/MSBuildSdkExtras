@@ -12,25 +12,25 @@
 
   <ItemGroup Condition="'$(EnableDefaultMyAppItems)' == 'true'">
     <None Update="**\*.myapp" SubType="Designer">
-      <Generator Condition="'$(EnableMyAppCodeGenerator)' == 'false'">$(DefaultGeneratorTool)</Generator>
+      <Generator Condition="'$(EnableMyAppCodeGenerator)' == 'false'">$(ExtrasDefaultGeneratorTool)</Generator>
     </None>
   </ItemGroup>
 
   <ItemGroup Condition="'$(EnableDefaultMyAppItems)' == 'true' AND '$(EnableMyAppCodeGenerator)' == 'true'">
     <None Update="**\*.myapp">
-      <Generator>$(MyAppCodeGeneratorTool)</Generator>
-      <LastGenOutput>%(Filename)$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</LastGenOutput>
+      <Generator>$(_SdkMyAppCodeGeneratorTool)</Generator>
+      <LastGenOutput>%(Filename)$(ExtrasDefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</LastGenOutput>
     </None>
 
     <_SdkMyAppFiles Include="**\*.myapp">
-      <GenFilePath>%(RecursiveDir)%(Filename)$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</GenFilePath>
+      <GenFilePath>%(RecursiveDir)%(Filename)$(ExtrasDefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</GenFilePath>
     </_SdkMyAppFiles>
 
     <Compile Update="@(_SdkMyAppFiles->'%(GenFilePath)')">
       <AutoGen>true</AutoGen>
       <DesignTime>true</DesignTime>
       <DesignTimeSharedInput>true</DesignTimeSharedInput>
-      <DependentUpon>$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('$(DefaultDesignerFileSuffix)', '.myapp'))</DependentUpon>
+      <DependentUpon>$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('$(ExtrasDefaultDesignerFileSuffix)', '.myapp'))</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -46,14 +46,14 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(EnableDefaultWpfItems)' == 'true'">
+  <ItemGroup Condition="'$(ExtrasEnableDefaultWpfItems)' == 'true'">
     <Compile Update="$(ApplicationExtensionFile)" Condition="'$(ApplicationExtensionFile)' != ''">
       <VBMyExtensionTemplateID>Microsoft.VisualBasic.WPF.MyExtension</VBMyExtensionTemplateID>
       <VBMyExtensionTemplateVersion>1.0.0.0</VBMyExtensionTemplateVersion>
     </Compile>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(DisableImplicitNamespaceImports)' != 'true' AND '$(EnableImplicitWpfReferences)' == 'true'">
+  <ItemGroup Condition="'$(DisableImplicitNamespaceImports)' != 'true' AND '$(ExtrasEnableImplicitWpfReferences)' == 'true'">
     <_SdkImplicitImport Include="System.Windows"/>
     <_SdkImplicitImport Include="System.Windows.Controls"/>
     <_SdkImplicitImport Include="System.Windows.Data"/>
@@ -65,12 +65,12 @@
     <_SdkImplicitImport Include="System.Windows.Navigation"/>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(DisableImplicitNamespaceImports)' != 'true' AND '$(EnableImplicitWebReferences)' == 'true'">
+  <ItemGroup Condition="'$(DisableImplicitNamespaceImports)' != 'true' AND '$(ExtrasEnableImplicitWebReferences)' == 'true'">
     <_SdkImplicitImport Include="System.Web"/>
     <_SdkImplicitImport Include="System.Web.Http"/>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(DisableImplicitNamespaceImports)' != 'true' AND '$(EnableImplicitWinFormsReferences)' == 'true'">
+  <ItemGroup Condition="'$(DisableImplicitNamespaceImports)' != 'true' AND '$(ExtrasEnableImplicitWinFormsReferences)' == 'true'">
     <_SdkImplicitImport Include="System.Design"/>
     <_SdkImplicitImport Include="System.Drawing"/>
     <_SdkImplicitImport Include="System.Deployment"/>

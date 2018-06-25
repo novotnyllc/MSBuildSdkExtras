@@ -1,4 +1,4 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
@@ -8,38 +8,38 @@
 
   <ItemGroup Condition="'$(EnableDefaultSettingsItems)' == 'true'">
     <None Update="**\*.settings" SubType="Designer">
-      <Generator Condition="'$(EnableSettingsCodeGenerator)' == 'false'">$(DefaultGeneratorTool)</Generator>
+      <Generator Condition="'$(EnableSettingsCodeGenerator)' == 'false'">$(ExtrasDefaultGeneratorTool)</Generator>
     </None>
   </ItemGroup>
 
   <ItemGroup Condition="'$(EnableDefaultSettingsItems)' == 'true' AND '$(EnableSettingsCodeGenerator)' == 'true'">
     <None Update="**\*.settings">
-      <Generator>$(SettingsCodeGeneratorTool)</Generator>
-      <LastGenOutput>%(Filename)$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</LastGenOutput>
+      <Generator>$(_SdkSettingsCodeGeneratorTool)</Generator>
+      <LastGenOutput>%(Filename)$(ExtrasDefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</LastGenOutput>
     </None>
 
     <_SettingsFiles Include="**\*.settings">
-      <GenFilePath>%(RecursiveDir)%(Filename)$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</GenFilePath>
+      <GenFilePath>%(RecursiveDir)%(Filename)$(ExtrasDefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</GenFilePath>
     </_SettingsFiles>
 
     <Compile Update="@(_SettingsFiles->'%(GenFilePath)')">
       <AutoGen>true</AutoGen>
       <DesignTime>true</DesignTime>
       <DesignTimeSharedInput>true</DesignTimeSharedInput>
-      <DependentUpon>$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('$(DefaultDesignerFileSuffix)', '.settings'))</DependentUpon>
+      <DependentUpon>$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('$(ExtrasDefaultDesignerFileSuffix)', '.settings'))</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="**\*$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)">
-      <DependentUpon Condition="'%(DependentUpon)' == ''">$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('$(DefaultDesignerFileSuffix)', '$(DefaultLanguageSourceExtension)'))</DependentUpon>
+    <Compile Update="**\*$(ExtrasDefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)">
+      <DependentUpon Condition="'%(DependentUpon)' == ''">$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('$(ExtrasDefaultDesignerFileSuffix)', '$(DefaultLanguageSourceExtension)'))</DependentUpon>
     </Compile>
-    <Service Include="$(UserControlDesignerService)" Condition="'$(EnableUserControlDesigner)' == 'true'"/>
+    <Service Include="$(ExtrasUserControlDesignerService)" Condition="'$(ExtrasEnableUserControlDesigner)' == 'true'"/>
   </ItemGroup>
 
   <!-- Windows Forms Support -->
 
-  <ItemGroup Condition="'$(EnableDefaultWinFormsItems)' == 'true'">
+  <ItemGroup Condition="'$(ExtrasEnableDefaultWinFormsItems)' == 'true'">
     <EmbeddedResource Update="**\*.resx" Condition="'$(EnableDefaultEmbeddedResourceItems)' == 'true' AND '$(EnableEmbeddedResourceCodeGenerator)' == 'true'">
       <DependentUpon Condition="'%(DependentUpon)' == '' AND Exists('%(ResursiveDir)%(Filename)$(DefaultLanguageSourceExtension)')">%(Filename)$(DefaultLanguageSourceExtension)</DependentUpon>
     </EmbeddedResource>
@@ -47,12 +47,6 @@
       TODO: Add SubType(s) for Windows Forms Project
       ISSUE: SubType(s) for Windows Forms Project doesn't work in CPS yet!
     -->
-  </ItemGroup>
-
-  <!-- WEB Support -->
-
-  <ItemGroup Condition="'$(EnableDefaultWebItems)' == 'true'">
-    <!-- TODO: Add Support ASP.NET Projects -->
   </ItemGroup>
 
 </Project>

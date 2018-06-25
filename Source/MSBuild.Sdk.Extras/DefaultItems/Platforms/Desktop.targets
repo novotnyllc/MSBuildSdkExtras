@@ -1,4 +1,4 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
@@ -6,18 +6,18 @@
 
   <!-- Force disable other projects' setup, Since it does not play very well with each other. -->
   <PropertyGroup Condition="'$(ExtrasEnableWpfProjectSetup)' == 'true'">
-    <EnableWebProjectSetup>false</EnableWebProjectSetup>
-    <EnableWinFormsProjectSetup>false</EnableWinFormsProjectSetup>
+    <ExtrasEnableWebProjectSetup>false</ExtrasEnableWebProjectSetup>
+    <ExtrasEnableWinFormsProjectSetup>false</ExtrasEnableWinFormsProjectSetup>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(EnableWebProjectSetup)' == 'true'">
+  <PropertyGroup Condition="'$(ExtrasEnableWebProjectSetup)' == 'true'">
     <ExtrasEnableWpfProjectSetup>false</ExtrasEnableWpfProjectSetup>
-    <EnableWinFormsProjectSetup>false</EnableWinFormsProjectSetup>
+    <ExtrasEnableWinFormsProjectSetup>false</ExtrasEnableWinFormsProjectSetup>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(EnableWinFormsProjectSetup)' == 'true'">
+  <PropertyGroup Condition="'$(ExtrasEnableWinFormsProjectSetup)' == 'true'">
     <ExtrasEnableWpfProjectSetup>false</ExtrasEnableWpfProjectSetup>
-    <EnableWebProjectSetup>false</EnableWebProjectSetup>
+    <ExtrasEnableWebProjectSetup>false</ExtrasEnableWebProjectSetup>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(ApplicationManifest)' == ''">
@@ -31,36 +31,32 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(EnableSettingsCodeGenerator)' == 'true'">
-    <SettingsCodeGeneratorTool Condition="'$(SettingsGeneratedCodeIsPublic)' != 'true'">SettingsSingleFileGenerator</SettingsCodeGeneratorTool>
-    <SettingsCodeGeneratorTool Condition="'$(SettingsGeneratedCodeIsPublic)' == 'true'">PublicSettingsSingleFileGenerator</SettingsCodeGeneratorTool>
+    <_SdkSettingsCodeGeneratorTool Condition="'$(SettingsGeneratedCodeIsPublic)' != 'true'">SettingsSingleFileGenerator</_SdkSettingsCodeGeneratorTool>
+    <_SdkSettingsCodeGeneratorTool Condition="'$(SettingsGeneratedCodeIsPublic)' == 'true'">PublicSettingsSingleFileGenerator</_SdkSettingsCodeGeneratorTool>
   </PropertyGroup>
 
   <!-- WPF Support -->
 
   <PropertyGroup Condition="'$(ExtrasEnableWpfProjectSetup)' == 'true'">
-    <EnableDefaultWpfItems Condition="'$(EnableDefaultWpfItems)' == ''">true</EnableDefaultWpfItems>
-    <EnableDefaultXamlItems>$(EnableDefaultWpfItems)</EnableDefaultXamlItems>
-    <EnableImplicitWpfReferences Condition="'$(EnableImplicitWpfReferences)' == ''">true</EnableImplicitWpfReferences>
+    <ExtrasEnableDefaultWpfItems Condition="'$(ExtrasEnableDefaultWpfItems)' == ''">true</ExtrasEnableDefaultWpfItems>
+    <ExtrasEnableDefaultXamlItems>$(ExtrasEnableDefaultWpfItems)</ExtrasEnableDefaultXamlItems>
+    <ExtrasEnableImplicitWpfReferences Condition="'$(ExtrasEnableImplicitWpfReferences)' == ''">true</ExtrasEnableImplicitWpfReferences>
   </PropertyGroup>
 
   <!-- Windows Forms Support -->
 
-  <PropertyGroup Condition="'$(EnableWinFormsProjectSetup)' == 'true'">
-    <EnableDefaultWinFormsItems Condition="'$(EnableDefaultWinFormsItems)' == ''">true</EnableDefaultWinFormsItems>
-    <EnableImplicitWinFormsReferences Condition="'$(EnableImplicitWinFormsReferences)' == ''">true</EnableImplicitWinFormsReferences>
-    <EnableUserControlDesigner Condition="'$(EnableUserControlDesigner)' == ''">false</EnableUserControlDesigner>
-    <UserControlDesignerService Condition="'$(UserControlDesignerService)' == ''">{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}</UserControlDesignerService>
+  <PropertyGroup Condition="'$(ExtrasEnableWinFormsProjectSetup)' == 'true'">
+    <ExtrasEnableDefaultWinFormsItems Condition="'$(ExtrasEnableDefaultWinFormsItems)' == ''">true</ExtrasEnableDefaultWinFormsItems>
+    <ExtrasEnableImplicitWinFormsReferences Condition="'$(ExtrasEnableImplicitWinFormsReferences)' == ''">true</ExtrasEnableImplicitWinFormsReferences>
+    <ExtrasEnableUserControlDesigner Condition="'$(ExtrasEnableUserControlDesigner)' == ''">false</ExtrasEnableUserControlDesigner>
+    <ExtrasUserControlDesignerService Condition="'$(ExtrasUserControlDesignerService)' == ''">{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}</ExtrasUserControlDesignerService>
   </PropertyGroup>
 
   <!-- WEB Support -->
 
-  <PropertyGroup Condition="'$(EnableWebProjectSetup)' == 'true'">
-    <EnableDefaultWebItems Condition="'$(EnableDefaultWebItems)' == ''">true</EnableDefaultWebItems>
-    <EnableImplicitWebReferences Condition="'$(EnableImplicitWebReferences)' == ''">true</EnableImplicitWebReferences>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(EnableDefaultWebItems)' == 'true'">
-    <!-- TODO: Add Support ASP.NET Projects -->
+  <PropertyGroup Condition="'$(ExtrasEnableWebProjectSetup)' == 'true'">
+    <ExtrasEnableDefaultWebItems Condition="'$(ExtrasEnableDefaultWebItems)' == ''">true</ExtrasEnableDefaultWebItems>
+    <ExtrasEnableImplicitWebReferences Condition="'$(ExtrasEnableImplicitWebReferences)' == ''">true</ExtrasEnableImplicitWebReferences>
   </PropertyGroup>
 
 </Project>
