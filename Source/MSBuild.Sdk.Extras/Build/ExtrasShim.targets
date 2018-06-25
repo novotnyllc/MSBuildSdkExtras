@@ -6,19 +6,14 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <IgnoreOldSdkWarning>$(SuppressWarnIfOldSdkPack)</IgnoreOldSdkWarning>
+    <ExtrasIgnoreOldSdkWarning>$(SuppressWarnIfOldSdkPack)</ExtrasIgnoreOldSdkWarning>
     <ExtrasEnableDefaultWpfItems Condition="'$(EnableDefaultWpfItems)' != ''">$(EnableDefaultWpfItems)</ExtrasEnableDefaultWpfItems>
   </PropertyGroup>
 
   <PropertyGroup>
     <ExtrasImplicitPlatformPackageVersion Condition="'$(_SdkShortFrameworkIdentifier)' == 'uap' and '$(ExtrasUwpMetaPackageVersion)' != '' ">$(ExtrasUwpMetaPackageVersion)</ExtrasImplicitPlatformPackageVersion>
-    <DisableImplicitFrameworkReferences Condition="'$(_SdkShortFrameworkIdentifier)' == 'uap' OR '$(_SdkShortFrameworkIdentifier)' == 'tizen'">$(ExtrasImplicitPlatformPackageDisabled)</DisableImplicitFrameworkReferences>
+    <DisableImplicitFrameworkReferences Condition=" '$(ExtrasImplicitPlatformPackageDisabled)' != '' and ('$(_SdkShortFrameworkIdentifier)' == 'uap' OR '$(_SdkShortFrameworkIdentifier)' == 'tizen') ">$(ExtrasImplicitPlatformPackageDisabled)</DisableImplicitFrameworkReferences>
   </PropertyGroup>
-
-  <ItemGroup Condition="'$(ExtrasImplicitPlatformPackageIsPrivate)' != 'true'">
-    <PackageReference Update="Microsoft.NETCore.UniversalWindowsPlatform" KeepMetadata="false" Condition="'$(_SdkShortFrameworkIdentifier)' == 'uap'"/>
-    <PackageReference Update="Tizen.NET" KeepMetadata="false" Condition="'$(_SdkShortFrameworkIdentifier)' == 'tizen'"/>
-  </ItemGroup>
 
   <Target
     Name="_WarnWhenUsingObsoleteProperties"
@@ -26,22 +21,16 @@
     Condition="'$(_IgnoreObsoletePropertyWarnings)' != 'true'">
 
   <ItemGroup>
-    <_SdkObsoleteProperty Include="SuppressWarnIfOldSdkPack" Replacement="IgnoreOldSdkWarning" Condition="'$(SuppressWarnIfOldSdkPack)' != ''"/>
+    <_SdkObsoleteProperty Include="SuppressWarnIfOldSdkPack" Replacement="ExtrasIgnoreOldSdkWarning" Condition="'$(SuppressWarnIfOldSdkPack)' != ''"/>
     <_SdkObsoleteProperty Include="ExtrasUwpMetaPackageVersion" Replacement="ExtrasImplicitPlatformPackageVersion (with TargetFramework condition)" Condition="'$(ExtrasUwpMetaPackageVersion)' != ''"/>
     <_SdkObsoleteProperty Include="ExtrasImplicitPlatformPackageDisabled" Replacement="DisableImplicitFrameworkReferences (with TargetFramework condition)" Condition="'$(ExtrasImplicitPlatformPackageDisabled)' != ''"/>
-    <_SdkObsoleteProperty Include="ExtrasImplicitPlatformPackageIsPrivate" Condition="'$(ExtrasImplicitPlatformPackageIsPrivate)' != ''"/>
     <_SdkObsoleteProperty Include="EmbeddedResourceGeneratorVisibilityIsInternal" Replacement="EmbeddedResourceGeneratedCodeIsPublic" Condition="'$(EmbeddedResourceGeneratorVisibilityIsInternal)' != ''"/>
     <_SdkObsoleteProperty Include="EnableDefaultWpfItems" Replacement="ExtrasEnableDefaultWpfItems" Condition="'$(EnableDefaultWpfItems)' != ''"/>
   </ItemGroup>
 
-    <Warning Text="The following properties are obsolete and will be removed from the next major version of the SDK. Please use the suggested replacements. Go here: https://tinyurl.com/sdk-extras-docs to learn more."
-            Condition="@(_SdkObsoleteProperty) != ''"/>
-
-    <Warning Text="The property '%(_SdkObsoleteProperty.Identity)' is obsolete, use '%(_SdkObsoleteProperty.Replacement)' instead!"
+    <Warning Text="The property '%(_SdkObsoleteProperty.Identity)' is deprecated and will be removed in the future. Please use '%(_SdkObsoleteProperty.Replacement)' instead."
             Condition="'%(_SdkObsoleteProperty.Replacement)' != ''"/>
 
-    <Warning Text="The property '%(_SdkObsoleteProperty.Identity)' is now implicitly applied. You can remove the property, as it's no longer needed!"
-            Condition="'%(_SdkObsoleteProperty.Replacement)' == '' and '%(_SdkObsoleteProperty.Identity)' != '' "/>
   </Target>
 
 </Project>

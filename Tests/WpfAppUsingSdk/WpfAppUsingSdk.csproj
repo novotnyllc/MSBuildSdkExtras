@@ -3,7 +3,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net462</TargetFramework>
     <ExtrasEnableWpfProjectSetup>true</ExtrasEnableWpfProjectSetup>
-    <EmbeddedResourceGeneratorVisibilityIsInternal>false</EmbeddedResourceGeneratorVisibilityIsInternal>
+    <EmbeddedResourceGeneratedCodeIsPublic>true</EmbeddedResourceGeneratedCodeIsPublic>
   </PropertyGroup>
 
   <ItemGroup>

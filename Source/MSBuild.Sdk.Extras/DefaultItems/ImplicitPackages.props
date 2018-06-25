@@ -15,13 +15,13 @@
       Update the implicit package based on target framework output types and other conditions if necessary
       Packing should include the implicit package dependency for non-executables.
     -->
-    <PackageReference Update="Microsoft.NETCore.UniversalWindowsPlatform" PrivateAssets="All" Publish="false"
-      Condition="'$(OutputType)' != 'Exe' OR '$(OutputType)' != 'AppContainerExe'"/>
+    <PackageReference Update="Microsoft.NETCore.UniversalWindowsPlatform" PrivateAssets="All" 
+      Condition="'$(ExtrasImplicitPlatformPackageIsPrivate)' == 'true'"/>
   </ItemGroup>
 
   <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(_SdkShortFrameworkIdentifier)' == 'tizen'">
     <PackageReference Include="Tizen.NET" Version="$(ExtrasImplicitPlatformPackageVersion)" IsImplicitlyDefined="true"/>
-    <PackageReference Update="Tizen.NET" PrivateAssets="All" Publish="false" Condition="'$(OutputType)' != 'Exe'"/>
+    <PackageReference Update="Tizen.NET" PrivateAssets="All" Condition="'$(ExtrasImplicitPlatformPackageIsPrivate)' == 'true'"/>
   </ItemGroup>
 
 </Project>
