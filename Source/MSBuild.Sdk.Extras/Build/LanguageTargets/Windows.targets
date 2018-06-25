@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <_SdkLanguageTargets>$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.$(_LanguageSourceName).targets</_SdkLanguageTargets>
+    <_SdkLanguageTargets>$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.$(_SdkLanguageSourceName).targets</_SdkLanguageTargets>
   </PropertyGroup>
 
   <PropertyGroup>

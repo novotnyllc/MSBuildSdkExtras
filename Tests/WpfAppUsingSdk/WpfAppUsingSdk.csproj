@@ -2,7 +2,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net462</TargetFramework>
-    <EnableWpfProjectSetup>true</EnableWpfProjectSetup>
+    <ExtrasEnableWpfProjectSetup>true</ExtrasEnableWpfProjectSetup>
     <EmbeddedResourceGeneratorVisibilityIsInternal>false</EmbeddedResourceGeneratorVisibilityIsInternal>
   </PropertyGroup>
 

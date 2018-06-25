@@ -1,53 +1,53 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
   <PropertyGroup>
-    <ImportProjectExtensionProps Condition="'$(ImportProjectExtensionProps)' == ''">true</ImportProjectExtensionProps>
+    <ExtrasImportProjectExtensionProps Condition="'$(ExtrasImportProjectExtensionProps)' == ''">true</ExtrasImportProjectExtensionProps>
   </PropertyGroup>
 
   <PropertyGroup>
-    <_GeneratedProjectSuffixPattern>_[a-z0-9]{8}_wpftmp</_GeneratedProjectSuffixPattern>
+    <_SdkGeneratedProjectSuffixPattern>_[a-z0-9]{8}_wpftmp</_SdkGeneratedProjectSuffixPattern>
   </PropertyGroup>
 
   <Choose>
     <!-- Check for *.tmp_proj files -->
     <When Condition="'$(MSBuildProjectExtension)' == '.tmp_proj'">
       <PropertyGroup>
-        <_IsGeneratedProject>true</_IsGeneratedProject>
-        <_OriginalProjectName Condition="'$(_OriginalProjectName)' == ''">$(AssemblyName)</_OriginalProjectName>
-        <_LanguageSourceName Condition="Exists('$(MSBuildProjectDirectory)\$(_OriginalProjectName).csproj')">CSharp</_LanguageSourceName>
-        <_LanguageSourceName Condition="Exists('$(MSBuildProjectDirectory)\$(_OriginalProjectName).vbproj')">VisualBasic</_LanguageSourceName>
-        <_LanguageSourceName Condition="Exists('$(MSBuildProjectDirectory)\$(_OriginalProjectName).fsproj')">FSharp</_LanguageSourceName>
+        <_SdkIsGeneratedProject>true</_SdkIsGeneratedProject>
+        <_SdkOriginalProjectName Condition="'$(_SdkOriginalProjectName)' == ''">$(AssemblyName)</_SdkOriginalProjectName>
+        <_SdkLanguageSourceName Condition="Exists('$(MSBuildProjectDirectory)\$(_SdkOriginalProjectName).csproj')">CSharp</_SdkLanguageSourceName>
+        <_SdkLanguageSourceName Condition="Exists('$(MSBuildProjectDirectory)\$(_SdkOriginalProjectName).vbproj')">VisualBasic</_SdkLanguageSourceName>
+        <_SdkLanguageSourceName Condition="Exists('$(MSBuildProjectDirectory)\$(_SdkOriginalProjectName).fsproj')">FSharp</_SdkLanguageSourceName>
       </PropertyGroup>
     </When>
 
     <!-- Check for '_TargetAssemblyProjectName' that tells us that we're within _*_wpftmp.*proj files -->
     <When Condition="'$(_TargetAssemblyProjectName)' != ''">
       <PropertyGroup>
-        <_IsGeneratedProject>true</_IsGeneratedProject>
-        <_OriginalProjectName Condition="'$(_OriginalProjectName)' == ''">$(_TargetAssemblyProjectName)</_OriginalProjectName>
-        <_OriginalProjectName Condition="'$(_OriginalProjectName)' == ''">$([System.Text.RegularExpressions.Regex]::Replace('$(MSBuildProjectName)', '$(_GeneratedProjectSuffixPattern)%24', ''))</_OriginalProjectName>
+        <_SdkIsGeneratedProject>true</_SdkIsGeneratedProject>
+        <_SdkOriginalProjectName Condition="'$(_SdkOriginalProjectName)' == ''">$(_TargetAssemblyProjectName)</_SdkOriginalProjectName>
+        <_SdkOriginalProjectName Condition="'$(_SdkOriginalProjectName)' == ''">$([System.Text.RegularExpressions.Regex]::Replace('$(MSBuildProjectName)', '$(_SdkGeneratedProjectSuffixPattern)%24', ''))</_SdkOriginalProjectName>
       </PropertyGroup>
     </When>
 
     <Otherwise/>
   </Choose>
 
-  <PropertyGroup Condition="'$(_OriginalProjectName)' != ''">
-    <_OriginalProjectFile>$(_OriginalProjectName)$(MSBuildProjectExtension)</_OriginalProjectFile>
-    <_OriginalProjectExtensionsPath Condition="$(MSBuildProjectExtensionsPath.Contains('$(MSBuildProjectName)'))">$(MSBuildProjectExtensionsPath.Replace('$(MSBuildProjectName)', '$(_OriginalProjectName)'))</_OriginalProjectExtensionsPath>
-    <RestoreOutputPath>$(_OriginalProjectExtensionsPath)</RestoreOutputPath>
+  <PropertyGroup Condition="'$(_SdkOriginalProjectName)' != ''">
+    <_SdkOriginalProjectFile>$(_SdkOriginalProjectName)$(MSBuildProjectExtension)</_SdkOriginalProjectFile>
+    <_SdkOriginalProjectExtensionsPath Condition="$(MSBuildProjectExtensionsPath.Contains('$(MSBuildProjectName)'))">$(MSBuildProjectExtensionsPath.Replace('$(MSBuildProjectName)', '$(_SdkOriginalProjectName)'))</_SdkOriginalProjectExtensionsPath>
+    <RestoreOutputPath>$(_SdkOriginalProjectExtensionsPath)</RestoreOutputPath>
   </PropertyGroup>
 
   <!--
     WPF sometimes creates a temporary project, since it changes the project file, it breaks Project Extensions import.
-    In order to properly import Project Extensions, we need the user to set '_OriginalProjectName' or '_OriginalProjectFile' and use it to import Project Extensions.
+    In order to properly import Project Extensions, we need the user to set '_SdkOriginalProjectName' or '_SdkOriginalProjectFile' and use it to import Project Extensions.
   -->
-  <ImportGroup Condition="'$(_OriginalProjectFile)' != '' AND '$(ImportProjectExtensionProps)' == 'true'">
-    <Import Project="$(_OriginalProjectExtensionsPath)$(_OriginalProjectFile).*.props" Condition="Exists('$(_OriginalProjectExtensionsPath)')"/>
+  <ImportGroup Condition="'$(_SdkOriginalProjectFile)' != '' AND '$(ExtrasImportProjectExtensionProps)' == 'true'">
+    <Import Project="$(_SdkOriginalProjectExtensionsPath)$(_SdkOriginalProjectFile).*.props" Condition="Exists('$(_SdkOriginalProjectExtensionsPath)')"/>
   </ImportGroup>
 
 </Project>

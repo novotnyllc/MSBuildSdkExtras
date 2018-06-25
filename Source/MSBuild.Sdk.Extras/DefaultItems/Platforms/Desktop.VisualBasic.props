@@ -1,4 +1,4 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
@@ -22,11 +22,11 @@
       <LastGenOutput>%(Filename)$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</LastGenOutput>
     </None>
 
-    <_MyAppFiles Include="**\*.myapp">
+    <_SdkMyAppFiles Include="**\*.myapp">
       <GenFilePath>%(RecursiveDir)%(Filename)$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</GenFilePath>
-    </_MyAppFiles>
+    </_SdkMyAppFiles>
 
-    <Compile Update="@(_MyAppFiles->'%(GenFilePath)')">
+    <Compile Update="@(_SdkMyAppFiles->'%(GenFilePath)')">
       <AutoGen>true</AutoGen>
       <DesignTime>true</DesignTime>
       <DesignTimeSharedInput>true</DesignTimeSharedInput>

@@ -6,19 +6,19 @@
 
   <!-- By default we warn about using the msbuild core, if the projects require full MSBuild targets. -->
   <PropertyGroup Condition="'$(MSBuildRuntimeType)' == 'Core'">
-    <_IgnoreMSBuildCoreWarning>true</_IgnoreMSBuildCoreWarning>
-    <_IgnoreMSBuildCoreWarning Condition="'$(EnableWpfProjectSetup)' == 'true'">false</_IgnoreMSBuildCoreWarning>
-    <_IgnoreMSBuildCoreWarning Condition="'$(_SdkPlatformName)' == 'Silverlight'">false</_IgnoreMSBuildCoreWarning>
-    <_IgnoreMSBuildCoreWarning Condition="$(_SdkPlatformName.StartsWith('Windows'))">false</_IgnoreMSBuildCoreWarning>
+    <_SdkIgnoreMSBuildCoreWarning>true</_SdkIgnoreMSBuildCoreWarning>
+    <_SdkIgnoreMSBuildCoreWarning Condition="'$(ExtrasEnableWpfProjectSetup)' == 'true'">false</_SdkIgnoreMSBuildCoreWarning>
+    <_SdkIgnoreMSBuildCoreWarning Condition="'$(_SdkPlatformName)' == 'Silverlight'">false</_SdkIgnoreMSBuildCoreWarning>
+    <_SdkIgnoreMSBuildCoreWarning Condition="$(_SdkPlatformName.StartsWith('Windows'))">false</_SdkIgnoreMSBuildCoreWarning>
   </PropertyGroup>
 
   <!-- Check to see if we are using msbuild core! -->
-  <Target Name="_WarnWhenUsingMSBuildCore"
+  <Target Name="_SdkWarnWhenUsingMSBuildCore"
           BeforeTargets="_ShowMissingLanguageTargetsError;_CheckForUnsupportedTargetFramework"
-          Condition="'$(MSBuildRuntimeType)' == 'Core' AND '$(_IgnoreMSBuildCoreWarning)' != 'true'">
+          Condition="'$(MSBuildRuntimeType)' == 'Core' AND '$(_SdkIgnoreMSBuildCoreWarning)' != 'true'">
 
     <PropertyGroup>
-      <_IgnoreMissingLanguageTargetsError>$(_SdkLanguageTargetsMissing)</_IgnoreMissingLanguageTargetsError>
+      <_SdkIgnoreMissingLanguageTargetsError>$(_SdkLanguageTargetsMissing)</_SdkIgnoreMissingLanguageTargetsError>
     </PropertyGroup>
 
     <Warning Text="If you are building projects that require targets from full MSBuild or MSBuildFrameworkToolsPath, you need to use desktop msbuild ('msbuild.exe') instead of 'dotnet build' or 'dotnet msbuild'"/>
@@ -26,49 +26,49 @@
 
   <PropertyGroup>
     <!-- Don't generate assembly info for generated projects -->
-    <GenerateAssemblyInfo Condition="'$(_IsGeneratedProject)' == 'true'">false</GenerateAssemblyInfo>
-    <ImportProjectExtensionTargets Condition="'$(ImportProjectExtensionTargets)' == ''">true</ImportProjectExtensionTargets>
+    <GenerateAssemblyInfo Condition="'$(_SdkIsGeneratedProject)' == 'true'">false</GenerateAssemblyInfo>
+    <ExtrasImportProjectExtensionTargets Condition="'$(ExtrasImportProjectExtensionTargets)' == ''">true</ExtrasImportProjectExtensionTargets>
   </PropertyGroup>
 
   <!--
     WPF sometimes creates a temporary project, since it changes the peoject file, it breaks MSBuildProjectName dependent properies.
     When that is the case we simply fix-up those properties by removing the project generated suffix.
   -->
-  <Target Name="_CheckAndFixupPropertiesWithGeneratedSuffix"
+  <Target Name="_SdkCheckAndFixupPropertiesWithGeneratedSuffix"
       BeforeTargets="_CompileTemporaryAssembly;CoreCompile"
-      Condition="'$(_IsGeneratedProject)' == 'true' AND '$(DisableFixupPropertiesWithGeneratedSuffix)' != 'true'">
+      Condition="'$(_SdkIsGeneratedProject)' == 'true' AND '$(DisableFixupPropertiesWithGeneratedSuffix)' != 'true'">
 
     <PropertyGroup Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(RootNamespace)', '[a-z0-9]{8}'))">
-      <_RootNamespaceInGeneratedProject>$(RootNamespace)</_RootNamespaceInGeneratedProject>
+      <_SdkRootNamespaceInGeneratedProject>$(RootNamespace)</_SdkRootNamespaceInGeneratedProject>
       <RootNamespace/>
 
       <!-- Default Scenarios -->
-      <RootNamespace Condition="'$(_RootNamespaceInGeneratedProject.Length)' == '8'">$(_OriginalProjectName)</RootNamespace>
-      <RootNamespace Condition="'$(RootNamespace)' == '' AND $(_RootNamespaceInGeneratedProject.Contains('$(MSBuildProjectName)'))">$(_RootNamespaceInGeneratedProject.Replace('$(MSBuildProjectName)', '$(_OriginalProjectName)'))</RootNamespace>
+      <RootNamespace Condition="'$(_SdkRootNamespaceInGeneratedProject.Length)' == '8'">$(_SdkOriginalProjectName)</RootNamespace>
+      <RootNamespace Condition="'$(RootNamespace)' == '' AND $(_SdkRootNamespaceInGeneratedProject.Contains('$(MSBuildProjectName)'))">$(_SdkRootNamespaceInGeneratedProject.Replace('$(MSBuildProjectName)', '$(_SdkOriginalProjectName)'))</RootNamespace>
 
       <!-- Common Special cases -->
-      <RootNamespace Condition="'$(RootNamespace)' == '' AND $(_RootNamespaceInGeneratedProject.Contains('_wpftmp'))">$([System.Text.RegularExpressions.Regex]::Replace('$(_RootNamespaceInGeneratedProject)', '$(_GeneratedProjectSuffixPattern)', ''))</RootNamespace>
-      <RootNamespace Condition="'$(RootNamespace)' == '' AND $(_RootNamespaceInGeneratedProject.Contains('.wpftmp'))">$([System.Text.RegularExpressions.Regex]::Replace('$(_RootNamespaceInGeneratedProject)', $(_GeneratedProjectSuffixPattern.Replace('_', '.')), ''))</RootNamespace>
+      <RootNamespace Condition="'$(RootNamespace)' == '' AND $(_SdkRootNamespaceInGeneratedProject.Contains('_wpftmp'))">$([System.Text.RegularExpressions.Regex]::Replace('$(_SdkRootNamespaceInGeneratedProject)', '$(_SdkGeneratedProjectSuffixPattern)', ''))</RootNamespace>
+      <RootNamespace Condition="'$(RootNamespace)' == '' AND $(_SdkRootNamespaceInGeneratedProject.Contains('.wpftmp'))">$([System.Text.RegularExpressions.Regex]::Replace('$(_SdkRootNamespaceInGeneratedProject)', $(_SdkGeneratedProjectSuffixPattern.Replace('_', '.')), ''))</RootNamespace>
     </PropertyGroup>
 
-    <Message Importance="Low" Condition="'$(_RootNamespaceInGeneratedProject)' != ''"
-      Text="The RootNamespace in the generated project was '$(_RootNamespaceInGeneratedProject)' and the fixed-up RootNamespace is $(RootNamespace)."/>
+    <Message Importance="Low" Condition="'$(_SdkRootNamespaceInGeneratedProject)' != ''"
+      Text="The RootNamespace in the generated project was '$(_SdkRootNamespaceInGeneratedProject)' and the fixed-up RootNamespace is $(RootNamespace)."/>
 
   </Target>
 
   <!--
     WPF sometimes creates a temporary project, since it changes the peoject file, it breaks Project Extensions import.
-    In order to properly import Project Extensions, we need the user to set '_OriginalProjectName' or '_OriginalProjectFile' and use it to import Project Extensions.
+    In order to properly import Project Extensions, we need the user to set '_SdkOriginalProjectName' or '_SdkOriginalProjectFile' and use it to import Project Extensions.
   -->
-  <ImportGroup Condition="'$(_OriginalProjectFile)' != '' AND '$(ImportProjectExtensionTargets)' == 'true'">
-    <Import Project="$(_OriginalProjectExtensionsPath)$(_OriginalProjectFile).*.targets" Condition="Exists('$(_OriginalProjectExtensionsPath)')"/>
+  <ImportGroup Condition="'$(_SdkOriginalProjectFile)' != '' AND '$(ExtrasImportProjectExtensionTargets)' == 'true'">
+    <Import Project="$(_SdkOriginalProjectExtensionsPath)$(_SdkOriginalProjectFile).*.targets" Condition="Exists('$(_SdkOriginalProjectExtensionsPath)')"/>
   </ImportGroup>
 
   <!--
     Workaround to fix IntelliSense file generation for XAML projects
     ISSUE: https://github.com/dotnet/project-system/issues/2488
   -->
-  <Target Name="_DesignTimeBuildAndIntelliSenseWorkaround"
+  <Target Name="_SdkDesignTimeBuildAndIntelliSenseWorkaround"
       AfterTargets="_CheckCompileDesignTimePrerequisite"
       Condition="'@(ApplicationDefinition)' != '' OR '@(Page)' != '' OR '@(Resource)' != ''">
     <PropertyGroup>
@@ -80,10 +80,10 @@
   <!-- Handle Library Layout in NuGet packages -->
 
   <PropertyGroup Condition="'$(ExtrasSkipLibraryLayout)' != 'true'">
-    <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_IncludeWindowsLibraryLayoutItems</TargetsForTfmSpecificContentInPackage>
+    <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_SdkIncludeWindowsLibraryLayoutItems</TargetsForTfmSpecificContentInPackage>
   </PropertyGroup>
 
-  <Target Name="_IncludeWindowsLibraryLayoutItems"
+  <Target Name="_SdkIncludeWindowsLibraryLayoutItems"
       DependsOnTargets="PrepareLibraryLayout"
       Condition="'$(GenerateLibraryLayout)' == 'true' AND '$(SDKIdentifier)' == 'Windows'">
     <ItemGroup>

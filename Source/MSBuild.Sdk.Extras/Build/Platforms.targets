@@ -36,12 +36,12 @@
     <VersionlessImplicitFrameworkDefine>$(ImplicitFrameworkIdentifierDefine)</VersionlessImplicitFrameworkDefine>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true' AND '$(_LanguageSourceName)' != 'VisualBasic'">
+  <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true' AND '$(_SdkLanguageSourceName)' != 'VisualBasic'">
     <DefineConstants Condition="'$(DefineConstants)' != '' AND !$(DefineConstants.EndsWith(';'))">$(DefineConstants);</DefineConstants>
     <DefineConstants>$(DefineConstants)$(ImplicitFrameworkProfileDefine)</DefineConstants>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true' AND '$(_LanguageSourceName)' == 'VisualBasic'">
+  <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true' AND '$(_SdkLanguageSourceName)' == 'VisualBasic'">
     <FinalDefineConstants Condition="'$(FinalDefineConstants)' != '' AND !$(DefineConstants.EndsWith(','))">$(FinalDefineConstants),</FinalDefineConstants>
     <FinalDefineConstants Condition="'$(ImplicitFrameworkProfileDefine)' != ''">$(FinalDefineConstants)$(ImplicitFrameworkProfileDefine)=-1</FinalDefineConstants>
   </PropertyGroup>
@@ -61,10 +61,10 @@
     <Reference Include="@(_SdkImplicitReference)"/>
   </ItemGroup>
 
-  <!-- Update '_TargetFrameworkVersionWithoutV'. Since, we could have updated 'TargetFrameworkVersion' within platform targets -->
+  <!-- Update '_SdkTargetFrameworkVersionWithoutV'. Since, we could have updated 'TargetFrameworkVersion' within platform targets -->
   <PropertyGroup Condition="'$(TargetFrameworkVersion)' != ''">
-    <_TargetFrameworkVersionWithoutV>$(TargetFrameworkVersion.TrimStart('vV'))</_TargetFrameworkVersionWithoutV>
-    <TargetFrameworkVersion>v$(_TargetFrameworkVersionWithoutV)</TargetFrameworkVersion>
+    <_SdkTargetFrameworkVersionWithoutV>$(TargetFrameworkVersion.TrimStart('vV'))</_SdkTargetFrameworkVersionWithoutV>
+    <TargetFrameworkVersion>v$(_SdkTargetFrameworkVersionWithoutV)</TargetFrameworkVersion>
   </PropertyGroup>
 
 </Project>

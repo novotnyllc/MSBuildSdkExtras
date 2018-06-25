@@ -1,6 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <PropertyGroup Condition="$(_ShortFrameworkProfileCount) == 1 AND $(_ShortFrameworkProfile.Contains('+client+'))">
+  <PropertyGroup Condition="$(_SdkShortFrameworkProfileCount) == 1 AND $(_SdkShortFrameworkProfile.Contains('+client+'))">
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">4.0</TargetFrameworkVersion>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>

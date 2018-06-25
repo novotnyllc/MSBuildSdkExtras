@@ -10,17 +10,17 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(EnableEmbeddedResourceCodeGenerator)' == ''">
-    <EnableEmbeddedResourceCodeGenerator Condition="'$(_LanguageSourceName)' == 'CSharp'">true</EnableEmbeddedResourceCodeGenerator>
-    <EnableEmbeddedResourceCodeGenerator Condition="'$(_LanguageSourceName)' == 'VisualBasic'">true</EnableEmbeddedResourceCodeGenerator>
+    <EnableEmbeddedResourceCodeGenerator Condition="'$(_SdkLanguageSourceName)' == 'CSharp'">true</EnableEmbeddedResourceCodeGenerator>
+    <EnableEmbeddedResourceCodeGenerator Condition="'$(_SdkLanguageSourceName)' == 'VisualBasic'">true</EnableEmbeddedResourceCodeGenerator>
     <EnableEmbeddedResourceCodeGenerator Condition="'$(EnableEmbeddedResourceCodeGenerator)' == ''">false</EnableEmbeddedResourceCodeGenerator>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(EnableEmbeddedResourceCodeGenerator)' == 'true' AND '$(_LanguageSourceName)' == 'CSharp'">
+  <PropertyGroup Condition="'$(EnableEmbeddedResourceCodeGenerator)' == 'true' AND '$(_SdkLanguageSourceName)' == 'CSharp'">
     <EmbeddedResourceCodeGeneratorTool Condition="'$(EmbeddedResourceGeneratedCodeIsPublic)' != 'true'">ResXFileCodeGenerator</EmbeddedResourceCodeGeneratorTool>
     <EmbeddedResourceCodeGeneratorTool Condition="'$(EmbeddedResourceGeneratedCodeIsPublic)' == 'true'">PublicResXFileCodeGenerator</EmbeddedResourceCodeGeneratorTool>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(EnableEmbeddedResourceCodeGenerator)' == 'true' AND '$(_LanguageSourceName)' == 'VisualBasic'">
+  <PropertyGroup Condition="'$(EnableEmbeddedResourceCodeGenerator)' == 'true' AND '$(_SdkLanguageSourceName)' == 'VisualBasic'">
     <EmbeddedResourceCodeGeneratorTool Condition="'$(EmbeddedResourceGeneratedCodeIsPublic)' != 'true'">VbMyResourcesResXFileCodeGenerator</EmbeddedResourceCodeGeneratorTool>
     <EmbeddedResourceCodeGeneratorTool Condition="'$(EmbeddedResourceGeneratedCodeIsPublic)' == 'true'">PublicVbMyResourcesResXFileCodeGenerator</EmbeddedResourceCodeGeneratorTool>
   </PropertyGroup>

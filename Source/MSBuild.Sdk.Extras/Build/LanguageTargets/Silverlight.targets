@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <_SdkLanguageTargets>$(_SdkMSBuildExtensionsPath)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.$(_LanguageSourceName).targets</_SdkLanguageTargets>
+    <_SdkLanguageTargets>$(_SdkMSBuildExtensionsPath)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.$(_SdkLanguageSourceName).targets</_SdkLanguageTargets>
   </PropertyGroup>
 
   <PropertyGroup>

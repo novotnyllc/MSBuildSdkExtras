@@ -5,18 +5,18 @@
   </PropertyGroup>
 
   <!-- Force disable other projects' setup, Since it does not play very well with each other. -->
-  <PropertyGroup Condition="'$(EnableWpfProjectSetup)' == 'true'">
+  <PropertyGroup Condition="'$(ExtrasEnableWpfProjectSetup)' == 'true'">
     <EnableWebProjectSetup>false</EnableWebProjectSetup>
     <EnableWinFormsProjectSetup>false</EnableWinFormsProjectSetup>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(EnableWebProjectSetup)' == 'true'">
-    <EnableWpfProjectSetup>false</EnableWpfProjectSetup>
+    <ExtrasEnableWpfProjectSetup>false</ExtrasEnableWpfProjectSetup>
     <EnableWinFormsProjectSetup>false</EnableWinFormsProjectSetup>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(EnableWinFormsProjectSetup)' == 'true'">
-    <EnableWpfProjectSetup>false</EnableWpfProjectSetup>
+    <ExtrasEnableWpfProjectSetup>false</ExtrasEnableWpfProjectSetup>
     <EnableWebProjectSetup>false</EnableWebProjectSetup>
   </PropertyGroup>
 
@@ -37,7 +37,7 @@
 
   <!-- WPF Support -->
 
-  <PropertyGroup Condition="'$(EnableWpfProjectSetup)' == 'true'">
+  <PropertyGroup Condition="'$(ExtrasEnableWpfProjectSetup)' == 'true'">
     <EnableDefaultWpfItems Condition="'$(EnableDefaultWpfItems)' == ''">true</EnableDefaultWpfItems>
     <EnableDefaultXamlItems>$(EnableDefaultWpfItems)</EnableDefaultXamlItems>
     <EnableImplicitWpfReferences Condition="'$(EnableImplicitWpfReferences)' == ''">true</EnableImplicitWpfReferences>

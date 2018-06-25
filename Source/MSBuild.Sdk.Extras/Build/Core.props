@@ -7,21 +7,21 @@
   <Choose>
     <When Condition="'$(MSBuildProjectExtension)' == '.csproj'">
       <PropertyGroup>
-        <_LanguageSourceName>CSharp</_LanguageSourceName>
+        <_SdkLanguageSourceName>CSharp</_SdkLanguageSourceName>
         <_SdkLanguageExtension>.cs</_SdkLanguageExtension>
       </PropertyGroup>
     </When>
 
     <When Condition="'$(MSBuildProjectExtension)' == '.vbproj'">
       <PropertyGroup>
-        <_LanguageSourceName>VisualBasic</_LanguageSourceName>
+        <_SdkLanguageSourceName>VisualBasic</_SdkLanguageSourceName>
         <_SdkLanguageExtension>.vb</_SdkLanguageExtension>
       </PropertyGroup>
     </When>
 
     <When Condition="'$(MSBuildProjectExtension)' == '.fsproj'">
       <PropertyGroup>
-        <_LanguageSourceName>FSharp</_LanguageSourceName>
+        <_SdkLanguageSourceName>FSharp</_SdkLanguageSourceName>
         <_SdkLanguageExtension>.fs</_SdkLanguageExtension>
       </PropertyGroup>
     </When>
@@ -38,16 +38,16 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(AppDesignerFolder)' == ''">
-    <AppDesignerFolder Condition="'$(_LanguageSourceName)' != 'VisualBasic'">Properties</AppDesignerFolder>
-    <AppDesignerFolder Condition="'$(_LanguageSourceName)' == 'VisualBasic'">My Project</AppDesignerFolder>
+    <AppDesignerFolder Condition="'$(_SdkLanguageSourceName)' != 'VisualBasic'">Properties</AppDesignerFolder>
+    <AppDesignerFolder Condition="'$(_SdkLanguageSourceName)' == 'VisualBasic'">My Project</AppDesignerFolder>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(IncrementalBuild)' == '' AND '$(_LanguageSourceName)' == 'VisualBasic'">
+  <PropertyGroup Condition="'$(IncrementalBuild)' == '' AND '$(_SdkLanguageSourceName)' == 'VisualBasic'">
     <IncrementalBuild Condition="'$(Configuration)' == 'Debug'">true</IncrementalBuild>
     <IncrementalBuild Condition="'$(Configuration)' == 'Release'">false</IncrementalBuild>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(_LanguageSourceName)' == 'VisualBasic'">
+  <PropertyGroup Condition="'$(_SdkLanguageSourceName)' == 'VisualBasic'">
     <NoWarn Condition="'$(NoWarn)' != ''">$(NoWarn),42314</NoWarn>
     <!--  Default: '-vbruntime:+', None: '-vbruntime:-', Embed: '-vbruntime:*' -->
     <VBRuntime Condition="'$(VBRuntime)' == 'Embed'">Default</VBRuntime>

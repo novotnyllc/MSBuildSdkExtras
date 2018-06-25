@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <_SdkLanguageTargets Condition="'$(_LanguageSourceName)' != 'FSharp'">$(MSBuildExtensionsPath)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.$(_LanguageSourceName).targets</_SdkLanguageTargets>
-    <_SdkLanguageTargets Condition="'$(_LanguageSourceName)' == 'FSharp'">$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\FSharp\Microsoft.Portable.FSharp.Targets</_SdkLanguageTargets>
+    <_SdkLanguageTargets Condition="'$(_SdkLanguageSourceName)' != 'FSharp'">$(MSBuildExtensionsPath)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.$(_SdkLanguageSourceName).targets</_SdkLanguageTargets>
+    <_SdkLanguageTargets Condition="'$(_SdkLanguageSourceName)' == 'FSharp'">$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\FSharp\Microsoft.Portable.FSharp.Targets</_SdkLanguageTargets>
   </PropertyGroup>
 
   <PropertyGroup>

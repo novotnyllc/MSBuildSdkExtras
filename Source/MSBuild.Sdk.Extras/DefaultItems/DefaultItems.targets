@@ -13,7 +13,7 @@
 
   <ImportGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
     <Import Project="$(MSBuildThisFileDirectory)Platforms\Desktop.targets"/>
-    <Import Project="$(MSBuildThisFileDirectory)Platforms\Desktop.$(_LanguageSourceName).targets" Condition="Exists('$(MSBuildThisFileDirectory)Platforms\Desktop.$(_LanguageSourceName).targets')"/>
+    <Import Project="$(MSBuildThisFileDirectory)Platforms\Desktop.$(_SdkLanguageSourceName).targets" Condition="Exists('$(MSBuildThisFileDirectory)Platforms\Desktop.$(_SdkLanguageSourceName).targets')"/>
   </ImportGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)Platforms\Xaml.targets" Condition="'$(EnableDefaultXamlItems)' == 'true' AND '$(_IsXamarinPlatform)' != 'true'"/>

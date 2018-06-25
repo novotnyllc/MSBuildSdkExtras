@@ -1,4 +1,4 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
@@ -22,7 +22,7 @@
 
   <PropertyGroup>
     <!-- REGEX: '(?:\.([a-z]{2,3})(?:-([A-Z][a-z]{3}|[a-z]{3,5}))?(?:-([A-Z]{2}))?)%24' for LCIDs -->
-    <LangIdRegEx>(?:\.([a-z]{2,3})(?:-([A-Z][a-z]{3}|[a-z]{3,5}))?(?:-([A-Z]{2}))?)%24</LangIdRegEx>
+    <_SdkLangIdRegEx>(?:\.([a-z]{2,3})(?:-([A-Z][a-z]{3}|[a-z]{3,5}))?(?:-([A-Z]{2}))?)%24</_SdkLangIdRegEx>
   </PropertyGroup>
 
   <!--
@@ -31,13 +31,13 @@
   -->
   <ItemGroup Condition="'$(EnableDefaultEmbeddedResourceItems)' == 'true' AND '$(EnableEmbeddedResourceCodeGenerator)' == 'true'">
     <EmbeddedResource Update="**\*.resx">
-      <HasLangId>$([System.Text.RegularExpressions.Regex]::IsMatch('%(FileName)', '$(LangIdRegEx)'))</HasLangId>
+      <_SdkHasLangId>$([System.Text.RegularExpressions.Regex]::IsMatch('%(FileName)', '$(_SdkLangIdRegEx)'))</_SdkHasLangId>
     </EmbeddedResource>
     <EmbeddedResource Update="**\*.resx">
-      <Generator Condition="!%(HasLangId)">$(EmbeddedResourceCodeGeneratorTool)</Generator>
-      <LastGenOutput Condition="!%(HasLangId)">%(Filename)$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</LastGenOutput>
-      <GenFilePath Condition="!%(HasLangId)">%(RecursiveDir)%(Filename)$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</GenFilePath>
-      <DependentUpon Condition="%(HasLangId)">$([System.Text.RegularExpressions.Regex]::Replace('%(FileName)', '$(LangIdRegEx)', '%(Extension)'))</DependentUpon>
+      <Generator Condition="!%(_SdkHasLangId)">$(EmbeddedResourceCodeGeneratorTool)</Generator>
+      <LastGenOutput Condition="!%(_SdkHasLangId)">%(Filename)$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</LastGenOutput>
+      <GenFilePath Condition="!%(_SdkHasLangId)">%(RecursiveDir)%(Filename)$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</GenFilePath>
+      <DependentUpon Condition="%(_SdkHasLangId)">$([System.Text.RegularExpressions.Regex]::Replace('%(FileName)', '$(_SdkLangIdRegEx)', '%(Extension)'))</DependentUpon>
     </EmbeddedResource>
     <Compile Update="@(EmbeddedResource->'%(GenFilePath)')">
       <AutoGen>true</AutoGen>

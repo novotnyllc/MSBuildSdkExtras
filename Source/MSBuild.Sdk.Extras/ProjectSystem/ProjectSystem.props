@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(DefineCommonManagedItemSchemas)' == 'true' AND '$(DisableAdditionalItemSchemas)' != 'true'">
-    <PropertyPageSchema Include="$(_SdkProjectSystemRulesDirectory)$(_LanguageSourceName).ProjectItemsSchema.xaml">
+    <PropertyPageSchema Include="$(_SdkProjectSystemRulesDirectory)$(_SdkLanguageSourceName).ProjectItemsSchema.xaml">
       <Context>Project</Context>
     </PropertyPageSchema>
     <PropertyPageSchema Include="$(_SdkProjectSystemRulesDirectory)ProjectItemsSchema.xaml">
@@ -34,7 +34,7 @@
 
   <!-- Workaround for Including generated code so that Intellisense, CodeAnalysis and other features just work -->
   <ItemGroup Condition="'$(DisableWorkaroundCapabilities)' != 'true'">
-    <ProjectCapability Condition="'$(EnableWpfProjectSetup)' == 'true'"
+    <ProjectCapability Condition="'$(ExtrasEnableWpfProjectSetup)' == 'true'"
       Include="WindowsXaml;WindowsXamlPage;WindowsXamlCodeBehind;WindowsXamlResourceDictionary;WindowsXamlUserControl"/>
   </ItemGroup>
 

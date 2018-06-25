@@ -9,7 +9,7 @@
     We can refer here in the .props file to properties set in the .targets files because items and their conditions are
     evaluated in the second pass of evaluation, after all properties have been evaluated.
   -->
-  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(TargetFrameworkIdentifier)' == '.NETCore' AND '$(_TargetFrameworkVersionWithoutV)' >= '5.0'">
+  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(TargetFrameworkIdentifier)' == '.NETCore' AND '$(_SdkTargetFrameworkVersionWithoutV)' >= '5.0'">
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="$(_ImplicitPlatformPackageVersion)" IsImplicitlyDefined="true"/>
     <!--
       Update the implicit package based on target framework output types and other conditions if necessary

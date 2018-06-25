@@ -16,8 +16,8 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <_SdkLanguageTargets Condition="'$(_LanguageSourceName)' != 'FSharp'">$(MSBuildToolsPath)\Microsoft.$(_LanguageSourceName).targets</_SdkLanguageTargets>
-    <_SdkLanguageTargets Condition="'$(_LanguageSourceName)' == 'FSharp'">$(_FSharpTargetsPath)</_SdkLanguageTargets>
+    <_SdkLanguageTargets Condition="'$(_SdkLanguageSourceName)' != 'FSharp'">$(MSBuildToolsPath)\Microsoft.$(_SdkLanguageSourceName).targets</_SdkLanguageTargets>
+    <_SdkLanguageTargets Condition="'$(_SdkLanguageSourceName)' == 'FSharp'">$(_FSharpTargetsPath)</_SdkLanguageTargets>
   </PropertyGroup>
 
   <PropertyGroup>

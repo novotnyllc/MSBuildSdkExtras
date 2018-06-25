@@ -6,7 +6,7 @@
     <TargetFramework>net462</TargetFramework>
     <OutputType>WinExe</OutputType>
     <IsPackable>false</IsPackable>
-    <EnableWpfProjectSetup>true</EnableWpfProjectSetup>
+    <ExtrasEnableWpfProjectSetup>true</ExtrasEnableWpfProjectSetup>
   </PropertyGroup>
 
 

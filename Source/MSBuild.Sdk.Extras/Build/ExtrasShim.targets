@@ -10,13 +10,13 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <_ImplicitPlatformPackageVersion Condition="'$(_ShortFrameworkIdentifier)' == 'uap'">$(ExtrasUwpMetaPackageVersion)</_ImplicitPlatformPackageVersion>
-    <DisableImplicitFrameworkReferences Condition="'$(_ShortFrameworkIdentifier)' == 'uap' OR '$(_ShortFrameworkIdentifier)' == 'tizen'">$(ExtrasImplicitPlatformPackageDisabled)</DisableImplicitFrameworkReferences>
+    <_ImplicitPlatformPackageVersion Condition="'$(_SdkShortFrameworkIdentifier)' == 'uap'">$(ExtrasUwpMetaPackageVersion)</_ImplicitPlatformPackageVersion>
+    <DisableImplicitFrameworkReferences Condition="'$(_SdkShortFrameworkIdentifier)' == 'uap' OR '$(_SdkShortFrameworkIdentifier)' == 'tizen'">$(ExtrasImplicitPlatformPackageDisabled)</DisableImplicitFrameworkReferences>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(ExtrasImplicitPlatformPackageIsPrivate)' != 'true'">
-    <PackageReference Update="Microsoft.NETCore.UniversalWindowsPlatform" KeepMetadata="false" Condition="'$(_ShortFrameworkIdentifier)' == 'uap'"/>
-    <PackageReference Update="Tizen.NET" KeepMetadata="false" Condition="'$(_ShortFrameworkIdentifier)' == 'tizen'"/>
+    <PackageReference Update="Microsoft.NETCore.UniversalWindowsPlatform" KeepMetadata="false" Condition="'$(_SdkShortFrameworkIdentifier)' == 'uap'"/>
+    <PackageReference Update="Tizen.NET" KeepMetadata="false" Condition="'$(_SdkShortFrameworkIdentifier)' == 'tizen'"/>
   </ItemGroup>
 
   <Target
