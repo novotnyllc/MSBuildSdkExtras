@@ -1,4 +1,4 @@
-# MSBuild.Sdk.Extras
+﻿# MSBuild.Sdk.Extras
 
 ## Summary
 
@@ -38,12 +38,12 @@ The final project should look like this:
 ```xml
 <Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
-    <TargetFrameworks>net46;uwp10.0;tizen40</TargetFrameworks>
+    <TargetFrameworks>net46;uap10.0.16299;tizen40</TargetFrameworks>
   </PropertyGroup>
 </Project>
 ```
 
-You can put the `global.json` file next to your solution:
+You can put the `global.json` file next to your solution (use the latest available version of the extras):
 
 ```json
 {
@@ -61,7 +61,7 @@ Then again, you might want to override the version for just one project _OR_ if 
 ```xml
 <Project Sdk="MSBuild.Sdk.Extras/1.6.0">
   <PropertyGroup>
-    <TargetFrameworks>net46;uwp10.0;tizen40</TargetFrameworks>
+    <TargetFrameworks>net46;uap10.0.16299;tizen40</TargetFrameworks>
   </PropertyGroup>
 </Project>
 ```
@@ -84,7 +84,7 @@ For those who are using in a `PackageReference` style, you can't do that with v2
 1. The same as above, replace the Sdk attribute's value.
 2. Remove the workaround import specified with the old way. The import property should be `MSBuildSdkExtrasTargets`.
 3. Do a trial build and then compare your project with the templates in the repo's [TestProjects](/TestProjects) folder to troubleshoot any issues if you encounter them.
-4. Please file a issue if you can't troubleshoot on your own. So, that I can help you with the issue you are facing.
+4. Please file a issue. 
 
 Your project diff:
 
@@ -93,7 +93,7 @@ Your project diff:
 + <Project Sdk="MSBuild.Sdk.Extras">
   <!-- OTHER PROPERTIES -->
   <PropertyGroup>
-    <TargetFrameworks>net46;uwp10.0;tizen40</TargetFrameworks>
+    <TargetFrameworks>net46;uap10.0.16299;tizen40</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
@@ -112,6 +112,22 @@ Your project diff:
 ```
 
 **Note**: If you're using Visual Studio for Mac, currently there's no support for resolving SDKs from NuGet. Until VS for Mac supports it, you can use `PackageReference` style. Also you have to include any UWP or Tizen meta-package manually. If you are already using the package, just update it to get the new fixes.
+
+## Release Notes
+
+### 1.6.0
+
+ - A few properties have been changed, and the help is provided as a warning to use the new property names.
+
+   | Old Property                                    | New Property/Behaviour                                             |
+   | ---                                             | ----                                                               
+   | `SuppressWarnIfOldSdkPack`                      | `ExtrasIgnoreOldSdkWarning`                                              |
+   | `ExtrasUwpMetaPackageVersion`                   | `ExtrasImplicitPlatformPackageVersion` + `TargetFramework` condition    |
+   | `ExtrasImplicitPlatformPackageDisabled`         | `DisableImplicitFrameworkReferences` + `TargetFramework` condition |
+   | `EmbeddedResourceGeneratorVisibilityIsInternal` | opposite of `EmbeddedResourceGeneratedCodeIsPublic`                |
+
+ - Support for WPF and Windows Forms requires an opt-in property to enable:
+Set `ExtrasEnableWpfProjectSetup`/`ExtrasEnableWinFormsProjectSetup` to `true` to include required references and default items.
 
 ## Single or multi-targeting
 
