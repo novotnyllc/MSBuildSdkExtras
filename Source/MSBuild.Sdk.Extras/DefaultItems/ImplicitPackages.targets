@@ -7,13 +7,13 @@
   <!--
     Package Version property for Implicit Packages included in the props file
   -->
-  <PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETCore' AND '$(_SdkTargetFrameworkVersionWithoutV)' >= '5.0' AND '$(_ImplicitPlatformPackageVersion)' == ''">
-    <_ImplicitPlatformPackageVersion>6.1.5</_ImplicitPlatformPackageVersion>
+  <PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETCore' AND '$(_SdkTargetFrameworkVersionWithoutV)' >= '5.0' AND '$(ExtrasImplicitPlatformPackageVersion)' == ''">
+    <ExtrasImplicitPlatformPackageVersion>6.1.5</ExtrasImplicitPlatformPackageVersion>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == 'Tizen' AND '$(_ImplicitPlatformPackageVersion)' == ''">
-    <_ImplicitPlatformPackageVersion Condition="'$(_SdkTargetFrameworkVersionWithoutV)' == '3.0'">3.0.0</_ImplicitPlatformPackageVersion>
-    <_ImplicitPlatformPackageVersion Condition="'$(_SdkTargetFrameworkVersionWithoutV)' == '4.0'">4.0.0</_ImplicitPlatformPackageVersion>
+  <PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == 'Tizen' AND '$(ExtrasImplicitPlatformPackageVersion)' == ''">
+    <ExtrasImplicitPlatformPackageVersion Condition="'$(_SdkTargetFrameworkVersionWithoutV)' == '3.0'">3.0.0</ExtrasImplicitPlatformPackageVersion>
+    <ExtrasImplicitPlatformPackageVersion Condition="'$(_SdkTargetFrameworkVersionWithoutV)' == '4.0'">4.0.0</ExtrasImplicitPlatformPackageVersion>
   </PropertyGroup>
 
 </Project>

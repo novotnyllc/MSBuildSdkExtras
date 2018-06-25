@@ -19,15 +19,15 @@
     </ApplicationDefinition>
   </ItemDefinitionGroup>
 
-  <ItemGroup Condition="'$(EnableDefaultResourceItems)' == 'true'">
-    <None Remove="$(DefaultResourceIncludes)" Condition="'$(EnableDefaultPageItems)' != 'true'"/>
-    <Resource Include="$(DefaultResourceIncludes)" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder);$(DefaultResourceExcludes)">
+  <ItemGroup Condition="'$(ExtrasEnableDefaultResourceItems)' == 'true'">
+    <None Remove="$(ExtrasDefaultResourceIncludes)" Condition="'$(ExtrasEnableDefaultPageItems)' != 'true'"/>
+    <Resource Include="$(ExtrasDefaultResourceIncludes)" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder);$(DefaultResourceExcludes)">
       <Generator Condition="'$(ExtrasEnableXamlIntelliSenseGenerator)' == 'true'">$(ExtrasXamlIntelliSenseGeneratorTool)</Generator>
     </Resource>
-    <UpToDateCheckInput Include="@(DefaultResourceIncludes)"/>
+    <UpToDateCheckInput Include="@(ExtrasDefaultResourceIncludes)"/>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(EnableDefaultPageItems)' == 'true'">
+  <ItemGroup Condition="'$(ExtrasEnableDefaultPageItems)' == 'true'">
     <None Remove="$(ApplicationDefinitionFile)"/>
     <ApplicationDefinition Include="$(ApplicationDefinitionFile)" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)">
       <Generator Condition="'$(ExtrasEnableXamlCodeGenerator)' == 'true'">$(ExtrasXamlCodeGeneratorTool)</Generator>
@@ -35,15 +35,15 @@
     <UpToDateCheckInput Include="@(ApplicationDefinition)"/>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(EnableDefaultPageItems)' == 'true'">
+  <ItemGroup Condition="'$(ExtrasEnableDefaultPageItems)' == 'true'">
     <None Remove="**\*.xaml"/>
-    <Page Include="**\*.xaml" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder);$(DefaultPageExcludes)">
+    <Page Include="**\*.xaml" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder);$(ExtrasDefaultPageExcludes)">
       <Generator Condition="'$(ExtrasEnableXamlCodeGenerator)' == 'true'">$(ExtrasXamlCodeGeneratorTool)</Generator>
     </Page>
     <UpToDateCheckInput Include="@(Page)"/>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(EnableDefaultPageItems)' == 'true'">
+  <ItemGroup Condition="'$(ExtrasEnableDefaultPageItems)' == 'true'">
     <Compile Update="**\*.xaml$(DefaultLanguageSourceExtension)">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>

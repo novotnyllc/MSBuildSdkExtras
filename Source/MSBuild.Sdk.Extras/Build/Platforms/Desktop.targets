@@ -10,7 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
-    <_SdkImplicitReference Include="System.Data.DataSetExtensions" Condition="'$(_SdkTargetFrameworkVersionWithoutV)' >= '3.5'"/>
     <_SdkImplicitReference Include="System.Net.Http" Condition="'$(TargetFrameworkProfile)' != 'Client'"/>
   </ItemGroup>
 

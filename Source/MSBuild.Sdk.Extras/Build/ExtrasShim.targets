@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <_ImplicitPlatformPackageVersion Condition="'$(_SdkShortFrameworkIdentifier)' == 'uap'">$(ExtrasUwpMetaPackageVersion)</_ImplicitPlatformPackageVersion>
+    <ExtrasImplicitPlatformPackageVersion Condition="'$(_SdkShortFrameworkIdentifier)' == 'uap' and '$(ExtrasUwpMetaPackageVersion)' != '' ">$(ExtrasUwpMetaPackageVersion)</ExtrasImplicitPlatformPackageVersion>
     <DisableImplicitFrameworkReferences Condition="'$(_SdkShortFrameworkIdentifier)' == 'uap' OR '$(_SdkShortFrameworkIdentifier)' == 'tizen'">$(ExtrasImplicitPlatformPackageDisabled)</DisableImplicitFrameworkReferences>
   </PropertyGroup>
 
@@ -27,7 +27,7 @@
 
   <ItemGroup>
     <_SdkObsoleteProperty Include="SuppressWarnIfOldSdkPack" Replacement="IgnoreOldSdkWarning" Condition="'$(SuppressWarnIfOldSdkPack)' != ''"/>
-    <_SdkObsoleteProperty Include="ExtrasUwpMetaPackageVersion" Replacement="_ImplicitPlatformPackageVersion (with TargetFramework condition)" Condition="'$(ExtrasUwpMetaPackageVersion)' != ''"/>
+    <_SdkObsoleteProperty Include="ExtrasUwpMetaPackageVersion" Replacement="ExtrasImplicitPlatformPackageVersion (with TargetFramework condition)" Condition="'$(ExtrasUwpMetaPackageVersion)' != ''"/>
     <_SdkObsoleteProperty Include="ExtrasImplicitPlatformPackageDisabled" Replacement="DisableImplicitFrameworkReferences (with TargetFramework condition)" Condition="'$(ExtrasImplicitPlatformPackageDisabled)' != ''"/>
     <_SdkObsoleteProperty Include="ExtrasImplicitPlatformPackageIsPrivate" Condition="'$(ExtrasImplicitPlatformPackageIsPrivate)' != ''"/>
     <_SdkObsoleteProperty Include="EmbeddedResourceGeneratorVisibilityIsInternal" Replacement="EmbeddedResourceGeneratedCodeIsPublic" Condition="'$(EmbeddedResourceGeneratorVisibilityIsInternal)' != ''"/>

@@ -14,12 +14,12 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <EnableDefaultPageItems Condition="'$(EnableDefaultPageItems)' == ''">true</EnableDefaultPageItems>
-    <EnableDefaultResourceItems Condition="'$(EnableDefaultResourceItems)' == ''">true</EnableDefaultResourceItems>
+    <ExtrasEnableDefaultPageItems Condition="'$(ExtrasEnableDefaultPageItems)' == ''">true</ExtrasEnableDefaultPageItems>
+    <ExtrasEnableDefaultResourceItems Condition="'$(ExtrasEnableDefaultResourceItems)' == ''">true</ExtrasEnableDefaultResourceItems>
 
-    <DefaultResourceIncludes Condition="'$(DefaultResourceIncludes)' == ''">Themes\*.xaml;Resources\*.xaml</DefaultResourceIncludes>
-    <DefaultPageExcludes Condition="'$(DefaultPageExcludes)' != ''">$(ApplicationDefinitionFile);$(DefaultResourceIncludes);$(DefaultPageExcludes)</DefaultPageExcludes>
-    <DefaultPageExcludes Condition="'$(DefaultPageExcludes)' == ''">$(ApplicationDefinitionFile);$(DefaultResourceIncludes)</DefaultPageExcludes>
+    <ExtrasDefaultResourceIncludes Condition="'$(ExtrasDefaultResourceIncludes)' == ''">Themes\*.xaml;Resources\*.xaml</ExtrasDefaultResourceIncludes>
+    <ExtrasDefaultPageExcludes Condition="'$(ExtrasDefaultPageExcludes)' != ''">$(ApplicationDefinitionFile);$(ExtrasDefaultResourceIncludes);$(ExtrasDefaultPageExcludes)</ExtrasDefaultPageExcludes>
+    <ExtrasDefaultPageExcludes Condition="'$(ExtrasDefaultPageExcludes)' == ''">$(ApplicationDefinitionFile);$(ExtrasDefaultResourceIncludes)</ExtrasDefaultPageExcludes>
 
     <ExtrasEnableXamlCodeGenerator Condition="'$(ExtrasEnableXamlCodeGenerator)' == ''">false</ExtrasEnableXamlCodeGenerator>
     <ExtrasEnableXamlIntelliSenseGenerator Condition="'$(ExtrasEnableXamlIntelliSenseGenerator)' == ''">false</ExtrasEnableXamlIntelliSenseGenerator>
