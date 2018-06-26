@@ -8,7 +8,8 @@
     <_SdkLanguageTargets>$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.$(_SdkLanguageSourceName).targets</_SdkLanguageTargets>
   </PropertyGroup>
 
-  <Import Project="$(_SdkLanguageTargets)" Condition="Exists('$(_SdkLanguageTargets)')"/>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.$(_SdkLanguageSourceName).targets" 
+          Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.$(_SdkLanguageSourceName).targets')"/>
   <Import Project="$(MSBuildThisFileDirectory)CheckMissing.targets" />
 
 </Project>

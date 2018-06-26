@@ -5,17 +5,15 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <!-- HACK: $(MSBuildExtensionsPath) for VS <= 14.0 -->
-    <_SdkMSBuildExtensionsPath>$(MSBuildProgramFiles32)\MSBuild</_SdkMSBuildExtensionsPath>
+    <_SdkLanguageTargets>$(MSBuildProgramFiles32)\MSBuild\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(_SdkLanguageSourceName).targets</_SdkLanguageTargets>
+    <_SdkLanguageOverridesTargets>$(MSBuildProgramFiles32)\MSBuild\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets</_SdkLanguageOverridesTargets>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <_SdkLanguageTargets>$(_SdkMSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(_SdkLanguageSourceName).targets</_SdkLanguageTargets>
-    <_SdkLanguageOverridesTargets>$(_SdkMSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets</_SdkLanguageOverridesTargets>
-  </PropertyGroup>
-
-  <Import Project="$(_SdkLanguageOverridesTargets)" Condition="Exists('$(_SdkLanguageOverridesTargets)')"/>
-  <Import Project="$(_SdkLanguageTargets)" Condition="Exists('$(_SdkLanguageTargets)')"/>
+  <Import Project="$(MSBuildProgramFiles32)\MSBuild\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" 
+          Condition="Exists('$(MSBuildProgramFiles32)\MSBuild\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets')"/>
+  <Import Project="$(MSBuildProgramFiles32)\MSBuild\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(_SdkLanguageSourceName).targets" 
+          Condition="Exists('$(MSBuildProgramFiles32)\MSBuild\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(_SdkLanguageSourceName).targets')"/>
+  
   <Import Project="$(MSBuildThisFileDirectory)CheckMissing.targets" />
 
 </Project>

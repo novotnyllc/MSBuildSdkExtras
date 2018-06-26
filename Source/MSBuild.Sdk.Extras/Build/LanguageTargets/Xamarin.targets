@@ -24,11 +24,9 @@
     <_SdkLanguageTargets>$(MSBuildExtensionsPath)\Xamarin\$(_SdkTargetPlatformName)\Xamarin.$(_SdkTargetPlatformName).$(_SdkTargetsImportType).targets</_SdkLanguageTargets>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <_SdkLanguageTargetsMissing Condition="!Exists('$(_SdkLanguageTargets)')">true</_SdkLanguageTargetsMissing>
-  </PropertyGroup>
-
-  <Import Project="$(_SdkLanguageTargets)" Condition="Exists('$(_SdkLanguageTargets)')"/>
+  <!-- Multi-valued properties only get checked by direct use in an Import -->
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\$(_SdkTargetPlatformName)\Xamarin.$(_SdkTargetPlatformName).$(_SdkTargetsImportType).targets" 
+          Condition="Exists('$(MSBuildExtensionsPath)\Xamarin\$(_SdkTargetPlatformName)\Xamarin.$(_SdkTargetPlatformName).$(_SdkTargetsImportType).targets')"/>
   <Import Project="$(MSBuildThisFileDirectory)CheckMissing.targets" />
 
   <!-- CSharp is the only language supported for Binding Projects for Now -->

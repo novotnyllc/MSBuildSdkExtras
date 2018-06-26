@@ -5,15 +5,11 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <!-- HACK: $(MSBuildExtensionsPath) for VS <= 14.0 -->
-    <_SdkMSBuildExtensionsPath>$(MSBuildProgramFiles32)\MSBuild</_SdkMSBuildExtensionsPath>
+    <_SdkLanguageTargets>$(MSBuildProgramFiles32)\MSBuild\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.$(_SdkLanguageSourceName).targets</_SdkLanguageTargets>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <_SdkLanguageTargets>$(_SdkMSBuildExtensionsPath)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.$(_SdkLanguageSourceName).targets</_SdkLanguageTargets>
-  </PropertyGroup>
-
-  <Import Project="$(_SdkLanguageTargets)" Condition="Exists('$(_SdkLanguageTargets)')"/>
+  <Import Project="$(MSBuildProgramFiles32)\MSBuild\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.$(_SdkLanguageSourceName).targets" 
+          Condition="Exists('$(MSBuildProgramFiles32)\MSBuild\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.$(_SdkLanguageSourceName).targets')"/>
   <Import Project="$(MSBuildThisFileDirectory)CheckMissing.targets" />
 
 </Project>
