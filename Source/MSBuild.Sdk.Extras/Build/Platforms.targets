@@ -8,25 +8,15 @@
     <_SdkPlatformName>$(TargetFrameworkIdentifier)</_SdkPlatformName>
     <_SdkPlatformName Condition="'$(TargetFrameworkIdentifier)' == '.NETCore' OR '$(TargetFrameworkIdentifier)' == 'WindowsPhoneApp'">Windows</_SdkPlatformName>
     <_SdkPlatformName Condition="'$(TargetFrameworkIdentifier)' == '.NETPortable'">Portable</_SdkPlatformName>
-    <_SdkPlatformName Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">Desktop</_SdkPlatformName>
+    <_SdkPlatformName Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">NETFramework</_SdkPlatformName>
     <_SdkPlatformName Condition="$(TargetFrameworkIdentifier.StartsWith('Xamarin'))">Xamarin</_SdkPlatformName>
     <_SdkPlatformName Condition="'$(TargetFrameworkIdentifier)' == 'MonoAndroid' OR '$(TargetFrameworkIdentifier)' == 'MonoTouch' OR '$(TargetFrameworkIdentifier)' == 'MonoMac'">Xamarin</_SdkPlatformName>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(LanguageTargets)' == '' and '$(LanguageTargets)' != 'Desktop' ">
-    <LanguageTargets>$(MSBuildThisFileDirectory)LanguageTargets\$(_SdkPlatformName).targets</LanguageTargets>
-    <LanguageTargets Condition="!Exists('$(LanguageTargets)')"/>
+  <PropertyGroup Condition="'$(LanguageTargets)' == '' ">
+    <LanguageTargets Condition="Exists('$(MSBuildThisFileDirectory)LanguageTargets\$(_SdkPlatformName).targets')">$(MSBuildThisFileDirectory)LanguageTargets\$(_SdkPlatformName).targets</LanguageTargets>
   </PropertyGroup>
 
-  <!-- If the target doesn't exist, don't use it, means we've been called from dotnet 
-       This can happen if one of the targets is used by a test project called by dotnet test no-build.
-       Note that the scenario does not cover WPF by dotnet test.
-  -->
-  <PropertyGroup Condition="'$(LanguageTargets)' == '' and '$(LanguageTargets)' == 'Desktop' and '$(OS)' == 'Windows_NT' and '$(MSBuildRuntimeType)' == 'Full'  ">
-    <!-- Workaround for lack of XAML support in the new project system -->
-    <LanguageTargets Condition="'$(_SdkLanguageSourceName)' != 'FSharp'" >$(MSBuildExtensionsPath)\$(VisualStudioVersion)\Bin\Microsoft.$(_SdkLanguageSourceName).targets</LanguageTargets>
-    <LanguageTargets Condition="'$(_SdkLanguageSourceName)' == 'FSharp'" >$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\FSharp\Microsoft.FSharp.Targets</LanguageTargets>
-  </PropertyGroup>
   <!-- Add conditional compilation symbols for the target framework and one with version -->
   <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">
     <ImplicitFrameworkIdentifierDefine>$(TargetFrameworkIdentifier.TrimStart('.').Replace('.','_').ToUpperInvariant())</ImplicitFrameworkIdentifierDefine>

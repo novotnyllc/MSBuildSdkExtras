@@ -4,6 +4,17 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
+  <!-- If the target doesn't exist, don't use it, means we've been called from dotnet 
+       This can happen if one of the targets is used by a test project called by dotnet test no-build.
+       Note that the scenario does not cover WPF by dotnet test.
+  -->
+  <PropertyGroup Condition="'$(LanguageTargets)' == '' and '$(OS)' == 'Windows_NT' and '$(MSBuildRuntimeType)' == 'Full'  ">
+    <!-- Workaround for lack of XAML support in the new project system -->
+    <LanguageTargets Condition="'$(_SdkLanguageSourceName)' != 'FSharp'" >$(MSBuildExtensionsPath)\$(VisualStudioVersion)\Bin\Microsoft.$(_SdkLanguageSourceName).targets</LanguageTargets>
+    <LanguageTargets Condition="'$(_SdkLanguageSourceName)' == 'FSharp'" >$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\FSharp\Microsoft.FSharp.Targets</LanguageTargets>
+  </PropertyGroup>
+
+
   <!-- Add conditional compilation symbols for the target framework (for example NET, CLIENT40, NET40_CLIENT) -->
   <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true' AND '$(TargetFrameworkProfile)' != ''">
     <_SdkImplicitFrameworkProfileDefine>$(TargetFrameworkProfile.ToUpperInvariant())$(_SdkShortFrameworkVersion)</_SdkImplicitFrameworkProfileDefine>
