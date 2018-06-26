@@ -11,7 +11,7 @@
     <_SdkIgnoreMSBuildCoreWarning Condition="'$(ExtrasEnableWinFormsProjectSetup)' == 'true'">false</_SdkIgnoreMSBuildCoreWarning>
     <_SdkIgnoreMSBuildCoreWarning Condition="'$(_SdkPlatformName)' == 'Silverlight'">false</_SdkIgnoreMSBuildCoreWarning>
     <_SdkIgnoreMSBuildCoreWarning Condition="'$(_SdkPlatformName)' == 'Windows'">false</_SdkIgnoreMSBuildCoreWarning>
-    <_SdkIgnoreMSBuildCoreWarning Condition="'$(_SdkPlatformName)' == 'Windows'">false</_SdkIgnoreMSBuildCoreWarning>
+    <_SdkIgnoreMSBuildCoreWarning Condition="'$(_SdkPlatformName)' == 'Xamarin'">false</_SdkIgnoreMSBuildCoreWarning>
     <_SdkIgnoreMSBuildCoreWarning Condition="'$(_SdkPlatformName)' == 'Portable'">false</_SdkIgnoreMSBuildCoreWarning>
   </PropertyGroup>
 
