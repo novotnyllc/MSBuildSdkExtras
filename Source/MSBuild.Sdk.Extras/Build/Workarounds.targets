@@ -8,20 +8,23 @@
   <PropertyGroup Condition="'$(MSBuildRuntimeType)' == 'Core'">
     <_SdkIgnoreMSBuildCoreWarning>true</_SdkIgnoreMSBuildCoreWarning>
     <_SdkIgnoreMSBuildCoreWarning Condition="'$(ExtrasEnableWpfProjectSetup)' == 'true'">false</_SdkIgnoreMSBuildCoreWarning>
+    <_SdkIgnoreMSBuildCoreWarning Condition="'$(ExtrasEnableWinFormsProjectSetup)' == 'true'">false</_SdkIgnoreMSBuildCoreWarning>
     <_SdkIgnoreMSBuildCoreWarning Condition="'$(_SdkPlatformName)' == 'Silverlight'">false</_SdkIgnoreMSBuildCoreWarning>
-    <_SdkIgnoreMSBuildCoreWarning Condition="$(_SdkPlatformName.StartsWith('Windows'))">false</_SdkIgnoreMSBuildCoreWarning>
+    <_SdkIgnoreMSBuildCoreWarning Condition="'$(_SdkPlatformName)' == 'Windows'">false</_SdkIgnoreMSBuildCoreWarning>
+    <_SdkIgnoreMSBuildCoreWarning Condition="'$(_SdkPlatformName)' == 'Windows'">false</_SdkIgnoreMSBuildCoreWarning>
+    <_SdkIgnoreMSBuildCoreWarning Condition="'$(_SdkPlatformName)' == 'Portable'">false</_SdkIgnoreMSBuildCoreWarning>
   </PropertyGroup>
 
   <!-- Check to see if we are using msbuild core! -->
   <Target Name="_SdkWarnWhenUsingMSBuildCore"
           BeforeTargets="_ShowMissingLanguageTargetsError;_CheckForUnsupportedTargetFramework"
-          Condition="'$(MSBuildRuntimeType)' == 'Core' AND '$(_SdkIgnoreMSBuildCoreWarning)' != 'true'">
+          Condition="'$(MSBuildRuntimeType)' == 'Core' AND '$(_SdkIgnoreMSBuildCoreWarning)' != 'true' and '$(_SdkLanguageTargetsMissing)' == 'true'">
 
     <PropertyGroup>
       <_SdkIgnoreMissingLanguageTargetsError>$(_SdkLanguageTargetsMissing)</_SdkIgnoreMissingLanguageTargetsError>
     </PropertyGroup>
 
-    <Warning Text="If you are building projects that require targets from full MSBuild or MSBuildFrameworkToolsPath, you need to use desktop msbuild ('msbuild.exe') instead of 'dotnet build' or 'dotnet msbuild'"/>
+    <Error Text="If you are building projects that require targets from full MSBuild or MSBuildFrameworkToolsPath, you need to use desktop msbuild ('msbuild.exe') instead of 'dotnet build' or 'dotnet msbuild'"/>
   </Target>
 
   <PropertyGroup>
