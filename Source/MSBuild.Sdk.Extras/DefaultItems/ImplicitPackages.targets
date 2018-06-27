@@ -20,13 +20,7 @@
   </PropertyGroup>
 
   <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(_SdkShortFrameworkIdentifier)' == 'uap' ">
-    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="$(ExtrasUwpMetaPackageVersion)" IsImplicitlyDefined="true"/>
-    <!--
-      Update the implicit package based on target framework output types and other conditions if necessary
-      Packing should include the implicit package dependency for non-executables.
-    -->
-    <PackageReference Update="Microsoft.NETCore.UniversalWindowsPlatform" PrivateAssets="All"
-                      Condition="'$(ExtrasImplicitPlatformPackageIsPrivate)' == 'true'"/>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="$(ExtrasUwpMetaPackageVersion)" PrivateAssets="all" IsImplicitlyDefined="true"/>
   </ItemGroup>
 
   <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(_SdkShortFrameworkIdentifier)' == 'tizen'">
