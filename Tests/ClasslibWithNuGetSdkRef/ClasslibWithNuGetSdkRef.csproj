@@ -1,7 +1,7 @@
-<Project Sdk="MSBuild.Sdk.Extras/42.42.42">
+﻿<Project Sdk="MSBuild.Sdk.Extras/42.42.42">
 
   <PropertyGroup>
-    <TargetFrameworks>net471;uap10.0;uap10.0.16299</TargetFrameworks>
+    <TargetFrameworks>net471;uap10.0;uap10.0.16299;monoandroid80;xamarinios10</TargetFrameworks>
   </PropertyGroup>
 
 </Project>
