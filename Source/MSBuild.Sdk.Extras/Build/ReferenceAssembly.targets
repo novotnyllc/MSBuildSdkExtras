@@ -36,7 +36,7 @@
   </Target>
 
   <!-- If we have any ReferenceAssemblyProjectReference items, ensure restore is called on them  -->
-  <Target Name="_ExtrasRestoreReferenceAssembly" BeforeTargets="_LoadRestoreGraphEntryPoints">
+  <Target Name="_ExtrasRestoreReferenceAssembly" AfterTargets="_LoadRestoreGraphEntryPoints" BeforeTargets="_FilterRestoreGraphProjectInputItems">
     <PropertyGroup>
       <_ExtrasHasReferenceAssembly Condition="'@(ReferenceAssemblyProjectReference)' != ''">true</_ExtrasHasReferenceAssembly>
       <_ExtrasHasReferenceAssembly Condition="'$(_ExtrasHasReferenceAssembly)' == ''">false</_ExtrasHasReferenceAssembly>
