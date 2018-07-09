@@ -10,6 +10,8 @@
     <IsMultiTargetingBuild>true</IsMultiTargetingBuild>
   </PropertyGroup>
 
+  <Import Project="$(MSBuildThisFileDirectory)ReferenceAssembly.targets"/>
+
   <ImportGroup Condition="'$(IsMultiTargetingBuild)' != 'true'">
     <Import Project="$(MSBuildThisFileDirectory)Inference.targets"
             Condition="'$(TargetFramework)' != '' AND !($(TargetFramework.Contains(',')) OR $(TargetFramework.Contains(';')))"/>

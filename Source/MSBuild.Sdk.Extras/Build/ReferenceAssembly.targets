@@ -1,0 +1,139 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- Default is not a reference assembly -->
+    <ExtrasIsReferenceAssembly Condition="'$(ExtrasIsReferenceAssembly)' == ''">false</ExtrasIsReferenceAssembly>
+  </PropertyGroup>
+
+
+  <PropertyGroup Condition="'$(ExtrasIsReferenceAssembly)' == 'true'">
+    <DefineConstants Condition=" '$(_SdkLanguageSourceName)' != 'VisualBasic' ">$(DefineConstants);REFERENCE_ASSEMBLY</DefineConstants>
+    <DefineConstants Condition=" '$(_SdkLanguageSourceName)' == 'VisualBasic' ">$(DefineConstants),REFERENCE_ASSEMBLY=-1</DefineConstants>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <!-- Ref Assms should be determinisitc and not packable, but allow user override -->
+    <Deterministic Condition="'$(Deterministic)' == ''">true</Deterministic>
+    <IsPackable Condition="'$(IsPackable)' == ''">false</IsPackable>
+  </PropertyGroup>
+
+
+  <ItemDefinitionGroup>
+    <ReferenceAssemblyProjectReference>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <GlobalPropertiesToRemove>TargetFramework;RuntimeIdentifier</GlobalPropertiesToRemove>
+    </ReferenceAssemblyProjectReference>
+  </ItemDefinitionGroup>
+
+  <!-- This target is called by the source project into the reference assembly project to get the reference assembly output items -->
+  <Target Name="_SdkGetReferenceAssemblies" DependsOnTargets="Build" Returns="@(ReferenceAssembliesOutput)">
+    <ItemGroup>
+      <ReferenceAssembliesOutput Include="@(IntermediateRefAssembly->'%(FullPath)')" TargetFramework="$(TargetFramework)" />
+      <ReferenceAssembliesOutput Include="@(DocumentationProjectOutputGroupOutput->'%(FullPath)')" TargetFramework="$(TargetFramework)" />
+    </ItemGroup>
+  </Target>
+
+  <!-- If we have any ReferenceAssemblyProjectReference items, ensure restore is called on them  -->
+  <Target Name="_ExtrasRestoreReferenceAssembly" BeforeTargets="_LoadRestoreGraphEntryPoints">
+    <PropertyGroup>
+      <_ExtrasHasReferenceAssembly Condition="'@(ReferenceAssemblyProjectReference)' != ''">true</_ExtrasHasReferenceAssembly>
+      <_ExtrasHasReferenceAssembly Condition="'$(_ExtrasHasReferenceAssembly)' == ''">false</_ExtrasHasReferenceAssembly>
+    </PropertyGroup>
+
+
+    <ItemGroup Condition="'$(_ExtrasHasReferenceAssembly)' == 'true' ">
+      <RestoreGraphProjectInputItems Include="@(ReferenceAssemblyProjectReference->'%(FullPath)')" />
+    </ItemGroup>
+  </Target>
+
+  <!-- Pass clean to reference assm  -->
+  <Target Name="_ExtrasCoreClean" BeforeTargets="CoreClean">
+    <PropertyGroup>
+      <_ExtrasHasReferenceAssembly Condition="'@(ReferenceAssemblyProjectReference)' != ''">true</_ExtrasHasReferenceAssembly>
+      <_ExtrasHasReferenceAssembly Condition="'$(_ExtrasHasReferenceAssembly)' == ''">false</_ExtrasHasReferenceAssembly>
+    </PropertyGroup>
+    
+    <MSBuild Projects="@(ReferenceAssemblyProjectReference->'%(FullPath)')"
+             Condition="'$(_ExtrasHasReferenceAssembly)' == 'true'"
+             BuildInParallel="$(BuildInParallel)"
+             ContinueOnError="!$(BuildingProject)"
+             Targets="Clean"
+             Properties="AssemblyName=$(AssemblyName);Version=$(Version);AssemblyTitle=$(AssemblyTitle)"
+             RemoveProperties="TargetFramework;RuntimeIdentifier"
+      
+      />
+  </Target>
+
+  <!-- Pass Build to reference assm  -->
+  <!-- Note: this will build once per inner build. Up-to-date checks should prevent issues -->
+  <Target Name="_ExtrasCoreBuild" BeforeTargets="CoreBuild" DependsOnTargets="GetAssemblyAttributes">
+    <PropertyGroup>
+      <_ExtrasHasReferenceAssembly Condition="'@(ReferenceAssemblyProjectReference)' != ''">true</_ExtrasHasReferenceAssembly>
+      <_ExtrasHasReferenceAssembly Condition="'$(_ExtrasHasReferenceAssembly)' == ''">false</_ExtrasHasReferenceAssembly>
+    </PropertyGroup>
+
+    <ItemGroup Condition="'$(AssemblyOriginatorKeyFile)' != '' ">
+      <_SdkAssemblyKeyFile Include="$(AssemblyOriginatorKeyFile)" />
+      <_SdkAssemblyKeyFileFull Include="@(_SdkAssemblyKeyFile->'%(FullPath)')"/>
+    </ItemGroup>
+
+    <PropertyGroup Condition="'$(AssemblyOriginatorKeyFile)' != '' ">
+      <_SdkAssemblyKeyFileFullProp>@(_SdkAssemblyKeyFileFull)</_SdkAssemblyKeyFileFullProp>
+    </PropertyGroup>
+    <MSBuild Projects="@(ReferenceAssemblyProjectReference->'%(FullPath)')"
+             Condition="'$(_ExtrasHasReferenceAssembly)' == 'true'"
+             BuildInParallel="$(BuildInParallel)"
+             ContinueOnError="!$(BuildingProject)"
+             Targets="Build"
+             Properties="AssemblyName=$(AssemblyName);NeutralLanguage=$(NeutralLanguage);AssemblyVersion=$(AssemblyVersion);FileVersion=$(FileVersion);InformationalVersion=$(InformationalVersion);DelaySign=$(DelaySign);SignAssembly=$(SignAssembly);AssemblyOriginatorKeyFile=$(_SdkAssemblyKeyFileFullProp);GenerateDocumentationFile=$(GenerateDocumentationFile)"
+             RemoveProperties="TargetFramework;RuntimeIdentifier"
+      
+    />
+  </Target>
+
+  <!-- Pack Refs correctly -->
+  <Target Name="_ExtrasGetRefsForPackage" 
+          BeforeTargets="_GetPackageFiles">
+
+    <PropertyGroup>
+      <_ExtrasHasReferenceAssembly Condition="'@(ReferenceAssemblyProjectReference)' != ''">true</_ExtrasHasReferenceAssembly>
+      <_ExtrasHasReferenceAssembly Condition="'$(_ExtrasHasReferenceAssembly)' == ''">false</_ExtrasHasReferenceAssembly>
+    </PropertyGroup>
+
+    <ItemGroup Condition="'$(AssemblyOriginatorKeyFile)' != '' ">
+      <_SdkAssemblyKeyFile Include="$(AssemblyOriginatorKeyFile)" />
+      <_SdkAssemblyKeyFileFull Include="@(_SdkAssemblyKeyFile->'%(FullPath)')"/>
+    </ItemGroup>
+
+    <PropertyGroup Condition="'$(AssemblyOriginatorKeyFile)' != '' ">
+      <_SdkAssemblyKeyFileFullProp>@(_SdkAssemblyKeyFileFull)</_SdkAssemblyKeyFileFullProp>
+    </PropertyGroup>
+
+    <MSBuild Projects="@(ReferenceAssemblyProjectReference->'%(FullPath)')"
+             Condition="'$(_ExtrasHasReferenceAssembly)' == 'true'"
+             Targets="_GetTargetFrameworksOutput">
+
+      <Output TaskParameter="TargetOutputs"
+              ItemName="_RefTargetFrameworks" />
+    </MSBuild>
+
+    <MSBuild Projects="@(ReferenceAssemblyProjectReference->'%(FullPath)')"
+             Condition="'$(_ExtrasHasReferenceAssembly)' == 'true'"
+             Targets="_SdkGetReferenceAssemblies"
+             Properties="TargetFramework=%(_RefTargetFrameworks.Identity);AssemblyName=$(AssemblyName);NeutralLanguage=$(NeutralLanguage);AssemblyVersion=$(AssemblyVersion);FileVersion=$(FileVersion);InformationalVersion=$(InformationalVersion);DelaySign=$(DelaySign);SignAssembly=$(SignAssembly);AssemblyOriginatorKeyFile=$(_SdkAssemblyKeyFileFullProp);GenerateDocumentationFile=$(GenerateDocumentationFile)"
+             >
+
+      <Output TaskParameter="TargetOutputs"
+              ItemName="_ExtrasRefAssmOutputs" />
+    </MSBuild>
+
+    <ItemGroup>
+      <None Include="@(_ExtrasRefAssmOutputs)" PackagePath="ref/%(_ExtrasRefAssmOutputs.TargetFramework)" Pack="true" />
+    </ItemGroup>
+
+  </Target>
+  
+
+</Project>
