@@ -1,4 +1,4 @@
-<ProjectSchemaDefinitions xmlns="http://schemas.microsoft.com/build/2009/properties">
+﻿<ProjectSchemaDefinitions xmlns="http://schemas.microsoft.com/build/2009/properties">
 
     <ContentType
         Name="EmbeddedResource"
@@ -9,6 +9,15 @@
     </ContentType>
 
     <FileExtension Name=".resx" ContentType="EmbeddedResource"/>
+
+    <ContentType
+        Name="SplashScreen"
+        DisplayName="Splash Screen"
+        ItemType="SplashScreen">
+    </ContentType>
+
+    <FileExtension Name=".jpg" ContentType="SplashScreen"/>
+    <FileExtension Name=".png" ContentType="SplashScreen"/>
 
     <ContentType
         Name="Settings"

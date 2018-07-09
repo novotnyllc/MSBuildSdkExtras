@@ -9,22 +9,6 @@
     <IsPackable>false</IsPackable>
 	</PropertyGroup>
 
-	<ItemGroup>
-	  <Compile Update="Resource1.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>Resource1.resx</DependentUpon>
-	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup><!--<PackageReference Include="MSBuild.Sdk.Extras" Version="1.2.0" PrivateAssets="All" /> -->
-	
-	  <EmbeddedResource Update="Resource1.resx">
-	    <Generator>ResXFileCodeGenerator</Generator>
-	    <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
-	  </EmbeddedResource>
-	</ItemGroup>
-
 	<ItemGroup Condition="'$(TargetFramework)' == 'uap10.0'">
 		<PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="5.4.0" />
 	</ItemGroup>

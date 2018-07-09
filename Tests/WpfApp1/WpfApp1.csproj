@@ -14,7 +14,16 @@
   <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\build\MSBuild.Sdk.Extras.targets" />
   <Import Project="..\Test.targets" />
   <ItemGroup>
+    <None Remove="SplashScreen.scale-200.png" />
+  </ItemGroup>
+  
+  <ItemGroup>
     <ProjectReference Include="..\WpfControlLibrary\WpfControlLibrary.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <SplashScreen Include="SplashScreen.scale-200.png" />
+  </ItemGroup>
+
 
 </Project>
