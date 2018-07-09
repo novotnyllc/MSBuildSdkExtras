@@ -60,7 +60,7 @@
              BuildInParallel="$(BuildInParallel)"
              ContinueOnError="!$(BuildingProject)"
              Targets="Clean"
-             Properties="AssemblyName=$(AssemblyName);Version=$(Version);AssemblyTitle=$(AssemblyTitle)"
+             Properties="AssemblyName=$(AssemblyName);Version=$(Version);AssemblyTitle=$(AssemblyTitle);ExtrasIsReferenceAssembly=true"
              RemoveProperties="TargetFramework;RuntimeIdentifier"
       
       />
@@ -87,7 +87,7 @@
              BuildInParallel="$(BuildInParallel)"
              ContinueOnError="!$(BuildingProject)"
              Targets="Build"
-             Properties="AssemblyName=$(AssemblyName);NeutralLanguage=$(NeutralLanguage);AssemblyVersion=$(AssemblyVersion);FileVersion=$(FileVersion);InformationalVersion=$(InformationalVersion);DelaySign=$(DelaySign);SignAssembly=$(SignAssembly);AssemblyOriginatorKeyFile=$(_SdkAssemblyKeyFileFullProp);GenerateDocumentationFile=$(GenerateDocumentationFile)"
+             Properties="AssemblyName=$(AssemblyName);NeutralLanguage=$(NeutralLanguage);AssemblyVersion=$(AssemblyVersion);FileVersion=$(FileVersion);InformationalVersion=$(InformationalVersion);DelaySign=$(DelaySign);SignAssembly=$(SignAssembly);AssemblyOriginatorKeyFile=$(_SdkAssemblyKeyFileFullProp);GenerateDocumentationFile=$(GenerateDocumentationFile);ExtrasIsReferenceAssembly=true"
              RemoveProperties="TargetFramework;RuntimeIdentifier"
       
     />
@@ -112,6 +112,7 @@
     </PropertyGroup>
 
     <MSBuild Projects="@(ReferenceAssemblyProjectReference->'%(FullPath)')"
+             Properties="ExtrasIsReferenceAssembly=true"
              Condition="'$(_ExtrasHasReferenceAssembly)' == 'true'"
              Targets="_GetTargetFrameworksOutput">
 
@@ -122,7 +123,7 @@
     <MSBuild Projects="@(ReferenceAssemblyProjectReference->'%(FullPath)')"
              Condition="'$(_ExtrasHasReferenceAssembly)' == 'true'"
              Targets="_SdkGetReferenceAssemblies"
-             Properties="TargetFramework=%(_RefTargetFrameworks.Identity);AssemblyName=$(AssemblyName);NeutralLanguage=$(NeutralLanguage);AssemblyVersion=$(AssemblyVersion);FileVersion=$(FileVersion);InformationalVersion=$(InformationalVersion);DelaySign=$(DelaySign);SignAssembly=$(SignAssembly);AssemblyOriginatorKeyFile=$(_SdkAssemblyKeyFileFullProp);GenerateDocumentationFile=$(GenerateDocumentationFile)"
+             Properties="TargetFramework=%(_RefTargetFrameworks.Identity);AssemblyName=$(AssemblyName);NeutralLanguage=$(NeutralLanguage);AssemblyVersion=$(AssemblyVersion);FileVersion=$(FileVersion);InformationalVersion=$(InformationalVersion);DelaySign=$(DelaySign);SignAssembly=$(SignAssembly);AssemblyOriginatorKeyFile=$(_SdkAssemblyKeyFileFullProp);GenerateDocumentationFile=$(GenerateDocumentationFile);ExtrasIsReferenceAssembly=true"
              >
 
       <Output TaskParameter="TargetOutputs"
