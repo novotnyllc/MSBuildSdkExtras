@@ -12,12 +12,14 @@
 
     <ContentType
         Name="SplashScreen"
-        DisplayName="Splash Screen"
+        DisplayName="Splash screen"
         ItemType="SplashScreen">
     </ContentType>
 
-    <FileExtension Name=".jpg" ContentType="SplashScreen"/>
+    <FileExtension Name=".jpg" ContentType="SplashScreen"/>    
     <FileExtension Name=".png" ContentType="SplashScreen"/>
+    
+    <ItemType Name="SplashScreen" DisplayName="Splash screen" />
 
     <ContentType
         Name="Settings"
