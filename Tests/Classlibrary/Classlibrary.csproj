@@ -5,13 +5,14 @@
 	<PropertyGroup>
 		<!--<TargetFramework>uap10.0</TargetFramework>-->
 		<!--<TargetFrameworks>uap10.0;uap10.0.16299;monoandroid70;xamarin.ios10;xamarin.mac20</TargetFrameworks>-->
-    <TargetFrameworks>uap10.0;monoandroid70;xamarin.ios10;xamarin.mac20;net462</TargetFrameworks>
+    <!--<TargetFrameworks>uap10.0;monoandroid70;xamarin.ios10;xamarin.mac20;net462</TargetFrameworks>-->
+    <TargetFrameworks>netstandard2.0+unix;netstandard2.0+win;netstandard1.3</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>test.snk</AssemblyOriginatorKeyFile>
 	</PropertyGroup>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <ReferenceAssemblyProjectReference Include="..\Classlibrary.Ref\Classlibrary.Ref.csproj" />
   </ItemGroup>
 
@@ -29,7 +30,7 @@
 
   <ItemGroup Condition="'$(TargetFramework)' == 'xamarin.mac20'">
     <Reference Include="System.Xml" />
-  </ItemGroup>
+  </ItemGroup>-->
 
 	<Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 	<Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\BuildMultiTargeting\MSBuild.Sdk.Extras.targets" />

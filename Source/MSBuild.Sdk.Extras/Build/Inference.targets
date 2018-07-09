@@ -26,7 +26,8 @@
       portable45-net45+win8+wp8+wpa81 into 'portable', '45', '+net45+win8+wp8+wpa81+'
   -->
   <Choose>
-    <When Condition="$(TargetFramework.Contains('-'))">
+    <!-- If the - has portable, client, or cf in it, treat as profile -->
+    <When Condition="$(TargetFramework.Contains('-')) and ($(TargetFramework.Contains('portable')) or $(TargetFramework.Contains('-client')) or $(TargetFramework.Contains('-cf')) ) ">
       <!-- Handle short framework ids with profiles -->
       <PropertyGroup>
         <_SdkShortFrameworkIdentifierWithVersion>$(TargetFramework.Split('-')[0])</_SdkShortFrameworkIdentifierWithVersion>
@@ -39,6 +40,16 @@
       </PropertyGroup>
     </When>
 
+    <!-- If the TFM has a +, the part afterwards will be the RID -->
+    <When Condition="$(TargetFramework.Contains('+'))">
+      <PropertyGroup>
+        <_SdkShortFrameworkIdentifierWithVersion>$(TargetFramework.Split('+')[0])</_SdkShortFrameworkIdentifierWithVersion>
+        <_SdkShortFrameworkIdentifier>$(_SdkShortFrameworkIdentifierWithVersion.TrimEnd('.0123456789'))</_SdkShortFrameworkIdentifier>
+        <_SdkShortFrameworkVersion>$(_SdkShortFrameworkIdentifierWithVersion.Substring($(_SdkShortFrameworkIdentifier.Length)))</_SdkShortFrameworkVersion>
+        <_SdkRuntimeId>$(TargetFramework.Split('+')[1])</_SdkRuntimeId>
+        <RuntimeIdentifier>$(_SdkRuntimeId)</RuntimeIdentifier>
+      </PropertyGroup>
+    </When>
     <Otherwise>
       <!-- Handle simple short framework ids -->
       <PropertyGroup>

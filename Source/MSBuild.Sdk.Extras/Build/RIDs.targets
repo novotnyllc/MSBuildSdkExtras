@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+
+  <Target Name="_ExtrasFilterRidFromRestore" AfterTargets="_GetRestoreTargetFrameworksOutput" BeforeTargets="_GenerateRestoreProjectSpec">
+
+    <ItemGroup>
+      
+      <_SdkUniqueTfms />
+
+      <!-- Get the TFM's that contain an RID -->
+      <_SdkFilteredTfms Include="@(_RestoreTargetFrameworksOutputFiltered)" 
+                        Condition="$([MSBuild]::ValueOrDefault('%(Identity)', '').Contains('+')) and !$([MSBuild]::ValueOrDefault('%(Identity)', '').Contains('portable'))" 
+                        Replacement="$([MSBuild]::ValueOrDefault('%(Identity)', '').Substring(0, $([MSBuild]::ValueOrDefault('%(Identity)', '').IndexOf('+')))  )"
+                        
+                        />
+      
+      <!-- Remove them from the filtered list since NuGet doesn't know about it here -->
+      <_RestoreTargetFrameworksOutputFiltered Remove="@(_SdkFilteredTfms)" />
+    </ItemGroup>
+
+    <RemoveDuplicates
+      Inputs="@(_SdkFilteredTfms->'%(Replacement)')">
+      <Output
+        TaskParameter="Filtered"
+        ItemName="_SdkUniqueTfms" />
+    </RemoveDuplicates>
+
+    <ItemGroup>
+      <_RestoreTargetFrameworksOutputFiltered Include="@(_SdkUniqueTfms)" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="_ExtrasFilterRidFromGraphEntry" AfterTargets="_GenerateProjectRestoreGraphCurrentProject;_GenerateProjectRestoreGraphAllFrameworks" BeforeTargets="_GenerateRestoreDependencies">
+
+    <ItemGroup>
+      <_RestoreGraphEntry Update="@(_RestoreGraphEntry)"  
+                          Condition="$([MSBuild]::ValueOrDefault('%(_RestoreGraphEntry.TargetFramework)', '').Contains('+')) and !$([MSBuild]::ValueOrDefault('%(_RestoreGraphEntry.TargetFramework)', '').Contains('portable'))"
+                          TargetFramework="$([MSBuild]::ValueOrDefault('%(_RestoreGraphEntry.TargetFramework)', '').Substring(0, $([MSBuild]::ValueOrDefault('%(_RestoreGraphEntry.TargetFramework)', '').IndexOf('+')))  )"
+                          
+                          />
+      </ItemGroup>
+  </Target>
+
+</Project>
