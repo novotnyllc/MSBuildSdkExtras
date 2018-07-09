@@ -6,15 +6,21 @@
 		<!--<TargetFramework>uap10.0</TargetFramework>-->
 		<!--<TargetFrameworks>uap10.0;uap10.0.16299;monoandroid70;xamarin.ios10;xamarin.mac20</TargetFrameworks>-->
     <TargetFrameworks>uap10.0;monoandroid70;xamarin.ios10;xamarin.mac20;net462</TargetFrameworks>
-    <IsPackable>false</IsPackable>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>test.snk</AssemblyOriginatorKeyFile>
 	</PropertyGroup>
 
+  <ItemGroup>
+    <ReferenceAssemblyProjectReference Include="..\Classlibrary.Ref\Classlibrary.Ref.csproj" />
+  </ItemGroup>
+
 	<ItemGroup Condition="'$(TargetFramework)' == 'uap10.0'">
-		<PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="5.4.0" />
+		<PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="5.4.0" PrivateAssets="all" />
 	</ItemGroup>
 	
   <ItemGroup Condition="'$(TargetFramework)' == 'uap10.0.16299'">
-		<PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="5.4.0" />
+		<PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="5.4.0" PrivateAssets="all" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'tizen30'">
