@@ -39,6 +39,154 @@
       </_InnerBuildProjects>
     </ItemGroup>
   </Target>
-  
+
+
+
+  <Target Name="_WalkEachTargetPerFramework">
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             BuildInParallel="$(BuildInParallel)"
+             Properties="TargetFramework=%(_TargetFrameworks.Identity)"
+             Targets="_SdkGetRidsPerTargetFramework">
+      <Output ItemName="_SdkTargetsWithRids" TaskParameter="TargetOutputs"  />
+    </MSBuild>
+
+    <MSBuild
+      Condition="'$(IncludeBuildOutput)' == 'true' and '%(_SdkTargetsWithRids.Rid)' != ''"
+      Projects="$(MSBuildProjectFullPath)"
+      Targets="_SdkGetBuildOutputFilesWithTfm"
+      Properties="TargetFramework=%(_SdkTargetsWithRids.Identity);RuntimeIdentifier=%(_SdkTargetsWithRids.Rid)">
+
+      <Output
+          TaskParameter="TargetOutputs"
+          ItemName="_BuildOutputInPackageWithRid" />
+    </MSBuild>
+
+    <MSBuild
+      Condition="'$(IncludeBuildOutput)' == 'true' and '%(_SdkTargetsWithRids.Rid)' == ''"
+      Projects="$(MSBuildProjectFullPath)"
+      Targets="_GetBuildOutputFilesWithTfm"
+      Properties="TargetFramework=%(_SdkTargetsWithRids.Identity);">
+
+      <Output
+        TaskParameter="TargetOutputs"
+        ItemName="_BuildOutputInPackage" />
+    </MSBuild>
+
+    <MSBuild
+      Condition="'$(TargetsForTfmSpecificContentInPackage)' != '' and '%(_SdkTargetsWithRids.Rid)' != ''"
+      Projects="$(MSBuildProjectFullPath)"
+      Targets="_GetTfmSpecificContentForPackage"
+      Properties="TargetFramework=%(_SdkTargetsWithRids.Identity);RuntimeIdentifier=%(_SdkTargetsWithRids.Rid)">
+
+      <Output
+          TaskParameter="TargetOutputs"
+          ItemName="_PackageFiles"/>
+    </MSBuild>
+
+    <MSBuild
+      Condition="'$(TargetsForTfmSpecificContentInPackage)' != '' and '%(_SdkTargetsWithRids.Rid)' == ''"
+      Projects="$(MSBuildProjectFullPath)"
+      Targets="_GetTfmSpecificContentForPackage"
+      Properties="TargetFramework=%(_SdkTargetsWithRids.Identity);">
+
+      <Output
+        TaskParameter="TargetOutputs"
+        ItemName="_PackageFiles"/>
+    </MSBuild>
+
+    <MSBuild
+      Condition="'$(IncludeBuildOutput)' == 'true' and '%(_SdkTargetsWithRids.Rid)' != ''"
+      Projects="$(MSBuildProjectFullPath)"
+      Targets="_SdkGetDebugSymbolsWithTfm"
+      Properties="TargetFramework=%(_SdkTargetsWithRids.Identity);RuntimeIdentifier=%(_SdkTargetsWithRids.Rid)">
+
+      <Output
+          TaskParameter="TargetOutputs"
+          ItemName="_TargetPathsToSymbolsWithRid" />
+    </MSBuild>
+
+    <MSBuild
+      Condition="'$(IncludeBuildOutput)' == 'true' and '%(_SdkTargetsWithRids.Rid)' == ''"
+      Projects="$(MSBuildProjectFullPath)"
+      Targets="_GetDebugSymbolsWithTfm"
+      Properties="TargetFramework=%(_SdkTargetsWithRids.Identity);">
+
+      <Output
+        TaskParameter="TargetOutputs"
+        ItemName="_TargetPathsToSymbols" />
+    </MSBuild>
+
+    <MSBuild
+      Condition="'$(IncludeSource)' == 'true' and '%(_SdkTargetsWithRids.Rid)' == ''"
+      Projects="$(MSBuildProjectFullPath)"
+      Targets="SourceFilesProjectOutputGroup"
+      Properties="TargetFramework=%(_SdkTargetsWithRids.Identity);
+                  BuildProjectReferences=false;">
+
+      <Output
+          TaskParameter="TargetOutputs"
+          ItemName="_SourceFiles" />
+    </MSBuild>
+
+    <MSBuild
+      Projects="$(MSBuildProjectFullPath)"
+      Targets="_GetFrameworkAssemblyReferences"
+      Properties="TargetFramework=%(_TargetFrameworks.Identity);
+                  BuildProjectReferences=false;">
+
+      <Output
+          TaskParameter="TargetOutputs"
+          ItemName="_FrameworkAssemblyReferences" />
+    </MSBuild>
+
+    <MSBuild
+      Projects="$(MSBuildProjectFullPath)"
+      Targets="_GetFrameworksWithSuppressedDependencies"
+      Properties="TargetFramework=%(_TargetFrameworks.Identity);
+                  BuildProjectReferences=false;">
+
+      <Output
+          TaskParameter="TargetOutputs"
+          ItemName="_FrameworksWithSuppressedDependencies" />
+    </MSBuild>
+
+    <ItemGroup>
+
+       <!-- Include the runtimes files -->
+      <None Include="@(_BuildOutputInPackageWithRid)" PackagePath="runtimes/%(_BuildOutputInPackageWithRid.Rid)/lib/%(_BuildOutputInPackageWithRid.TargetFramework)" Pack="true" />
+      <None Include="@(_TargetPathsToSymbolsWithRid)" PackagePath="runtimes/%(_BuildOutputInPackageWithRid.Rid)/lib/%(_BuildOutputInPackageWithRid.TargetFramework)" Pack="true" />
+    </ItemGroup>  
+    
+  </Target>
+
+
+  <Target Name="_SdkGetBuildOutputFilesWithTfm" DependsOnTargets="_GetBuildOutputFilesWithTfm" Returns="@(BuildOutputInPackage)">
+
+    <ItemGroup>
+      <BuildOutputInPackage Update="@(BuildOutputInPackage)" Rid="$(RuntimeIdentifier)" />
+    </ItemGroup>
+
+  </Target>
+
+  <Target Name="_SdkGetDebugSymbolsWithTfm" DependsOnTargets="_GetDebugSymbolsWithTfm" Returns="@(_TargetPathsToSymbolsWithTfm)">
+
+    <ItemGroup>
+      <_TargetPathsToSymbolsWithTfm Update="@(_TargetPathsToSymbolsWithTfm)" Rid="$(RuntimeIdentifier)" />
+    </ItemGroup>
+
+  </Target>
+
+
+  <Target Name="_ExtrasPackageRuntimeFiles" BeforeTargets="_GetPackageFiles" >
+
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             BuildInParallel="$(BuildInParallel)"
+             Properties="TargetFramework=%(_TargetFramework.Identity)"
+             Targets="_SdkGetRidsPerTargetFramework">
+      <Output ItemName="_SdkTargetsWithRids" TaskParameter="TargetOutputs"  />
+    </MSBuild>
+    
+
+  </Target>
 
 </Project>

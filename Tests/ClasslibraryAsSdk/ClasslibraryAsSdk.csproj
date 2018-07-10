@@ -5,11 +5,18 @@
 	<PropertyGroup>
 		<!--<TargetFramework>uap10.0</TargetFramework>-->
 		<!--<TargetFrameworks>uap10.0;uap10.0.16278;monoandroid70;xamarin.ios10;xamarin.mac20</TargetFrameworks>-->
-    <TargetFrameworks>netstandard2.0;uap10.0;uap10.0.16299;monoandroid70;xamarin.ios10;xamarin.mac20;tizen40</TargetFrameworks>
+    <!--<TargetFrameworks>netstandard2.0;uap10.0;uap10.0.16299;monoandroid70;xamarin.ios10;xamarin.mac20;tizen40</TargetFrameworks>-->
+	  <TargetFrameworks>netstandard2.0;net46</TargetFrameworks>
     <RuntimeIdentifiers Condition="'$(TargetFramework)' == 'netstandard2.0'">win;unix</RuntimeIdentifiers>
     <ExtrasBuildEachRuntimeIdentifier Condition="'$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'uap10.0.16299'">true</ExtrasBuildEachRuntimeIdentifier>
+	  <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    
 	</PropertyGroup>
 
+
+  <ItemGroup>
+    <ReferenceAssemblyProjectReference Include="..\ClasslibraryAsSdk.Ref\ClasslibraryAsSdk.Ref.csproj" />
+  </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'xamarin.mac20'">
     <Reference Include="System.Xml" />
