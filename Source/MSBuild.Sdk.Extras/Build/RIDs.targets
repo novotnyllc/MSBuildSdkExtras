@@ -39,10 +39,121 @@
     <ItemGroup>
       <_RestoreGraphEntry Update="@(_RestoreGraphEntry)"  
                           Condition="$([MSBuild]::ValueOrDefault('%(_RestoreGraphEntry.TargetFramework)', '').Contains('+')) and !$([MSBuild]::ValueOrDefault('%(_RestoreGraphEntry.TargetFramework)', '').Contains('portable'))"
+                          OriginalTargetFramework="%(_RestoreGraphEntry.TargetFramework)"
                           TargetFramework="$([MSBuild]::ValueOrDefault('%(_RestoreGraphEntry.TargetFramework)', '').Substring(0, $([MSBuild]::ValueOrDefault('%(_RestoreGraphEntry.TargetFramework)', '').IndexOf('+')))  )"
                           
                           />
+      <_RestoreGraphEntry Update="@(_RestoreGraphEntry)"
+                          Condition="$([MSBuild]::ValueOrDefault('%(_RestoreGraphEntry.TargetFrameworks)', '').Contains('+')) and !$([MSBuild]::ValueOrDefault('%(_RestoreGraphEntry.TargetFrameworks)', '').Contains('portable'))"
+                          OriginalTargetFrameworks="%(_RestoreGraphEntry.TargetFrameworks)"
+                          TargetFrameworks="$([MSBuild]::ValueOrDefault('%(_RestoreGraphEntry.TargetFrameworks)', '').Substring(0, $([MSBuild]::ValueOrDefault('%(_RestoreGraphEntry.TargetFrameworks)', '').IndexOf('+')))  )"
+                          
+      />
       </ItemGroup>
+  </Target>
+  
+  
+
+  <PropertyGroup>
+    <_SdkTaskFactoryType Condition="'$(MSBuildRuntimeType)' == 'Full'">CodeTaskFactory</_SdkTaskFactoryType>
+    <_SdkTaskFactoryType Condition="'$(MSBuildRuntimeType)' == 'Core'">RoslynTaskFactory</_SdkTaskFactoryType>
+    <_SdkTaskAssemblyFileName Condition="'$(MSBuildRuntimeType)' == 'Full'">$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll</_SdkTaskAssemblyFileName>
+    <_SdkTaskAssemblyFileName Condition="'$(MSBuildRuntimeType)' == 'Core'">$(MSBuildBinPath)\Microsoft.Build.Tasks.Core.dll</_SdkTaskAssemblyFileName>
+  </PropertyGroup>
+  
+
+  <UsingTask TaskName="_ExtrasUpdateTargetsFile"
+             TaskFactory="$(_SdkTaskFactoryType)"
+             AssemblyFile="$(_SdkTaskAssemblyFileName)">
+    <ParameterGroup>
+      <ItemMap ParameterType="Microsoft.Build.Framework.ITaskItem[]" Required="true" />
+      <InputFile ParameterType="System.String" Required="true" />
+      <OutputFile ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Reference Include="System.Xml" />
+      <Reference Include="System.Xml.Linq" />
+      <Using Namespace="System" />
+      <Using Namespace="System.IO" />
+      <Using Namespace="System.Linq" />
+      <Using Namespace="System.Xml.Linq" />
+      <Code Type="Fragment" Language="C#">
+        <![CDATA[
+            var doc = XDocument.Load(File.OpenText(InputFile));
+            var ns = doc.Root.GetDefaultNamespace();
+
+            // Escape this to avoid MSBuild issues
+            var tf = "$" + "(TargetFramework)";
+            
+            // The input has the source in the items
+            var tfms = ItemMap.GroupBy(i => i.GetMetadata("TargetFramework"), i => i.ItemSpec);
+
+            foreach (var tfm in tfms)
+            {
+                var targetString = string.Format("'{0}' == '{1}'", tf, tfm.Key);
+
+                var group = doc.Root.Elements(ns + "ImportGroup")
+                               .FirstOrDefault(ele => ele.Attribute("Condition").Value.Contains(targetString));
+
+                if (group != null)
+                {
+                    var clauses = tfm.Select(t => string.Format("'{0}' == '{1}'",tf, t));
+                    var replacementString = string.Join(" OR ", clauses);
+                    replacementString = string.Format("( {0} )", replacementString);
+
+                    group.Attribute("Condition").Value = group.Attribute("Condition").Value.Replace(targetString, replacementString);
+                }
+
+            }
+
+            doc.Save(OutputFile);
+            ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+
+  
+
+  <Target Name="_ExtrasFixRestoreFiles" 
+          Condition="@(_RestoreGraphEntry->'%(OriginalTargetFrameworks)') != '' or @(_RestoreGraphEntry->'%(OriginalTargetFramework)') != ''"
+          AfterTargets="Restore">
+
+    <ItemGroup>
+      <_SdkTfmToOriginalMapTmp Include="@(_RestoreGraphEntry->'%(OriginalTargetFrameworks)')" TargetFramework="%(_RestoreGraphEntry.TargetFrameworks)" KeepMetadata="TargetFramework" />
+      <_SdkTfmToOriginalMapTmp Include="@(_RestoreGraphEntry->'%(OriginalTargetFramework)')" TargetFramework="%(_RestoreGraphEntry.TargetFramework)" KeepMetadata="TargetFramework" />
+    </ItemGroup>
+    
+    <RemoveDuplicates
+      Inputs="@(_SdkTfmToOriginalMapTmp)">
+      <Output
+        TaskParameter="Filtered"
+        ItemName="_SdkTfmToOriginal" />
+    </RemoveDuplicates>
+
+
+    <PropertyGroup>
+      <_SdkFileLocation>$([MSBuild]::EnsureTrailingSlash($([System.IO.Directory]::GetParent($(ProjectAssetsFile)).FullName)))</_SdkFileLocation>
+      <_SdkPropsFileLocation>$(_SdkFileLocation)$(MSBuildProjectFile).nuget.g.props</_SdkPropsFileLocation>
+      <_SdkTargetsFileLocation>$(_SdkFileLocation)$(MSBuildProjectFile).nuget.g.targets</_SdkTargetsFileLocation>
+      <_SdkTargetsFileLocationOut>$(_SdkFileLocation)$(MSBuildProjectFile).extras.g.targets</_SdkTargetsFileLocationOut>
+      <_SdkPropsFileLocationOut>$(_SdkFileLocation)$(MSBuildProjectFile).extras.g.props</_SdkPropsFileLocationOut>
+    </PropertyGroup>
+    
+    <_ExtrasUpdateTargetsFile 
+      ItemMap="@(_SdkTfmToOriginal)"
+      InputFile="$(_SdkTargetsFileLocation)"
+      OutputFile="$(_SdkTargetsFileLocationOut)"
+      Condition="Exists('$(_SdkTargetsFileLocation)')"
+      />
+    
+    <_ExtrasUpdateTargetsFile 
+      ItemMap="@(_SdkTfmToOriginal)"
+      InputFile="$(_SdkPropsFileLocation)"
+      OutputFile="$(_SdkPropsFileLocationOut)"
+      Condition="Exists('$(_SdkPropsFileLocation)')"
+    />
+    
+
   </Target>
 
 </Project>
