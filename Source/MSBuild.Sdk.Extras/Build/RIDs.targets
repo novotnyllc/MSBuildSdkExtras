@@ -132,7 +132,7 @@
 
 
     <PropertyGroup>
-      <_SdkFileLocation>$([MSBuild]::EnsureTrailingSlash($([System.IO.Directory]::GetParent($(ProjectAssetsFile)).FullName)))</_SdkFileLocation>
+      <_SdkFileLocation>$(MSBuildProjectExtensionsPath)</_SdkFileLocation>
       <_SdkPropsFileLocation>$(_SdkFileLocation)$(MSBuildProjectFile).nuget.g.props</_SdkPropsFileLocation>
       <_SdkTargetsFileLocation>$(_SdkFileLocation)$(MSBuildProjectFile).nuget.g.targets</_SdkTargetsFileLocation>
       <_SdkTargetsFileLocationOut>$(_SdkFileLocation)$(MSBuildProjectFile).extras.g.targets</_SdkTargetsFileLocationOut>
