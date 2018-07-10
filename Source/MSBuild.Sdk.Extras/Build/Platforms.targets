@@ -20,7 +20,8 @@
   <!-- Add conditional compilation symbols for the target framework and one with version -->
   <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">
     <ImplicitFrameworkIdentifierDefine>$(TargetFrameworkIdentifier.TrimStart('.').Replace('.','_').ToUpperInvariant())</ImplicitFrameworkIdentifierDefine>
-    <ImplicitFrameworkDefine>$(TargetFramework.Replace('.','_').Replace('-','_').ToUpperInvariant())</ImplicitFrameworkDefine>
+    <ImplicitFrameworkDefine>$(TargetFramework.Replace('.','_').Replace('-','_').Replace('+', '_').ToUpperInvariant())</ImplicitFrameworkDefine>
+    <_SdkImplicitFrameworkDefineWithoutRid Condition="'$(_SdkRuntimeId)' != ''">$(_SdkShortFrameworkIdentifierWithVersion.Replace('.','_').Replace('-','_').Replace('+', '_').ToUpperInvariant())</_SdkImplicitFrameworkDefineWithoutRid>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(PlatformTargets)' == ''">
@@ -32,11 +33,13 @@
   <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true' AND '$(_SdkLanguageSourceName)' != 'VisualBasic'">
     <DefineConstants Condition="'$(DefineConstants)' != '' AND !$(DefineConstants.EndsWith(';'))">$(DefineConstants);</DefineConstants>
     <DefineConstants>$(DefineConstants)$(_SdkImplicitFrameworkProfileDefine)</DefineConstants>
+    <DefineConstants Condition="'$(_SdkImplicitFrameworkDefineWithoutRid)' != ''">$(DefineConstants);$(_SdkImplicitFrameworkDefineWithoutRid)</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true' AND '$(_SdkLanguageSourceName)' == 'VisualBasic'">
     <FinalDefineConstants Condition="'$(FinalDefineConstants)' != '' AND !$(DefineConstants.EndsWith(','))">$(FinalDefineConstants),</FinalDefineConstants>
     <FinalDefineConstants Condition="'$(_SdkImplicitFrameworkProfileDefine)' != ''">$(FinalDefineConstants)$(_SdkImplicitFrameworkProfileDefine)=-1</FinalDefineConstants>
+    <FinalDefineConstants Condition="'$(_SdkImplicitFrameworkDefineWithoutRid)' != ''">$(FinalDefineConstants),$(_SdkImplicitFrameworkDefineWithoutRid)=-1</FinalDefineConstants>
   </PropertyGroup>
 
   <!-- The conditional compilation symbols defined in the above import and the property-group flows to the Main SDK -->
