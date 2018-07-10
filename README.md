@@ -171,7 +171,7 @@ Once this package is configured, you can now use any supported TFM in your `Targ
 
 You'll need a few things
 
-1. Make sure to use `TargetFrameworks` instead of `TargetFramework`, even if you're only building a single target framework. We are piggy-backing off of it's looping capabilities.
+1. Make sure to use `TargetFrameworks` instead of `TargetFramework`, even if you're only building a single target framework. I am piggy-backing off of its looping capabilities.
 2. Set the `RuntimeIdentifiers` property to [valid RID's](https://docs.microsoft.com/en-us/dotnet/core/rid-catalog) ([full list](https://github.com/dotnet/corefx/blob/master/pkg/Microsoft.NETCore.Platforms/runtime.json)), separated by a semi-colon. (`<RuntimeIdentifiers>win;unix</RuntimeIdentifiers>`). These can be set per TFM using a condition on the property. This lets you have multiple TFM's, but only some of which have RID's.
 3. For the TFM's that you want want to build separately, set the  property `ExtrasBuildEachRuntimeIdentifier` to `true`.
 
