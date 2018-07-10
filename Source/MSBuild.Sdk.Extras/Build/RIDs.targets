@@ -113,10 +113,35 @@
   </UsingTask>
 
   
+  <!--
+    Copy the main targets to make sure we generate the restore file first
+  -->
+  <Target Name="_SdkRestoreOriginal" DependsOnTargets="_GenerateRestoreGraph">
+
+    <!-- Drop any duplicate items -->
+    <RemoveDuplicates
+      Inputs="@(_RestoreGraphEntry)">
+      <Output
+          TaskParameter="Filtered"
+          ItemName="_RestoreGraphEntryFiltered" />
+    </RemoveDuplicates>
+
+    <!-- Call restore -->
+    <RestoreTask
+      RestoreGraphItems="@(_RestoreGraphEntryFiltered)"
+      RestoreDisableParallel="$(RestoreDisableParallel)"
+      RestoreNoCache="$(RestoreNoCache)"
+      RestoreIgnoreFailedSources="$(RestoreIgnoreFailedSources)"
+      RestoreRecursive="$(RestoreRecursive)"
+      RestoreForce="$(RestoreForce)"
+      HideWarningsAndErrors="$(HideWarningsAndErrors)"/>
+  </Target>
+
+
 
   <Target Name="_ExtrasFixRestoreFiles" 
           Condition="@(_RestoreGraphEntry->'%(OriginalTargetFrameworks)') != '' or @(_RestoreGraphEntry->'%(OriginalTargetFramework)') != ''"
-          AfterTargets="Restore">
+          Beforeargets="Restore">
 
     <ItemGroup>
       <_SdkTfmToOriginalMapTmp Include="@(_RestoreGraphEntry->'%(OriginalTargetFrameworks)')" TargetFramework="%(_RestoreGraphEntry.TargetFrameworks)" KeepMetadata="TargetFramework" />
