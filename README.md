@@ -175,6 +175,8 @@ You'll need a few things
 2. Set the `RuntimeIdentifiers` property to [valid RID's](https://docs.microsoft.com/en-us/dotnet/core/rid-catalog) ([full list](https://github.com/dotnet/corefx/blob/master/pkg/Microsoft.NETCore.Platforms/runtime.json)), separated by a semi-colon. (`<RuntimeIdentifiers>win;unix</RuntimeIdentifiers>`). These can be set per TFM using a condition on the property. This lets you have multiple TFM's, but only some of which have RID's.
 3. For the TFM's that you want want to build separately, set the  property `ExtrasBuildEachRuntimeIdentifier` to `true`.
 
+Note: You must use the `Sdk="MSBuild.Sdk.Extras"` method for this. Using `PackageReference` is unsupported for this scenario.
+
 While the Visual Studio context won't show each RID, it'll build for each. The Extras defines a symbol for each RID for use (`win-x86` would be `WIN_X86` and `centos.7-x64` would be `CENTOS_7_X64`). Dots and dashes become underbars.
 
 You will also need a Reference Assembly for the `ref` folder. Please see my [two](https://oren.codes/2018/07/09/create-and-pack-reference-assemblies-made-easy/) [blogs](https://oren.codes/2018/07/03/create-and-pack-reference-assemblies/) articles for details.
