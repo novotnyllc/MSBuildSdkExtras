@@ -5,8 +5,9 @@
 	<PropertyGroup>
 		<!--<TargetFramework>uap10.0</TargetFramework>-->
 		<!--<TargetFrameworks>uap10.0;uap10.0.16278;monoandroid70;xamarin.ios10;xamarin.mac20</TargetFrameworks>-->
-    <TargetFrameworks>uap10.0;uap10.0.16299;monoandroid70;xamarin.ios10;xamarin.mac20;tizen40</TargetFrameworks>
-    <IsPackable>false</IsPackable>
+    <TargetFrameworks>netstandard2.0;uap10.0;uap10.0.16299;monoandroid70;xamarin.ios10;xamarin.mac20;tizen40</TargetFrameworks>
+    <RuntimeIdentifiers Condition="'$(TargetFramework)' == 'netstandard2.0'">win;unix</RuntimeIdentifiers>
+    <ExtrasBuildEachRuntimeIdentifier Condition="'$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'uap10.0.16299'">true</ExtrasBuildEachRuntimeIdentifier>
 	</PropertyGroup>
 
 

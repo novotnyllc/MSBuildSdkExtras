@@ -1,0 +1,44 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <Target Name="_SdkGetRidsPerTargetFramework" Returns="@(_SdkRuntimeId)">
+
+    <PropertyGroup>
+      <ExtrasBuildEachRuntimeIdentifier Condition="'$(ExtrasBuildEachRuntimeIdentifier)' == ''">false</ExtrasBuildEachRuntimeIdentifier>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <_SdkRuntimeIds Include="$(RuntimeIdentifiers)" Condition="'$(RuntimeIdentifiers)' != '' and '$(ExtrasBuildEachRuntimeIdentifier)' == 'true' " TargetFramework="$(TargetFramework)"  />
+
+      <_SdkRuntimeId Include="@(_SdkRuntimeIds->'%(TargetFramework)')" Rid="%(_SdkRuntimeIds.Identity)"  />    
+      <_SdkRuntimeId Include="$(TargetFramework)" Condition="'$(ExtrasBuildEachRuntimeIdentifier)' == 'false'"  />
+    </ItemGroup>
+  </Target>
+  
+  
+
+  <Target Name="_ComputeTargetFrameworkItems" Returns="@(InnerOutput)">
+    <ItemGroup>
+      <_TargetFramework Include="$(TargetFrameworks)" />
+    </ItemGroup>
+    
+    <MSBuild Projects="$(MSBuildProjectFile)"
+             BuildInParallel="$(BuildInParallel)"
+             Properties="TargetFramework=%(_TargetFramework.Identity)"
+             Targets="_SdkGetRidsPerTargetFramework">
+      <Output ItemName="_SdkTargetsWithRids" TaskParameter="TargetOutputs"  />
+    </MSBuild>
+    
+    <ItemGroup>
+      <_InnerBuildProjects Include="$(MSBuildProjectFile)">
+        <AdditionalProperties Condition="'%(_SdkTargetsWithRids.Rid)' != ''" >TargetFramework=%(_SdkTargetsWithRids.Identity);RuntimeIdentifier=%(_SdkTargetsWithRids.Rid)</AdditionalProperties>
+        <AdditionalProperties Condition="'%(_SdkTargetsWithRids.Rid)' == ''" >TargetFramework=%(_SdkTargetsWithRids.Identity)</AdditionalProperties>
+      </_InnerBuildProjects>
+    </ItemGroup>
+  </Target>
+  
+
+</Project>
