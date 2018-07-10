@@ -1,4 +1,4 @@
-﻿# MSBuild.Sdk.Extras
+# MSBuild.Sdk.Extras
 
 ## Summary
 
@@ -8,7 +8,21 @@ The primary goal of this project is to enable multi-targeting without you having
 
 See the [blog post](https://oren.codes/2017/01/04/multi-targeting-the-world-a-single-project-to-rule-them-all) for more information.
 
-### Package Name: `MSBuild.Sdk.Extras`
+## Advanced Scenarios
+
+This package also enables advanced library scenarios, allowing you to create reference assemblies and per-RuntimeIdentifier targets. 
+
+### Reference Assemblies
+ 
+Reference Assemblies useful in a few scenarios. Please see my [two](https://oren.codes/2018/07/09/create-and-pack-reference-assemblies-made-easy/) [blogs](https://oren.codes/2018/07/03/create-and-pack-reference-assemblies/) for more details.
+
+### Per-RuntimeIdentifier
+
+In some cases involving native interop, it may be necessary to have different runtime versions. NuGet has supported this for a while if you use `PackageReference` by way of its `runtimes` folder in combination with a Reference Assembly. Creating and packing these were manual though.  
+
+See [below](#rids) for creating these using the Extras easily.
+
+## Package Name: `MSBuild.Sdk.Extras`
 
 [![MSBuild.Sdk.Extras](https://img.shields.io/nuget/v/MSBuild.Sdk.Extras.svg)](https://nuget.org/packages/MSBuild.Sdk.Extras)
 [![MSBuild.Sdk.Extras](https://img.shields.io/myget/msbuildsdkextras/v/MSBuild.Sdk.Extras.svg)](https://myget.org/feed/msbuildsdkextras/package/nuget/MSBuild.Sdk.Extras)
@@ -152,3 +166,23 @@ Once this package is configured, you can now use any supported TFM in your `Targ
  For legacy PCL profiles, the order of the TFM's in the list does not matter but the profile must be an exact match to one of the known profiles. If it's not, you'll get a compile error saying it's unknown. You can see the full list of known profiles here: [Portable Library Profiles by Stephen Cleary](https://portablelibraryprofiles.stephencleary.com/).
 
  If you try to use a framework that you don't have tools installed for, you'll get an error as well saying to check the tools. In some cases this might mean installing an older version of Visual Studio IDE (_like 2015_) to ensure that the necessary targets are installed on the machine.
+
+### <a id="rids"></a>Creating Per-RuntimeIdentifier packages
+
+You'll need a few things
+
+1. Make sure to use `TargetFrameworks` instead of `TargetFramework`, even if you're only building a single target framework. We are piggy-backing off of it's looping capabilities.
+2. Set the `RuntimeIdentifiers` property to [valid RID's](https://docs.microsoft.com/en-us/dotnet/core/rid-catalog) ([full list](https://github.com/dotnet/corefx/blob/master/pkg/Microsoft.NETCore.Platforms/runtime.json)), separated by a semi-colon. (`<RuntimeIdentifiers>win;unix</RuntimeIdentifiers>`). These can be set per TFM using a condition on the property. This lets you have multiple TFM's, but only some of which have RID's.
+3. For the TFM's that you want want to build separately, set the  property `ExtrasBuildEachRuntimeIdentifier` to `true`.
+
+While the Visual Studio context won't show each RID, it'll build for each. The Extras defines a symbol for each RID for use (`win-x86` would be `WIN_X86` and `centos.7-x64` would be `CENTOS_7_X64`). Dots and dashes become underbars.
+
+You will also need a Reference Assembly for the `ref` folder. Please see my [two](https://oren.codes/2018/07/09/create-and-pack-reference-assemblies-made-easy/) [blogs](https://oren.codes/2018/07/03/create-and-pack-reference-assemblies/) articles for details.
+
+When you're done, you should be able to build/pack these and it'll create a NuGet package. Your per-RID targets will be in `runtimes/<rid>/lib/<tfm>` and the Reference Assembly will be in `ref/<tfm>`.
+
+If you need to add native assets into runtimes, the easiest way is to use:
+
+`<None Include="path/to/native.dll" PackagePath="runtimes/<rid>/native" Pack="true" />`
+
+ 
