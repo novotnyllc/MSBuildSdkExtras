@@ -141,7 +141,7 @@
 
   <Target Name="_ExtrasFixRestoreFiles" 
           Condition="@(_RestoreGraphEntry->'%(OriginalTargetFrameworks)') != '' or @(_RestoreGraphEntry->'%(OriginalTargetFramework)') != ''"
-          Beforeargets="Restore">
+          BeforeTargets="Restore" DependsOnTargets="_SdkRestoreOriginal">
 
     <ItemGroup>
       <_SdkTfmToOriginalMapTmp Include="@(_RestoreGraphEntry->'%(OriginalTargetFrameworks)')" TargetFramework="%(_RestoreGraphEntry.TargetFrameworks)" KeepMetadata="TargetFramework" />
