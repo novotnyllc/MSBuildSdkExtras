@@ -139,8 +139,12 @@
           ItemName="_FrameworkAssemblyReferences" />
     </MSBuild>
 
+    <PropertyGroup>
+      <_SdkMinVersionWithDependencyTarget>2.1.400</_SdkMinVersionWithDependencyTarget>
+    </PropertyGroup>
+
     <MSBuild
-      Projects="$(MSBuildProjectFullPath)"
+      Projects="$(MSBuildProjectFullPath)" Condition="'$([System.Version]::Parse($(_NETCoreSdkVersion)))' >= '$([System.Version]::Parse($(_SdkMinVersionWithDependencyTarget)))' "
       Targets="_GetFrameworksWithSuppressedDependencies"
       Properties="TargetFramework=%(_TargetFrameworks.Identity);
                   BuildProjectReferences=false;">

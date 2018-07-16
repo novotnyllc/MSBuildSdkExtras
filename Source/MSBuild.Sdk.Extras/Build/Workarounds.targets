@@ -94,18 +94,6 @@
     </ItemGroup>
   </Target>
 
-  <!--
-    Detect the SDK version. For now, we have to check the NETCoreSdkVersion
-    else check BundledNETCoreAppTargetFrameworkVersion property for Sdk <= 2.1.300
-    else Give 1.0 version since that property doesn't exist in 1.x Sdks
-  -->
-  <PropertyGroup>
-    <_NETCoreSdkVersion>$(NETCoreSdkVersion)</_NETCoreSdkVersion>
-    <!--  Handle SemVer version like 2.1.300-preview, since MSBuild doesn't compare versions with alpha-numeric chars! -->
-    <_NETCoreSdkVersion Condition="$(_NETCoreSdkVersion.Contains('-'))">$(_NETCoreSdkVersion.Split('-')[0])</_NETCoreSdkVersion>
-    <_NETCoreSdkVersion Condition="'$(_NETCoreSdkVersion)' == ''">$(BundledNETCoreAppTargetFrameworkVersion)</_NETCoreSdkVersion>
-    <_NETCoreSdkVersion Condition="'$(_NETCoreSdkVersion)' == ''">1.0</_NETCoreSdkVersion>
-  </PropertyGroup>
 
   <!--
     Workaround for bug in Microsoft.NET.Sdk < v2.0 where satellites were deployed on top of each other in root.
