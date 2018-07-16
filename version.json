@@ -1,8 +1,8 @@
 {
-  "version": "1.6-preview",
+  "version": "1.6",
   "publicReleaseRefSpec": [
     "^refs/heads/master$", // we release out of master
-    "^refs/heads/rel/\\d+\\.\\d+" // we also release tags starting with rel/N.N
+    "^refs/heads/rel/v\\d+\\.\\d+" // we also release tags starting with rel/vN.N
   ],
   "nugetPackageVersion": {
     "semVer": 2
