@@ -17,7 +17,7 @@
     <ExtrasEnableDefaultPageItems Condition="'$(ExtrasEnableDefaultPageItems)' == ''">true</ExtrasEnableDefaultPageItems>
     <ExtrasEnableDefaultResourceItems Condition="'$(ExtrasEnableDefaultResourceItems)' == ''">true</ExtrasEnableDefaultResourceItems>
 
-    <ExtrasDefaultResourceIncludes Condition="'$(ExtrasDefaultResourceIncludes)' == ''">Themes\*.xaml;Resources\*.xaml</ExtrasDefaultResourceIncludes>
+    <ExtrasDefaultResourceIncludes Condition="'$(ExtrasDefaultResourceIncludes)' == ''">Resources\*.xaml</ExtrasDefaultResourceIncludes>
     <ExtrasDefaultPageExcludes Condition="'$(ExtrasDefaultPageExcludes)' != ''">$(ApplicationDefinitionFile);$(ExtrasDefaultResourceIncludes);$(ExtrasDefaultPageExcludes)</ExtrasDefaultPageExcludes>
     <ExtrasDefaultPageExcludes Condition="'$(ExtrasDefaultPageExcludes)' == ''">$(ApplicationDefinitionFile);$(ExtrasDefaultResourceIncludes)</ExtrasDefaultPageExcludes>
 
