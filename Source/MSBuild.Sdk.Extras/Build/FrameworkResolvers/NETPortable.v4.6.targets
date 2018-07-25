@@ -3,21 +3,21 @@
   <PropertyGroup Condition="$(_SdkShortFrameworkProfileCount) == 2 AND
       $(_SdkShortFrameworkProfile.Contains('+wp81+')) AND
       $(_SdkShortFrameworkProfile.Contains('+win81+'))">
-    <TargetFrameworkVersion>4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile31</TargetFrameworkProfile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_SdkShortFrameworkProfileCount) == 2 AND
       ($(_SdkShortFrameworkProfile.Contains('+wpa+')) OR $(_SdkShortFrameworkProfile.Contains('+wpa81+'))) AND
       $(_SdkShortFrameworkProfile.Contains('+win81+'))">
-    <TargetFrameworkVersion>4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile32</TargetFrameworkProfile>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(_SdkShortFrameworkProfileCount) == 2 AND
       $(_SdkShortFrameworkProfile.Contains('+net451+')) AND
       $(_SdkShortFrameworkProfile.Contains('+win81+'))">
-    <TargetFrameworkVersion>4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile44</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
@@ -25,7 +25,7 @@
   <PropertyGroup Condition="$(_SdkShortFrameworkProfileCount) == 2 AND
       $(_SdkShortFrameworkProfile.Contains('+wp81+')) AND
       ($(_SdkShortFrameworkProfile.Contains('+wpa+')) OR $(_SdkShortFrameworkProfile.Contains('+wpa81+')))">
-    <TargetFrameworkVersion>4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile84</TargetFrameworkProfile>
   </PropertyGroup>
 
@@ -33,7 +33,7 @@
       $(_SdkShortFrameworkProfile.Contains('+win81+')) AND
       $(_SdkShortFrameworkProfile.Contains('+net451+')) AND
       ($(_SdkShortFrameworkProfile.Contains('+wpa+')) OR $(_SdkShortFrameworkProfile.Contains('+wpa81+')))">
-    <TargetFrameworkVersion>4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile151</TargetFrameworkProfile>
     <IncludeProjectPriFile>false</IncludeProjectPriFile>
   </PropertyGroup>
