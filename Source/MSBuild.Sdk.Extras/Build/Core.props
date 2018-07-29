@@ -39,11 +39,11 @@
     else Give 1.0 version since that property doesn't exist in 1.x Sdks
   -->
   <PropertyGroup>
-    <_NETCoreSdkVersion>$(NETCoreSdkVersion)</_NETCoreSdkVersion>
+    <_SdkNETCoreSdkVersion>$(NETCoreSdkVersion)</_SdkNETCoreSdkVersion>
     <!--  Handle SemVer version like 2.1.300-preview, since MSBuild doesn't compare versions with alpha-numeric chars! -->
-    <_NETCoreSdkVersion Condition="$(_NETCoreSdkVersion.Contains('-'))">$(_NETCoreSdkVersion.Split('-')[0])</_NETCoreSdkVersion>
-    <_NETCoreSdkVersion Condition="'$(_NETCoreSdkVersion)' == ''">$(BundledNETCoreAppTargetFrameworkVersion)</_NETCoreSdkVersion>
-    <_NETCoreSdkVersion Condition="'$(_NETCoreSdkVersion)' == ''">1.0</_NETCoreSdkVersion>
+    <_SdkNETCoreSdkVersion Condition="$(_SdkNETCoreSdkVersion.Contains('-'))">$(_SdkNETCoreSdkVersion.Split('-')[0])</_SdkNETCoreSdkVersion>
+    <_SdkNETCoreSdkVersion Condition="'$(_SdkNETCoreSdkVersion)' == ''">$(BundledNETCoreAppTargetFrameworkVersion)</_SdkNETCoreSdkVersion>
+    <_SdkNETCoreSdkVersion Condition="'$(_SdkNETCoreSdkVersion)' == ''">1.0</_SdkNETCoreSdkVersion>
   </PropertyGroup>
 
   <PropertyGroup>
