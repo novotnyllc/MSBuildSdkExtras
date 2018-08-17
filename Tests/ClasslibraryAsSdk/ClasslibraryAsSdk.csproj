@@ -10,6 +10,7 @@
     <ExtrasBuildEachRuntimeIdentifier Condition="'$(TargetFramework)' == 'netstandard2.0'">true</ExtrasBuildEachRuntimeIdentifier>
 	  <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
 	</PropertyGroup>
 
 
@@ -17,9 +18,18 @@
     <ReferenceAssemblyProjectReference Include="..\ClasslibraryAsSdk.Ref\ClasslibraryAsSdk.Ref.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Include="*.shared.cs" />
+    <Compile Include="*.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">
+    <Compile Include="*.monoandroid.cs" />
+  </ItemGroup>
+
   <ItemGroup Condition="'$(TargetFramework)' == 'xamarin.mac20'">
     <Reference Include="System.Xml" />
-  </ItemGroup>
+  </ItemGroup>  
 
   <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\Sdk\Sdk.targets" />
 	<Import Project="..\Test.targets" />

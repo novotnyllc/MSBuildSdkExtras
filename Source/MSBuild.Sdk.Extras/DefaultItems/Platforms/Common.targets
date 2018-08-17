@@ -25,4 +25,15 @@
     <_SdkEmbeddedResourceCodeGeneratorTool Condition="'$(ExtrasEmbeddedResourceGeneratedCodeIsPublic)' == 'true'">PublicVbMyResourcesResXFileCodeGenerator</_SdkEmbeddedResourceCodeGeneratorTool>
   </PropertyGroup>
 
+
+  <!-- Workaround for https://github.com/dotnet/sdk/issues/2337 -->
+  <!-- Fix will be in https://github.com/dotnet/project-system/issues/935 -->
+  <PropertyGroup>
+    <_SdkMinVersionWithNoneIssue>2.1.300</_SdkMinVersionWithNoneIssue>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$([System.Version]::Parse($(_SdkNETCoreSdkVersion)))' >= '$([System.Version]::Parse($(_SdkMinVersionWithNoneIssue)))'">
+    <None Include="**\*$(DefaultLanguageSourceExtension)" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+  </ItemGroup>
+
 </Project>
