@@ -20,7 +20,7 @@
   <!-- Add conditional compilation symbols for the target framework and one with version -->
   <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">
     <ImplicitFrameworkIdentifierDefine>$(TargetFrameworkIdentifier.TrimStart('.').Replace('.','_').ToUpperInvariant())</ImplicitFrameworkIdentifierDefine>
-    <ImplicitFrameworkDefine>$(TargetFramework.Replace('.','_').Replace('-','_').ToUpperInvariant())</ImplicitFrameworkDefine>
+    <ImplicitFrameworkDefine>$(TargetFramework.Replace('.','_').Replace('-','_').Replace('+','_').ToUpperInvariant())</ImplicitFrameworkDefine>
     <_SdkRuntimeIdentifierDefine Condition="'$(RuntimeIdentifier)' != ''">$(RuntimeIdentifier.Replace('.','_').Replace('-','_').ToUpperInvariant())</_SdkRuntimeIdentifierDefine>
   </PropertyGroup>
 
