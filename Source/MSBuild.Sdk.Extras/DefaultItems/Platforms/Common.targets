@@ -32,7 +32,7 @@
     <_SdkMinVersionWithNoneIssue>2.1.300</_SdkMinVersionWithNoneIssue>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$([System.Version]::Parse($(_SdkNETCoreSdkVersion)))' >= '$([System.Version]::Parse($(_SdkMinVersionWithNoneIssue)))'">
+  <ItemGroup Condition="'$(EnableDefaultCompileItems)' == 'false' and '$([System.Version]::Parse($(_SdkNETCoreSdkVersion)).CompareTo($([System.Version]::Parse($(_SdkMinVersionWithNoneIssue)))))' &gt;= '0'" >
     <None Include="**\*$(DefaultLanguageSourceExtension)" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
   </ItemGroup>
 

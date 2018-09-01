@@ -29,7 +29,7 @@
 
   <ItemGroup Condition="'$(TargetFramework)' == 'xamarin.mac20'">
     <Reference Include="System.Xml" />
-  </ItemGroup>  
+  </ItemGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\Sdk\Sdk.targets" />
 	<Import Project="..\Test.targets" />
