@@ -4,10 +4,7 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
-  <Import Project="$(MSBuildThisFileDirectory)Workarounds.props"/>
-
-  <PropertyGroup>
-    <MSBuildSdkExtrasTargets>$(MSBuildThisFileDirectory)EndOfProjectImports.targets</MSBuildSdkExtrasTargets>
-  </PropertyGroup>
+  <Import Project="$(MSBuildThisFileDirectory)Core.props"/>
+  <Import Project="$(MSBuildThisFileDirectory)Core.targets"/>
 
 </Project>
