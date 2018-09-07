@@ -12,6 +12,7 @@
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'win' OR '$(TargetFramework)' == 'win8' OR '$(TargetFramework)' == 'win80'">
     <TargetPlatformVersion>8.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>8.0</TargetPlatformMinVersion>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>
     <NugetTargetMoniker>Windows,Version=v8.0</NugetTargetMoniker>
@@ -22,6 +23,7 @@
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'win81'">
     <TargetPlatformVersion>8.1</TargetPlatformVersion>
+    <TargetPlatformMinVersion>8.1</TargetPlatformMinVersion>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>
     <NugetTargetMoniker>Windows,Version=v8.1</NugetTargetMoniker>
@@ -32,6 +34,7 @@
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'wpa' OR '$(TargetFramework)' == 'wpa81'">
     <TargetPlatformVersion>8.1</TargetPlatformVersion>
+    <TargetPlatformMinVersion>8.1</TargetPlatformMinVersion>
     <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
     <TargetPlatformIdentifier>WindowsPhoneApp</TargetPlatformIdentifier>
 
