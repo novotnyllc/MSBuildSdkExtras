@@ -1,6 +1,4 @@
-
 $currentDirectory = split-path $MyInvocation.MyCommand.Definition
-$repoDirectory = "$currentDirectory\..\"
 
 # See if we have the ClientSecret available
 if ([string]::IsNullOrEmpty($env:SignClientSecret)) {
@@ -8,17 +6,16 @@ if ([string]::IsNullOrEmpty($env:SignClientSecret)) {
     return;
 }
 
-& nuget install SignClient -Version 0.9.1 -SolutionDir "$repoDirectory" -Verbosity quiet -ExcludeVersion
+dotnet tool install --tool-path . SignClient
 
 # Setup Variables we need to pass into the sign client tool
-
 $appSettings = "$currentDirectory\SignClient.json"
-$appPath = "$repoDirectory\packages\SignClient\tools\netcoreapp2.0\SignClient.dll"
+
 $nupgks = Get-ChildItem $Env:ArtifactDirectory\*.nupkg | Select-Object -ExpandProperty FullName
 
 foreach ($nupkg in $nupgks) {
     Write-Host "Submitting $nupkg for signing"
-    dotnet $appPath 'sign' -c $appSettings -i $nupkg -r $env:SignClientUser -s $env:SignClientSecret -n 'MSBuild.Sdk.Extras' -d 'MSBuild.Sdk.Extras' -u 'https://github.com/onovotny/MSBuildSdkExtras'
+    .\SignClient 'sign' -c $appSettings -i $nupkg -r $env:SignClientUser -s $env:SignClientSecret -n 'MSBuild.Sdk.Extras' -d 'MSBuild.Sdk.Extras' -u 'https://github.com/onovotny/MSBuildSdkExtras'
     Write-Host "Finished signing $nupkg"
 }
 
