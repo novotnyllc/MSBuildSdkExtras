@@ -2,25 +2,17 @@ parameters:
   signSteps: []
 
 steps:
-- task: BatchScript@1
-  displayName: Setup Environment Variables
+- task: DotNetCoreCLI@2  
   inputs:
-    filename: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Enterprise\\Common7\\Tools\\VsDevCmd.bat"
-    arguments: -no_logo
-    modifyEnvironment: true
+    command: custom
+    custom: tool
+    arguments: install --tool-path . nbgv
+  displayName: Install NBGV tool
+  condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
 
-- task: NuGetToolInstaller@0
-  displayName: Put NuGet in Path
-  inputs:
-    versionSpec: 4.7.0
-
-- task: DotNetCoreCLI@2
+- script: nbgv cloud
   displayName: Set Version
-  condition: eq(variables['system.pullrequest.isfork'], false)
-  inputs:
-    command: build
-    projects: Tools\SetVersion.csproj
-    arguments: -c $(BuildConfiguration)
+  condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
 
 - powershell: |
     mkdir $Env:Temp\Packages -Force
@@ -40,7 +32,7 @@ steps:
 
 - task: PublishBuildArtifacts@1
   displayName: Publish Artifacts
-  condition: eq(variables['system.pullrequest.isfork'], false)
+  condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
   inputs:
     pathToPublish: $(Build.ArtifactStagingDirectory)\Packages
     artifactType: container
