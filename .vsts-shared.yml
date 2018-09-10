@@ -27,7 +27,6 @@ steps:
     verbosityPack: Minimal
   displayName: Build Package
 
-
 - ${{ parameters.signSteps }}
 
 - task: PublishBuildArtifacts@1
