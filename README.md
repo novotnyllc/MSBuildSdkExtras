@@ -186,5 +186,3 @@ When you're done, you should be able to build/pack these and it'll create a NuGe
 If you need to add native assets into runtimes, the easiest way is to use:
 
 `<None Include="path/to/native.dll" PackagePath="runtimes/<rid>/native" Pack="true" />`
-
- 
