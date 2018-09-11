@@ -73,7 +73,7 @@ This would be a preferred solution for all the projects in your solution.
 Then again, you might want to override the version for just one project _OR_ if you have only one project in your solution (without adding `global.json`), you can do so like this:
 
 ```xml
-<Project Sdk="MSBuild.Sdk.Extras/1.6.0">
+<Project Sdk="MSBuild.Sdk.Extras/1.6.55">
   <PropertyGroup>
     <TargetFrameworks>net46;uap10.0.16299;tizen40</TargetFrameworks>
   </PropertyGroup>
