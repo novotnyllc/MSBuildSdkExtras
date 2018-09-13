@@ -1,5 +1,11 @@
-parameters:
-  signSteps: []
+trigger:
+  - master
+  - rel/*
+
+queue: Hosted VS2017
+
+variables:
+  BuildConfiguration: Release
 
 steps:
 - task: DotNetCoreCLI@2  
@@ -27,12 +33,20 @@ steps:
     verbosityPack: Minimal
   displayName: Build Package
 
-- ${{ parameters.signSteps }}
+- task: PowerShell@2
+  displayName: Authenticode Sign artifacts
+  inputs:
+    filePath: Tools\Sign-Package.ps1
+  env:
+    SignClientUser: $(SignClientUser)
+    SignClientSecret: $(SignClientSecret)
+    ArtifactDirectory: $(Build.ArtifactStagingDirectory)\Packages
+  condition: and(succeeded(), not(eq(variables['build.reason'], 'PullRequest')), not(eq(variables['SignClientSecret'], '')), not(eq(variables['SignClientUser'], '')))
 
 - task: PublishBuildArtifacts@1
-  displayName: Publish Artifacts
-  condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
+  displayName: Publish Artifacts  
   inputs:
     pathToPublish: $(Build.ArtifactStagingDirectory)\Packages
     artifactType: container
     artifactName: Package
+  condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
