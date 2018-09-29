@@ -86,6 +86,7 @@ After that, you can use the `Restore`, `Build`, `Pack` targets to restore packag
 #### Important to Note
 
 - It will only work with Visual Studio IDE (Windows/Mac) as it requires the desktop `msbuild` and the target Platform SDKs which are not cross platform.
+- When building from the CLI, you must use `MSBuild.exe`. `dotnet build` **will not work** for most project types. 
 - It might work in Visual Studio Code, but you have to configure build tasks in `launch.json` to use desktop `msbuild` to build.
 - You must install the tools of the platforms you intend to build. For Xamarin, that means the Xamarin Workload; for UWP install those tools as well.
 
