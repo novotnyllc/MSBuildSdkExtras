@@ -86,7 +86,7 @@ After that, you can use the `Restore`, `Build`, `Pack` targets to restore packag
 #### Important to Note
 
 - It will only work with an IDE that uses the desktop `msbuild` (i.e. Visual Studio) and the target Platform SDKs which are not cross platform.
-- When using JetBrains Rider, you will need to point to your desktop MSBuild in your settings (Settings > Build, execution, deployment > Use MSBuild Version.) You must be using Rider on Windows.
+- When using JetBrains Rider, you will need to point to your desktop MSBuild in your settings (Settings > Build, execution, deployment > Use MSBuild Version)
 - When building from the CLI, you must use `MSBuild.exe`. `dotnet build` **will not work** for most project types. 
 - It might work in Visual Studio Code, but you have to configure build tasks in `launch.json` to use desktop `msbuild` to build.
 - You must install the tools of the platforms you intend to build. For Xamarin, that means the Xamarin Workload; for UWP install those tools as well.
