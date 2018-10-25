@@ -2,12 +2,6 @@ trigger:
   - master
   - rel/*
 
-pr:
-  branches:
-    include:
-    - master
-    - rel/*
-
 pool:
   vmImage: vs2017-win2016
 
@@ -21,9 +15,11 @@ steps:
     custom: tool
     arguments: install --tool-path . nbgv
   displayName: Install NBGV tool
+  condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
 
 - script: nbgv cloud
   displayName: Set Version
+  condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
 
 - powershell: |
     mkdir $Env:Temp\Packages -Force
@@ -54,3 +50,4 @@ steps:
     pathToPublish: $(Build.ArtifactStagingDirectory)\Packages
     artifactType: container
     artifactName: Package
+  condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
