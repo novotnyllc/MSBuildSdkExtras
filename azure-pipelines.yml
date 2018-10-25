@@ -3,8 +3,10 @@ trigger:
   - rel/*
 
 pr:
-  - master
-  - rel/*
+  branches:
+    include:
+    - master
+    - rel/*
 
 pool:
   vmImage: vs2017-win2016
