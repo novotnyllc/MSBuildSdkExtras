@@ -90,7 +90,9 @@
       DependsOnTargets="PrepareLibraryLayout"
       Condition="'$(GenerateLibraryLayout)' == 'true' AND '$(SDKIdentifier)' == 'Windows'">
     <ItemGroup>
-      <TfmSpecificPackageFile Include="@(_LayoutFile)" PackagePath="lib\$(TargetFramework)\%(_LayoutFile.TargetPath)"/>
+      <TfmSpecificPackageFile Include="@(_LayoutFile)" 
+                              Condition="'$(ProjectName)' == '%(_LayoutFile.ProjectName)'"
+                              PackagePath="lib\$(TargetFramework)\%(_LayoutFile.TargetPath)"/>
     </ItemGroup>
   </Target>
 

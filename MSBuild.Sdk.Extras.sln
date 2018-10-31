@@ -4,9 +4,9 @@ VisualStudioVersion = 15.0.27130.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8647C74A-083C-4EAF-B9B0-2172D4A27BFC}"
 	ProjectSection(SolutionItems) = preProject
-		.vsts-ci.yml = .vsts-ci.yml
-		.vsts-pr.yml = .vsts-pr.yml
-		.vsts-shared.yml = .vsts-shared.yml
+		azure-pipelines.yml = azure-pipelines.yml
+		Source\Directory.Build.props = Source\Directory.Build.props
+		Source\Directory.Build.targets = Source\Directory.Build.targets
 		README.md = README.md
 		version.json = version.json
 	EndProjectSection
@@ -32,6 +32,13 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClasslibraryAsSdk.Ref", "Tests\ClasslibraryAsSdk.Ref\ClasslibraryAsSdk.Ref.csproj", "{C2EE161F-0521-47F7-BE2D-0B55CA8B3C53}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Classlibrary.Ref", "Tests\Classlibrary.Ref\Classlibrary.Ref.csproj", "{2760D19C-F00A-40C4-B8DF-F28249E284FE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{19A683CB-8C5D-480B-8D60-30F28DA40660}"
+	ProjectSection(SolutionItems) = preProject
+		Tools\MSBuild.DevLocal.targets = Tools\MSBuild.DevLocal.targets
+		Tools\MSBuild.Packaging.props = Tools\MSBuild.Packaging.props
+		Tools\MSBuild.Packaging.targets = Tools\MSBuild.Packaging.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +100,7 @@ Global
 		{96E4CC91-6E55-4650-BA58-D6D1EF138EE2} = {26026DB4-DD68-43BF-8858-15AD2016C0B2}
 		{C2EE161F-0521-47F7-BE2D-0B55CA8B3C53} = {26026DB4-DD68-43BF-8858-15AD2016C0B2}
 		{2760D19C-F00A-40C4-B8DF-F28249E284FE} = {26026DB4-DD68-43BF-8858-15AD2016C0B2}
+		{19A683CB-8C5D-480B-8D60-30F28DA40660} = {8647C74A-083C-4EAF-B9B0-2172D4A27BFC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {93349570-79D8-4F89-8E78-C66401620727}
