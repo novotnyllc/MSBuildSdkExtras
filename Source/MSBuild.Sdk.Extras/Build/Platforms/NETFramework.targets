@@ -10,7 +10,7 @@
   -->
   <PropertyGroup Condition="'$(LanguageTargets)' == '' and '$(OS)' == 'Windows_NT' and '$(MSBuildRuntimeType)' == 'Full'  ">
     <!-- Workaround for lack of XAML support in the new project system -->
-    <LanguageTargets Condition="'$(_SdkLanguageSourceName)' != 'FSharp'" >$(MSBuildExtensionsPath)\$(VisualStudioVersion)\Bin\Microsoft.$(_SdkLanguageSourceName).targets</LanguageTargets>
+    <LanguageTargets Condition="'$(_SdkLanguageSourceName)' != 'FSharp'" >$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Bin\Microsoft.$(_SdkLanguageSourceName).targets</LanguageTargets>
     <LanguageTargets Condition="'$(_SdkLanguageSourceName)' == 'FSharp'" >$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\FSharp\Microsoft.FSharp.Targets</LanguageTargets>
   </PropertyGroup>
 
