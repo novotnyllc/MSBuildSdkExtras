@@ -4,7 +4,7 @@
   <Target Name="_EnsureTempPackageSource" BeforeTargets="Restore;_LocalPublish">
     <PropertyGroup>
       <!-- TEMP is not defined by default on macOS. TMPDIR, however, is. -->
-      <TEMP Condition="'$(TEMP)' == ''">$(TMPDIR)</TEMP>
+      <TEMP Condition="'$(TEMP)' == '' and '$(TMPDIR)' != ''">$(TMPDIR)</TEMP>
       <TempPackagePath Condition="'$(TempPackagePath)' == ''">$(TEMP)\Packages</TempPackagePath>
     </PropertyGroup>
     <MakeDir Directories="$(TempPackagePath)" Condition="!Exists('$(TempPackagePath)')" />
