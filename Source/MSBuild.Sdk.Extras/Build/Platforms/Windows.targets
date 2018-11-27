@@ -19,6 +19,8 @@
 
     <!-- Need to override the built-in implicit defines for win8 or it'll be NETCORE4_5 -->
     <ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">WINDOWS8</ImplicitFrameworkDefine>
+    <WindowsWinmdFile Condition="Exists('$(MSBuildProgramFiles32)\Windows Kits\8.0\References\CommonConfiguration\Neutral\Windows.winmd')">$(MSBuildProgramFiles32)\Windows Kits\8.0\References\CommonConfiguration\Neutral\Windows.winmd</WindowsWinmdFile>
+    <ImplicitlyExpandTargetPlatform>false</ImplicitlyExpandTargetPlatform>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'win81'">
@@ -30,6 +32,8 @@
 
     <!-- Need to override the built-in implicit defines for win81 or it'll be NETCORE4_5_1 -->
     <ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">WINDOWS8_1</ImplicitFrameworkDefine>
+    <WindowsWinmdFile Condition="Exists('$(MSBuildProgramFiles32)\Windows Kits\8.1\References\CommonConfiguration\Neutral\Windows.winmd')">$(MSBuildProgramFiles32)\Windows Kits\8.1\References\CommonConfiguration\Neutral\Windows.winmd</WindowsWinmdFile>
+    <ImplicitlyExpandTargetPlatform>false</ImplicitlyExpandTargetPlatform>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'wpa' OR '$(TargetFramework)' == 'wpa81'">
@@ -62,6 +66,13 @@
     <ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true' AND '$(_SdkLanguageSourceName)' == 'VisualBasic'">UAP$(_SdkShortFrameworkVersion.Replace('.', '_'))=-1,UAP$(TargetPlatformMinVersion.Replace('.', '_'))</ImplicitFrameworkDefine>
 
     <CopyLocalLockFileAssemblies Condition="'$(CopyLocalLockFileAssemblies)' == ''">false</CopyLocalLockFileAssemblies>
+
+    <WindowsWinmdFile Condition="Exists('$(MSBuildProgramFiles32)\Windows Kits\10\UnionMetadata\$(TargetPlatformVersion)\Windows.winmd')">$(MSBuildProgramFiles32)\Windows Kits\10\UnionMetadata\$(TargetPlatformVersion)\Windows.winmd</WindowsWinmdFile>
+    <ImplicitlyExpandTargetPlatform>false</ImplicitlyExpandTargetPlatform>
   </PropertyGroup>
+
+  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' ">
+    <_SdkImplicitReference Include="Windows" Private="false" HintPath="$(WindowsWinmdFile)" Condition="'$(WindowsWinmdFile)' != ''" />
+  </ItemGroup>
 
 </Project>
