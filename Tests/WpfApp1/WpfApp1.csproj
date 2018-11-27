@@ -1,6 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\build\MSBuild.Sdk.Extras.props" />
+﻿<Project Sdk="MSBuild.Sdk.Extras/42.42.42">
 
   <PropertyGroup>
     <TargetFramework>net462</TargetFramework>
@@ -9,9 +7,6 @@
     <ExtrasEnableWpfProjectSetup>true</ExtrasEnableWpfProjectSetup>
   </PropertyGroup>
 
-
-  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
-  <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\build\MSBuild.Sdk.Extras.targets" />
   <Import Project="..\Test.targets" />
   <ItemGroup>
     <None Remove="SplashScreen.scale-200.png" />
@@ -25,14 +20,4 @@
     <SplashScreen Include="SplashScreen.scale-200.png" />
   </ItemGroup>
   
-  <ItemGroup>
-    <None Update="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-  </ItemGroup>
-
-
 </Project>
