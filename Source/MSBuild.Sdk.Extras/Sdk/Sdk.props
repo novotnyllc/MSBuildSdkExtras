@@ -10,6 +10,17 @@
 
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk"/>
 
+  <!-- Detect if WindowsDesktop SDK is here -->
+  <!-- The MicrosoftWindowsDesktopSdkPath is a hook so that you can redirect to a local version of the WPF SDK targets
+       (ie in order to test changes locally) without modifying the .NET Core SDK itself.  This should work
+       as long as there are no changes to Sdk.props and Sdk.targets themselves. -->
+  <PropertyGroup Condition="'$(MicrosoftWindowsDesktopSdkPath)' == ''">
+    <!-- ToolDepsJsonGeneratorProject is set early in the main SDK and points to Sdks\Microsoft.NET.Sdk\targets\GenerateDeps\GenerateDeps.proj
+         We can use this to get the path for the desktop -->
+    <_ExtrasSdkBaseDirectory>$([System.IO.Path]::GetDirectoryName($(ToolDepsJsonGeneratorProject)))\..\..\</_ExtrasSdkBaseDirectory>
+    <MicrosoftWindowsDesktopSdkPath Condition="Exists('$(_ExtrasSdkBaseDirectory)Microsoft.NET.Sdk.WindowsDesktop\Sdk\Sdk.props')">$(_ExtrasSdkBaseDirectory)Microsoft.NET.Sdk.WindowsDesktop\targets</MicrosoftWindowsDesktopSdkPath>
+  </PropertyGroup>
+
   <Import Project="$(MSBuildThisFileDirectory)..\Build\Core.props"/>
 
 </Project>
