@@ -10,12 +10,4 @@
     <PackageReference Include="PCLCommandBase" Version="0.3.5" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-  </ItemGroup>
 </Project>
