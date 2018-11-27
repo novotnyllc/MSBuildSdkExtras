@@ -1,6 +1,6 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project>
 
-  <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\build\MSBuild.Sdk.Extras.props" />
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\Sdk\Sdk.props" />
 
   <PropertyGroup>
     <RootNamespace>WpfApp2</RootNamespace>
@@ -10,12 +10,16 @@
     <ExtrasEnableWpfProjectSetup>true</ExtrasEnableWpfProjectSetup>
   </PropertyGroup>
 
-
-  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
-  <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\build\MSBuild.Sdk.Extras.targets" />
-  <Import Project="..\Test.targets" />
   <ItemGroup>
     <ProjectReference Include="..\WpfControlLibrary\WpfControlLibrary.csproj" />
   </ItemGroup>
-  
+
+  <ItemGroup>
+    <ApplicationDefinition Include="Application.xaml" Condition="'$(EnableDefaultApplicationDefinition)' != 'false' And Exists('$(MSBuildProjectDirectory)/Application.xaml')" />
+    <Page Remove="@(ApplicationDefinition)" />
+  </ItemGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\Sdk\Sdk.targets" />
+  <Import Project="..\Test.targets" />
+
 </Project>

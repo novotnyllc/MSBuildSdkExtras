@@ -4,16 +4,16 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(ApplicationDefinitionFile)' != ''">
+  <PropertyGroup Condition="'$(ApplicationDefinitionFile)' != '' and '$(ExtrasUseWindowsDesktopApp)' != 'true'">
     <ApplicationDefinitionFile Condition="$(ApplicationDefinitionFile.Contains(';'))"/>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(ApplicationDefinitionFile)' == ''">
+  <PropertyGroup Condition="'$(ApplicationDefinitionFile)' == '' and '$(ExtrasUseWindowsDesktopApp)' != 'true'">
     <ApplicationDefinitionFile Condition="Exists('$(MSBuildProjectDirectory)\App.xaml')">App.xaml</ApplicationDefinitionFile>
     <ApplicationDefinitionFile Condition="Exists('$(MSBuildProjectDirectory)\Application.xaml')">Application.xaml</ApplicationDefinitionFile>
   </PropertyGroup>
 
-  <PropertyGroup>
+  <PropertyGroup Condition="'$(ExtrasUseWindowsDesktopApp)' != 'true'">
     <ExtrasEnableDefaultPageItems Condition="'$(ExtrasEnableDefaultPageItems)' == ''">true</ExtrasEnableDefaultPageItems>
     <ExtrasEnableDefaultResourceItems Condition="'$(ExtrasEnableDefaultResourceItems)' == ''">true</ExtrasEnableDefaultResourceItems>
 
@@ -38,7 +38,7 @@
     This will cause them to be shown in the Solution Explorer.  If an item has LinkBase metadata, the automatic Link will start with that value, and
     the items will appear in the Solution Explorer under the folder specified by LinkBase.
   -->
-  <ItemGroup Condition="'$(SetLinkMetadataAutomatically)' != 'false'">
+  <ItemGroup Condition="'$(SetLinkMetadataAutomatically)' != 'false' and '$(ExtrasUseWindowsDesktopApp)' != 'true'">
     <Page Update="@(Page)">
       <!--
         First, add a trailing slash to the LinkBase metadata if necessary.  This allows us to use the same value

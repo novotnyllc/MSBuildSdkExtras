@@ -1,6 +1,6 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project>
 
-  <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\build\MSBuild.Sdk.Extras.props" />
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\Sdk\Sdk.props" />
 
   <PropertyGroup>
     <TargetFramework>net462</TargetFramework>
@@ -8,9 +8,7 @@
     <ExtrasEnableWpfProjectSetup>true</ExtrasEnableWpfProjectSetup>
   </PropertyGroup>
 
-
-  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
-  <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\build\MSBuild.Sdk.Extras.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\Sdk\Sdk.targets" />
   <Import Project="..\Test.targets" />
 
 </Project>

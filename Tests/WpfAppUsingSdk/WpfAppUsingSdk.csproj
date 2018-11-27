@@ -1,4 +1,7 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras/42.42.42">
+﻿<Project>
+
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\Sdk\Sdk.props" />
+
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net462</TargetFramework>
@@ -9,4 +12,8 @@
   <ItemGroup>
     <PackageReference Include="PCLCommandBase" Version="0.3.5" />
   </ItemGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\Sdk\Sdk.targets" />
+  <Import Project="..\Test.targets" />
+
 </Project>

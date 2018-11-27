@@ -16,6 +16,16 @@
     <DisableImplicitFrameworkReferences Condition=" '$(ExtrasImplicitPlatformPackageDisabled)' != '' and ('$(_SdkShortFrameworkIdentifier)' == 'uap' OR '$(_SdkShortFrameworkIdentifier)' == 'tizen') ">$(ExtrasImplicitPlatformPackageDisabled)</DisableImplicitFrameworkReferences>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <!-- Set SDK Settings based on Extras and vice-versa -->
+    <UseWpf Condition="'$(UseWpf)' == '' and '$(ExtrasEnableWpfProjectSetup)' == 'true' ">true</UseWpf>
+    <UseWindowsForms Condition="'$(UseWindowsForms)' == '' and '$(ExtrasEnableWinFormsProjectSetup)' == 'true' ">true</UseWindowsForms>
+
+    <!-- Until there's a discreet property for this, default based on Wpf/WinForms -->
+    <ExtrasUseWindowsDesktopApp Condition="'$(UseWpf)' == 'true' or '$(UseWindowsForms)' == 'true'">true</ExtrasUseWindowsDesktopApp>
+    <ExtrasUseWindowsDesktopApp Condition="'$(ExtrasUseWindowsDesktopApp)' == '' ">false</ExtrasUseWindowsDesktopApp>
+  </PropertyGroup>
+
   <Target
     Name="_WarnWhenUsingObsoleteProperties"
     BeforeTargets="_CheckForInvalidConfigurationAndPlatform"

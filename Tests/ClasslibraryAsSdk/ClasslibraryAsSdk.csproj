@@ -5,7 +5,7 @@
 	<PropertyGroup>
 		<!--<TargetFramework>uap10.0</TargetFramework>-->
 		<!--<TargetFrameworks>uap10.0;uap10.0.16278;monoandroid70;xamarin.ios10;xamarin.mac20</TargetFrameworks>-->
-    <TargetFrameworks>netstandard2.0;net46;uap10.0;uap10.0.16299;monoandroid70;xamarin.ios10;xamarin.mac20;tizen40</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net46;uap10.0;uap10.0.16299;monoandroid80;xamarin.ios10;xamarin.mac20;tizen40</TargetFrameworks>
     <RuntimeIdentifiers Condition="'$(TargetFramework)' == 'netstandard2.0'">win;unix</RuntimeIdentifiers>
     <ExtrasBuildEachRuntimeIdentifier Condition="'$(TargetFramework)' == 'netstandard2.0'">true</ExtrasBuildEachRuntimeIdentifier>
 	  <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
@@ -21,6 +21,7 @@
   <ItemGroup>
     <Compile Include="*.shared.cs" />
     <Compile Include="*.Designer.cs" />
+    <Compile Remove="uwp\**\*.cs" />
   </ItemGroup>
 
   <ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">
@@ -29,6 +30,11 @@
 
   <ItemGroup Condition="'$(TargetFramework)' == 'xamarin.mac20'">
     <Reference Include="System.Xml" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('uap')) ">
+    <Page Include="uwp\**\*.xaml"/>
+    <Compile Include="uwp\**\*.cs" />
   </ItemGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\Sdk\Sdk.targets" />

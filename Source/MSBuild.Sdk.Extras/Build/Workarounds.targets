@@ -7,8 +7,8 @@
   <!-- By default we warn about using the msbuild core, if the projects require full MSBuild targets. -->
   <PropertyGroup Condition="'$(MSBuildRuntimeType)' == 'Core'">
     <_SdkIgnoreMSBuildCoreWarning>true</_SdkIgnoreMSBuildCoreWarning>
-    <_SdkIgnoreMSBuildCoreWarning Condition="'$(ExtrasEnableWpfProjectSetup)' == 'true'">false</_SdkIgnoreMSBuildCoreWarning>
-    <_SdkIgnoreMSBuildCoreWarning Condition="'$(ExtrasEnableWinFormsProjectSetup)' == 'true'">false</_SdkIgnoreMSBuildCoreWarning>
+    <_SdkIgnoreMSBuildCoreWarning Condition="'$(ExtrasEnableWpfProjectSetup)' == 'true' and '$(_ExtrasHasDesktopSdk)' != 'true' ">false</_SdkIgnoreMSBuildCoreWarning>
+    <_SdkIgnoreMSBuildCoreWarning Condition="'$(ExtrasEnableWinFormsProjectSetup)' == 'true' and '$(_ExtrasHasDesktopSdk)' != 'true'">false</_SdkIgnoreMSBuildCoreWarning>
     <_SdkIgnoreMSBuildCoreWarning Condition="'$(_SdkPlatformName)' == 'Silverlight'">false</_SdkIgnoreMSBuildCoreWarning>
     <_SdkIgnoreMSBuildCoreWarning Condition="'$(_SdkPlatformName)' == 'Windows'">false</_SdkIgnoreMSBuildCoreWarning>
     <_SdkIgnoreMSBuildCoreWarning Condition="'$(_SdkPlatformName)' == 'Xamarin'">false</_SdkIgnoreMSBuildCoreWarning>
@@ -27,7 +27,7 @@
     <Error Text="If you are building projects that require targets from full MSBuild or MSBuildFrameworkToolsPath, you need to use desktop msbuild ('msbuild.exe') instead of 'dotnet build' or 'dotnet msbuild'"/>
   </Target>
 
-  <PropertyGroup>
+  <PropertyGroup Condition="'$(_ExtrasHasDesktopSdk)' != 'true'">
     <!-- Don't generate assembly info for generated projects -->
     <GenerateAssemblyInfo Condition="'$(_SdkIsGeneratedProject)' == 'true'">false</GenerateAssemblyInfo>
     <ExtrasImportProjectExtensionTargets Condition="'$(ExtrasImportProjectExtensionTargets)' == ''">true</ExtrasImportProjectExtensionTargets>
@@ -39,7 +39,7 @@
   -->
   <Target Name="_SdkCheckAndFixupPropertiesWithGeneratedSuffix"
       BeforeTargets="_CompileTemporaryAssembly;CoreCompile"
-      Condition="'$(_SdkIsGeneratedProject)' == 'true' AND '$(DisableFixupPropertiesWithGeneratedSuffix)' != 'true'">
+      Condition=" '$(_ExtrasHasDesktopSdk)' != 'true' and '$(_SdkIsGeneratedProject)' == 'true' AND '$(DisableFixupPropertiesWithGeneratedSuffix)' != 'true'">
 
     <PropertyGroup Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(RootNamespace)', '[a-z0-9]{8}'))">
       <_SdkRootNamespaceInGeneratedProject>$(RootNamespace)</_SdkRootNamespaceInGeneratedProject>
@@ -63,7 +63,7 @@
     WPF sometimes creates a temporary project, since it changes the peoject file, it breaks Project Extensions import.
     In order to properly import Project Extensions, we need the user to set '_SdkOriginalProjectName' or '_SdkOriginalProjectFile' and use it to import Project Extensions.
   -->
-  <ImportGroup Condition="'$(_SdkOriginalProjectFile)' != '' AND '$(ExtrasImportProjectExtensionTargets)' == 'true'">
+  <ImportGroup Condition=" '$(_ExtrasHasDesktopSdk)' != 'true' and '$(_SdkOriginalProjectFile)' != '' AND '$(ExtrasImportProjectExtensionTargets)' == 'true'">
     <Import Project="$(_SdkOriginalProjectExtensionsPath)$(_SdkOriginalProjectFile).*.targets" Condition="Exists('$(_SdkOriginalProjectExtensionsPath)')"/>
   </ImportGroup>
 
@@ -73,7 +73,7 @@
   -->
   <Target Name="_SdkDesignTimeBuildAndIntelliSenseWorkaround"
       AfterTargets="_CheckCompileDesignTimePrerequisite"
-      Condition="'@(ApplicationDefinition)' != '' OR '@(Page)' != '' OR '@(Resource)' != ''">
+      Condition=" '$(_ExtrasHasDesktopSdk)' != 'true' and '@(ApplicationDefinition)' != '' OR '@(Page)' != '' OR '@(Resource)' != ''">
     <PropertyGroup>
       <BuildingProject>false</BuildingProject>
       <DesignTimeBuild>true</DesignTimeBuild>

@@ -14,6 +14,8 @@
   <Import Project="$(CustomBeforeSdkTargets)" Condition="'$(CustomBeforeSdkTargets)' != ''"/>
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk"/>
 
+  <Import Condition="'$(_ExtrasHasDesktopSdk)' == 'true' and '$(ExtrasUseWindowsDesktopApp)' == 'true' " Project="$(MicrosoftWindowsDesktopSdkPath)\Microsoft.NET.Sdk.WindowsDesktop.targets "/>
+
   <!-- Replacing build-in targets  -->
   <Import Project="$(MSBuildThisFileDirectory)..\Build\RIDs.targets"/>
 

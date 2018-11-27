@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,7 +25,16 @@ namespace WpfApplication
         public MainWindow()
         {
             InitializeComponent();
-            CancelCommand command = new CancelCommand(null);
+           
+            CancelCommand command = new CancelCommand(new cmd());
+        }
+
+        public class cmd : CommandBase
+        {
+            protected override Task ExecuteCoreAsync(object parameter, CancellationToken cancellationToken)
+            {
+                return Task.CompletedTask; 
+            }
         }
     }
 }

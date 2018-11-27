@@ -1,7 +1,12 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras/42.42.42">
+﻿<Project>
+
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\Sdk\Sdk.props" />
 
   <PropertyGroup>
     <TargetFrameworks>net471;uap10.0;uap10.0.16299;monoandroid80;xamarinios10</TargetFrameworks>
   </PropertyGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\Sdk\Sdk.targets" />
+  <Import Project="..\Test.targets" />
 
 </Project>
