@@ -4,7 +4,7 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
-  <ItemDefinitionGroup Condition="'$(_ExtrasHasDesktopSdk)' != 'true'">
+  <ItemDefinitionGroup Condition="'$(ExtrasUseWindowsDesktopApp)' != 'true'">
     <Page>
       <SubType>Designer</SubType>
       <Generator>$(ExtrasDefaultGeneratorTool)</Generator>
@@ -19,7 +19,7 @@
     </ApplicationDefinition>
   </ItemDefinitionGroup>
 
-  <ItemGroup Condition="'$(ExtrasEnableDefaultResourceItems)' == 'true'">
+  <ItemGroup Condition="'$(ExtrasEnableDefaultResourceItems)' == 'true' and '$(ExtrasUseWindowsDesktopApp)' != 'true'">
     <None Remove="$(ExtrasDefaultResourceIncludes)" Condition="'$(ExtrasEnableDefaultPageItems)' != 'true'"/>
     <Resource Include="$(ExtrasDefaultResourceIncludes)" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder);$(DefaultResourceExcludes)">
       <Generator Condition="'$(ExtrasEnableXamlIntelliSenseGenerator)' == 'true'">$(ExtrasXamlIntelliSenseGeneratorTool)</Generator>
@@ -27,7 +27,7 @@
     <UpToDateCheckInput Include="@(ExtrasDefaultResourceIncludes)"/>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(ExtrasEnableDefaultPageItems)' == 'true'">
+  <ItemGroup Condition="'$(ExtrasEnableDefaultPageItems)' == 'true' and '$(ExtrasUseWindowsDesktopApp)' != 'true'">
     <None Remove="$(ApplicationDefinitionFile)"/>
     <ApplicationDefinition Include="$(ApplicationDefinitionFile)" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)">
       <Generator Condition="'$(ExtrasEnableXamlCodeGenerator)' == 'true'">$(ExtrasXamlCodeGeneratorTool)</Generator>
@@ -35,7 +35,7 @@
     <UpToDateCheckInput Include="@(ApplicationDefinition)"/>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(ExtrasEnableDefaultPageItems)' == 'true'">
+  <ItemGroup Condition="'$(ExtrasEnableDefaultPageItems)' == 'true' and '$(ExtrasUseWindowsDesktopApp)' != 'true'">
     <None Remove="**\*.xaml"/>
     <Page Include="**\*.xaml" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder);$(ExtrasDefaultPageExcludes)">
       <Generator Condition="'$(ExtrasEnableXamlCodeGenerator)' == 'true'">$(ExtrasXamlCodeGeneratorTool)</Generator>
@@ -43,7 +43,7 @@
     <UpToDateCheckInput Include="@(Page)"/>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(ExtrasEnableDefaultPageItems)' == 'true'">
+  <ItemGroup Condition="'$(ExtrasEnableDefaultPageItems)' == 'true' and '$(ExtrasUseWindowsDesktopApp)' != 'true'">
     <Compile Update="**\*.xaml$(DefaultLanguageSourceExtension)">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>

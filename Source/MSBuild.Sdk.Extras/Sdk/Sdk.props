@@ -4,10 +4,6 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <CustomBeforeMicrosoftCommonProps Condition=" '$(_ExtrasHasDesktopSdk)' != 'true' ">$(MSBuildThisFileDirectory)..\Build\Workarounds.props</CustomBeforeMicrosoftCommonProps>
-  </PropertyGroup>
-
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk"/>
 
   <!-- Detect if WindowsDesktop SDK is here -->
@@ -23,6 +19,8 @@
     <_ExtrasHasDesktopSdk Condition="'$(_ExtrasHasDesktopSdk)' == ''">false</_ExtrasHasDesktopSdk>
   </PropertyGroup>
 
+  
+  <Import Condition=" '$(_ExtrasHasDesktopSdk)' != 'true' " Project="$(MSBuildThisFileDirectory)..\Build\Workarounds.props" />
 
   <Import Condition="'$(_ExtrasHasDesktopSdk)' == 'true' " Project="$(MicrosoftWindowsDesktopSdkPath)\Microsoft.NET.Sdk.WindowsDesktop.props "/>
 

@@ -37,7 +37,7 @@
 
   <!-- WPF Support -->
 
-  <PropertyGroup Condition="'$(ExtrasEnableWpfProjectSetup)' == 'true' and '$(_ExtrasHasDesktopSdk)' == 'true'">
+  <PropertyGroup Condition="'$(ExtrasEnableWpfProjectSetup)' == 'true' and '$(ExtrasUseWindowsDesktopApp)' != 'true'">
     <ExtrasEnableDefaultWpfItems Condition="'$(ExtrasEnableDefaultWpfItems)' == ''">true</ExtrasEnableDefaultWpfItems>
     <ExtrasEnableDefaultXamlItems>$(ExtrasEnableDefaultWpfItems)</ExtrasEnableDefaultXamlItems>
     <ExtrasEnableImplicitWpfReferences Condition="'$(ExtrasEnableImplicitWpfReferences)' == ''">true</ExtrasEnableImplicitWpfReferences>
@@ -45,7 +45,7 @@
 
   <!-- Windows Forms Support -->
 
-  <PropertyGroup Condition="'$(ExtrasEnableWinFormsProjectSetup)' == 'true' and '$(_ExtrasHasDesktopSdk)' == 'true'">
+  <PropertyGroup Condition="'$(ExtrasEnableWinFormsProjectSetup)' == 'true' and '$(ExtrasUseWindowsDesktopApp)' != 'true'">
     <ExtrasEnableDefaultWinFormsItems Condition="'$(ExtrasEnableDefaultWinFormsItems)' == ''">true</ExtrasEnableDefaultWinFormsItems>
     <ExtrasEnableImplicitWinFormsReferences Condition="'$(ExtrasEnableImplicitWinFormsReferences)' == ''">true</ExtrasEnableImplicitWinFormsReferences>
     <ExtrasEnableUserControlDesigner Condition="'$(ExtrasEnableUserControlDesigner)' == ''">false</ExtrasEnableUserControlDesigner>
