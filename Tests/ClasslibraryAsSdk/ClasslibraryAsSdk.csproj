@@ -21,6 +21,7 @@
   <ItemGroup>
     <Compile Include="*.shared.cs" />
     <Compile Include="*.Designer.cs" />
+    <Compile Remove="uwp\**\*.cs" />
   </ItemGroup>
 
   <ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">
@@ -29,6 +30,11 @@
 
   <ItemGroup Condition="'$(TargetFramework)' == 'xamarin.mac20'">
     <Reference Include="System.Xml" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('uap')) ">
+    <Page Include="uwp\**\*.xaml"/>
+    <Compile Include="uwp\**\*.cs" />
   </ItemGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\Sdk\Sdk.targets" />

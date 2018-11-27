@@ -10,7 +10,7 @@
 	</PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\ClassLibraryAsSdk\**\*.cs" Exclude="..\ClassLibraryAsSdk\obj\**" />
+    <Compile Include="..\ClassLibraryAsSdk\**\*.cs" Exclude="..\ClassLibraryAsSdk\obj\**;..\ClassLibraryAsSdk\uwp\**;" />
   </ItemGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\Sdk\Sdk.targets" />
