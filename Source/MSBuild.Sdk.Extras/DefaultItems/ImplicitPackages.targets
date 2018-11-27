@@ -11,8 +11,8 @@
     <ExtrasUwpMetaPackageVersion>6.1.7</ExtrasUwpMetaPackageVersion>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(_SdkShortFrameworkIdentifier)' == 'tizen'">
-    <ExtrasTizenMetaPackage Condition="'$(ExtrasTizenMetaPackage)' == ''">$(_SdkTargetFrameworkVersionWithoutV)</ExtrasTizenMetaPackage>
+  <PropertyGroup Condition="'$(ExtrasTizenMetaPackageVersion)' == ''">
+    <ExtrasTizenMetaPackageVersion>5.0.0.14562</ExtrasTizenMetaPackageVersion>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(_SdkShortFrameworkIdentifier)' == 'tizen'">
-    <PackageReference Include="Tizen.NET" Version="$(ExtrasTizenMetaPackage)" IsImplicitlyDefined="true"/>
+    <PackageReference Include="Tizen.NET" Version="$(ExtrasTizenMetaPackageVersion)" IsImplicitlyDefined="true"/>
     <PackageReference Update="Tizen.NET" PrivateAssets="All" Condition="'$(ExtrasImplicitPlatformPackageIsPrivate)' == 'true'"/>
   </ItemGroup>
 
