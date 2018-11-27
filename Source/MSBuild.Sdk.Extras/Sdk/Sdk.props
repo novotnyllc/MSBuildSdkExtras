@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <CustomBeforeMicrosoftCommonProps>$(MSBuildThisFileDirectory)..\Build\Workarounds.props</CustomBeforeMicrosoftCommonProps>
+    <CustomBeforeMicrosoftCommonProps Condition=" '$(_ExtrasHasDesktopSdk)' != 'true' ">$(MSBuildThisFileDirectory)..\Build\Workarounds.props</CustomBeforeMicrosoftCommonProps>
   </PropertyGroup>
 
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk"/>
@@ -17,10 +17,21 @@
   <PropertyGroup Condition="'$(MicrosoftWindowsDesktopSdkPath)' == ''">
     <!-- ToolDepsJsonGeneratorProject is set early in the main SDK and points to Sdks\Microsoft.NET.Sdk\targets\GenerateDeps\GenerateDeps.proj
          We can use this to get the path for the desktop -->
-    <_ExtrasSdkBaseDirectory>$([System.IO.Path]::GetDirectoryName($(ToolDepsJsonGeneratorProject)))\..\..\</_ExtrasSdkBaseDirectory>
+    <_ExtrasSdkBaseDirectory>$([System.IO.Path]::GetDirectoryName($(ToolDepsJsonGeneratorProject)))\..\..\..\</_ExtrasSdkBaseDirectory>
     <MicrosoftWindowsDesktopSdkPath Condition="Exists('$(_ExtrasSdkBaseDirectory)Microsoft.NET.Sdk.WindowsDesktop\Sdk\Sdk.props')">$(_ExtrasSdkBaseDirectory)Microsoft.NET.Sdk.WindowsDesktop\targets</MicrosoftWindowsDesktopSdkPath>
+    <_ExtrasHasDesktopSdk Condition="'$(MicrosoftWindowsDesktopSdkPath)' != ''">true</_ExtrasHasDesktopSdk>
+    <_ExtrasHasDesktopSdk Condition="'$(_ExtrasHasDesktopSdk)' == ''">false</_ExtrasHasDesktopSdk>
   </PropertyGroup>
 
+
+  <Import Condition="'$(_ExtrasHasDesktopSdk)' == 'true' " Project="$(MicrosoftWindowsDesktopSdkPath)\Microsoft.NET.Sdk.WindowsDesktop.props "/>
+
+  <!-- TODO: Revisit once there's a way to control this directly -->
+  <ItemGroup Condition="'$(ExtrasUseWindowsDesktopApp)' != 'true'">
+    <FrameworkReference Remove="Microsoft.WindowsDesktop.App" />
+  </ItemGroup>
+
   <Import Project="$(MSBuildThisFileDirectory)..\Build\Core.props"/>
+
 
 </Project>

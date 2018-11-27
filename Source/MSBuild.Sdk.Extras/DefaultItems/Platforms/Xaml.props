@@ -4,7 +4,7 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
-  <ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(_ExtrasHasDesktopSdk)' != 'true'">
     <Page>
       <SubType>Designer</SubType>
       <Generator>$(ExtrasDefaultGeneratorTool)</Generator>

@@ -24,6 +24,15 @@
   <ItemGroup>
     <SplashScreen Include="SplashScreen.scale-200.png" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <None Update="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+  </ItemGroup>
 
 
 </Project>
