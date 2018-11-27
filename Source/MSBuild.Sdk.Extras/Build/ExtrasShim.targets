@@ -17,6 +17,10 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <!-- Gather use of old props for deprecation  -->
+    <_ExtrasEnableWpfProjectSetupWarning Condition="'$(ExtrasEnableWpfProjectSetup)' != ''">true</_ExtrasEnableWpfProjectSetupWarning>
+    <_ExtrasEnableWinFormsProjectSetupWarning Condition="'$(ExtrasEnableWinFormsProjectSetup)' != ''">true</_ExtrasEnableWinFormsProjectSetupWarning>
+
     <!-- Set SDK Settings based on Extras and vice-versa -->
     <UseWpf Condition="'$(UseWpf)' == '' and '$(ExtrasEnableWpfProjectSetup)' == 'true' ">true</UseWpf>
     <UseWindowsForms Condition="'$(UseWindowsForms)' == '' and '$(ExtrasEnableWinFormsProjectSetup)' == 'true' ">true</UseWindowsForms>
@@ -38,6 +42,8 @@
     <_SdkObsoleteProperty Include="EnableDefaultWpfItems" Replacement="ExtrasEnableDefaultWpfItems" Condition="'$(EnableDefaultWpfItems)' != ''"/>
     <_SdkObsoleteProperty Include="EnableDefaultSettingsItems" Replacement="ExtrasEnableDefaultSettingsItems" Condition="'$(EnableDefaultSettingsItems)' != ''"/>
     <_SdkObsoleteProperty Include="EnableEmbeddedResourceGenerator" Replacement="ExtrasEnableEmbeddedResourceCodeGenerator" Condition="'$(EnableEmbeddedResourceGenerator)' != ''"/>
+    <_SdkObsoleteProperty Include="ExtrasEnableWpfProjectSetup" Replacement="UseWpf" Condition="'$(_ExtrasEnableWpfProjectSetupWarning)' == 'true'"/>
+    <_SdkObsoleteProperty Include="ExtrasEnableWinFormsProjectSetup" Replacement="UseWindowsForms" Condition="'$(_ExtrasEnableWinFormsProjectSetupWarning)' == 'true'"/>
   </ItemGroup>
 
     <Warning Text="The property '%(_SdkObsoleteProperty.Identity)' is deprecated and will be removed in the future. Please use '%(_SdkObsoleteProperty.Replacement)' instead."
