@@ -12,4 +12,19 @@
           Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.$(_SdkLanguageSourceName).targets')"/>
   <Import Project="$(MSBuildThisFileDirectory)CheckMissing.targets" />
 
+  <!-- We need to define this here since it's after the main language targets and TPV may be overridden
+       by an included Directory.Build.targets. -->
+  <PropertyGroup Condition="'$(_SdkShortFrameworkIdentifier)' == 'uap'">
+
+    <!-- Decide whether to use the new version metadata, or the old one -->
+    <_ExtrasUseVersionedWindowsWinmdFile Condition="$([System.Version]::Parse('$(TargetPlatformVersion)')) >= $([System.Version]::Parse('10.0.16299.0'))">true</_ExtrasUseVersionedWindowsWinmdFile>
+
+    <WindowsWinmdFile Condition="'$(_ExtrasUseVersionedWindowsWinmdFile)' == 'true' AND Exists('$(MSBuildProgramFiles32)\Windows Kits\10\UnionMetadata\$(TargetPlatformVersion)\Windows.winmd')">$(MSBuildProgramFiles32)\Windows Kits\10\UnionMetadata\$(TargetPlatformVersion)\Windows.winmd</WindowsWinmdFile>
+    <WindowsWinmdFile Condition="'$(_ExtrasUseVersionedWindowsWinmdFile)' != 'true' AND Exists('$(MSBuildProgramFiles32)\Windows Kits\10\UnionMetadata\Windows.winmd')">$(MSBuildProgramFiles32)\Windows Kits\10\UnionMetadata\Windows.winmd</WindowsWinmdFile>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' ">
+    <_SdkImplicitReference Include="Windows" Private="false" HintPath="$(WindowsWinmdFile)" Condition="'$(WindowsWinmdFile)' != ''" />
+  </ItemGroup>
+
 </Project>
