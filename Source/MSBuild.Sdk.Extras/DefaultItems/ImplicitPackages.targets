@@ -28,4 +28,9 @@
     <PackageReference Update="Tizen.NET" PrivateAssets="All" Condition="'$(ExtrasImplicitPlatformPackageIsPrivate)' == 'true'"/>
   </ItemGroup>
 
+  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(WindowsWinmdFile)' != '' ">
+    <_SdkImplicitReference Include="Windows" Private="false" HintPath="$(WindowsWinmdFile)" />
+  </ItemGroup>
+
+
 </Project>
