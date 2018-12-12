@@ -63,5 +63,8 @@
     <ImplicitlyExpandTargetPlatform>false</ImplicitlyExpandTargetPlatform>
   </PropertyGroup>
 
-
+  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(WindowsWinmdFile)' != '' ">
+    <_SdkImplicitReference Include="Windows" Private="false" HintPath="$(WindowsWinmdFile)" />
+  </ItemGroup>
+  
 </Project>
