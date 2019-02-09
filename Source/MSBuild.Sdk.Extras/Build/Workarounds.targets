@@ -73,7 +73,7 @@
   -->
   <Target Name="_SdkDesignTimeBuildAndIntelliSenseWorkaround"
       AfterTargets="_CheckCompileDesignTimePrerequisite"
-      Condition=" '$(_ExtrasHasDesktopSdk)' != 'true' and '@(ApplicationDefinition)' != '' OR '@(Page)' != '' OR '@(Resource)' != ''">
+      Condition=" '$(_ExtrasHasDesktopSdk)' != 'true' and ('@(ApplicationDefinition)' != '' OR '@(Page)' != '' OR '@(Resource)' != '')">
     <PropertyGroup>
       <BuildingProject>false</BuildingProject>
       <DesignTimeBuild>true</DesignTimeBuild>
@@ -90,7 +90,7 @@
       DependsOnTargets="PrepareLibraryLayout"
       Condition="'$(GenerateLibraryLayout)' == 'true' AND '$(SDKIdentifier)' == 'Windows'">
     <ItemGroup>
-      <TfmSpecificPackageFile Include="@(_LayoutFile)" 
+      <TfmSpecificPackageFile Include="@(_LayoutFile)"
                               Condition="'$(ProjectName)' == '%(_LayoutFile.ProjectName)'"
                               PackagePath="lib\$(TargetFramework)\%(_LayoutFile.TargetPath)"/>
     </ItemGroup>
