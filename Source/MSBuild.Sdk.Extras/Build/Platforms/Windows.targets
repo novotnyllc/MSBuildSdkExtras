@@ -62,18 +62,6 @@
 
     <ImplicitlyExpandTargetPlatform>false</ImplicitlyExpandTargetPlatform>
 
-    <_ExtrasShowWindowsSdkError>false</_ExtrasShowWindowsSdkError>
-    <_ExtrasShowWindowsSdkError Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(WindowsWinmdFile)' == '' ">true</_ExtrasShowWindowsSdkError>
-
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(WindowsWinmdFile)' != '' ">
-    <_SdkImplicitReference Include="Windows" Private="false" HintPath="$(WindowsWinmdFile)" IsWinMDFile="true" />
-  </ItemGroup>
-
-
-  <Target Name="_WarnIfWindowsSdkIsMissing" BeforeTargets="CoreCompile">
-    <Error Condition="'$(_ExtrasShowWindowsSdkError)' == 'true'" 
-           Text="Required Windows SDK Version $(TargetPlatformVersion) is not installed." />
-  </Target>
 </Project>
