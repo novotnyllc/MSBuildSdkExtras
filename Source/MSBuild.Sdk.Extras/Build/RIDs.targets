@@ -17,22 +17,28 @@
       <_SdkRuntimeId Include="$(TargetFramework)" Condition="'$(ExtrasBuildEachRuntimeIdentifier)' == 'false'"  />
     </ItemGroup>
   </Target>
-  
-  
+
+
 
   <Target Name="_ComputeTargetFrameworkItems" Returns="@(InnerOutput)">
     <ItemGroup>
       <_TargetFramework Include="$(TargetFrameworks)" />
     </ItemGroup>
-    
-    <MSBuild Projects="$(MSBuildProjectFile)"
+
+    <ItemGroup>
+      <_InnerBuildProjects Include="$(MSBuildProjectFile)">
+        <AdditionalProperties>TargetFramework=%(_TargetFramework.Identity)</AdditionalProperties>
+      </_InnerBuildProjects>
+    </ItemGroup>
+
+    <MSBuild Projects="@(_InnerBuildProjects)"
              BuildInParallel="$(BuildInParallel)"
-             Properties="TargetFramework=%(_TargetFramework.Identity)"
              Targets="_SdkGetRidsPerTargetFramework">
       <Output ItemName="_SdkTargetsWithRids" TaskParameter="TargetOutputs"  />
     </MSBuild>
-    
+
     <ItemGroup>
+      <_InnerBuildProjects Remove="@(_InnerBuildProjects)" />
       <_InnerBuildProjects Include="$(MSBuildProjectFile)">
         <AdditionalProperties Condition="'%(_SdkTargetsWithRids.Rid)' != ''" >TargetFramework=%(_SdkTargetsWithRids.Identity);RuntimeIdentifier=%(_SdkTargetsWithRids.Rid)</AdditionalProperties>
         <AdditionalProperties Condition="'%(_SdkTargetsWithRids.Rid)' == ''" >TargetFramework=%(_SdkTargetsWithRids.Identity)</AdditionalProperties>
