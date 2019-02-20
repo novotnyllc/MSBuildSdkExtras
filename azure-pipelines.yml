@@ -13,6 +13,7 @@ variables:
   BuildConfiguration: Release
 
 steps:
+- script: set
 - task: DotNetCoreCLI@2  
   inputs:
     command: custom
