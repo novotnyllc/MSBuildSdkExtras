@@ -62,7 +62,7 @@ You can put the `global.json` file next to your solution (use the latest availab
 ```json
 {
     "msbuild-sdks": {
-        "MSBuild.Sdk.Extras": "1.6.0"
+        "MSBuild.Sdk.Extras": "1.6.68"
     }
 }
 ```
@@ -73,7 +73,7 @@ This would be a preferred solution for all the projects in your solution.
 Then again, you might want to override the version for just one project _OR_ if you have only one project in your solution (without adding `global.json`), you can do so like this:
 
 ```xml
-<Project Sdk="MSBuild.Sdk.Extras/1.6.55">
+<Project Sdk="MSBuild.Sdk.Extras/1.6.68">
   <PropertyGroup>
     <TargetFrameworks>net46;uap10.0.16299;tizen40</TargetFrameworks>
   </PropertyGroup>
@@ -142,7 +142,7 @@ Your project diff:
    | `EmbeddedResourceGeneratorVisibilityIsInternal` | opposite of `ExtrasExtrasEmbeddedResourceGeneratedCodeIsPublic`                |
 
  - Support for WPF and Windows Forms requires an opt-in property to enable:
-Set `ExtrasEnableWpfProjectSetup`/`ExtrasEnableWinFormsProjectSetup` to `true` to include required references and default items.
+Set `ExtrasEnableWpfProjectSetup`/`ExtrasEnableWinFormsProjectSetup` to `true` to include required references and default items. Note in .NET Core 3.0 these have been replaced by `UseWPF`/`UseWindowsForms`.
 
 ## Single or multi-targeting
 
