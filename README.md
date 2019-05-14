@@ -57,7 +57,7 @@ The final project should look like this:
 </Project>
 ```
 
-If you are using MsBuild.Sdk.Extras version 2 or above, use .NET Core 3 Preview to compile. You can still target previous versions of .Net Core. In this case install the .NET Core 3 preiew and add the following to your `global.json` file:
+If you are using MsBuild.Sdk.Extras version 2 or above, use .NET Core 3 Preview to compile. You can still target previous versions of .Net Core. In this case install the .NET Core 3 preview and add the following to your `global.json` file:
 
 ```json
 {
