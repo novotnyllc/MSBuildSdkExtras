@@ -57,15 +57,20 @@ The final project should look like this:
 </Project>
 ```
 
-You can put the `global.json` file next to your solution (use the latest available version of the extras):
+If you are using MsBuild.Sdk.Extras version 2 or above, use .NET Core 3 Preview to compile. You can still target previous versions of .Net Core. In this case install the .NET Core 3 preview and add the following to your `global.json` file:
 
 ```json
 {
-    "msbuild-sdks": {
-        "MSBuild.Sdk.Extras": "1.6.68"
-    }
+  "sdk": {
+    "version": "3.0.100-preview"
+  },
+  "msbuild-sdks": {
+    "MSBuild.Sdk.Extras": "2.0.24"
+  }
 }
 ```
+
+Above the `sdk` section indicates use the .NET Core 3 preview to build, the `msbuild-sdks` indicates the NuGet package to include.
 
 Then, all of your project files, from that directory forward, uses the version from the `global.json` file.
 This would be a preferred solution for all the projects in your solution.
