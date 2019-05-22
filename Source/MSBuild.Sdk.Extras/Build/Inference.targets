@@ -49,7 +49,7 @@
   </Choose>
 
   <!-- Map short name to long name. See earlier comment for example of how to work with identifiers that are not recognized here -->
-  <PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == '' AND '$(_SdkShortFrameworkIdentifier)' != ''">
+  <PropertyGroup Condition=" ('$(TargetFrameworkIdentifier)' == '' OR '$(TargetFrameworkIdentifier)' == '_') AND '$(_SdkShortFrameworkIdentifier)' != ''">
     <TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'net'">.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'netstandard'">.NETStandard</TargetFrameworkIdentifier>
     <TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'netcoreapp'">.NETCoreApp</TargetFrameworkIdentifier>
