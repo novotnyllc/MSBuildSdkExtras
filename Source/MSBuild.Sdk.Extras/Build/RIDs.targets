@@ -164,7 +164,7 @@
 
        <!-- Include the runtimes files -->
       <None Include="@(_BuildOutputInPackageWithRid)" PackagePath="runtimes/%(_BuildOutputInPackageWithRid.Rid)/lib/%(_BuildOutputInPackageWithRid.TargetFramework)" Pack="true" />
-      <None Include="@(_TargetPathsToSymbolsWithRid)" PackagePath="runtimes/%(_BuildOutputInPackageWithRid.Rid)/lib/%(_BuildOutputInPackageWithRid.TargetFramework)" Pack="true" />
+      <None Include="@(_TargetPathsToSymbolsWithRid)" PackagePath="runtimes/%(_TargetPathsToSymbolsWithRid.Rid)/lib/%(_TargetPathsToSymbolsWithRid.TargetFramework)" Pack="true" />
     </ItemGroup>  
     
   </Target>
