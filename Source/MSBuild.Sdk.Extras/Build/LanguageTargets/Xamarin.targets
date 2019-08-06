@@ -34,4 +34,12 @@
     <Error Text="The Binding Project for $(_SdkTargetPlatformName) is only supported with only C#, not with $(_SdkLanguageSourceName). Please change the project to C# to use the Bindings Project.'"/>
   </Target>
 
+  <!-- A workaround for https://github.com/microsoft/msbuild/issues/4584 -->
+  <Target Name="_RemoveNativeReferencesManifest" Condition="'$(IsBindingProject)' == 'true' AND '$(IsApplePlatform)' == 'true'" AfterTargets="BuiltProjectOutputGroup">
+    <ItemGroup>
+      <_BuiltProjectOutputGroupOutputIntermediate Remove="$(OutDir)$(_DeploymentTargetApplicationManifestFileName)" />
+      <BuiltProjectOutputGroupOutput Remove="$(ProjectDir)$(OutDir)$(_DeploymentTargetApplicationManifestFileName)" />
+    </ItemGroup>
+  </Target>
+
 </Project>
