@@ -32,6 +32,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(TargetFramework)' == 'xamarin.ios10'">
+    <NativeReference Include="Resource1.resx" />
+  </ItemGroup>
+
   <ItemGroup Condition=" $(TargetFramework.StartsWith('uap')) ">
     <Page Include="uwp\**\*.xaml"/>
     <Compile Include="uwp\**\*.cs" />
