@@ -17,8 +17,14 @@ using Windows.UI.Xaml.Navigation;
 
 namespace ClassLibrary2
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public sealed partial class MyUserControl1 : UserControl
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public MyUserControl1()
         {
             this.InitializeComponent();
