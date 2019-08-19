@@ -11,6 +11,7 @@
     <AdbTarget Condition="'$(AdbTarget)' == ''">none</AdbTarget>
     <AndroidClassParser Condition="'$(AndroidClassParser)' == ''">class-parse</AndroidClassParser>
     <AndroidUseIntermediateDesignerFile Condition=" '$(AndroidUseIntermediateDesignerFile)' == '' ">True</AndroidUseIntermediateDesignerFile>
+    <DesignTimeBuild Condition=" '$(DesignTimeBuild)' == '' ">false</DesignTimeBuild>
   </PropertyGroup>
 
 </Project>
