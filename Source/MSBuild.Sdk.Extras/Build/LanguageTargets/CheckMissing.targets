@@ -5,7 +5,8 @@
   </PropertyGroup>
 
   <!-- Need to detect if the expected targets where actually imported and reset to common if not -->
-  <PropertyGroup>
+  <!-- Workaround for https://github.com/onovotny/MSBuildSdkExtras/issues/179 -->
+  <PropertyGroup Condition=" '$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0' ">
     <_SdkLanguageTargetsMissing Condition="$(MSBuildAllProjects.Contains('Microsoft.Common.targets')) ">false</_SdkLanguageTargetsMissing>
     <_SdkLanguageTargetsMissing Condition="'$(_SdkLanguageTargetsMissing)' == ''">true</_SdkLanguageTargetsMissing>
   </PropertyGroup>
