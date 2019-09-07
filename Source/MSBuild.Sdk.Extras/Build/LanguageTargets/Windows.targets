@@ -20,25 +20,6 @@
     <ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true' AND '$(_SdkLanguageSourceName)' != 'VisualBasic'">UAP$(_SdkShortFrameworkVersion.Replace('.', '_'));UAP$(TargetPlatformMinVersion.Replace('.', '_'))</ImplicitFrameworkDefine>
     <ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true' AND '$(_SdkLanguageSourceName)' == 'VisualBasic'">UAP$(_SdkShortFrameworkVersion.Replace('.', '_'))=-1,UAP$(TargetPlatformMinVersion.Replace('.', '_'))</ImplicitFrameworkDefine>
 
-    <!-- Decide whether to use the new version metadata, or the old one -->
-    <_ExtrasUseVersionedWindowsWinmdFile Condition="$([System.Version]::Parse('$(TargetPlatformVersion)')) >= $([System.Version]::Parse('10.0.16299.0'))">true</_ExtrasUseVersionedWindowsWinmdFile>
-
-    <WindowsWinmdFile Condition="'$(_ExtrasUseVersionedWindowsWinmdFile)' == 'true' AND Exists('$(MSBuildProgramFiles32)\Windows Kits\10\UnionMetadata\$(TargetPlatformVersion)\Windows.winmd')">$(MSBuildProgramFiles32)\Windows Kits\10\UnionMetadata\$(TargetPlatformVersion)\Windows.winmd</WindowsWinmdFile>
-    <WindowsWinmdFile Condition="'$(_ExtrasUseVersionedWindowsWinmdFile)' != 'true' AND Exists('$(MSBuildProgramFiles32)\Windows Kits\10\UnionMetadata\Windows.winmd')">$(MSBuildProgramFiles32)\Windows Kits\10\UnionMetadata\Windows.winmd</WindowsWinmdFile>
-
-    <_ExtrasShowWindowsSdkError>false</_ExtrasShowWindowsSdkError>
-    <_ExtrasShowWindowsSdkError Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(WindowsWinmdFile)' == '' ">true</_ExtrasShowWindowsSdkError>
   </PropertyGroup>
-
-  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(WindowsWinmdFile)' != '' ">
-    <_SdkWindowsImplicitReference Include="Windows" Private="false" HintPath="$(WindowsWinmdFile)" IsWinMDFile="true" Pack="false" />
-    <_SdkWindowsImplicitReference Remove="@(Reference)"/>
-    <Reference Include="@(_SdkWindowsImplicitReference)"/>
-  </ItemGroup>
-
-  <Target Name="_WarnIfWindowsSdkIsMissing" BeforeTargets="CoreCompile">
-    <Error Condition="'$(_ExtrasShowWindowsSdkError)' == 'true'" 
-           Text="Required Windows SDK Version $(TargetPlatformVersion) is not installed." />
-  </Target>
 
 </Project>
