@@ -19,8 +19,6 @@
 
     <!-- Need to override the built-in implicit defines for win8 or it'll be NETCORE4_5 -->
     <ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">WINDOWS8</ImplicitFrameworkDefine>
-    <WindowsWinmdFile Condition="Exists('$(MSBuildProgramFiles32)\Windows Kits\8.0\References\CommonConfiguration\Neutral\Windows.winmd')">$(MSBuildProgramFiles32)\Windows Kits\8.0\References\CommonConfiguration\Neutral\Windows.winmd</WindowsWinmdFile>
-    <ImplicitlyExpandTargetPlatform>false</ImplicitlyExpandTargetPlatform>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'win81'">
@@ -32,8 +30,6 @@
 
     <!-- Need to override the built-in implicit defines for win81 or it'll be NETCORE4_5_1 -->
     <ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">WINDOWS8_1</ImplicitFrameworkDefine>
-    <WindowsWinmdFile Condition="Exists('$(MSBuildProgramFiles32)\Windows Kits\8.1\References\CommonConfiguration\Neutral\Windows.winmd')">$(MSBuildProgramFiles32)\Windows Kits\8.1\References\CommonConfiguration\Neutral\Windows.winmd</WindowsWinmdFile>
-    <ImplicitlyExpandTargetPlatform>false</ImplicitlyExpandTargetPlatform>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'wpa' OR '$(TargetFramework)' == 'wpa81'">
@@ -59,9 +55,6 @@
     <TargetPlatformMinVersion Condition="'$(TargetPlatformMinVersion)' == ''">$([System.Version]::Parse('$(_SdkShortFrameworkVersion)')).0</TargetPlatformMinVersion>
 
     <CopyLocalLockFileAssemblies Condition="'$(CopyLocalLockFileAssemblies)' == ''">false</CopyLocalLockFileAssemblies>
-
-    <ImplicitlyExpandTargetPlatform>false</ImplicitlyExpandTargetPlatform>
-
   </PropertyGroup>
 
 </Project>
