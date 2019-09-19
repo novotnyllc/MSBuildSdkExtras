@@ -26,7 +26,7 @@
     <UseWindowsForms Condition="'$(UseWindowsForms)' == '' and '$(ExtrasEnableWinFormsProjectSetup)' == 'true' ">true</UseWindowsForms>
 
     <!-- Until there's a discreet property for this, default based on Wpf/WinForms -->
-    <ExtrasUseWindowsDesktopApp Condition="'$(UseWpf)' == 'true' or '$(UseWindowsForms)' == 'true'">true</ExtrasUseWindowsDesktopApp>
+    <ExtrasUseWindowsDesktopApp Condition="'$(_ExtrasHasDesktopSdk)' == 'true' and ('$(UseWpf)' == 'true' or '$(UseWindowsForms)' == 'true')">true</ExtrasUseWindowsDesktopApp>
     <ExtrasUseWindowsDesktopApp Condition="'$(ExtrasUseWindowsDesktopApp)' == '' ">false</ExtrasUseWindowsDesktopApp>
   </PropertyGroup>
 
