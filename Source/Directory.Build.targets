@@ -13,7 +13,7 @@
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19367-01" PrivateAssets="All"/>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(IsCloudBuild)' == 'true'">    
+  <ItemGroup Condition="'$(IsCloudBuild)' == 'true' and '$(DisableNerdBank)'!='true'">    
     <PackageReference Include="Nerdbank.GitVersioning" Version="3.0.26" PrivateAssets="All"/>
   </ItemGroup>
 
