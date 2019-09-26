@@ -13,7 +13,7 @@
 
   <!-- Check to see if the Lang targets exist and if not, trigger an error on Compile -->
   <!-- We clear out the lang targets so the defaults are used for the error to show -->
-  <PropertyGroup Condition="'$(_ExtrasSkipTargetsCheck)' != 'true' and '$(_SdkLanguageTargetsMissing)' == 'true' ">
+  <PropertyGroup Condition="'$(_ExtrasSkipTargetsCheck)' != 'true' ">
 
     <!-- Reset LanguageTargets Eval-->
     <!-- https://github.com/dotnet/sdk/blob/581f5371dac022ad2b3e5bcdbb2e576bd73b5c4a/src/Tasks/Microsoft.NET.Build.Tasks/sdk/Sdk.targets#L28-L37 -->
@@ -30,7 +30,7 @@
 
   <!-- Import common targets so NuGet restore succeeds -->
   <!-- https://github.com/dotnet/sdk/blob/979eed136b786b6e2d77f567eb5a368952982740/src/Tasks/Microsoft.NET.Build.Tasks/sdk/Sdk.targets#L33 -->
-  <Import Condition="'$(_SdkLanguageTargetsMissing)' == 'true' " Project="$(LanguageTargets)" />
+  <Import Project="$(LanguageTargets)" />
 
 
   <Target Name="_ShowMissingLanguageTargetsError" BeforeTargets="_CheckForUnsupportedTargetFramework" Condition="'$(_SdkLanguageTargetsMissing)' == 'true' and '$(_SdkIgnoreMissingLanguageTargetsError)' != 'true' ">
