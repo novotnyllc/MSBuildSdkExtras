@@ -120,9 +120,13 @@ jobs:
     
   - bash: |
       dotnet build --configuration Release $(build.sourcesdirectory)/TestProjects/Linux-C#/netstd2Library/netstd2Library.csproj
+
+    displayName: '.NET Core: .NET Std Library with unavailable platform test'
+    
+  - bash: |
       msbuild /r /p:Configuration=Release $(build.sourcesdirectory)/TestProjects/Linux-C#/netstd2Library/netstd2Library.csproj
 
-    displayName: '.NET Std Library with unavailable platform test'
+    displayName: 'MSBuild: .NET Std Library with unavailable platform test'
 
 
 - job: macOS
@@ -163,6 +167,10 @@ jobs:
 
   - bash: |
       dotnet build --configuration Release $(build.sourcesdirectory)/TestProjects/Linux-C#/netstd2Library/netstd2Library.csproj
+
+    displayName: '.NET Core: .NET Std Library with unavailable platform test'
+    
+  - bash: |
       msbuild /r /p:Configuration=Release $(build.sourcesdirectory)/TestProjects/Linux-C#/netstd2Library/netstd2Library.csproj
 
-    displayName: '.NET Std Library with unavailable platform test'
+    displayName: 'MSBuild: .NET Std Library with unavailable platform test'
