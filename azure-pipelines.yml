@@ -55,6 +55,43 @@ jobs:
       artifactType: container
       artifactName: Package
 
+- job: Windows_Tests
+  pool:
+    vmImage: windows-2019
+
+  variables:
+    BuildConfiguration: Release
+    TMPDIR: $(Build.ArtifactStagingDirectory)
+    DisableNerdBank: true
+    PackageVersion: 42.42.42
+
+  steps:
+  - powershell: |
+      mkdir $(Build.ArtifactStagingDirectory)\Packages -Force
+    displayName: Create packages temp folder
+
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: pack
+      packagesToPack: Source/MSBuild.Sdk.Extras/MSBuild.Sdk.Extras.csproj
+      configuration: $(BuildConfiguration)
+      packDirectory: $(Build.ArtifactStagingDirectory)\Packages    
+      verbosityPack: Minimal
+    displayName: Build Package
+
+  - task: MSBuild@1
+    inputs:
+      solution: '$(build.sourcesdirectory)\TestProjects\Windows-Desktop-C#\Windows-Desktop.sln'
+      msbuildArguments: /r /p:SignManifests=false
+      configution: $(BuildConfiguration)
+    displayName: MSBuild Test Projects 1
+
+  - task: MSBuild@1
+    inputs:
+      solution: '$(build.sourcesdirectory)\TestProjects\Linux-C#\netstd2Library\netstd2Library.csproj'
+      msbuildArguments: /r
+      configution: $(BuildConfiguration)
+    displayName: MSBuild Test Projects 2
 
 - job: Linux
   container: nventive/wasm-build:1.4.1
