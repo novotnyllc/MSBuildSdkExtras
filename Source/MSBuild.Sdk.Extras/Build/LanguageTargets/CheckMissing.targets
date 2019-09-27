@@ -11,6 +11,13 @@
     <_SdkLanguageTargetsMissing Condition="'$(_SdkLanguageTargetsMissing)' == ''">true</_SdkLanguageTargetsMissing>
   </PropertyGroup>
 
+  <!-- Check if the Common targets have been loaded, see https://github.com/onovotny/MSBuildSdkExtras/pull/186 -->
+  <!-- https://github.com/microsoft/msbuild/blob/d42d3504057ef2b88dd4f68c4bfc5591371bd6fe/src/Tasks/Microsoft.Common.targets#L32-L43 -->
+  <PropertyGroup Condition=" '$(CommonTargetsPath)' == '' Or '$(MSBuildVersion)' &gt;= '16.0' ">
+    <_SdkLanguageTargetsMissing Condition="'$(CommonTargetsPath)'!=''">false</_SdkLanguageTargetsMissing>
+    <_SdkLanguageTargetsMissing Condition="'$(_SdkLanguageTargetsMissing)' == ''">true</_SdkLanguageTargetsMissing>
+  </PropertyGroup>
+
   <!-- Check to see if the Lang targets exist and if not, trigger an error on Compile -->
   <!-- We clear out the lang targets so the defaults are used for the error to show -->
   <PropertyGroup Condition="'$(_ExtrasSkipTargetsCheck)' != 'true' and '$(_SdkLanguageTargetsMissing)' == 'true' ">
@@ -30,7 +37,7 @@
 
   <!-- Import common targets so NuGet restore succeeds -->
   <!-- https://github.com/dotnet/sdk/blob/979eed136b786b6e2d77f567eb5a368952982740/src/Tasks/Microsoft.NET.Build.Tasks/sdk/Sdk.targets#L33 -->
-  <Import Condition="'$(_SdkLanguageTargetsMissing)' == 'true' " Project="$(LanguageTargets)" />
+  <Import Condition=" '$(_SdkLanguageTargetsMissing)' == 'true' " Project="$(LanguageTargets)" />
 
 
   <Target Name="_ShowMissingLanguageTargetsError" BeforeTargets="_CheckForUnsupportedTargetFramework" Condition="'$(_SdkLanguageTargetsMissing)' == 'true' and '$(_SdkIgnoreMissingLanguageTargetsError)' != 'true' ">

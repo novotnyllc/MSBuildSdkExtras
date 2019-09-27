@@ -1,0 +1,8 @@
+﻿<Project Sdk="MSBuild.Sdk.Extras">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;xamarinios10</TargetFrameworks>
+    <RootNamespace>cross_ios_netstd2</RootNamespace>
+  </PropertyGroup>
+
+</Project>
