@@ -24,9 +24,9 @@ See [below](#rids) for creating these using the Extras easily.
 
 ## Package Name: `MSBuild.Sdk.Extras`
 
-[![MSBuild.Sdk.Extras](https://img.shields.io/nuget/v/MSBuild.Sdk.Extras.svg)](https://nuget.org/packages/MSBuild.Sdk.Extras)
-[![MSBuild.Sdk.Extras](https://img.shields.io/myget/msbuildsdkextras/v/MSBuild.Sdk.Extras.svg)](https://myget.org/feed/msbuildsdkextras/package/nuget/MSBuild.Sdk.Extras)
-[![MSBuildSDKExtras](https://img.shields.io/badge/MSBuildSDKExtras-myget-brightgreen.svg)](https://myget.org/gallery/msbuildsdkextras)
+Stable: [![MSBuild.Sdk.Extras](https://img.shields.io/nuget/v/MSBuild.Sdk.Extras.svg)](https://nuget.org/packages/MSBuild.Sdk.Extras)
+
+CI Feed: [![MSBuild.Sdk.Extras package in MSBuildSdkExtras feed in Azure Artifacts](https://feeds.dev.azure.com/onovotny/96789f1c-e804-4671-be78-d063a4eced9b/_apis/public/Packaging/Feeds/3773a966-220c-4410-a273-f6d772116a25/Packages/e25b4b0f-f40e-4fb7-8d25-7b266106b6b3/Badge)](https://dev.azure.com/onovotny/GitBuilds/_packaging?_a=package&feed=3773a966-220c-4410-a273-f6d772116a25&package=e25b4b0f-f40e-4fb7-8d25-7b266106b6b3&preferRelease=true) `https://pkgs.dev.azure.com/onovotny/GitBuilds/_packaging/MSBuildSdkExtras/nuget/v3/index.json`
 
 ### Getting started (VS 15.6+)
 
@@ -57,15 +57,12 @@ The final project should look like this:
 </Project>
 ```
 
-If you are using MsBuild.Sdk.Extras version 2 or above, use .NET Core 3 Preview to compile. You can still target previous versions of .Net Core. In this case install the .NET Core 3 preview and add the following to your `global.json` file:
+If you are using MsBuild.Sdk.Extras version 2 or above, use the .NET Core 3 SDK. You can still target previous versions of .NET Core. 
 
 ```json
 {
-  "sdk": {
-    "version": "3.0.100-preview"
-  },
   "msbuild-sdks": {
-    "MSBuild.Sdk.Extras": "2.0.24"
+    "MSBuild.Sdk.Extras": "2.0.54"
   }
 }
 ```
@@ -78,7 +75,7 @@ This would be a preferred solution for all the projects in your solution.
 Then again, you might want to override the version for just one project _OR_ if you have only one project in your solution (without adding `global.json`), you can do so like this:
 
 ```xml
-<Project Sdk="MSBuild.Sdk.Extras/1.6.68">
+<Project Sdk="MSBuild.Sdk.Extras/2.0.54">
   <PropertyGroup>
     <TargetFrameworks>net46;uap10.0.16299;tizen40</TargetFrameworks>
   </PropertyGroup>
