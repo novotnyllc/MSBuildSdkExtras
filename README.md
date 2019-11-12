@@ -129,7 +129,7 @@ Your project diff:
 + SDK style
 ```
 
-**Note**: If you're using Visual Studio for Mac, currently there's no support for resolving SDKs from NuGet. Until VS for Mac supports it, you can use `PackageReference` style. Also you have to include any UWP or Tizen meta-package manually. If you are already using the package, just update it to get the new fixes.
+**Note**: The SDK-style project now works on Visual Studio for Mac.
 
 ## Release Notes
 
