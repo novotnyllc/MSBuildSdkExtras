@@ -10,7 +10,7 @@
   <Import Project="..\Tools\MSBuild.DevLocal.targets" Condition="'$(IsCloudBuild)' != 'true'"/>
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19554-01" PrivateAssets="All"/>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
   </ItemGroup>
 
   <ItemGroup Condition="'$(IsCloudBuild)' == 'true' and '$(DisableNerdBank)'!='true'">    
