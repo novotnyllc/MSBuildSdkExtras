@@ -39,6 +39,7 @@
   <PropertyGroup Condition="'$(_SdkOriginalProjectName)' != ''">
     <_SdkOriginalProjectFile>$(_SdkOriginalProjectName)$(MSBuildProjectExtension)</_SdkOriginalProjectFile>
     <_SdkOriginalProjectExtensionsPath Condition="$(MSBuildProjectExtensionsPath.Contains('$(MSBuildProjectName)'))">$(MSBuildProjectExtensionsPath.Replace('$(MSBuildProjectName)', '$(_SdkOriginalProjectName)'))</_SdkOriginalProjectExtensionsPath>
+    <_SdkOriginalProjectExtensionsPath Condition=" '$(_SdkOriginalProjectExtensionsPath)' == '' ">$(MSBuildProjectExtensionsPath)</_SdkOriginalProjectExtensionsPath>
     <RestoreOutputPath>$(_SdkOriginalProjectExtensionsPath)</RestoreOutputPath>
   </PropertyGroup>
 
