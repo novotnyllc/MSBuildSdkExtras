@@ -141,7 +141,7 @@ Your project diff:
    | ---                                             | ----                                                               
    | `SuppressWarnIfOldSdkPack`                      | `ExtrasIgnoreOldSdkWarning`                                              |   
    | `ExtrasImplicitPlatformPackageDisabled`         | `DisableImplicitFrameworkReferences` + `TargetFramework` condition |
-   | `EmbeddedResourceGeneratorVisibilityIsInternal` | opposite of `ExtrasExtrasEmbeddedResourceGeneratedCodeIsPublic`                |
+   | `EmbeddedResourceGeneratorVisibilityIsInternal` | opposite of `ExtrasEmbeddedResourceGeneratedCodeIsPublic`                |
 
  - Support for WPF and Windows Forms requires an opt-in property to enable:
 Set `ExtrasEnableWpfProjectSetup`/`ExtrasEnableWinFormsProjectSetup` to `true` to include required references and default items. Note in .NET Core 3.0 these have been replaced by `UseWPF`/`UseWindowsForms`.
