@@ -6,7 +6,7 @@ This package contains a few extra extensions to the SDK-style projects that are 
 
 The primary goal of this project is to enable multi-targeting without you having to enter in tons of properties within your `csproj`, `vbproj`, `fsproj`, thus keeping it nice and clean.
 
-See the [blog post](https://oren.codes/2017/01/04/multi-targeting-the-world-a-single-project-to-rule-them-all) for more information.
+See the [blog post](https://claires.site/2017/01/04/multi-targeting-the-world-a-single-project-to-rule-them-all) for more information.
 
 ## Advanced Scenarios
 
@@ -14,7 +14,7 @@ This package also enables advanced library scenarios, allowing you to create ref
 
 ### Reference Assemblies
  
-Reference Assemblies useful in a few scenarios. Please see my [two](https://oren.codes/2018/07/09/create-and-pack-reference-assemblies-made-easy/) [blogs](https://oren.codes/2018/07/03/create-and-pack-reference-assemblies/) for more details.
+Reference Assemblies useful in a few scenarios. Please see my [two](https://oren.codes/2018/07/09/create-and-pack-reference-assemblies-made-easy/) [blogs](https://claires.site/2018/07/03/create-and-pack-reference-assemblies/) for more details.
 
 ### Per-RuntimeIdentifier
 
@@ -26,7 +26,7 @@ See [below](#rids) for creating these using the Extras easily.
 
 Stable: [![MSBuild.Sdk.Extras](https://img.shields.io/nuget/v/MSBuild.Sdk.Extras.svg)](https://nuget.org/packages/MSBuild.Sdk.Extras)
 
-CI Feed: [![MSBuild.Sdk.Extras package in MSBuildSdkExtras feed in Azure Artifacts](https://feeds.dev.azure.com/onovotny/96789f1c-e804-4671-be78-d063a4eced9b/_apis/public/Packaging/Feeds/3773a966-220c-4410-a273-f6d772116a25/Packages/e25b4b0f-f40e-4fb7-8d25-7b266106b6b3/Badge)](https://dev.azure.com/onovotny/GitBuilds/_packaging?_a=package&feed=3773a966-220c-4410-a273-f6d772116a25&package=e25b4b0f-f40e-4fb7-8d25-7b266106b6b3&preferRelease=true) `https://pkgs.dev.azure.com/onovotny/GitBuilds/_packaging/MSBuildSdkExtras/nuget/v3/index.json`
+CI Feed: [![MSBuild.Sdk.Extras package in MSBuildSdkExtras feed in Azure Artifacts](https://feeds.dev.azure.com/clairernovotny/96789f1c-e804-4671-be78-d063a4eced9b/_apis/public/Packaging/Feeds/3773a966-220c-4410-a273-f6d772116a25/Packages/e25b4b0f-f40e-4fb7-8d25-7b266106b6b3/Badge)](https://dev.azure.com/clairernovotny/GitBuilds/_packaging?_a=package&feed=3773a966-220c-4410-a273-f6d772116a25&package=e25b4b0f-f40e-4fb7-8d25-7b266106b6b3&preferRelease=true) `https://pkgs.dev.azure.com/clairernovotny/GitBuilds/_packaging/MSBuildSdkExtras/nuget/v3/index.json`
 
 ### Getting started (VS 15.6+)
 
