@@ -9,7 +9,7 @@ pr:
 jobs:
 - job: Windows
   pool:
-    vmImage: windows-2019
+    vmImage: windows-latest
 
   variables:
     BuildConfiguration: Release
@@ -96,7 +96,7 @@ jobs:
 - job: Linux
   container: nventive/wasm-build:1.4.1
   pool:
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'ubuntu-latest'
 
   variables:
     BuildConfiguration: Release
@@ -139,7 +139,7 @@ jobs:
         XamarinVersion: 5_12_0
 
   pool:
-    vmImage: 'macOS-10.13'
+    vmImage: 'macOS-latest'
 
   variables:
     BuildConfiguration: Release
