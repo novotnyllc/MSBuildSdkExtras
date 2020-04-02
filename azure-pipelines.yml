@@ -1,4 +1,4 @@
-trigger:
+﻿trigger:
 - master
 - rel/*
 
@@ -59,6 +59,17 @@ jobs:
   pool:
     vmImage: windows-2019
 
+  strategy:
+    matrix:
+      NETCORE_DEFAULT:
+        BUILD_NETCORE_VERSION: ''
+      NETCORE_3_1:
+        BUILD_NETCORE_VERSION: '3.1.x'
+      NETCORE_3_0:
+        BUILD_NETCORE_VERSION: '3.0.x'
+      NETCORE_2_2:
+        BUILD_NETCORE_VERSION: '2.2.x'
+
   variables:
     BuildConfiguration: Release
     TMPDIR: $(Build.ArtifactStagingDirectory)
@@ -66,6 +77,14 @@ jobs:
     PackageVersion: 42.42.42
 
   steps:
+
+  - task: UseDotNet@2
+    displayName: 'Use .NET Core sdk'
+    inputs:
+      packageType: sdk
+      version: $(BUILD_NETCORE_VERSION)
+      installationPath: $(Agent.ToolsDirectory)/dotnet
+
   - powershell: |
       mkdir $(Build.ArtifactStagingDirectory)\Packages -Force
     displayName: Create packages temp folder
@@ -94,9 +113,24 @@ jobs:
     displayName: MSBuild Test Projects 2
 
 - job: Linux
-  container: nventive/wasm-build:1.4.1
+  container: unoplatform/wasm-build:2.0
   pool:
     vmImage: 'ubuntu-latest'
+
+  strategy:
+    matrix:
+      # Build fails with 
+      # /__t/dotnet/sdk/3.1.201/Sdks/Microsoft.NET.Sdk.WindowsDesktop/targets/Microsoft.NET.Sdk.WindowsDesktop.props(208,3): 
+      #   error MSB4019: The imported project "/__t/dotnet/sdk/3.1.201/Sdks/Microsoft.NET.Sdk.WindowsDesktop/targets/Microsoft.WinFX.props" was not 
+      #   found. Confirm that the expression in the Import declaration "Microsoft.WinFX.props" is correct, and that the file exists on disk.
+      #
+      # NETCORE_3_1:
+      #   BUILD_NETCORE_VERSION: '3.1.x'
+
+      NETCORE_3_0:
+        BUILD_NETCORE_VERSION: '3.0.x'
+      NETCORE_2_2:
+        BUILD_NETCORE_VERSION: '2.2.x'
 
   variables:
     BuildConfiguration: Release
@@ -105,6 +139,14 @@ jobs:
     PackageVersion: 42.42.42
 
   steps:
+
+  - task: UseDotNet@2
+    displayName: 'Use .NET Core sdk'
+    inputs:
+      packageType: sdk
+      version: $(BUILD_NETCORE_VERSION)
+      installationPath: $(Agent.ToolsDirectory)/dotnet
+
   - script: |
       mkdir $TMPDIR/Packages
     displayName: Create packages temp folder
@@ -133,13 +175,27 @@ jobs:
 
   strategy:
     matrix:
+      Xamarin_Latest:
+        PoolImage: macOS-latest
+
+      Xamarin_6_6_0:
+        XamarinVersion: 6_6_0
+        PoolImage: macOS-10.15
+
+      Xamarin_6_4_0:
+        XamarinVersion: 6_4_0
+        PoolImage: macOS-10.15
+
       Xamarin_5_16_0:
         XamarinVersion: 5_16_0
+        PoolImage: macOS-10.14
+
       Xamarin_5_12_0:
         XamarinVersion: 5_12_0
+        PoolImage: macOS-10.14
 
   pool:
-    vmImage: 'macOS-latest'
+    vmImage: $(PoolImage)
 
   variables:
     BuildConfiguration: Release
@@ -151,6 +207,7 @@ jobs:
 
   - bash: /bin/bash -c "sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh $(XamarinVersion)"
     displayName: Select Xamarin Version
+    condition: and(succeeded(), ne(variables['XamarinVersion'], ''))
 
   - script: |
       mkdir $TMPDIR/Packages
