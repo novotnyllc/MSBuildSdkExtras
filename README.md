@@ -30,7 +30,7 @@ CI Feed: [![MSBuild.Sdk.Extras package in MSBuildSdkExtras feed in Azure Artifac
 
 ### Getting started (VS 15.6+)
 
-Visual Studio 2017 Update 6 (aka _v15.6_) includes support for SDK's resolved from NuGet. That makes using the custom Sdks much easier.
+Visual Studio 2017 Update 6 (aka _v15.6_) includes support for SDK's resolved from NuGet, which is required for this to work. VS 2019 is recommended.
 
 #### Using the SDK
 
@@ -94,6 +94,27 @@ After that, you can use the `Restore`, `Build`, `Pack` targets to restore packag
 - You must install the tools of the platforms you intend to build. For Xamarin, that means the Xamarin Workload; for UWP install those tools as well.
 
 More information on how SDK's are resolved can be found [here](https://docs.microsoft.com/en-us/visualstudio/msbuild/how-to-use-project-sdk#how-project-sdks-are-resolved).
+
+### <a id="rids"></a>Creating Per-RuntimeIdentifier packages
+
+You'll need a few things
+
+1. Make sure to use `TargetFrameworks` instead of `TargetFramework`, even if you're only building a single target framework. I am piggy-backing off of its looping capabilities.
+2. Set the `RuntimeIdentifiers` property to [valid RID's](https://docs.microsoft.com/en-us/dotnet/core/rid-catalog) ([full list](https://github.com/dotnet/runtime/blob/master/src/libraries/pkg/Microsoft.NETCore.Platforms/runtime.json)), separated by a semi-colon. (`<RuntimeIdentifiers>win;unix</RuntimeIdentifiers>`). These can be set per TFM using a condition on the property. This lets you have multiple TFM's, but only some of which have RID's.
+3. For the TFM's that you want want to build separately, set the  property `ExtrasBuildEachRuntimeIdentifier` to `true`.
+
+Note: You must use the `Sdk="MSBuild.Sdk.Extras"` method for this. Using `PackageReference` is unsupported for this scenario.
+
+While the Visual Studio context won't show each RID, it'll build for each. The Extras defines a symbol for each RID for use (`win-x86` would be `WIN_X86` and `centos.7-x64` would be `CENTOS_7_X64`). Dots and dashes become underbars.
+
+You will also need a Reference Assembly for the `ref` folder. Please see my [two](https://claires.site/2018/07/09/create-and-pack-reference-assemblies-made-easy/) [blogs](https://claires.site/2018/07/03/create-and-pack-reference-assemblies/) articles for details.
+
+When you're done, you should be able to build/pack these and it'll create a NuGet package. Your per-RID targets will be in `runtimes/<rid>/lib/<tfm>` and the Reference Assembly will be in `ref/<tfm>`.
+
+If you need to add native assets into runtimes, the easiest way is to use:
+
+`<None Include="path/to/native.dll" PackagePath="runtimes/<rid>/native" Pack="true" />`
+
 
 ### Migrate from the old way (VS pre-15.6)
 
@@ -171,22 +192,4 @@ Once this package is configured, you can now use any supported TFM in your `Targ
 
  If you try to use a framework that you don't have tools installed for, you'll get an error as well saying to check the tools. In some cases this might mean installing an older version of Visual Studio IDE (_like 2015_) to ensure that the necessary targets are installed on the machine.
 
-### <a id="rids"></a>Creating Per-RuntimeIdentifier packages
 
-You'll need a few things
-
-1. Make sure to use `TargetFrameworks` instead of `TargetFramework`, even if you're only building a single target framework. I am piggy-backing off of its looping capabilities.
-2. Set the `RuntimeIdentifiers` property to [valid RID's](https://docs.microsoft.com/en-us/dotnet/core/rid-catalog) ([full list](https://github.com/dotnet/runtime/blob/master/src/libraries/pkg/Microsoft.NETCore.Platforms/runtime.json)), separated by a semi-colon. (`<RuntimeIdentifiers>win;unix</RuntimeIdentifiers>`). These can be set per TFM using a condition on the property. This lets you have multiple TFM's, but only some of which have RID's.
-3. For the TFM's that you want want to build separately, set the  property `ExtrasBuildEachRuntimeIdentifier` to `true`.
-
-Note: You must use the `Sdk="MSBuild.Sdk.Extras"` method for this. Using `PackageReference` is unsupported for this scenario.
-
-While the Visual Studio context won't show each RID, it'll build for each. The Extras defines a symbol for each RID for use (`win-x86` would be `WIN_X86` and `centos.7-x64` would be `CENTOS_7_X64`). Dots and dashes become underbars.
-
-You will also need a Reference Assembly for the `ref` folder. Please see my [two](https://oren.codes/2018/07/09/create-and-pack-reference-assemblies-made-easy/) [blogs](https://oren.codes/2018/07/03/create-and-pack-reference-assemblies/) articles for details.
-
-When you're done, you should be able to build/pack these and it'll create a NuGet package. Your per-RID targets will be in `runtimes/<rid>/lib/<tfm>` and the Reference Assembly will be in `ref/<tfm>`.
-
-If you need to add native assets into runtimes, the easiest way is to use:
-
-`<None Include="path/to/native.dll" PackagePath="runtimes/<rid>/native" Pack="true" />`
