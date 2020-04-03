@@ -6,10 +6,10 @@
   <PropertyGroup Label="PackageInfo">
     <Authors>Claire Novotny</Authors>
     <Copyright>© Claire Novotny</Copyright>
-    <RepositoryUrl>https://github.com/onovotny/MSBuildSdkExtras</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/onovotny/MSBuildSdkExtras</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/onovotny/MSBuildSdkExtras/blob/master/LICENSE.md</PackageLicenseUrl>
-    <PackageReleaseNotes>https://github.com/onovotny/MSBuildSdkExtras/blob/master/README.md</PackageReleaseNotes>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <PackageProjectUrl>https://github.com/novotnyllc/MSBuildSdkExtras</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/novotnyllc/MSBuildSdkExtras/blob/master/LICENSE.md</PackageLicenseUrl>
+    <PackageReleaseNotes>https://github.com/novotnyllc/MSBuildSdkExtras/blob/master/README.md</PackageReleaseNotes>
   </PropertyGroup>
 
 </Project>
