@@ -4,9 +4,8 @@
   <Import Project="..\Tools\MSBuild.Packaging.props"/>
 
   <PropertyGroup Label="PackageInfo">
-    <Authors>Oren Novotny</Authors>
-    <Copyright>© Oren Novotny</Copyright>
-    <RepositoryType>git</RepositoryType>
+    <Authors>Claire Novotny</Authors>
+    <Copyright>© Claire Novotny</Copyright>
     <RepositoryUrl>https://github.com/onovotny/MSBuildSdkExtras</RepositoryUrl>
     <PackageProjectUrl>https://github.com/onovotny/MSBuildSdkExtras</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/onovotny/MSBuildSdkExtras/blob/master/LICENSE.md</PackageLicenseUrl>
