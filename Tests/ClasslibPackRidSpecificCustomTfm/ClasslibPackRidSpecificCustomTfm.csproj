@@ -1,0 +1,52 @@
+<Project>
+
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\Sdk\Sdk.props" />
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RuntimeIdentifiers>win;unix</RuntimeIdentifiers>
+    <ExtrasBuildEachRuntimeIdentifier>true</ExtrasBuildEachRuntimeIdentifier>
+    <ExtrasIncludeDefaultProjectBuildOutputInPackTarget>IncludeDefaultProjectBuildOutputInPack</ExtrasIncludeDefaultProjectBuildOutputInPackTarget>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\Sdk\Sdk.targets" />
+
+  <Target Name="GenerateNuspec" DependsOnTargets="$(GenerateNuspecDependsOn);_CalculateInputsOutputsForPack;_GetProjectReferenceVersions;_InitializeNuspecRepositoryInformationProperties" Condition="$(IsPackable) == 'true'"
+          Inputs="@(NuGetPackInput)" Outputs="@(NuGetPackOutput)">
+
+    <PropertyGroup>
+      <GenerateNuspecCalled>true</GenerateNuspecCalled>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <TestNuGetPackInputOutputAssembly Include="@(NuGetPackInput->WithMetadataValue('BuildAction', 'None')->WithMetadataValue('Pack', 'true')->HasMetadata('PackagePath')->WithMetadataValue('Filename', '$(MSBuildProjectName)')->WithMetadataValue('Extension', '.dll'))" />
+      <TestNuGetPackInputOutputSymbols Include="@(NuGetPackInput->WithMetadataValue('BuildAction', 'None')->WithMetadataValue('Pack', 'true')->HasMetadata('PackagePath')->WithMetadataValue('Filename', '$(MSBuildProjectName)')->WithMetadataValue('Extension', '.pdb'))" />
+      <TestPackageFilesOutputAssembly Include="@(_PackageFiles->WithMetadataValue('BuildAction', 'None')->WithMetadataValue('Pack', 'true')->HasMetadata('PackagePath')->WithMetadataValue('Filename', '$(MSBuildProjectName)')->WithMetadataValue('Extension', '.dll'))" />
+      <TestPackageFilesOutputSymbols Include="@(_PackageFiles->WithMetadataValue('BuildAction', 'None')->WithMetadataValue('Pack', 'true')->HasMetadata('PackagePath')->WithMetadataValue('Filename', '$(MSBuildProjectName)')->WithMetadataValue('Extension', '.pdb'))" />
+    </ItemGroup>
+
+    <Error Text="NuGetPackInput must contain the output DLLs" Condition="'@(TestNuGetPackInputOutputAssembly->Count())' != '2'" />
+    <Error Text="NuGetPackInput must contain output PDBs" Condition="'@(TestNuGetPackInputOutputSymbols->Count())' != '2'" />
+    <Error Text="NuGetPackInput must contain output DLL for win RID" Condition="'@(TestNuGetPackInputOutputAssembly->WithMetadataValue('PackagePath', 'tools/netstandard2.0/win')->Count())' != '1'" />
+    <Error Text="NuGetPackInput must contain output PDB for win RID" Condition="'@(TestNuGetPackInputOutputSymbols->WithMetadataValue('PackagePath', 'tools/netstandard2.0/win')->Count())' != '1'" />
+    <Error Text="NuGetPackInput must contain output DLL for unix RID" Condition="'@(TestNuGetPackInputOutputAssembly->WithMetadataValue('PackagePath', 'tools/netstandard2.0/unix')->Count())' != '1'" />
+    <Error Text="NuGetPackInput must contain output PDB for unix RID" Condition="'@(TestNuGetPackInputOutputSymbols->WithMetadataValue('PackagePath', 'tools/netstandard2.0/unix')->Count())' != '1'" />
+    <Error Text="BuildOutputInPackage must be empty" Condition="'@(_BuildOutputInPackage->Count())' != '0'" />
+    <Error Text="TargetPathsToSymbols must be empty" Condition="'@(_TargetPathsToSymbols->Count())' != '0'" />
+    <Error Text="_PackageFiles must contain exactly 2×2 items" Condition="'@(_PackageFiles->Count())' != '4'" />
+    <Error Text="_PackageFiles must contain the output DLLs" Condition="'@(TestPackageFilesOutputAssembly->Count())' != '2'" />
+    <Error Text="_PackageFiles must contain output PDBs" Condition="'@(TestPackageFilesOutputSymbols->Count())' != '2'" />
+    <Error Text="_PackageFiles must contain output DLL for win RID" Condition="'@(TestPackageFilesOutputAssembly->WithMetadataValue('PackagePath', 'tools/netstandard2.0/win')->Count())' != '1'" />
+    <Error Text="_PackageFiles must contain output PDB for win RID" Condition="'@(TestPackageFilesOutputSymbols->WithMetadataValue('PackagePath', 'tools/netstandard2.0/win')->Count())' != '1'" />
+    <Error Text="_PackageFiles must contain output DLL for unix RID" Condition="'@(TestPackageFilesOutputAssembly->WithMetadataValue('PackagePath', 'tools/netstandard2.0/unix')->Count())' != '1'" />
+    <Error Text="_PackageFiles must contain output PDB for unix RID" Condition="'@(TestPackageFilesOutputSymbols->WithMetadataValue('PackagePath', 'tools/netstandard2.0/unix')->Count())' != '1'" />
+    <Error Text="Missing output warnings generated" Condition="'@(_MissingRidSpecificOutput->Count())' != '4'" />
+
+  </Target>
+
+  <Target Name="Test" DependsOnTargets="Pack">
+    <Error Text="GenerateNuspec must be called" Condition="'$(GenerateNuspecCalled)' != 'true'" />
+    <Error Text="IncludeDefaultProjectBuildOutputInPack must be called" Condition="'$(IncludeDefaultProjectBuildOutputInPackCalled)' != 'true'" />
+  </Target>
+
+</Project>

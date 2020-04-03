@@ -97,23 +97,46 @@ More information on how SDK's are resolved can be found [here](https://docs.micr
 
 ### <a id="rids"></a>Creating Per-RuntimeIdentifier packages
 
-You'll need a few things
+You'll need to perform a few simple steps:
 
 1. Make sure to use `TargetFrameworks` instead of `TargetFramework`, even if you're only building a single target framework. I am piggy-backing off of its looping capabilities.
-2. Set the `RuntimeIdentifiers` property to [valid RID's](https://docs.microsoft.com/en-us/dotnet/core/rid-catalog) ([full list](https://github.com/dotnet/runtime/blob/master/src/libraries/pkg/Microsoft.NETCore.Platforms/runtime.json)), separated by a semi-colon. (`<RuntimeIdentifiers>win;unix</RuntimeIdentifiers>`). These can be set per TFM using a condition on the property. This lets you have multiple TFM's, but only some of which have RID's.
-3. For the TFM's that you want want to build separately, set the  property `ExtrasBuildEachRuntimeIdentifier` to `true`.
+2. Set the `RuntimeIdentifiers` property to [valid RID's](https://docs.microsoft.com/en-us/dotnet/core/rid-catalog) ([full list](https://github.com/dotnet/runtime/blob/master/src/libraries/pkg/Microsoft.NETCore.Platforms/runtime.json)), separated by a semi-colon (`<RuntimeIdentifiers>win;unix</RuntimeIdentifiers>`).
+3. For the TFM's that you want want to build separately, set the `ExtrasBuildEachRuntimeIdentifier` property to `true`.
 
-Note: You must use the `Sdk="MSBuild.Sdk.Extras"` method for this. Using `PackageReference` is unsupported for this scenario.
+When you're done, you should be able to run build/pack and it'll produce a NuGet package.
 
-While the Visual Studio context won't show each RID, it'll build for each. The Extras defines a symbol for each RID for use (`win-x86` would be `WIN_X86` and `centos.7-x64` would be `CENTOS_7_X64`). Dots and dashes become underbars.
+Notes:
+* You must use the `Sdk="MSBuild.Sdk.Extras"` method for this. Using `PackageReference` is unsupported for this scenario.
+* While the Visual Studio context won't show each RID, it'll build for each.
+* The Extras defines a preprocessor symbol for each RID for use (`win-x86` would be `WIN_X86` and `centos.7-x64` would be `CENTOS_7_X64`). Dots and dashes become underbars.
+* The default path for per-RID output assemblies and symbols in NuGet package is `runtimes/<RuntimeIdentifier>/lib/<TargetFramework>`.
+* `RuntimeIdentifiers` can be set per-`TargetFramework` using a condition on the property. This lets you have multiple TFM's, but only some of which have RID's.
 
-You will also need a Reference Assembly for the `ref` folder. Please see my [two](https://claires.site/2018/07/09/create-and-pack-reference-assemblies-made-easy/) [blogs](https://claires.site/2018/07/03/create-and-pack-reference-assemblies/) articles for details.
+#### Reference Assemblies
+You will likely need to create reference assemblies to simplify development and consumption of your libraries with complex flavor (`TargetFramework` × `RuntimeIdentifier`) matrix.
+Reference assemblies are packed into `ref/<TargetFramework>` folder. Please see my [two](https://claires.site/2018/07/09/create-and-pack-reference-assemblies-made-easy/) [blogs](https://claires.site/2018/07/03/create-and-pack-reference-assemblies/) articles for details.
 
-When you're done, you should be able to build/pack these and it'll create a NuGet package. Your per-RID targets will be in `runtimes/<rid>/lib/<tfm>` and the Reference Assembly will be in `ref/<tfm>`.
-
+#### Packing additional contents
 If you need to add native assets into runtimes, the easiest way is to use:
+```xml
+<None Include="path/to/native.dll" PackagePath="runtimes/<rid>/native" Pack="true" />
+```
 
-`<None Include="path/to/native.dll" PackagePath="runtimes/<rid>/native" Pack="true" />`
+#### Overriding content paths in output package
+Minimal example to pack output assemblies and symbols to `tools` (instead of `runtimes`) subfolders.
+```xml
+<PropertyGroup>
+  <ExtrasIncludeDefaultProjectBuildOutputInPackTarget>IncludeDefaultProjectBuildOutputInPack</ExtrasIncludeDefaultProjectBuildOutputInPackTarget>
+</PropertyGroup>
+
+<Target Name="IncludeDefaultProjectBuildOutputInPack">
+  <ItemGroup>
+    <None Include="@(RidSpecificOutput)" PackagePath="tools/%(TargetFramework)/%(Rid)" Pack="true" />
+  </ItemGroup>
+</Target>
+```
+
+For advanced options, see _ClasslibPack*_ SDK tests and _RIDs.targets_ file.
 
 
 ### Migrate from the old way (VS pre-15.6)

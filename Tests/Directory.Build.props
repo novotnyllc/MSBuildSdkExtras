@@ -1,0 +1,7 @@
+<Project>
+
+    <PropertyGroup>
+        <ExtrasSuppressRidSpecificOutputValidationWarnings>true</ExtrasSuppressRidSpecificOutputValidationWarnings>
+    </PropertyGroup>
+
+</Project>

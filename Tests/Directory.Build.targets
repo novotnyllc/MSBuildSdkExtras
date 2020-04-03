@@ -1,7 +1,46 @@
 <Project>
 
-	<Target Name="_EnsureTempSource" BeforeTargets="Restore">
-		<MakeDir Directories="$(TEMP)\packages" Condition="!Exists('$(TEMP)\packages')" />
-	</Target>
+  <Target Name="_EnsureTempSource" BeforeTargets="Restore">
+    <MakeDir Directories="$(TEMP)\packages" Condition="!Exists('$(TEMP)\packages')" />
+  </Target>
+
+  <Target Name="IncludeDefaultProjectBuildOutputInPack">
+
+    <PropertyGroup>
+      <IncludeDefaultProjectBuildOutputInPackCalled>true</IncludeDefaultProjectBuildOutputInPackCalled>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <None Include="@(RidSpecificOutput->'%(Identity)')" PackagePath="tools/%(TargetFramework)/%(Rid)" Pack="true" KeepMetadata="FakeProperty" />
+    </ItemGroup>
+
+  </Target>
+
+  <Target Name="ClasslibPackNonRidSpecificGenerateNuspec" DependsOnTargets="$(GenerateNuspecDependsOn);_CalculateInputsOutputsForPack;_GetProjectReferenceVersions;_InitializeNuspecRepositoryInformationProperties" Condition="$(IsPackable) == 'true'"
+          Inputs="@(NuGetPackInput)" Outputs="@(NuGetPackOutput)">
+
+    <PropertyGroup>
+      <GenerateNuspecCalled>true</GenerateNuspecCalled>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <TestNuGetPackInputOutputAssembly Include="@(NuGetPackInput->WithMetadataValue('TargetFramework', 'netstandard2.0')->WithMetadataValue('MSBuildSourceProjectFile', '$(MSBuildProjectFullPath)')->WithMetadataValue('MSBuildSourceTargetName', '_SdkGetBuildOutputFilesWithTfm')->WithMetadataValue('Filename', '$(MSBuildProjectName)')->WithMetadataValue('Extension', '.dll')->WithMetadataValue('IsKeyOutput', 'true'))" />
+      <TestNuGetPackInputOutputSymbols Include="@(NuGetPackInput->WithMetadataValue('TargetFramework', 'netstandard2.0')->WithMetadataValue('MSBuildSourceProjectFile', '$(MSBuildProjectFullPath)')->WithMetadataValue('MSBuildSourceTargetName', '_SdkGetDebugSymbolsWithTfm')->WithMetadataValue('Filename', '$(MSBuildProjectName)')->WithMetadataValue('Extension', '.pdb'))" />
+      <TestOutputAssembly Include="@(_BuildOutputInPackage->WithMetadataValue('TargetFramework', 'netstandard2.0')->WithMetadataValue('MSBuildSourceProjectFile', '$(MSBuildProjectFullPath)')->WithMetadataValue('MSBuildSourceTargetName', '_SdkGetBuildOutputFilesWithTfm')->WithMetadataValue('Filename', '$(MSBuildProjectName)')->WithMetadataValue('Extension', '.dll')->WithMetadataValue('IsKeyOutput', 'true'))" />
+      <TestOutputSymbols Include="@(_TargetPathsToSymbols->WithMetadataValue('TargetFramework', 'netstandard2.0')->WithMetadataValue('MSBuildSourceProjectFile', '$(MSBuildProjectFullPath)')->WithMetadataValue('MSBuildSourceTargetName', '_SdkGetDebugSymbolsWithTfm')->WithMetadataValue('Filename', '$(MSBuildProjectName)')->WithMetadataValue('Extension', '.pdb'))" />
+    </ItemGroup>
+
+    <Error Text="NuGetPackInput must contain the output DLL" Condition="'@(TestNuGetPackInputOutputAssembly->Count())' != '1'" />
+    <Error Text="NuGetPackInput must contain output PDB" Condition="'@(TestNuGetPackInputOutputSymbols->Count())' != '1'" />
+    <Error Text="NuGetPackInput output DLL must be Rid-agnostic" Condition="'@(TestNuGetPackInputOutputAssembly->HasMetadata('Rid')->Count())' != '0'" />
+    <Error Text="NuGetPackInput output PDB must be Rid-agnostic" Condition="'@(TestNuGetPackInputOutputSymbols->HasMetadata('Rid')->Count())' != '0'" />
+    <Error Text="BuildOutputInPackage must contain the output DLL" Condition="'@(TestOutputAssembly->Count())' != '1'" />
+    <Error Text="TargetPathsToSymbols must contain output PDB" Condition="'@(TestOutputSymbols->Count())' != '1'" />
+    <Error Text="BuildOutputInPackage must be Rid-agnostic" Condition="'@(TestOutputAssembly->HasMetadata('Rid')->Count())' != '0'" />
+    <Error Text="TargetPathsToSymbols must be Rid-agnostic" Condition="'@(TestOutputSymbols->HasMetadata('Rid')->Count())' != '0'" />
+    <Error Text="_PackageFiles must be empty" Condition="'@(_PackageFiles->Count())' != '0'" />
+    <Error Text="No missing output warning generated" Condition="'@(_MissingRidSpecificOutput->Count())' != '0'" />
+
+  </Target>
 
 </Project>
