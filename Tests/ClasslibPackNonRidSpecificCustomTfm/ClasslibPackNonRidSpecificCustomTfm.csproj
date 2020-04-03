@@ -1,0 +1,19 @@
+<Project>
+
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\Sdk\Sdk.props" />
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ExtrasIncludeDefaultProjectBuildOutputInPackTarget>IncludeDefaultProjectBuildOutputInPack</ExtrasIncludeDefaultProjectBuildOutputInPackTarget>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\Sdk\Sdk.targets" />
+
+  <Target Name="GenerateNuspec" DependsOnTargets="ClasslibPackNonRidSpecificGenerateNuspec" />
+
+  <Target Name="Test" DependsOnTargets="Pack">
+    <Error Text="GenerateNuspec must be called" Condition="'$(GenerateNuspecCalled)' != 'true'" />
+    <Error Text="IncludeDefaultProjectBuildOutputInPack must be called" Condition="'$(IncludeDefaultProjectBuildOutputInPackCalled)' != 'true'" />
+  </Target>
+
+</Project>

@@ -1,0 +1,40 @@
+<Project>
+
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\Sdk\Sdk.props" />
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RuntimeIdentifiers>win;unix</RuntimeIdentifiers>
+    <ExtrasBuildEachRuntimeIdentifier>true</ExtrasBuildEachRuntimeIdentifier>
+    <ExtrasIncludeDefaultProjectBuildOutputInPack>false</ExtrasIncludeDefaultProjectBuildOutputInPack>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\Sdk\Sdk.targets" />
+
+  <Target Name="GenerateNuspec" DependsOnTargets="$(GenerateNuspecDependsOn);_CalculateInputsOutputsForPack;_GetProjectReferenceVersions;_InitializeNuspecRepositoryInformationProperties" Condition="$(IsPackable) == 'true'"
+          Inputs="@(NuGetPackInput)" Outputs="@(NuGetPackOutput)">
+
+    <PropertyGroup>
+      <GenerateNuspecCalled>true</GenerateNuspecCalled>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <TestNuGetPackInputOutputAssembly Include="@(NuGetPackInput->WithMetadataValue('Extension', '.dll'))" />
+      <TestNuGetPackInputOutputSymbols Include="@(NuGetPackInput->WithMetadataValue('Extension', '.pdb'))" />
+    </ItemGroup>
+
+    <Error Text="NuGetPackInput must not contain the output DLL" Condition="'@(TestNuGetPackInputOutputAssembly->Count())' != '0'" />
+    <Error Text="NuGetPackInput must not contain output PDB" Condition="'@(TestNuGetPackInputOutputSymbols->Count())' != '0'" />
+    <Error Text="BuildOutputInPackage must be empty" Condition="'@(_BuildOutputInPackage->Count())' != '0'" />
+    <Error Text="TargetPathsToSymbols must be empty" Condition="'@(_TargetPathsToSymbols->Count())' != '0'" />
+    <Error Text="_PackageFiles must be empty" Condition="'@(_PackageFiles->Count())' != '0'" />
+    <Error Text="Missing output warnings generated" Condition="'@(_MissingRidSpecificOutput->Count())' != '4'" />
+
+  </Target>
+
+  <Target Name="Test" DependsOnTargets="Pack">
+    <Error Text="GenerateNuspec must be called" Condition="'$(GenerateNuspecCalled)' != 'true'" />
+    <Error Text="IncludeDefaultProjectBuildOutputInPack must not be called" Condition="'$(IncludeDefaultProjectBuildOutputInPackCalled)' != ''" />
+  </Target>
+
+</Project>

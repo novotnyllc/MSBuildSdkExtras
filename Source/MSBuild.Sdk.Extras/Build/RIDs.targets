@@ -2,76 +2,97 @@
 
   <PropertyGroup>
     <MSBuildAllProjects Condition=" '$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0' ">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <ExtrasIncludeDefaultProjectBuildOutputInPackTarget Condition="'$(ExtrasIncludeDefaultProjectBuildOutputInPackTarget)' == ''">_SdkIncludeDefaultProjectBuildOutputInPackImpl</ExtrasIncludeDefaultProjectBuildOutputInPackTarget>
   </PropertyGroup>
+
 
   <Target Name="_SdkGetRidsPerTargetFramework" Returns="@(_SdkRuntimeId)">
 
-    <PropertyGroup>
-      <ExtrasBuildEachRuntimeIdentifier Condition="'$(ExtrasBuildEachRuntimeIdentifier)' == ''">false</ExtrasBuildEachRuntimeIdentifier>
-    </PropertyGroup>
-
     <ItemGroup>
-      <_SdkRuntimeIds Include="$(RuntimeIdentifiers)" Condition="'$(RuntimeIdentifiers)' != '' and '$(ExtrasBuildEachRuntimeIdentifier)' == 'true' " TargetFramework="$(TargetFramework)"  />
+      <_SdkRuntimeIds Include="$(RuntimeIdentifiers)" Condition="'$(RuntimeIdentifiers)' != '' and '$(ExtrasBuildEachRuntimeIdentifier)' == 'true' " TargetFramework="$(TargetFramework)" />
 
-      <_SdkRuntimeId Include="@(_SdkRuntimeIds->'%(TargetFramework)')" Rid="%(_SdkRuntimeIds.Identity)"  />    
-      <_SdkRuntimeId Include="$(TargetFramework)" Condition="'$(ExtrasBuildEachRuntimeIdentifier)' == 'false'"  />
+      <_SdkRuntimeId Include="@(_SdkRuntimeIds->'%(TargetFramework)')" Rid="%(_SdkRuntimeIds.Identity)" />
+      <_SdkRuntimeId Include="$(TargetFramework)" Condition="'$(ExtrasBuildEachRuntimeIdentifier)' != 'true'" />
     </ItemGroup>
+
   </Target>
 
 
-
-  <Target Name="_ComputeTargetFrameworkItems" Returns="@(InnerOutput)">
+  <Target Name="_SdkTargetFrameworkNormalizedFromComputeTargetFrameworkItems">
     <ItemGroup>
       <_TargetFramework Include="$(TargetFrameworks)" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <_InnerBuildProjects Include="$(MSBuildProjectFile)">
-        <AdditionalProperties>TargetFramework=%(_TargetFramework.Identity)</AdditionalProperties>
-      </_InnerBuildProjects>
-    </ItemGroup>
-
-    <MSBuild Projects="@(_InnerBuildProjects)"
-             BuildInParallel="$(BuildInParallel)"
-             Targets="_SdkGetRidsPerTargetFramework">
-      <Output ItemName="_SdkTargetsWithRids" TaskParameter="TargetOutputs"  />
-    </MSBuild>
-
-    <ItemGroup>
-      <_InnerBuildProjects Remove="@(_InnerBuildProjects)" />
-      <_InnerBuildProjects Include="$(MSBuildProjectFile)">
-        <AdditionalProperties Condition="'%(_SdkTargetsWithRids.Rid)' != ''" >TargetFramework=%(_SdkTargetsWithRids.Identity);RuntimeIdentifier=%(_SdkTargetsWithRids.Rid)</AdditionalProperties>
-        <AdditionalProperties Condition="'%(_SdkTargetsWithRids.Rid)' == ''" >TargetFramework=%(_SdkTargetsWithRids.Identity)</AdditionalProperties>
-      </_InnerBuildProjects>
+      <!-- Make normalization explicit: Trim; Deduplicate by keeping first occurrence, case insensitive -->
+      <_TargetFrameworkNormalized Include="@(_TargetFramework->Trim()->Distinct())" />
     </ItemGroup>
   </Target>
 
 
+  <!-- Implicit DependsOnTargets="_GetTargetFrameworksOutput" -->
+  <Target Name="_SdkTargetFrameworkNormalizedFromGetTargetFrameworksOutput">
+    <ItemGroup>
+      <_TargetFrameworkNormalized Include="@(_TargetFrameworks)" />
+    </ItemGroup>
+  </Target>
 
-  <Target Name="_WalkEachTargetPerFramework">
-    <MSBuild Projects="$(MSBuildProjectFile)"
+
+  <Target Name="_SdkPrepareProjectFlavorMatrix"
+          DependsOnTargets="$(_SdkPrepareProjectFlavorMatrixDependsOn)">
+
+    <ItemGroup>
+      <_SdkProjectFlavorMatrixItem Include="$(MSBuildProjectFullPath)">
+        <SetTargetFramework>TargetFramework=%(_TargetFrameworkNormalized.Identity)</SetTargetFramework>
+        <SetRuntimeIdentifier />
+      </_SdkProjectFlavorMatrixItem>
+    </ItemGroup>
+
+    <MSBuild Projects="@(_SdkProjectFlavorMatrixItem)"
              BuildInParallel="$(BuildInParallel)"
-             Properties="TargetFramework=%(_TargetFrameworks.Identity)"
+             Properties="%(_SdkProjectFlavorMatrixItem.SetTargetFramework)"
              Targets="_SdkGetRidsPerTargetFramework">
-      <Output ItemName="_SdkTargetsWithRids" TaskParameter="TargetOutputs"  />
+      <Output ItemName="_SdkProjectFlavorMatrixItemStaging" TaskParameter="TargetOutputs" />
     </MSBuild>
 
+    <ItemGroup>
+      <_SdkProjectFlavorMatrixItem Remove="@(_SdkProjectFlavorMatrixItem)" />
+      <_SdkProjectFlavorMatrixItem Include="@(_SdkProjectFlavorMatrixItemStaging->'%(OriginalItemSpec)')" KeepMetadata="TargetFramework;SetTargetFramework;Rid;SetRuntimeIdentifier" />
+      <_SdkProjectFlavorMatrixItemStaging Remove="@(_SdkProjectFlavorMatrixItemStaging)" />
+      <_SdkProjectFlavorMatrixItem Update="@(_SdkProjectFlavorMatrixItem)">
+        <SetRuntimeIdentifier Condition="'%(_SdkProjectFlavorMatrixItem.Rid)' != ''">RuntimeIdentifier=%(_SdkProjectFlavorMatrixItem.Rid)</SetRuntimeIdentifier>
+      </_SdkProjectFlavorMatrixItem>
+    </ItemGroup>
+
+  </Target>
+
+
+  <!-- Microsoft.Common.CrossTargeting.targets -> _ComputeTargetFrameworkItems -->
+  <!-- One intentional diff in target signature: removal of Returns="@(InnerOutput)" -->
+  <!-- Rationale: it's not produced by _ComputeTargetFrameworkItems, most likely a result of copy-paste -->
+  <Target Name="_ComputeTargetFrameworkItems"
+          DependsOnTargets="_SdkTargetFrameworkNormalizedFromComputeTargetFrameworkItems;_SdkPrepareProjectFlavorMatrix">
+
+    <ItemGroup>
+      <_InnerBuildProjects Include="@(_SdkProjectFlavorMatrixItem)" KeepMetadata="FakeProperty">
+        <AdditionalProperties Condition="'%(SetRuntimeIdentifier)' != ''">%(SetTargetFramework);%(SetRuntimeIdentifier)</AdditionalProperties>
+        <AdditionalProperties Condition="'%(SetRuntimeIdentifier)' == ''">%(SetTargetFramework)</AdditionalProperties>
+      </_InnerBuildProjects>
+    </ItemGroup>
+
+  </Target>
+
+
+  <Target Name="_WalkEachTargetPerFrameworkCore"
+          DependsOnTargets="_SdkTargetFrameworkNormalizedFromGetTargetFrameworksOutput;_SdkPrepareProjectFlavorMatrix;$(_WalkEachTargetPerFrameworkCoreDependsOn)">
+
+    <PropertyGroup>
+      <ExtrasRidSpecificOutputNoKeepMetadata Condition="'$(ExtrasRidSpecificOutputNoKeepMetadata)' == ''">false</ExtrasRidSpecificOutputNoKeepMetadata>
+      <ExtrasRidSpecificOutputKeepMetadata Condition="'$(ExtrasRidSpecificOutputKeepMetadata)' == '' and '$(ExtrasRidSpecificOutputNoKeepMetadata)' == 'false'">TargetFramework;Rid</ExtrasRidSpecificOutputKeepMetadata>
+    </PropertyGroup>
+
     <MSBuild
-      Condition="'$(IncludeBuildOutput)' == 'true' and '%(_SdkTargetsWithRids.Rid)' != ''"
-      Projects="$(MSBuildProjectFullPath)"
+      Condition="'$(IncludeBuildOutput)' == 'true'"
+      Projects="@(_SdkProjectFlavorMatrixItem)"
       Targets="_SdkGetBuildOutputFilesWithTfm"
-      Properties="TargetFramework=%(_SdkTargetsWithRids.Identity);RuntimeIdentifier=%(_SdkTargetsWithRids.Rid)">
-
-      <Output
-          TaskParameter="TargetOutputs"
-          ItemName="_BuildOutputInPackageWithRid" />
-    </MSBuild>
-
-    <MSBuild
-      Condition="'$(IncludeBuildOutput)' == 'true' and '%(_SdkTargetsWithRids.Rid)' == ''"
-      Projects="$(MSBuildProjectFullPath)"
-      Targets="_GetBuildOutputFilesWithTfm"
-      Properties="TargetFramework=%(_SdkTargetsWithRids.Identity);">
+      Properties="%(_SdkProjectFlavorMatrixItem.SetTargetFramework); %(_SdkProjectFlavorMatrixItem.SetRuntimeIdentifier)">
 
       <Output
         TaskParameter="TargetOutputs"
@@ -79,10 +100,10 @@
     </MSBuild>
 
     <MSBuild
-      Condition="'$(TargetsForTfmSpecificContentInPackage)' != '' and '%(_SdkTargetsWithRids.Rid)' != ''"
-      Projects="$(MSBuildProjectFullPath)"
+      Condition="'$(TargetsForTfmSpecificContentInPackage)' != ''"
+      Projects="@(_SdkProjectFlavorMatrixItem)"
       Targets="_GetTfmSpecificContentForPackage"
-      Properties="TargetFramework=%(_SdkTargetsWithRids.Identity);RuntimeIdentifier=%(_SdkTargetsWithRids.Rid)">
+      Properties="%(_SdkProjectFlavorMatrixItem.SetTargetFramework); %(_SdkProjectFlavorMatrixItem.SetRuntimeIdentifier)">
 
       <Output
           TaskParameter="TargetOutputs"
@@ -90,32 +111,10 @@
     </MSBuild>
 
     <MSBuild
-      Condition="'$(TargetsForTfmSpecificContentInPackage)' != '' and '%(_SdkTargetsWithRids.Rid)' == ''"
-      Projects="$(MSBuildProjectFullPath)"
-      Targets="_GetTfmSpecificContentForPackage"
-      Properties="TargetFramework=%(_SdkTargetsWithRids.Identity);">
-
-      <Output
-        TaskParameter="TargetOutputs"
-        ItemName="_PackageFiles"/>
-    </MSBuild>
-
-    <MSBuild
-      Condition="'$(IncludeBuildOutput)' == 'true' and '%(_SdkTargetsWithRids.Rid)' != ''"
-      Projects="$(MSBuildProjectFullPath)"
+      Condition="'$(IncludeBuildOutput)' == 'true'"
+      Projects="@(_SdkProjectFlavorMatrixItem)"
       Targets="_SdkGetDebugSymbolsWithTfm"
-      Properties="TargetFramework=%(_SdkTargetsWithRids.Identity);RuntimeIdentifier=%(_SdkTargetsWithRids.Rid)">
-
-      <Output
-          TaskParameter="TargetOutputs"
-          ItemName="_TargetPathsToSymbolsWithRid" />
-    </MSBuild>
-
-    <MSBuild
-      Condition="'$(IncludeBuildOutput)' == 'true' and '%(_SdkTargetsWithRids.Rid)' == ''"
-      Projects="$(MSBuildProjectFullPath)"
-      Targets="_GetDebugSymbolsWithTfm"
-      Properties="TargetFramework=%(_SdkTargetsWithRids.Identity);">
+      Properties="%(_SdkProjectFlavorMatrixItem.SetTargetFramework); %(_SdkProjectFlavorMatrixItem.SetRuntimeIdentifier)">
 
       <Output
         TaskParameter="TargetOutputs"
@@ -123,11 +122,10 @@
     </MSBuild>
 
     <MSBuild
-      Condition="'$(IncludeSource)' == 'true' and '%(_SdkTargetsWithRids.Rid)' == ''"
-      Projects="$(MSBuildProjectFullPath)"
+      Condition="'$(IncludeSource)' == 'true' and '%(_SdkProjectFlavorMatrixItem.Rid)' == ''"
+      Projects="@(_SdkProjectFlavorMatrixItem)"
       Targets="SourceFilesProjectOutputGroup"
-      Properties="TargetFramework=%(_SdkTargetsWithRids.Identity);
-                  BuildProjectReferences=false;">
+      Properties="%(_SdkProjectFlavorMatrixItem.SetTargetFramework); BuildProjectReferences=false">
 
       <Output
           TaskParameter="TargetOutputs"
@@ -135,10 +133,9 @@
     </MSBuild>
 
     <MSBuild
-      Projects="$(MSBuildProjectFullPath)"
+      Projects="@(_SdkProjectFlavorMatrixItem)"
       Targets="_GetFrameworkAssemblyReferences"
-      Properties="TargetFramework=%(_TargetFrameworks.Identity);
-                  BuildProjectReferences=false;">
+      Properties="%(_SdkProjectFlavorMatrixItem.SetTargetFramework); BuildProjectReferences=false">
 
       <Output
           TaskParameter="TargetOutputs"
@@ -150,10 +147,10 @@
     </PropertyGroup>
 
     <MSBuild
-      Projects="$(MSBuildProjectFullPath)" Condition="'$([System.Version]::Parse($(_SdkNETCoreSdkVersion)).CompareTo($([System.Version]::Parse($(_SdkMinVersionWithDependencyTarget)))))' &gt;= '0' "
+      Projects="@(_SdkProjectFlavorMatrixItem)"
+      Condition="'$([System.Version]::Parse($(_SdkNETCoreSdkVersion)).CompareTo($([System.Version]::Parse($(_SdkMinVersionWithDependencyTarget)))))' &gt;= '0' "
       Targets="_GetFrameworksWithSuppressedDependencies"
-      Properties="TargetFramework=%(_TargetFrameworks.Identity);
-                  BuildProjectReferences=false;">
+      Properties="%(_SdkProjectFlavorMatrixItem.SetTargetFramework); BuildProjectReferences=false">
 
       <Output
           TaskParameter="TargetOutputs"
@@ -161,41 +158,83 @@
     </MSBuild>
 
     <ItemGroup>
+      <_BuildOutputInPackageWithRid Include="@(_BuildOutputInPackage->HasMetadata('Rid'))" />
+      <_TargetPathsToSymbolsWithRid Include="@(_TargetPathsToSymbols->HasMetadata('Rid'))" />
+      <_BuildOutputInPackageWithRid Remove="@(_BuildOutputInPackageWithRid)" Condition="'%(Rid)' == ''" />
+      <_TargetPathsToSymbolsWithRid Remove="@(_TargetPathsToSymbolsWithRid)" Condition="'%(Rid)' == ''" />
+      <_BuildOutputInPackage Remove="@(_BuildOutputInPackageWithRid)" />
+      <_TargetPathsToSymbols Remove="@(_TargetPathsToSymbolsWithRid)" />
+      <RidSpecificOutput Include="@(_BuildOutputInPackageWithRid->'%(FinalOutputPath)')" KeepMetadata="$(ExtrasRidSpecificOutputKeepMetadata)" />
+      <RidSpecificOutput Include="@(_TargetPathsToSymbolsWithRid->'%(FinalOutputPath)')" KeepMetadata="$(ExtrasRidSpecificOutputKeepMetadata)" />
+    </ItemGroup>
 
-       <!-- Include the runtimes files -->
-      <None Include="@(_BuildOutputInPackageWithRid)" PackagePath="runtimes/%(_BuildOutputInPackageWithRid.Rid)/lib/%(_BuildOutputInPackageWithRid.TargetFramework)" Pack="true" />
-      <None Include="@(_TargetPathsToSymbolsWithRid)" PackagePath="runtimes/%(_TargetPathsToSymbolsWithRid.Rid)/lib/%(_TargetPathsToSymbolsWithRid.TargetFramework)" Pack="true" />
-    </ItemGroup>  
-    
+  </Target>
+
+
+  <Target Name="_ValidateRidSpecificOutputExists" Condition="'$(ExtrasDisableRidSpecificOutputValidation)' != 'true' and '$(ContinuePackingAfterGeneratingNuspec)' == 'true'">
+
+    <ItemGroup>
+      <_MissingRidSpecificOutput Include="@(RidSpecificOutput)" Condition="!Exists('%(Identity)')"/>
+    </ItemGroup>
+
+    <Warning Text="RuntimeIdentifier-specific output missing before packing, did you forget to use TargetFrameworks instead of TargetFramework?"
+             Condition="'@(_MissingRidSpecificOutput->Count())' != '0' and '$(IsCrossTargetingBuild)' != 'true' and '$(ExtrasSuppressRidSpecificOutputValidationWarnings)' != 'true'" />
+
+    <Warning Text="RuntimeIdentifier-specific output missing before packing."
+             Condition="'@(_MissingRidSpecificOutput->Count())' != '0' and '$(IsCrossTargetingBuild)' == 'true' and '$(ExtrasSuppressRidSpecificOutputValidationWarnings)' != 'true'" />
+
+  </Target>
+
+
+  <Target Name="_WalkEachTargetPerFramework"
+          DependsOnTargets="_WalkEachTargetPerFrameworkCore;$(ExtrasIncludeDefaultProjectBuildOutputInPackTarget);$(_WalkEachTargetPerFrameworkDependsOn);_ValidateRidSpecificOutputExists">
+
+    <PropertyGroup>
+      <ExtrasDisableRidSpecificOutputReleaseOptimization Condition="'$(ExtrasDisableRidSpecificOutputReleaseOptimization)' == ''">false</ExtrasDisableRidSpecificOutputReleaseOptimization>
+    </PropertyGroup>
+
+    <!-- Optional: release references -->
+    <ItemGroup Condition="'$(ExtrasDisableRidSpecificOutputReleaseOptimization)' == 'false'">
+      <RidSpecificOutput Remove="@(RidSpecificOutput)" />
+      <_BuildOutputInPackageWithRid Remove="@(_BuildOutputInPackageWithRid)" />
+      <_TargetPathsToSymbolsWithRid Remove="@(_TargetPathsToSymbolsWithRid)" />
+    </ItemGroup>
+
+  </Target>
+
+
+  <Target Name="_SdkIncludeDefaultProjectBuildOutputInPackImpl" Condition="'$(ExtrasIncludeDefaultProjectBuildOutputInPack)' != 'false'">
+
+    <PropertyGroup>
+      <ExtrasDisableNoneRidSpecificOutputKeepMetadataOptimization Condition="'$(ExtrasDisableNoneRidSpecificOutputKeepMetadataOptimization)' == ''">false</ExtrasDisableNoneRidSpecificOutputKeepMetadataOptimization>
+
+      <!-- Ideally should be empty, but that disables KeepMetadata property -->
+      <ExtrasNoneRidSpecificOutputKeepMetadata Condition="'$(ExtrasNoneRidSpecificOutputKeepMetadata)' == '' and '$(ExtrasDisableNoneRidSpecificOutputKeepMetadataOptimization)' == 'false'">Pack</ExtrasNoneRidSpecificOutputKeepMetadata>
+      <ExtrasNoneRidSpecificOutputKeepMetadata Condition="'$(ExtrasNoneRidSpecificOutputKeepMetadata)' == '' and '$(ExtrasDisableNoneRidSpecificOutputKeepMetadataOptimization)' != 'false'"></ExtrasNoneRidSpecificOutputKeepMetadata>
+    </PropertyGroup>
+
+    <!-- Include the runtimes files -->
+    <ItemGroup>
+      <None Include="@(RidSpecificOutput->'%(Identity)')" PackagePath="runtimes/%(Rid)/lib/%(TargetFramework)" Pack="true" KeepMetadata="$(ExtrasNoneRidSpecificOutputKeepMetadata)" />
+    </ItemGroup>
+
   </Target>
 
 
   <Target Name="_SdkGetBuildOutputFilesWithTfm" DependsOnTargets="_GetBuildOutputFilesWithTfm" Returns="@(BuildOutputInPackage)">
 
-    <ItemGroup>
+    <ItemGroup Condition="'$(RuntimeIdentifier)' != ''">
       <BuildOutputInPackage Update="@(BuildOutputInPackage)" Rid="$(RuntimeIdentifier)" />
     </ItemGroup>
 
   </Target>
 
+
   <Target Name="_SdkGetDebugSymbolsWithTfm" DependsOnTargets="_GetDebugSymbolsWithTfm" Returns="@(_TargetPathsToSymbolsWithTfm)">
 
-    <ItemGroup>
+    <ItemGroup Condition="'$(RuntimeIdentifier)' != ''">
       <_TargetPathsToSymbolsWithTfm Update="@(_TargetPathsToSymbolsWithTfm)" Rid="$(RuntimeIdentifier)" />
     </ItemGroup>
-
-  </Target>
-
-
-  <Target Name="_ExtrasPackageRuntimeFiles" BeforeTargets="_GetPackageFiles" >
-
-    <MSBuild Projects="$(MSBuildProjectFile)"
-             BuildInParallel="$(BuildInParallel)"
-             Properties="TargetFramework=%(_TargetFramework.Identity)"
-             Targets="_SdkGetRidsPerTargetFramework">
-      <Output ItemName="_SdkTargetsWithRids" TaskParameter="TargetOutputs"  />
-    </MSBuild>
-    
 
   </Target>
 

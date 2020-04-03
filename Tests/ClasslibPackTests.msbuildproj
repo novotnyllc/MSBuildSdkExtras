@@ -1,0 +1,60 @@
+<Project DefaultTargets="Build">
+
+  <PropertyGroup>
+    <ContinueOnError Condition="'$(ContinueOnError)' == ''">ErrorAndContinue</ContinueOnError>
+  </PropertyGroup>
+
+  <ItemDefinitionGroup>
+    <ProjectReference>
+      <SetConfiguration Condition="'$(Configuration)' != ''">Configuration=$(Configuration)</SetConfiguration>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+
+  <ItemGroup>
+    <ProjectCapability Include="DependenciesTree" />
+
+    <ProjectReference Include="ClasslibPack*/*.csproj" />
+  </ItemGroup>
+
+  <Target Name="Test">
+    <MSBuild
+        Projects="@(ProjectReference)"
+        Targets="Test"
+        BuildInParallel="$(BuildInParallel)"
+        Properties="%(ProjectReference.SetConfiguration)"
+        Condition="'@(ProjectReference)' != ''"
+        ContinueOnError="$(ContinueOnError)" />
+  </Target>
+
+  <Target Name="Clean">
+    <MSBuild
+        Projects="@(ProjectReference)"
+        Targets="Clean"
+        BuildInParallel="$(BuildInParallel)"
+        Properties="%(ProjectReference.SetConfiguration)"
+        Condition="'@(ProjectReference)' != ''"
+        ContinueOnError="$(ContinueOnError)" />
+  </Target>
+
+  <Target Name="Restore">
+    <MSBuild
+        Projects="@(ProjectReference)"
+        Targets="Restore"
+        BuildInParallel="$(BuildInParallel)"
+        Properties="%(ProjectReference.SetConfiguration)"
+        Condition="'@(ProjectReference)' != ''"
+        ContinueOnError="$(ContinueOnError)" />
+  </Target>
+
+  <Target Name="Build" DependsOnTargets="Test" />
+
+  <!-- For CPS/VS support. -->
+  <Target Name="Rebuild" DependsOnTargets="Clean;Build" />
+  <Target Name="CompileDesignTime" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\Managed\Microsoft.Managed.DesignTime.targets" 
+          Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\Managed\Microsoft.Managed.DesignTime.targets')" />
+  <Target Name="GetTargetPath" /> 
+  <Target Name="GetTargetPathWithTargetPlatformMoniker" />
+  <Target Name="ResolveProjectReferencesDesignTime" Returns="@(ProjectReference)" />
+
+</Project>
