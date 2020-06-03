@@ -215,7 +215,7 @@
 
     <!-- Include the runtimes files -->
     <ItemGroup>
-      <None Include="@(RidSpecificOutput->'%(Identity)')" PackagePath="runtimes/%(Rid)/lib/%(TargetFramework)" Pack="true" KeepMetadata="$(ExtrasNoneRidSpecificOutputKeepMetadata)" />
+      <None Include="@(RidSpecificOutput->'%(Identity)')" PackagePath="runtimes/%(RidSpecificOutput.Rid)/lib/%(RidSpecificOutput.TargetFramework)" Pack="true" KeepMetadata="$(ExtrasNoneRidSpecificOutputKeepMetadata)" />
     </ItemGroup>
 
   </Target>
