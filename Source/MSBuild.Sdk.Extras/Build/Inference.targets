@@ -52,7 +52,7 @@
   <PropertyGroup Condition=" ('$(TargetFrameworkIdentifier)' == '' OR '$(TargetFrameworkIdentifier)' == '_') AND '$(_SdkShortFrameworkIdentifier)' != ''">
     <TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'net'">.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'netstandard'">.NETStandard</TargetFrameworkIdentifier>
-    <TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'netcoreapp'">.NETCoreApp</TargetFrameworkIdentifier>
+    <TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'netcoreapp' OR ('$(_SdkShortFrameworkIdentifier)' == 'net' AND $(_SdkShortFrameworkVersion[0]) >= 5)">.NETCoreApp</TargetFrameworkIdentifier>
     <TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'portable'">.NETPortable</TargetFrameworkIdentifier>
     <TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'netmf'">.NETMicroFramework</TargetFrameworkIdentifier>
 
