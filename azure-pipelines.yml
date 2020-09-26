@@ -59,7 +59,9 @@ stages:
       artifact: config
 
 
-
+- stage: Tests
+  condition: succeeded('Build')
+  jobs: 
   - job: Windows_Tests
     pool:
       vmImage: windows-latest
@@ -249,7 +251,7 @@ stages:
       displayName: 'MSBuild: .NET Std Library with unavailable platform test'
 
 - stage: CodeSign
-  condition: and(succeeded('Build'), not(eq(variables['build.reason'], 'PullRequest')))
+  condition: and(succeeded('Tests'), not(eq(variables['build.reason'], 'PullRequest')))
   jobs:
   - deployment: CodeSign
     displayName: Code Signing
