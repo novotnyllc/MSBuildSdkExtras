@@ -1,12 +1,16 @@
-# MSBuild.Sdk.Extras
+﻿# MSBuild.Sdk.Extras
 
 ## Summary
 
-This package contains a few extra extensions to the SDK-style projects that are currently not available in `Microsoft.NET.Sdk` SDK. This feature is tracked in [dotnet/sdk#491](https://github.com/dotnet/sdk/issues/491)
+This package contains a few extra extensions to the SDK-style projects that are currently not available in `Microsoft.NET.Sdk` SDK. This feature is tracked in [dotnet/sdk#491](https://github.com/dotnet/sdk/issues/491) and many of the scenarios are on the roadmap for .NET 6.
 
 The primary goal of this project is to enable multi-targeting without you having to enter in tons of properties within your `csproj`, `vbproj`, `fsproj`, thus keeping it nice and clean.
 
 See the [blog post](https://claires.site/2017/01/04/multi-targeting-the-world-a-single-project-to-rule-them-all) for more information.
+
+## Supported .NET Core SDK Versions
+
+**Important:** 3.x of the Extras requires the .NET 5 SDK or later. The SDK can build previous targets, like `netcoreapp3.1`. The extras 2.x supports SDK 2.x and 3.x. 
 
 ## Advanced Scenarios
 

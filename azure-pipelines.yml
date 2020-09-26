@@ -6,228 +6,281 @@ pr:
 - main
 - rel/*
 
-jobs:
-- job: Windows
-  pool:
-    vmImage: windows-latest
 
-  variables:
-    BuildConfiguration: Release
+variables:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
 
-  steps:
-  - task: DotNetCoreCLI@2  
-    inputs:
-      command: custom
-      custom: tool
-      arguments: install --tool-path . nbgv
-    displayName: Install NBGV tool
+stages:
+- stage: Build
+  jobs:  
+  - job: Windows
+    pool:
+      vmImage: windows-latest
 
-  - script: nbgv cloud
-    displayName: Set Version
+    variables:
+      BuildConfiguration: Release
 
-  - powershell: |
-      mkdir $Env:Temp\Packages -Force
-    displayName: Create packages temp folder
+    steps:
+    - task: UseDotNet@2
+      displayName: 'Use .NET Core SDK 5.0.x'
+      inputs:
+        version: 5.0.x
+        includePreviewVersions: true
 
-  - task: DotNetCoreCLI@2
-    inputs:
-      command: pack
-      packagesToPack: Source/MSBuild.Sdk.Extras/MSBuild.Sdk.Extras.csproj
-      configuration: $(BuildConfiguration)
-      packDirectory: $(Build.ArtifactStagingDirectory)\Packages    
-      verbosityPack: Minimal
-    displayName: Build Package
+    - task: DotNetCoreCLI@2  
+      inputs:
+        command: custom
+        custom: tool
+        arguments: install --tool-path . nbgv
+      displayName: Install NBGV tool
 
-  - task: PowerShell@2
-    displayName: Authenticode Sign artifacts
-    inputs:
-      filePath: Tools\Sign-Package.ps1
-    env:
-      SignClientUser: $(SignClientUser)
-      SignClientSecret: $(SignClientSecret)
-      ArtifactDirectory: $(Build.ArtifactStagingDirectory)\Packages
-    condition: and(succeeded(), not(eq(variables['build.reason'], 'PullRequest')), not(eq(variables['SignClientSecret'], '')), not(eq(variables['SignClientUser'], '')))
+    - script: nbgv cloud
+      displayName: Set Version
 
-  - task: PublishBuildArtifacts@1
-    displayName: Publish Artifacts  
-    inputs:
-      pathToPublish: $(Build.ArtifactStagingDirectory)\Packages
-      artifactType: container
-      artifactName: Package
+    - powershell: |
+        mkdir $Env:Temp\Packages -Force
+      displayName: Create packages temp folder
 
-- job: Windows_Tests
-  pool:
-    vmImage: windows-2019
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: pack
+        packagesToPack: Source/MSBuild.Sdk.Extras/MSBuild.Sdk.Extras.csproj
+        configuration: $(BuildConfiguration)
+        packDirectory: $(Build.ArtifactStagingDirectory)\Packages    
+        verbosityPack: Minimal
+      displayName: Build Package
 
-  strategy:
-    matrix:
-      NETCORE_DEFAULT:
-        BUILD_NETCORE_VERSION: ''
-      NETCORE_3_1:
-        BUILD_NETCORE_VERSION: '3.1.x'
-      NETCORE_3_0:
-        BUILD_NETCORE_VERSION: '3.0.x'
-      NETCORE_2_2:
-        BUILD_NETCORE_VERSION: '2.2.x'
+    - publish: $(Build.ArtifactStagingDirectory)\Packages
+      displayName: Publish build packages
+      artifact: BuildPackages
 
-  variables:
-    BuildConfiguration: Release
-    TMPDIR: $(Build.ArtifactStagingDirectory)
-    DisableNerdBank: true
-    PackageVersion: 42.42.42
+    - publish: config
+      displayName: Publish signing config
+      artifact: config
 
-  steps:
 
-  - task: UseDotNet@2
-    displayName: 'Use .NET Core sdk'
-    inputs:
-      packageType: sdk
-      version: $(BUILD_NETCORE_VERSION)
-      installationPath: $(Agent.ToolsDirectory)/dotnet
 
-  - powershell: |
-      mkdir $(Build.ArtifactStagingDirectory)\Packages -Force
-    displayName: Create packages temp folder
+  - job: Windows_Tests
+    pool:
+      vmImage: windows-latest
 
-  - task: DotNetCoreCLI@2
-    inputs:
-      command: pack
-      packagesToPack: Source/MSBuild.Sdk.Extras/MSBuild.Sdk.Extras.csproj
-      configuration: $(BuildConfiguration)
-      packDirectory: $(Build.ArtifactStagingDirectory)\Packages    
-      verbosityPack: Minimal
-    displayName: Build Package
+    strategy:
+      matrix:
+        #NETCORE_DEFAULT:
+        #  BUILD_NETCORE_VERSION: ''
+        #NETCORE_3_1:
+        #  BUILD_NETCORE_VERSION: '3.1.x'
+        #NETCORE_3_0:
+        #  BUILD_NETCORE_VERSION: '3.0.x'
+        #NETCORE_2_2:
+        #  BUILD_NETCORE_VERSION: '2.2.x'
+        NETCORE_5_0:
+          BUILD_NETCORE_VERSION: '5.0.x'
 
-  - task: MSBuild@1
-    inputs:
-      solution: '$(build.sourcesdirectory)\TestProjects\Windows-Desktop-C#\Windows-Desktop.sln'
-      msbuildArguments: /r /p:SignManifests=false
-      configution: $(BuildConfiguration)
-    displayName: MSBuild Test Projects 1
+    variables:
+      BuildConfiguration: Release
+      TMPDIR: $(Build.ArtifactStagingDirectory)
+      DisableNerdBank: true
+      PackageVersion: 42.42.42
 
-  - task: MSBuild@1
-    inputs:
-      solution: '$(build.sourcesdirectory)\TestProjects\Linux-C#\netstd2Library\netstd2Library.csproj'
-      msbuildArguments: /r
-      configution: $(BuildConfiguration)
-    displayName: MSBuild Test Projects 2
+    steps:
 
-- job: Linux
-  container: unoplatform/wasm-build:2.0
-  pool:
-    vmImage: 'ubuntu-latest'
+    - task: UseDotNet@2
+      displayName: 'Use .NET Core sdk'
+      inputs:
+        packageType: sdk
+        version: $(BUILD_NETCORE_VERSION)
+        includePreviewVersions: true
+        installationPath: $(Agent.ToolsDirectory)/dotnet
 
-  strategy:
-    matrix:
-      # Build fails with 
-      # /__t/dotnet/sdk/3.1.201/Sdks/Microsoft.NET.Sdk.WindowsDesktop/targets/Microsoft.NET.Sdk.WindowsDesktop.props(208,3): 
-      #   error MSB4019: The imported project "/__t/dotnet/sdk/3.1.201/Sdks/Microsoft.NET.Sdk.WindowsDesktop/targets/Microsoft.WinFX.props" was not 
-      #   found. Confirm that the expression in the Import declaration "Microsoft.WinFX.props" is correct, and that the file exists on disk.
-      #
-      # NETCORE_3_1:
-      #   BUILD_NETCORE_VERSION: '3.1.x'
+    - powershell: |
+        mkdir $(Build.ArtifactStagingDirectory)\Packages -Force
+      displayName: Create packages temp folder
 
-      NETCORE_3_0:
-        BUILD_NETCORE_VERSION: '3.0.x'
-      NETCORE_2_2:
-        BUILD_NETCORE_VERSION: '2.2.x'
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: pack
+        packagesToPack: Source/MSBuild.Sdk.Extras/MSBuild.Sdk.Extras.csproj
+        configuration: $(BuildConfiguration)
+        packDirectory: $(Build.ArtifactStagingDirectory)\Packages    
+        verbosityPack: Minimal
+      displayName: Build Package
 
-  variables:
-    BuildConfiguration: Release
-    TMPDIR: /tmp
-    DisableNerdBank: true
-    PackageVersion: 42.42.42
+    - task: MSBuild@1
+      inputs:
+        solution: '$(build.sourcesdirectory)\TestProjects\Windows-Desktop-C#\Windows-Desktop.sln'
+        msbuildArguments: /r /p:SignManifests=false
+        configution: $(BuildConfiguration)
+      displayName: MSBuild Test Projects 1
 
-  steps:
+    - task: MSBuild@1
+      inputs:
+        solution: '$(build.sourcesdirectory)\TestProjects\Linux-C#\netstd2Library\netstd2Library.csproj'
+        msbuildArguments: /r
+        configution: $(BuildConfiguration)
+      displayName: MSBuild Test Projects 2
 
-  - task: UseDotNet@2
-    displayName: 'Use .NET Core sdk'
-    inputs:
-      packageType: sdk
-      version: $(BUILD_NETCORE_VERSION)
-      installationPath: $(Agent.ToolsDirectory)/dotnet
+  - job: Linux
+    container: unoplatform/wasm-build:2.0
+    pool:
+      vmImage: 'ubuntu-latest'
 
-  - script: |
-      mkdir $TMPDIR/Packages
-    displayName: Create packages temp folder
+    strategy:
+      matrix:
+        # Build fails with 
+        # /__t/dotnet/sdk/3.1.201/Sdks/Microsoft.NET.Sdk.WindowsDesktop/targets/Microsoft.NET.Sdk.WindowsDesktop.props(208,3): 
+        #   error MSB4019: The imported project "/__t/dotnet/sdk/3.1.201/Sdks/Microsoft.NET.Sdk.WindowsDesktop/targets/Microsoft.WinFX.props" was not 
+        #   found. Confirm that the expression in the Import declaration "Microsoft.WinFX.props" is correct, and that the file exists on disk.
+        #
+        # NETCORE_3_1:
+        #   BUILD_NETCORE_VERSION: '3.1.x'
 
-  - task: DotNetCoreCLI@2
-    inputs:
-      command: pack
-      packagesToPack: Source/MSBuild.Sdk.Extras/MSBuild.Sdk.Extras.csproj
-      configuration: $(BuildConfiguration)
-      packDirectory: $(TMPDIR)/Packages    
-      verbosityPack: Minimal
-    displayName: Build Package
+        #NETCORE_3_0:
+        #  BUILD_NETCORE_VERSION: '3.0.x'
+        #NETCORE_2_2:
+        #  BUILD_NETCORE_VERSION: '2.2.x'
+        NETCORE_5_0:
+          BUILD_NETCORE_VERSION: '5.0.x'
+
+    variables:
+      BuildConfiguration: Release
+      TMPDIR: /tmp
+      DisableNerdBank: true
+      PackageVersion: 42.42.42
+
+    steps:
+
+    - task: UseDotNet@2
+      displayName: 'Use .NET Core sdk'
+      inputs:
+        packageType: sdk
+        version: $(BUILD_NETCORE_VERSION)
+        includePreviewVersions: true
+        installationPath: $(Agent.ToolsDirectory)/dotnet
+
+    - script: |
+        mkdir $TMPDIR/Packages
+      displayName: Create packages temp folder
+
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: pack
+        packagesToPack: Source/MSBuild.Sdk.Extras/MSBuild.Sdk.Extras.csproj
+        configuration: $(BuildConfiguration)
+        packDirectory: $(TMPDIR)/Packages    
+        verbosityPack: Minimal
+      displayName: Build Package
     
-  - bash: |
-      dotnet build --configuration Release $(build.sourcesdirectory)/TestProjects/Linux-C#/netstd2Library/netstd2Library.csproj
+    - bash: |
+        dotnet build --configuration Release $(build.sourcesdirectory)/TestProjects/Linux-C#/netstd2Library/netstd2Library.csproj
 
-    displayName: '.NET Core: .NET Std Library with unavailable platform test'
+      displayName: '.NET Core: .NET Std Library with unavailable platform test'
     
-  - bash: |
-      msbuild /r /p:Configuration=Release $(build.sourcesdirectory)/TestProjects/Linux-C#/netstd2Library/netstd2Library.csproj
+    - bash: |
+        msbuild /r /p:Configuration=Release $(build.sourcesdirectory)/TestProjects/Linux-C#/netstd2Library/netstd2Library.csproj
 
-    displayName: 'MSBuild: .NET Std Library with unavailable platform test'
+      displayName: 'MSBuild: .NET Std Library with unavailable platform test'
 
 
-- job: macOS
+  - job: macOS
 
-  strategy:
-    matrix:
-      Xamarin_Latest:
-        PoolImage: macOS-latest
+    strategy:
+      matrix:
+        Xamarin_Latest:
+          PoolImage: macOS-latest
 
-      Xamarin_6_6_0:
-        XamarinVersion: 6_6_0
-        PoolImage: macOS-10.15
+        Xamarin_6_6_0:
+          XamarinVersion: 6_6_0
+          PoolImage: macOS-10.15
 
-      Xamarin_6_4_0:
-        XamarinVersion: 6_4_0
-        PoolImage: macOS-10.15
+        Xamarin_6_4_0:
+          XamarinVersion: 6_4_0
+          PoolImage: macOS-10.15
 
-      Xamarin_5_16_0:
-        XamarinVersion: 5_16_0
-        PoolImage: macOS-10.14
+        Xamarin_5_16_0:
+          XamarinVersion: 5_16_0
+          PoolImage: macOS-10.14
 
-      Xamarin_5_12_0:
-        XamarinVersion: 5_12_0
-        PoolImage: macOS-10.14
+        Xamarin_5_12_0:
+          XamarinVersion: 5_12_0
+          PoolImage: macOS-10.14
 
-  pool:
-    vmImage: $(PoolImage)
+    pool:
+      vmImage: $(PoolImage)
 
-  variables:
-    BuildConfiguration: Release
-    TMPDIR: /tmp
-    DisableNerdBank: true
-    PackageVersion: 42.42.42
+    variables:
+      BuildConfiguration: Release
+      TMPDIR: /tmp
+      DisableNerdBank: true
+      PackageVersion: 42.42.42
 
-  steps:
+    steps:
+    - task: UseDotNet@2
+      displayName: 'Use .NET Core SDK 5.0.x'
+      inputs:
+        version: 5.0.x
+        includePreviewVersions: true
 
-  - bash: /bin/bash -c "sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh $(XamarinVersion)"
-    displayName: Select Xamarin Version
-    condition: and(succeeded(), ne(variables['XamarinVersion'], ''))
+    - bash: /bin/bash -c "sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh $(XamarinVersion)"
+      displayName: Select Xamarin Version
+      condition: and(succeeded(), ne(variables['XamarinVersion'], ''))
 
-  - script: |
-      mkdir $TMPDIR/Packages
-    displayName: Create packages temp folder
+    - script: |
+        mkdir $TMPDIR/Packages
+      displayName: Create packages temp folder
 
-  - task: DotNetCoreCLI@2
-    inputs:
-      command: pack
-      packagesToPack: Source/MSBuild.Sdk.Extras/MSBuild.Sdk.Extras.csproj
-      configuration: $(BuildConfiguration)
-      packDirectory: $(TMPDIR)/Packages    
-      verbosityPack: Minimal
-    displayName: Build Package
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: pack
+        packagesToPack: Source/MSBuild.Sdk.Extras/MSBuild.Sdk.Extras.csproj
+        configuration: $(BuildConfiguration)
+        packDirectory: $(TMPDIR)/Packages    
+        verbosityPack: Minimal
+      displayName: Build Package
 
-  - bash: |
-      dotnet build --configuration Release $(build.sourcesdirectory)/TestProjects/Linux-C#/netstd2Library/netstd2Library.csproj
+    - bash: |
+        dotnet build --configuration Release $(build.sourcesdirectory)/TestProjects/Linux-C#/netstd2Library/netstd2Library.csproj
 
-    displayName: '.NET Core: .NET Std Library with unavailable platform test'
+      displayName: '.NET Core: .NET Std Library with unavailable platform test'
     
-  - bash: |
-      msbuild /r /p:Configuration=Release $(build.sourcesdirectory)/TestProjects/Linux-C#/netstd2Library/netstd2Library.csproj
+    - bash: |
+        msbuild /r /p:Configuration=Release $(build.sourcesdirectory)/TestProjects/Linux-C#/netstd2Library/netstd2Library.csproj
 
-    displayName: 'MSBuild: .NET Std Library with unavailable platform test'
+      displayName: 'MSBuild: .NET Std Library with unavailable platform test'
+
+- stage: CodeSign
+  condition: and(succeeded('Build'), not(eq(variables['build.reason'], 'PullRequest')))
+  jobs:
+  - deployment: CodeSign
+    displayName: Code Signing
+    pool:
+      vmImage: windows-latest    
+    environment: Code Sign - CI
+    variables:
+    - group: Sign Client Credentials
+    strategy:
+      runOnce:
+        deploy:
+          steps: 
+          - task: DotNetCoreCLI@2
+            inputs:
+              command: custom
+              custom: tool
+              arguments: install --tool-path . SignClient
+            displayName: Install SignTool tool
+
+          - pwsh: |
+              .\SignClient "Sign" `
+              --baseDirectory "$(Pipeline.Workspace)\BuildPackages" `
+              --input "**/*.nupkg" `
+              --config "$(Pipeline.Workspace)\config\signclient.json" `
+              --user "$(SignClientUser)" `
+              --secret "$(SignClientSecret)" `
+              --name "MSBuild.Sdk.Extras" `
+              --description "MSBuild.Sdk.Extras" `
+              --descriptionUrl "https://github.com/novotnyllc/MSBuildSdkExtras"
+            displayName: Sign packages
+              
+          - publish: $(Pipeline.Workspace)/BuildPackages
+            displayName: Publish Signed Packages
+            artifact: SignedPackages
