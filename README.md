@@ -66,7 +66,7 @@ If you are using MsBuild.Sdk.Extras version 2 or above, use the .NET Core 3 SDK.
 ```json
 {
   "msbuild-sdks": {
-    "MSBuild.Sdk.Extras": "2.0.54"
+    "MSBuild.Sdk.Extras": "2.1.2"
   }
 }
 ```
@@ -79,7 +79,7 @@ This would be a preferred solution for all the projects in your solution.
 Then again, you might want to override the version for just one project _OR_ if you have only one project in your solution (without adding `global.json`), you can do so like this:
 
 ```xml
-<Project Sdk="MSBuild.Sdk.Extras/2.0.54">
+<Project Sdk="MSBuild.Sdk.Extras/2.1.2">
   <PropertyGroup>
     <TargetFrameworks>net46;uap10.0.16299;tizen40</TargetFrameworks>
   </PropertyGroup>
