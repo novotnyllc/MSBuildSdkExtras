@@ -18,7 +18,7 @@ This package also enables advanced library scenarios, allowing you to create ref
 
 ### Reference Assemblies
  
-Reference Assemblies useful in a few scenarios. Please see my [two](https://oren.codes/2018/07/09/create-and-pack-reference-assemblies-made-easy/) [blogs](https://claires.site/2018/07/03/create-and-pack-reference-assemblies/) for more details.
+Reference Assemblies useful in a few scenarios. Please see my [two](https://claires.site/2018/07/09/create-and-pack-reference-assemblies-made-easy/) [blogs](https://claires.site/2018/07/03/create-and-pack-reference-assemblies/) for more details.
 
 ### Per-RuntimeIdentifier
 
