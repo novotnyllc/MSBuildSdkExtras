@@ -22,7 +22,7 @@
   
   <Import Condition=" '$(_ExtrasHasDesktopSdk)' != 'true' " Project="$(MSBuildThisFileDirectory)..\Build\Workarounds.props" />
 
-  <Import Condition="'$(_ExtrasHasDesktopSdk)' == 'true' " Project="$(MicrosoftWindowsDesktopSdkPath)\Microsoft.NET.Sdk.WindowsDesktop.props "/>
+  <Import Condition="'$(_ExtrasHasDesktopSdk)' == 'true' and !$(NETCoreSdkVersion.StartsWith('5'))" Project="$(MicrosoftWindowsDesktopSdkPath)\Microsoft.NET.Sdk.WindowsDesktop.props "/>
 
   <!-- TODO: Revisit once there's a way to control this directly -->
   <ItemGroup Condition="'$(ExtrasUseWindowsDesktopApp)' != 'true'">
