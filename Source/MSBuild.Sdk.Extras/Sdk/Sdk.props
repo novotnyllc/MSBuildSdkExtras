@@ -17,15 +17,18 @@
     <MicrosoftWindowsDesktopSdkPath Condition="Exists('$(_ExtrasSdkBaseDirectory)Microsoft.NET.Sdk.WindowsDesktop\Sdk\Sdk.props')">$(_ExtrasSdkBaseDirectory)Microsoft.NET.Sdk.WindowsDesktop\targets</MicrosoftWindowsDesktopSdkPath>
     <_ExtrasHasDesktopSdk Condition="'$(MicrosoftWindowsDesktopSdkPath)' != ''">true</_ExtrasHasDesktopSdk>
     <_ExtrasHasDesktopSdk Condition="'$(_ExtrasHasDesktopSdk)' == ''">false</_ExtrasHasDesktopSdk>
+    <!-- 5.0 SDK includes WindowsDesktop.props automatically, so we should not do it -->
+    <_ExtrasHasNet5OrGreaterSDK Condition="'$(NETCoreSdkVersion)' != '' and '$(NETCoreSdkVersion[0])' &gt;= '5'">true</_ExtrasHasNet5OrGreaterSDK>
+    <ExtrasUseWindowsDesktopApp Condition="'$(_ExtrasHasNet5OrGreaterSDK)' == 'true'">false</ExtrasUseWindowsDesktopApp>
   </PropertyGroup>
 
   
   <Import Condition=" '$(_ExtrasHasDesktopSdk)' != 'true' " Project="$(MSBuildThisFileDirectory)..\Build\Workarounds.props" />
 
-  <Import Condition="'$(_ExtrasHasDesktopSdk)' == 'true' and !$(NETCoreSdkVersion.StartsWith('5'))" Project="$(MicrosoftWindowsDesktopSdkPath)\Microsoft.NET.Sdk.WindowsDesktop.props "/>
+  <Import Condition="'$(ExtrasUseWindowsDesktopApp)' != 'false'" Project="$(MicrosoftWindowsDesktopSdkPath)\Microsoft.NET.Sdk.WindowsDesktop.props" />
 
   <!-- TODO: Revisit once there's a way to control this directly -->
-  <ItemGroup Condition="'$(ExtrasUseWindowsDesktopApp)' != 'true'">
+  <ItemGroup Condition="'$(ExtrasUseWindowsDesktopApp)' != 'true' and '$(_ExtrasHasNet5OrGreaterSDK)' != 'true'">
     <FrameworkReference Remove="Microsoft.WindowsDesktop.App" />
   </ItemGroup>
 
