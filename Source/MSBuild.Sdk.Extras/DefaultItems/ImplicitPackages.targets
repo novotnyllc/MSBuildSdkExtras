@@ -8,11 +8,11 @@
     Package Version property for Implicit Packages included in the props file
   -->
   <PropertyGroup Condition="'$(ExtrasUwpMetaPackageVersion)' == ''">
-    <ExtrasUwpMetaPackageVersion>6.2.10</ExtrasUwpMetaPackageVersion>
+    <ExtrasUwpMetaPackageVersion>6.2.11</ExtrasUwpMetaPackageVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(ExtrasTizenMetaPackageVersion)' == ''">
-    <ExtrasTizenMetaPackageVersion>5.0.0.14562</ExtrasTizenMetaPackageVersion>
+    <ExtrasTizenMetaPackageVersion>8.0.0.15631</ExtrasTizenMetaPackageVersion>
   </PropertyGroup>
 
   <PropertyGroup>
