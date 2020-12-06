@@ -132,9 +132,9 @@ stages:
         #   error MSB4019: The imported project "/__t/dotnet/sdk/3.1.201/Sdks/Microsoft.NET.Sdk.WindowsDesktop/targets/Microsoft.WinFX.props" was not 
         #   found. Confirm that the expression in the Import declaration "Microsoft.WinFX.props" is correct, and that the file exists on disk.
         #
-        #NETCORE_3_1:
-        #  BUILD_NETSDK_VERSION: '3.1.x'
-        NETCORE_5_0:
+        NETCORE_3_1:
+          BUILD_NETSDK_VERSION: '3.1.x'
+        NE_5_0:
           BUILD_NETSDK_VERSION: '5.0.x'
 
     variables:
