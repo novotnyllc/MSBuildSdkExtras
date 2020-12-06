@@ -28,4 +28,9 @@
     <PackageReference Update="Tizen.NET" PrivateAssets="All" Condition="'$(ExtrasImplicitPlatformPackageIsPrivate)' == 'true'"/>
   </ItemGroup>
 
+  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(TargetFrameworkIdentifier)' == '.NETFramework' ">
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" IsImplicitlyDefined="true"/>
+    <PackageReference Update="Microsoft.NETFramework.ReferenceAssemblies" PrivateAssets="All" Condition="'$(ExtrasImplicitPlatformPackageIsPrivate)' == 'true'"/>
+  </ItemGroup>  
+
 </Project>
