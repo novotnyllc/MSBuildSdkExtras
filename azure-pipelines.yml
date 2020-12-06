@@ -49,6 +49,10 @@ stages:
         verbosityPack: Minimal
       displayName: Build Package
 
+    - powershell: |
+        dotnet build Tests/ClasslibPackTests.msbuildproj
+      displayName: Build/run classlib tets
+
     - publish: $(Build.ArtifactStagingDirectory)\Packages
       displayName: Publish build packages
       artifact: BuildPackages
