@@ -61,12 +61,12 @@ The final project should look like this:
 </Project>
 ```
 
-If you are using MsBuild.Sdk.Extras version 2 or above, use the .NET Core 3 SDK. You can still target previous versions of .NET Core. 
+The .NET 5 SDK is the latest and has more support for desktop workloads. It's strongly recommended to use that SDK, even to build older targets. If you are using MsBuild.Sdk.Extras version 2 or above, use the .NET Core 3.1 SDK at a minimum. You can still target previous versions of .NET Core. 
 
 ```json
 {
   "msbuild-sdks": {
-    "MSBuild.Sdk.Extras": "2.1.2"
+    "MSBuild.Sdk.Extras": "3.0.22"
   }
 }
 ```
@@ -79,7 +79,7 @@ This would be a preferred solution for all the projects in your solution.
 Then again, you might want to override the version for just one project _OR_ if you have only one project in your solution (without adding `global.json`), you can do so like this:
 
 ```xml
-<Project Sdk="MSBuild.Sdk.Extras/2.1.2">
+<Project Sdk="MSBuild.Sdk.Extras/3.0.22">
   <PropertyGroup>
     <TargetFrameworks>net46;uap10.0.19041;tizen8.0</TargetFrameworks>
   </PropertyGroup>
