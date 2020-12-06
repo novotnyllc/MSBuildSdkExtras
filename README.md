@@ -200,7 +200,7 @@ Once this package is configured, you can now use any supported TFM in your `Targ
 
 - `netstandard` (.NET Standard)
 - `netcoreapp` (.NET Core App)
-- `net` (.NET Framework)
+- `net` (.NET 5+ & .NET Framework)
 - `net35-client`/`net40-client` (.NET Framework legacy Client profile)
 - `wpa` (Windows Phone App 8.1)
 - `win` (Windows 8 / 8.1)
