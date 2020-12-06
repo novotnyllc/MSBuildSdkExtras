@@ -5,7 +5,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net462</TargetFramework>
-    <ExtrasEnableWpfProjectSetup>true</ExtrasEnableWpfProjectSetup>
+    <UseWpf>true</UseWpf>
     <EmbeddedResourceGeneratedCodeIsPublic>true</EmbeddedResourceGeneratedCodeIsPublic>
   </PropertyGroup>
 
