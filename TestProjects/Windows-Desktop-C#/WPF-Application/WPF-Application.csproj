@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net45</TargetFramework>
-    <ExtrasEnableWpfProjectSetup>true</ExtrasEnableWpfProjectSetup>
+    <UseWpf>true</UseWpf>
   </PropertyGroup>
 
   <PropertyGroup>

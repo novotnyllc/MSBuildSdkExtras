@@ -56,7 +56,7 @@ The final project should look like this:
 ```xml
 <Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
-    <TargetFrameworks>net46;uap10.0.16299;tizen40</TargetFrameworks>
+    <TargetFrameworks>net46;uap10.0.19041;tizen8.0</TargetFrameworks>
   </PropertyGroup>
 </Project>
 ```
@@ -81,7 +81,7 @@ Then again, you might want to override the version for just one project _OR_ if 
 ```xml
 <Project Sdk="MSBuild.Sdk.Extras/2.1.2">
   <PropertyGroup>
-    <TargetFrameworks>net46;uap10.0.16299;tizen40</TargetFrameworks>
+    <TargetFrameworks>net46;uap10.0.19041;tizen8.0</TargetFrameworks>
   </PropertyGroup>
 </Project>
 ```
@@ -200,7 +200,7 @@ Once this package is configured, you can now use any supported TFM in your `Targ
 
 - `netstandard` (.NET Standard)
 - `netcoreapp` (.NET Core App)
-- `net` (.NET Framework)
+- `net` (.NET 5+ & .NET Framework)
 - `net35-client`/`net40-client` (.NET Framework legacy Client profile)
 - `wpa` (Windows Phone App 8.1)
 - `win` (Windows 8 / 8.1)

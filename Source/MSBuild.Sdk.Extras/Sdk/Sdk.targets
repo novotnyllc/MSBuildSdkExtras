@@ -8,13 +8,18 @@
     <CustomAfterMicrosoftCommonTargets>$(MSBuildThisFileDirectory)..\Build\Workarounds.targets</CustomAfterMicrosoftCommonTargets>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(_ExtrasSdkHasDesktopAppSupport)' == 'true' ">
+    <!-- Set here until https://github.com/dotnet/sdk/issues/14716 is resolved -->
+    <ImportWindowsDesktopTargets Condition=" '$(UseWpf)' == 'true' Or '$(UseWindowsForms)' == 'true'">true</ImportWindowsDesktopTargets>
+  </PropertyGroup>
+  
   <Import Project="$(MSBuildThisFileDirectory)..\Build\Core.targets"/>
   <Import Project="$(MSBuildThisFileDirectory)..\DefaultItems\ImplicitPackages.targets"/>
 
   <Import Project="$(CustomBeforeSdkTargets)" Condition="'$(CustomBeforeSdkTargets)' != ''"/>
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk"/>
 
-  <Import Condition="'$(_ExtrasHasDesktopSdk)' == 'true' and '$(ExtrasUseWindowsDesktopApp)' == 'true' " Project="$(MicrosoftWindowsDesktopSdkPath)\Microsoft.NET.Sdk.WindowsDesktop.targets "/>
+  <Import Condition="'$(_ExtrasHasDesktopSdk)' == 'true' and '$(ExtrasUseWindowsDesktopApp)' == 'true' and '$(_ExtrasSdkHasDesktopAppSupport)' == 'false'" Project="$(MicrosoftWindowsDesktopSdkPath)\Microsoft.NET.Sdk.WindowsDesktop.targets "/>
 
   <!-- Replacing build-in targets  -->
   <Import Project="$(MSBuildThisFileDirectory)..\Build\RIDs.targets"/>

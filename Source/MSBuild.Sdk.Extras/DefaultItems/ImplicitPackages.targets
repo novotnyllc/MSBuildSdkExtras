@@ -8,11 +8,11 @@
     Package Version property for Implicit Packages included in the props file
   -->
   <PropertyGroup Condition="'$(ExtrasUwpMetaPackageVersion)' == ''">
-    <ExtrasUwpMetaPackageVersion>6.2.10</ExtrasUwpMetaPackageVersion>
+    <ExtrasUwpMetaPackageVersion>6.2.11</ExtrasUwpMetaPackageVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(ExtrasTizenMetaPackageVersion)' == ''">
-    <ExtrasTizenMetaPackageVersion>5.0.0.14562</ExtrasTizenMetaPackageVersion>
+    <ExtrasTizenMetaPackageVersion>8.0.0.15631</ExtrasTizenMetaPackageVersion>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -27,5 +27,10 @@
     <PackageReference Include="Tizen.NET" Version="$(ExtrasTizenMetaPackageVersion)" IsImplicitlyDefined="true"/>
     <PackageReference Update="Tizen.NET" PrivateAssets="All" Condition="'$(ExtrasImplicitPlatformPackageIsPrivate)' == 'true'"/>
   </ItemGroup>
+
+  <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(TargetFrameworkIdentifier)' == '.NETFramework' ">
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" IsImplicitlyDefined="true"/>
+    <PackageReference Update="Microsoft.NETFramework.ReferenceAssemblies" PrivateAssets="All" Condition="'$(ExtrasImplicitPlatformPackageIsPrivate)' == 'true'"/>
+  </ItemGroup>  
 
 </Project>

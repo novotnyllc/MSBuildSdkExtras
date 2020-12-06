@@ -5,7 +5,7 @@
   <PropertyGroup>
     <TargetFramework>net462</TargetFramework>
     <IsPackable>false</IsPackable>
-    <ExtrasEnableWpfProjectSetup>true</ExtrasEnableWpfProjectSetup>
+    <UseWpf>true</UseWpf>
   </PropertyGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\Sdk\Sdk.targets" />

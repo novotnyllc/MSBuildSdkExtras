@@ -40,6 +40,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UwpClassLibrary", "Tests\Uw
 EndProject
 Project("{13B669BE-BB05-4DDF-9536-439F39A36129}") = "ClasslibPackTests", "Tests\ClasslibPackTests.msbuildproj", "{8DB76FFF-B050-433B-B478-1FC44DB9DF6B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfCustomControlLibraryOob", "Tests\WpfCustomControlLibraryOob\WpfCustomControlLibraryOob.csproj", "{AC00A490-8BB6-4CD5-82FD-847D5A8C2C5F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +88,10 @@ Global
 		{8DB76FFF-B050-433B-B478-1FC44DB9DF6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DB76FFF-B050-433B-B478-1FC44DB9DF6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DB76FFF-B050-433B-B478-1FC44DB9DF6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC00A490-8BB6-4CD5-82FD-847D5A8C2C5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC00A490-8BB6-4CD5-82FD-847D5A8C2C5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC00A490-8BB6-4CD5-82FD-847D5A8C2C5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC00A490-8BB6-4CD5-82FD-847D5A8C2C5F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -101,6 +107,7 @@ Global
 		{19A683CB-8C5D-480B-8D60-30F28DA40660} = {8647C74A-083C-4EAF-B9B0-2172D4A27BFC}
 		{B7617E50-4107-4C19-BDCF-012CCDB22FB0} = {26026DB4-DD68-43BF-8858-15AD2016C0B2}
 		{8DB76FFF-B050-433B-B478-1FC44DB9DF6B} = {26026DB4-DD68-43BF-8858-15AD2016C0B2}
+		{AC00A490-8BB6-4CD5-82FD-847D5A8C2C5F} = {26026DB4-DD68-43BF-8858-15AD2016C0B2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {93349570-79D8-4F89-8E78-C66401620727}

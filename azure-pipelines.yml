@@ -49,6 +49,10 @@ stages:
         verbosityPack: Minimal
       displayName: Build Package
 
+    - powershell: |
+        dotnet build Tests/ClasslibPackTests.msbuildproj
+      displayName: Build/run classlib tets
+
     - publish: $(Build.ArtifactStagingDirectory)\Packages
       displayName: Publish build packages
       artifact: BuildPackages
@@ -68,15 +72,11 @@ stages:
     strategy:
       matrix:
         #NETCORE_DEFAULT:
-        #  BUILD_NETCORE_VERSION: ''
-        #NETCORE_3_1:
-        #  BUILD_NETCORE_VERSION: '3.1.x'
-        #NETCORE_3_0:
-        #  BUILD_NETCORE_VERSION: '3.0.x'
-        #NETCORE_2_2:
-        #  BUILD_NETCORE_VERSION: '2.2.x'
-        NETCORE_5_0:
-          BUILD_NETCORE_VERSION: '5.0.x'
+        #  BUILD_NETSDK_VERSION: ''
+        NETCORE_3_1:
+          BUILD_NETSDK_VERSION: '3.1.x'
+        NET_5_0:
+          BUILD_NETSDK_VERSION: '5.0.x'
 
     variables:
       BuildConfiguration: Release
@@ -90,8 +90,7 @@ stages:
       displayName: 'Use .NET Core sdk'
       inputs:
         packageType: sdk
-        version: $(BUILD_NETCORE_VERSION)
-        includePreviewVersions: true
+        version: $(BUILD_NETSDK_VERSION)
         installationPath: $(Agent.ToolsDirectory)/dotnet
 
     - powershell: |
@@ -133,15 +132,10 @@ stages:
         #   error MSB4019: The imported project "/__t/dotnet/sdk/3.1.201/Sdks/Microsoft.NET.Sdk.WindowsDesktop/targets/Microsoft.WinFX.props" was not 
         #   found. Confirm that the expression in the Import declaration "Microsoft.WinFX.props" is correct, and that the file exists on disk.
         #
-        # NETCORE_3_1:
-        #   BUILD_NETCORE_VERSION: '3.1.x'
-
-        #NETCORE_3_0:
-        #  BUILD_NETCORE_VERSION: '3.0.x'
-        #NETCORE_2_2:
-        #  BUILD_NETCORE_VERSION: '2.2.x'
-        NETCORE_5_0:
-          BUILD_NETCORE_VERSION: '5.0.x'
+        #NETCORE_3_1:
+        #  BUILD_NETSDK_VERSION: '3.1.x'
+        NET_5_0:
+          BUILD_NETSDK_VERSION: '5.0.x'
 
     variables:
       BuildConfiguration: Release
@@ -155,8 +149,7 @@ stages:
       displayName: 'Use .NET Core sdk'
       inputs:
         packageType: sdk
-        version: $(BUILD_NETCORE_VERSION)
-        includePreviewVersions: true
+        version: $(BUILD_NETSDK_VERSION)
         installationPath: $(Agent.ToolsDirectory)/dotnet
 
     - script: |
@@ -220,7 +213,6 @@ stages:
       displayName: 'Use .NET Core SDK 5.0.x'
       inputs:
         version: 5.0.x
-        includePreviewVersions: true
 
     - bash: /bin/bash -c "sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh $(XamarinVersion)"
       displayName: Select Xamarin Version

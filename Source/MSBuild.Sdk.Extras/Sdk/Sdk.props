@@ -6,11 +6,32 @@
 
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk"/>
 
+  <!--
+    Detect the SDK version. For now, we have to check the NETCoreSdkVersion
+    else check BundledNETCoreAppTargetFrameworkVersion property for Sdk <= 2.1.300
+    else Give 1.0 version since that property doesn't exist in 1.x Sdks
+  -->
+  <PropertyGroup>
+    <_SdkNETCoreSdkVersion>$(NETCoreSdkVersion)</_SdkNETCoreSdkVersion>
+    <!--  Handle SemVer version like 2.1.300-preview, since MSBuild doesn't compare versions with alpha-numeric chars! -->
+    <_SdkNETCoreSdkVersion Condition="$(_SdkNETCoreSdkVersion.Contains('-'))">$(_SdkNETCoreSdkVersion.Split('-')[0])</_SdkNETCoreSdkVersion>
+    <_SdkNETCoreSdkVersion Condition="'$(_SdkNETCoreSdkVersion)' == ''">$(BundledNETCoreAppTargetFrameworkVersion)</_SdkNETCoreSdkVersion>
+    <_SdkNETCoreSdkVersion Condition="'$(_SdkNETCoreSdkVersion)' == ''">1.0</_SdkNETCoreSdkVersion>
+  </PropertyGroup>
+  
+
+  <PropertyGroup>
+    <_ExtrasSdkWithDesktopAppSupport>5.0.100</_ExtrasSdkWithDesktopAppSupport>
+    <_ExtrasSdkHasDesktopAppSupport Condition="'$(_ExtrasSdkHasDesktopAppSupport)' == '' and '$([System.Version]::Parse($(_SdkNETCoreSdkVersion)).CompareTo($([System.Version]::Parse($(_ExtrasSdkWithDesktopAppSupport)))))' &gt;= '0'">true</_ExtrasSdkHasDesktopAppSupport>
+    <_ExtrasSdkHasDesktopAppSupport Condition="'$(_ExtrasSdkHasDesktopAppSupport)' == '' ">false</_ExtrasSdkHasDesktopAppSupport>
+  </PropertyGroup>
+  
+  
   <!-- Detect if WindowsDesktop SDK is here -->
   <!-- The MicrosoftWindowsDesktopSdkPath is a hook so that you can redirect to a local version of the WPF SDK targets
        (ie in order to test changes locally) without modifying the .NET Core SDK itself.  This should work
        as long as there are no changes to Sdk.props and Sdk.targets themselves. -->
-  <PropertyGroup Condition="'$(MicrosoftWindowsDesktopSdkPath)' == ''">
+  <PropertyGroup Condition="'$(MicrosoftWindowsDesktopSdkPath)' == '' and '$(_ExtrasSdkHasDesktopAppSupport)' == 'false' ">
     <!-- ToolDepsJsonGeneratorProject is set early in the main SDK and points to Sdks\Microsoft.NET.Sdk\targets\GenerateDeps\GenerateDeps.proj
          We can use this to get the path for the desktop -->
     <_ExtrasSdkBaseDirectory>$([System.IO.Path]::GetDirectoryName($(ToolDepsJsonGeneratorProject)))\..\..\..\</_ExtrasSdkBaseDirectory>
@@ -20,12 +41,12 @@
   </PropertyGroup>
 
   
-  <Import Condition=" '$(_ExtrasHasDesktopSdk)' != 'true' " Project="$(MSBuildThisFileDirectory)..\Build\Workarounds.props" />
+  <Import Condition=" '$(_ExtrasHasDesktopSdk)' != 'true' and '$(_ExtrasSdkHasDesktopAppSupport)' == 'false'" Project="$(MSBuildThisFileDirectory)..\Build\Workarounds.props" />
 
-  <Import Condition="'$(_ExtrasHasDesktopSdk)' == 'true' " Project="$(MicrosoftWindowsDesktopSdkPath)\Microsoft.NET.Sdk.WindowsDesktop.props "/>
+  <Import Condition="'$(_ExtrasHasDesktopSdk)' == 'true' and '$(_ExtrasSdkHasDesktopAppSupport)' == 'false' " Project="$(MicrosoftWindowsDesktopSdkPath)\Microsoft.NET.Sdk.WindowsDesktop.props "/>
 
   <!-- TODO: Revisit once there's a way to control this directly -->
-  <ItemGroup Condition="'$(ExtrasUseWindowsDesktopApp)' != 'true'">
+  <ItemGroup Condition="'$(ExtrasUseWindowsDesktopApp)' != 'true' and '$(_ExtrasSdkHasDesktopAppSupport)' == 'false' ">
     <FrameworkReference Remove="Microsoft.WindowsDesktop.App" />
   </ItemGroup>
 

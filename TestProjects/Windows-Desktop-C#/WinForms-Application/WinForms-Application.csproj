@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net45</TargetFramework>
-    <ExtrasEnableWinFormsProjectSetup>true</ExtrasEnableWinFormsProjectSetup>
+    <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
   <PropertyGroup>

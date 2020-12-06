@@ -3,7 +3,7 @@
   <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\Sdk\Sdk.props" />
   
   <PropertyGroup>
-    <TargetFramework>uap10.0.16299</TargetFramework>
+    <TargetFramework>uap10.0.18362</TargetFramework>
   </PropertyGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\Sdk\Sdk.targets" />
