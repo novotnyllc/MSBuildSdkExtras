@@ -15,6 +15,10 @@
     <ExtrasTizenMetaPackageVersion>8.0.0.15631</ExtrasTizenMetaPackageVersion>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(ExtrasNetfxMetaPackageVersion)' == ''">
+    <ExtrasNetfxMetaPackageVersion>1.0.0</ExtrasNetfxMetaPackageVersion>
+  </PropertyGroup>  
+
   <PropertyGroup>
     <ExtrasImplicitPlatformPackageIsPrivate Condition="'$(ExtrasImplicitPlatformPackageIsPrivate)' == ''">false</ExtrasImplicitPlatformPackageIsPrivate>
   </PropertyGroup>
@@ -29,8 +33,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(TargetFrameworkIdentifier)' == '.NETFramework' ">
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" IsImplicitlyDefined="true"/>
-    <PackageReference Update="Microsoft.NETFramework.ReferenceAssemblies" PrivateAssets="All" Condition="'$(ExtrasImplicitPlatformPackageIsPrivate)' == 'true'"/>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="$(ExtrasNetfxMetaPackageVersion)" PrivateAssets="All" IsImplicitlyDefined="true"/>    
   </ItemGroup>  
 
 </Project>
