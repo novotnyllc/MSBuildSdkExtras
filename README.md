@@ -101,10 +101,10 @@ More information on how SDK's are resolved can be found [here](https://docs.micr
 
 ### <a id="rids"></a>Creating Per-RuntimeIdentifier packages
 
-You'll need to perform a few simple steps:
+You'll need to perform a few steps:
 
 1. Make sure to use `TargetFrameworks` instead of `TargetFramework`, even if you're only building a single target framework. I am piggy-backing off of its looping capabilities.
-2. Set the `RuntimeIdentifiers` property to [valid RID's](https://docs.microsoft.com/en-us/dotnet/core/rid-catalog) ([full list](https://github.com/dotnet/runtime/blob/master/src/libraries/pkg/Microsoft.NETCore.Platforms/runtime.json)), separated by a semi-colon (`<RuntimeIdentifiers>win;unix</RuntimeIdentifiers>`).
+2. Set the `RuntimeIdentifiers` property to [valid RID's](https://docs.microsoft.com/en-us/dotnet/core/rid-catalog) ([full list](https://github.com/dotnet/runtime/blob/master/src/libraries/Microsoft.NETCore.Platforms/pkg/runtime.json)), separated by a semi-colon (`<RuntimeIdentifiers>win;unix</RuntimeIdentifiers>`).
 3. For the TFM's that you want want to build separately, set the `ExtrasBuildEachRuntimeIdentifier` property to `true`.
 
 When you're done, you should be able to run build/pack and it'll produce a NuGet package.
