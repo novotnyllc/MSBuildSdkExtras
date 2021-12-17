@@ -22,9 +22,9 @@ stages:
 
     steps:
     - task: UseDotNet@2
-      displayName: 'Use .NET Core SDK 5.x'
+      displayName: 'Use .NET Core SDK 6.x'
       inputs:
-        version: 5.x
+        version: 6.x
 
     - task: DotNetCoreCLI@2  
       inputs:
@@ -77,6 +77,8 @@ stages:
           BUILD_NETSDK_VERSION: '3.1.x'
         NET_5_0:
           BUILD_NETSDK_VERSION: '5.0.x'
+        NET_6_0:
+          BUILD_NETSDK_VERSION: '6.x'          
 
     variables:
       BuildConfiguration: Release
@@ -136,6 +138,8 @@ stages:
         #  BUILD_NETSDK_VERSION: '3.1.x'
         NET_5_0:
           BUILD_NETSDK_VERSION: '5.0.x'
+        NET_6_0:
+          BUILD_NETSDK_VERSION: '6.x'
 
     variables:
       BuildConfiguration: Release
@@ -210,9 +214,9 @@ stages:
 
     steps:
     - task: UseDotNet@2
-      displayName: 'Use .NET Core SDK 5.0.x'
+      displayName: 'Use .NET Core SDK 6.0.x'
       inputs:
-        version: 5.0.x
+        version: 6.x
 
     - bash: /bin/bash -c "sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh $(XamarinVersion)"
       displayName: Select Xamarin Version
