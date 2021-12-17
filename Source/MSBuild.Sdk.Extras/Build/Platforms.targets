@@ -41,8 +41,8 @@
   </PropertyGroup>
 
   <!-- The conditional compilation symbols defined in the above import and the property-group flows to the Main SDK -->
-  <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">
-    <DisableImplicitFrameworkDefines>true</DisableImplicitFrameworkDefines>
+  <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">    
+    <!--<DisableImplicitFrameworkDefines>true</DisableImplicitFrameworkDefines> -->
     <VersionlessImplicitFrameworkDefine>$(ImplicitFrameworkIdentifierDefine)</VersionlessImplicitFrameworkDefine>
   </PropertyGroup>
 
