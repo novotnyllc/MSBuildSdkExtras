@@ -1,4 +1,4 @@
-﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <Import Project="..\Tools\MSBuild.Packaging.targets"/>
 
@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(IsCloudBuild)' == 'true' and '$(DisableNerdBank)'!='true'">    
-    <PackageReference Include="Nerdbank.GitVersioning" Version="3.4.244" PrivateAssets="All"/>
+    <PackageReference Include="Nerdbank.GitVersioning" Version="3.6.128" PrivateAssets="All"/>
   </ItemGroup>
 
 </Project>
