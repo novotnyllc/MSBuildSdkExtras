@@ -49,10 +49,16 @@
   </Choose>
 
   <!-- Map short name to long name. See earlier comment for example of how to work with identifiers that are not recognized here -->
+  
+  <!-- Extract major version for 'net' identifier to differentiate .NET 5+ from .NET Framework -->
+  <PropertyGroup Condition="'$(_SdkShortFrameworkIdentifier)' == 'net' AND '$(_SdkShortFrameworkVersion)' != ''">
+    <_SdkShortFrameworkMajorVersion>$(_SdkShortFrameworkVersion.Split('.')[0])</_SdkShortFrameworkMajorVersion>
+  </PropertyGroup>
+
   <PropertyGroup Condition=" ('$(TargetFrameworkIdentifier)' == '' OR '$(TargetFrameworkIdentifier)' == '_') AND '$(_SdkShortFrameworkIdentifier)' != ''">
     <TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'net'">.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'netstandard'">.NETStandard</TargetFrameworkIdentifier>
-    <TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'netcoreapp' OR ('$(_SdkShortFrameworkIdentifier)' == 'net' AND $(_SdkShortFrameworkVersion[0]) >= 5)">.NETCoreApp</TargetFrameworkIdentifier>
+    <TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'netcoreapp' OR ('$(_SdkShortFrameworkIdentifier)' == 'net' AND '$(_SdkShortFrameworkMajorVersion)' &gt;= '5')">.NETCoreApp</TargetFrameworkIdentifier>
     <TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'portable'">.NETPortable</TargetFrameworkIdentifier>
     <TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'netmf'">.NETMicroFramework</TargetFrameworkIdentifier>
 
