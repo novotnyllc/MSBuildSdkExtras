@@ -25,7 +25,7 @@ stages:
       displayName: 'Use .NET SDK 10.x'
       inputs:
         version: 10.x
-        allowPrerelease: true
+        includePreviewVersions: true
 
     - task: DotNetCoreCLI@2  
       inputs:
@@ -93,7 +93,7 @@ stages:
       displayName: 'Use .NET Core sdk'
       inputs:
         packageType: sdk
-        allowPrerelease: true
+        includePreviewVersions: true
         version: $(BUILD_NETSDK_VERSION)
         installationPath: $(Agent.ToolsDirectory)/dotnet
 
@@ -156,7 +156,7 @@ stages:
       inputs:
         packageType: sdk
         version: $(BUILD_NETSDK_VERSION)
-        allowPrerelease: true
+        includePreviewVersions: true
         installationPath: $(Agent.ToolsDirectory)/dotnet
 
     - script: |
@@ -220,7 +220,7 @@ stages:
       displayName: 'Use .NET SDK 10.0'
       inputs:
         version: 10.x
-        allowPrerelease: true
+        includePreviewVersions: true
     - bash: /bin/bash -c "sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh $(XamarinVersion)"
       displayName: Select Xamarin Version
       condition: and(succeeded(), ne(variables['XamarinVersion'], ''))
