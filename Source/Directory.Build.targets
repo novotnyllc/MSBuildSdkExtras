@@ -10,11 +10,11 @@
   <Import Project="..\Tools\MSBuild.DevLocal.targets" Condition="'$(IsCloudBuild)' != 'true'"/>
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All"/>
   </ItemGroup>
 
   <ItemGroup Condition="'$(IsCloudBuild)' == 'true' and '$(DisableNerdBank)'!='true'">    
-    <PackageReference Include="Nerdbank.GitVersioning" Version="3.4.244" PrivateAssets="All"/>
+    <PackageReference Include="Nerdbank.GitVersioning" Version="3.8.118" PrivateAssets="All"/>
   </ItemGroup>
 
 </Project>

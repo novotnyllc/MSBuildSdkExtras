@@ -56,7 +56,7 @@ The final project should look like this:
 ```xml
 <Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
-    <TargetFrameworks>net46;uap10.0.19041;tizen8.0</TargetFrameworks>
+    <TargetFrameworks>net462;uap10.0.22621;tizen13.0</TargetFrameworks>
   </PropertyGroup>
 </Project>
 ```
@@ -81,7 +81,7 @@ Then again, you might want to override the version for just one project _OR_ if 
 ```xml
 <Project Sdk="MSBuild.Sdk.Extras/3.0.22">
   <PropertyGroup>
-    <TargetFrameworks>net46;uap10.0.19041;tizen8.0</TargetFrameworks>
+    <TargetFrameworks>net462;uap10.0.22621;tizen13.0</TargetFrameworks>
   </PropertyGroup>
 </Project>
 ```
