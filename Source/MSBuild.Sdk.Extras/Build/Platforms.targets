@@ -42,7 +42,8 @@
 
   <!-- The conditional compilation symbols defined in the above import and the property-group flows to the Main SDK -->
   <PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">    
-    <!--<DisableImplicitFrameworkDefines>true</DisableImplicitFrameworkDefines> -->
+    <!-- Explicitly set to false to ensure Microsoft.NET.Sdk adds implicit framework defines like NET6_0, NET6_0_OR_GREATER, etc. -->
+    <DisableImplicitFrameworkDefines>false</DisableImplicitFrameworkDefines>
     <VersionlessImplicitFrameworkDefine>$(ImplicitFrameworkIdentifierDefine)</VersionlessImplicitFrameworkDefine>
   </PropertyGroup>
 
