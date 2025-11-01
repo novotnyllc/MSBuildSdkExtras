@@ -38,11 +38,6 @@
   <!-- Build only if NoBuild is not set -->
   <Target Name="_SdkGetReferenceAssembliesWithBuild" DependsOnTargets="Build" Condition="'$(NoBuild)' != 'true'" />
 
-  <!-- Target to populate the items without building when NoBuild is true -->
-  <Target Name="_SdkPopulateReferenceAssemblyItems" Condition="'$(NoBuild)' == 'true'">
-    <!-- When NoBuild is true, the items should already be populated from previous builds -->
-  </Target>
-
   <!-- If we have any ReferenceAssemblyProjectReference items, ensure restore is called on them  -->
   <Target Name="_ExtrasRestoreReferenceAssembly" AfterTargets="_LoadRestoreGraphEntryPoints" BeforeTargets="_FilterRestoreGraphProjectInputItems">
     <PropertyGroup>
