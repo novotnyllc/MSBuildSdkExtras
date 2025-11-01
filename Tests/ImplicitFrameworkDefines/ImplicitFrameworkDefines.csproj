@@ -1,0 +1,18 @@
+<Project>
+
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\Sdk\Sdk.props" />
+
+  <PropertyGroup>
+    <TargetFrameworks>net8.0;net8.0-windows</TargetFrameworks>
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Source\MSBuild.Sdk.Extras\Sdk\Sdk.targets" />
+
+  <Target Name="Test" DependsOnTargets="Build">
+    <!-- The build itself will fail if the #error directive in Class1.cs is triggered -->
+    <!-- This means if we get here, the implicit defines are working -->
+    <Message Text="✓ Implicit framework defines test passed - build succeeded without errors" Importance="High" />
+  </Target>
+
+</Project>
