@@ -22,9 +22,10 @@ stages:
 
     steps:
     - task: UseDotNet@2
-      displayName: 'Use .NET Core SDK 6.x'
+      displayName: 'Use .NET SDK 10.x'
       inputs:
-        version: 6.x
+        version: 10.x
+        includePreviewVersions: true
 
     - task: DotNetCoreCLI@2  
       inputs:
@@ -73,12 +74,12 @@ stages:
       matrix:
         #NETCORE_DEFAULT:
         #  BUILD_NETSDK_VERSION: ''
-        NETCORE_3_1:
-          BUILD_NETSDK_VERSION: '3.1.x'
-        NET_5_0:
-          BUILD_NETSDK_VERSION: '5.0.x'
-        NET_6_0:
-          BUILD_NETSDK_VERSION: '6.x'          
+        NET_8:
+          BUILD_NETSDK_VERSION: '8.x'
+        NET_9:
+          BUILD_NETSDK_VERSION: '9.x'
+        NET_10_0:
+          BUILD_NETSDK_VERSION: '10.x'          
 
     variables:
       BuildConfiguration: Release
@@ -92,6 +93,7 @@ stages:
       displayName: 'Use .NET Core sdk'
       inputs:
         packageType: sdk
+        includePreviewVersions: true
         version: $(BUILD_NETSDK_VERSION)
         installationPath: $(Agent.ToolsDirectory)/dotnet
 
@@ -123,7 +125,7 @@ stages:
       displayName: MSBuild Test Projects 2
 
   - job: Linux
-    container: unoplatform/wasm-build:3.0
+    container: unoplatform/wasm-build:5.0
     pool:
       vmImage: 'ubuntu-latest'
 
@@ -136,10 +138,10 @@ stages:
         #
         #NETCORE_3_1:
         #  BUILD_NETSDK_VERSION: '3.1.x'
-        NET_5_0:
-          BUILD_NETSDK_VERSION: '5.0.x'
-        NET_6_0:
-          BUILD_NETSDK_VERSION: '6.x'
+        NET_9:
+          BUILD_NETSDK_VERSION: '9.x'
+        NET_10:
+          BUILD_NETSDK_VERSION: '10.x'
 
     variables:
       BuildConfiguration: Release
@@ -154,6 +156,7 @@ stages:
       inputs:
         packageType: sdk
         version: $(BUILD_NETSDK_VERSION)
+        includePreviewVersions: true
         installationPath: $(Agent.ToolsDirectory)/dotnet
 
     - script: |
@@ -187,21 +190,21 @@ stages:
         Xamarin_Latest:
           PoolImage: macOS-latest
 
-        Xamarin_6_6_0:
-          XamarinVersion: 6_6_0
-          PoolImage: macOS-10.15
+#        Xamarin_6_6_0:
+#          XamarinVersion: 6_6_0
+#          PoolImage: macOS-10.15
 
-        Xamarin_6_4_0:
-          XamarinVersion: 6_4_0
-          PoolImage: macOS-10.15
+#        Xamarin_6_4_0:
+#          XamarinVersion: 6_4_0
+#          PoolImage: macOS-10.15
 
-        Xamarin_5_16_0:
-          XamarinVersion: 5_16_0
-          PoolImage: macOS-10.14
+#        Xamarin_5_16_0:
+#          XamarinVersion: 5_16_0
+#          PoolImage: macOS-10.14
 
-        Xamarin_5_12_0:
-          XamarinVersion: 5_12_0
-          PoolImage: macOS-10.14
+#        Xamarin_5_12_0:
+#          XamarinVersion: 5_12_0
+#          PoolImage: macOS-10.14
 
     pool:
       vmImage: $(PoolImage)
@@ -214,10 +217,10 @@ stages:
 
     steps:
     - task: UseDotNet@2
-      displayName: 'Use .NET Core SDK 6.0.x'
+      displayName: 'Use .NET SDK 10.0'
       inputs:
-        version: 6.x
-
+        version: 10.x
+        includePreviewVersions: true
     - bash: /bin/bash -c "sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh $(XamarinVersion)"
       displayName: Select Xamarin Version
       condition: and(succeeded(), ne(variables['XamarinVersion'], ''))
