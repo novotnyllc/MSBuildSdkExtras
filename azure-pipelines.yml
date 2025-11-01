@@ -24,7 +24,7 @@ stages:
     - task: UseDotNet@2
       displayName: 'Use .NET SDK 10.x'
       inputs:
-        version: 10.0
+        version: 10.x
         allowPrerelease: true
 
     - task: DotNetCoreCLI@2  
@@ -75,11 +75,11 @@ stages:
         #NETCORE_DEFAULT:
         #  BUILD_NETSDK_VERSION: ''
         NET_8:
-          BUILD_NETSDK_VERSION: '8.0'
+          BUILD_NETSDK_VERSION: '8.x'
         NET_9:
-          BUILD_NETSDK_VERSION: '9.0'
+          BUILD_NETSDK_VERSION: '9.x'
         NET_10_0:
-          BUILD_NETSDK_VERSION: '10.0'          
+          BUILD_NETSDK_VERSION: '10.x'          
 
     variables:
       BuildConfiguration: Release
@@ -139,9 +139,9 @@ stages:
         #NETCORE_3_1:
         #  BUILD_NETSDK_VERSION: '3.1.x'
         NET_9:
-          BUILD_NETSDK_VERSION: '9.0'
+          BUILD_NETSDK_VERSION: '9.x'
         NET_10:
-          BUILD_NETSDK_VERSION: '10.0'
+          BUILD_NETSDK_VERSION: '10.x'
 
     variables:
       BuildConfiguration: Release
@@ -219,7 +219,7 @@ stages:
     - task: UseDotNet@2
       displayName: 'Use .NET SDK 10.0'
       inputs:
-        version: 10.0
+        version: 10.x
         allowPrerelease: true
     - bash: /bin/bash -c "sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh $(XamarinVersion)"
       displayName: Select Xamarin Version
