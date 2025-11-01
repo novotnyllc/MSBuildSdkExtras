@@ -28,11 +28,19 @@
   </ItemDefinitionGroup>
 
   <!-- This target is called by the source project into the reference assembly project to get the reference assembly output items -->
-  <Target Name="_SdkGetReferenceAssemblies" DependsOnTargets="Build" Returns="@(ReferenceAssembliesOutput)">
+  <Target Name="_SdkGetReferenceAssemblies" DependsOnTargets="_SdkGetReferenceAssembliesWithBuild" Returns="@(ReferenceAssembliesOutput)">
     <ItemGroup>
       <ReferenceAssembliesOutput Include="@(IntermediateRefAssembly->'%(FullPath)')" TargetFramework="$(TargetFramework)" />
       <ReferenceAssembliesOutput Include="@(DocumentationProjectOutputGroupOutput->'%(FullPath)')" TargetFramework="$(TargetFramework)" />
     </ItemGroup>
+  </Target>
+
+  <!-- Build only if NoBuild is not set -->
+  <Target Name="_SdkGetReferenceAssembliesWithBuild" DependsOnTargets="Build" Condition="'$(NoBuild)' != 'true'" />
+
+  <!-- Target to populate the items without building when NoBuild is true -->
+  <Target Name="_SdkPopulateReferenceAssemblyItems" Condition="'$(NoBuild)' == 'true'">
+    <!-- When NoBuild is true, the items should already be populated from previous builds -->
   </Target>
 
   <!-- If we have any ReferenceAssemblyProjectReference items, ensure restore is called on them  -->
@@ -123,7 +131,7 @@
     <MSBuild Projects="@(ReferenceAssemblyProjectReference->'%(FullPath)')"
              Condition="'$(_ExtrasHasReferenceAssembly)' == 'true'"
              Targets="_SdkGetReferenceAssemblies"
-             Properties="TargetFramework=%(_RefTargetFrameworks.Identity);AssemblyName=$(AssemblyName);NeutralLanguage=$(NeutralLanguage);AssemblyVersion=$(AssemblyVersion);FileVersion=$(FileVersion);InformationalVersion=$(InformationalVersion);DelaySign=$(DelaySign);SignAssembly=$(SignAssembly);AssemblyOriginatorKeyFile=$(_SdkAssemblyKeyFileFullProp);GenerateDocumentationFile=$(GenerateDocumentationFile);ExtrasIsReferenceAssembly=true"
+             Properties="TargetFramework=%(_RefTargetFrameworks.Identity);AssemblyName=$(AssemblyName);NeutralLanguage=$(NeutralLanguage);AssemblyVersion=$(AssemblyVersion);FileVersion=$(FileVersion);InformationalVersion=$(InformationalVersion);DelaySign=$(DelaySign);SignAssembly=$(SignAssembly);AssemblyOriginatorKeyFile=$(_SdkAssemblyKeyFileFullProp);GenerateDocumentationFile=$(GenerateDocumentationFile);NoBuild=$(NoBuild);ExtrasIsReferenceAssembly=true"
              >
 
       <Output TaskParameter="TargetOutputs"
